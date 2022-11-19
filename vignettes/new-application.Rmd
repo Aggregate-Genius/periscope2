@@ -473,12 +473,6 @@ Updated this file values and restart app to customize application different part
 
 <br>
 
-# Additional Resources
-
-**Application Gallery**
-
-There is a gallery of example applications using the periscope framework at [http://periscopeapps.org](http://periscopeapps.org:3838)
-
 
 **Vignettes**
 

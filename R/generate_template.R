@@ -2,12 +2,9 @@
 
 #' Create a new templated framework application
 #'
-#' Creates ready-to-use templated application files using the periscope
+#' Creates ready-to-use templated application files using the periscope2
 #' framework.  The application can be created either empty (default) or with a
-#' sample/documented example application.\cr \cr A running instance of the exact
-#' sample application that will be created is
-#' \href{http://periscope2apps.org:3838/periscope_template}{hosted here} if you
-#' would like to see the sample application before creating your own copy.
+#' sample/documented example application.\cr \cr
 #'
 #' @param name          - name for the new application and directory
 #' @param location      - base path for creation of \code{name}
@@ -49,23 +46,23 @@
 #' \cr
 #' \strong{\emph{name/program}/ui_body.R} :\cr
 #' Create body UI elements in this file and register them with the
-#' framework using a call to \link[periscope]{add_ui_body} \cr
+#' framework using a call to \link[periscope2]{add_ui_body} \cr
 #' \cr
 #' \strong{\emph{name/program}/ui_left_sidebar.R} :\cr
 #' Create sidebar UI elements in this file and register them with the
-#' framework using a call to \link[periscope]{add_ui_left_sidebar} \cr
+#' framework using a call to \link[periscope2]{add_ui_left_sidebar} \cr
 #' \cr
 #' \strong{\emph{name/program}/ui_right_sidebar.R} :\cr
 #' Create right sidebar UI elements in this file and register them with the
-#' framework using a call to \link[periscope]{add_ui_right_sidebar} \cr
+#' framework using a call to \link[periscope2]{add_ui_right_sidebar} \cr
 #' \cr
 #' \strong{\emph{name/program}/ui_footer.R} :\cr
 #' Create footer UI elements in this file and register them with the
-#' framework using a call to \link[periscope]{add_ui_footer} \cr
+#' framework using a call to \link[periscope2]{add_ui_footer} \cr
 #' \cr
 #' \strong{\emph{name/program}/ui_header.R} :\cr
 #' Create footer UI elements in this file and register them with the
-#' framework using a call to \link[periscope]{add_ui_header} \cr
+#' framework using a call to \link[periscope2]{add_ui_header} \cr
 #' \cr
 #' \strong{\emph{name/program/data}} directory :\cr
 #' Use this location for data files.  There is a \strong{.gitignore} file
@@ -80,7 +77,7 @@
 #' \strong{\emph{name/program}/global.R} :\cr
 #' Use this location for code that would have previously resided in global.R
 #' and for setting application parameters using
-#' \link[periscope]{set_app_parameters}.  Anything placed in this file will
+#' \link[periscope2]{set_app_parameters}.  Anything placed in this file will
 #' be accessible across all user sessions as well as within the UI context. \cr
 #' \cr
 #' \strong{\emph{name/program}/server_global.R} :\cr
@@ -172,7 +169,7 @@ create_application <- function(name,
     })
 
     if (application_created) {
-        message(paste("Periscope application", name, "is created successfully at location", location))
+        message(paste("Periscope2 application", name, "is created successfully at location", location))
     }
 }
 
