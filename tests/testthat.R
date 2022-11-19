@@ -1,4 +1,4 @@
 library(testthat)
-library(periscope)
+library(periscope2)
 
 test_check("periscope2")

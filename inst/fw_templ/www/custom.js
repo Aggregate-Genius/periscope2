@@ -1,5 +1,5 @@
 /***********************/
-/* periscope basic JS  */
+/* periscope2 basic JS  */
 /***********************/
 // Control busy indicator div in the header
 setInterval(function() {
@@ -13,7 +13,7 @@ setInterval(function() {
         if (typeof busyTimeout !== 'undefined') {
             clearTimeout(busyTimeout);
         }
-        
+
         $('div.periscope-busy-ind').hide();
     }
 }, 100);
@@ -24,7 +24,7 @@ Shiny.addCustomMessageHandler('pcreate-alert', function (message) {
     // setup target
     var alertTarget;
     var id = '';
-    
+
     if (message.id) {
         id          = message.id;
         alertTarget = `#${message.id}`;
@@ -58,7 +58,7 @@ Shiny.addCustomMessageHandler('pcreate-alert', function (message) {
     }
 
     closeButton = '';
-    
+
     if (config.closable) {
       closeButton = '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>'
     }
@@ -66,8 +66,8 @@ Shiny.addCustomMessageHandler('pcreate-alert', function (message) {
     titleTag = `<h5><i class="icon fa fa-${iconType}"></i>${config.title}</h5>`
     contentTag = config.content;
 
-    alertTag = `<div 
-      id="${id}-alert" 
+    alertTag = `<div
+      id="${id}-alert"
       class="${alertCl}">
         ${closeButton}${titleTag}${contentTag}
     </div>`
@@ -98,5 +98,5 @@ Shiny.addCustomMessageHandler('pcreate-alert', function (message) {
       console.warn(`${alertTarget} already has an alert!`);
     }
 });
-  
-/* END of periscope basic JS*/
+
+/* END of periscope2 basic JS*/

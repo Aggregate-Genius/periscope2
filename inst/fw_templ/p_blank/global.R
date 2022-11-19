@@ -10,7 +10,7 @@
 # ----------------------------------------
 
 library(shiny)
-library(periscope)
+library(periscope2)
 library(shinyalert)
 library(waiter)
 library(shinyjs)

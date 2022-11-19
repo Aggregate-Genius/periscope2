@@ -49,14 +49,14 @@ sidebar_elements <- NULL
 
 # sidebar menu items
 sidebar_menu <-  sidebarMenu(
-    sidebarHeader("Periscope Features"),
+    sidebarHeader("Periscope2 Features"),
     menuItem(
         "Application Setup",
         tabName = "application_setup",
         icon = icon("building")
     ),
     menuItem(
-        "Periscope Modules",
+        "Periscope2 Modules",
         tabName = "periscope_modules",
         icon = icon("cubes")
     ),
@@ -71,13 +71,13 @@ sidebar_menu <-  sidebarMenu(
 custom_area  <- NULL
 
 # -- Register Sidebar Elements in the ORDER SHOWN in the UI
-add_ui_left_sidebar(sidebar_elements = sidebar_elements, 
-                    skin             = skin, 
-                    status           = status, 
-                    elevation        = elevation, 
-                    collapsed        = collapsed, 
-                    minified         = minified, 
-                    expand_on_hover  = expand_on_hover, 
-                    fixed            = fixed, 
-                    sidebar_menu     = sidebar_menu, 
+add_ui_left_sidebar(sidebar_elements = sidebar_elements,
+                    skin             = skin,
+                    status           = status,
+                    elevation        = elevation,
+                    collapsed        = collapsed,
+                    minified         = minified,
+                    expand_on_hover  = expand_on_hover,
+                    fixed            = fixed,
+                    sidebar_menu     = sidebar_menu,
                     custom_area      = custom_area)
