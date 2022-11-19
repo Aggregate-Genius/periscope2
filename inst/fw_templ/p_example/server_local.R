@@ -31,17 +31,17 @@ source(paste("program", "fxn", "plots.R", sep = .Platform$file.sep))
 
 
 # -- FUNCTIONS --
-appReset(id     = "appResetId", 
+appReset(id     = "appResetId",
          logger = ss_userAction.Log)
 
 logViewer(id      = "logViewerId",
           logdata = ss_userAction.Log)
 
-downloadFile("exampleDownload1", 
+downloadFile("exampleDownload1",
              ss_userAction.Log,
              "examplesingle",
              list(csv = load_data1))
-downloadFile("exampleDownload2", 
+downloadFile("exampleDownload2",
              ss_userAction.Log,
              "examplemulti",
              list(csv = load_data2, xlsx = load_data2, tsv = load_data2))
@@ -68,12 +68,12 @@ downloadableTable("exampleDT1",
                   filter = "bottom",
                   callback = htmlwidgets::JS("table.order([1, 'asc']).draw();"),
                   container = sketch,
-                  formatStyle = list(columns = c("Total.Population.Change"),   
+                  formatStyle = list(columns = c("Total.Population.Change"),
                                      color = DT::styleInterval(0, c("red", "green"))),
-                  formatStyle = list(columns = c("Natural.Increase"),   
+                  formatStyle = list(columns = c("Natural.Increase"),
                                      backgroundColor = DT::styleInterval(c(7614, 15914, 34152),
                                                                          c("lightgray", "gray", "cadetblue", "#808000")))))
-downloadablePlot("examplePlot2", 
+downloadablePlot("examplePlot2",
                  ss_userAction.Log,
                  filenameroot = "plot2_ggplot",
                  downloadfxns = list(jpeg = plot2ggplot,
@@ -81,7 +81,7 @@ downloadablePlot("examplePlot2",
                  aspectratio  = 1.5,
                  visibleplot  = plot2ggplot)
 
-downloadablePlot("examplePlot3", 
+downloadablePlot("examplePlot3",
                  ss_userAction.Log,
                  filenameroot = "plot3_lattice",
                  aspectratio  = 2,
@@ -96,7 +96,7 @@ downloadablePlot("examplePlot3",
 # ----------------------------------------
 # Dsiplay application info
 observeEvent(input$app_info, {
-    shinyalert(html                = TRUE, 
+    shinyalert(html                = TRUE,
                showConfirmButton   = FALSE,
                animation           = "slide-from-top",
                closeOnClickOutside = TRUE,
@@ -123,7 +123,7 @@ observeEvent(input$leftAlert, {
                                           status   = "warning",
                                           closable = TRUE,
                                           content  = "Example Advanced Sidebar Alert"))
-    
+
 })
 
 observeEvent(input$bodyAlertBtn, {
@@ -178,29 +178,29 @@ output$hover_info <- renderUI({
     point        <- nearPoints(mtcars, hover,
                                xvar = "wt", yvar = "mpg",
                                maxpoints = 1)
-    
+
     if (NROW(point) > 0) {
         left_pct <- (hover$x - hover$domain$left) / (hover$domain$right - hover$domain$left)
         left_px  <- hover$range$left + left_pct * (hover$range$right - hover$range$left)
         top_pct <- (hover$domain$top - hover$y) / (hover$domain$top - hover$domain$bottom)
         top_px  <- hover$range$top + top_pct * (hover$range$bottom - hover$range$top)
-        
+
         style <- paste0("position:absolute;",
                         "z-index:100;",
                         "background-color: rgba(245, 245, 245, 0.85); ",
                         "left:", left_px - 20, "px; top:", top_px + 300, "px;")
-        
+
         output_panel <- wellPanel(class = "well-sm",
                                   style = style,
                                   HTML("<b> Car: </b>", rownames(point)))
     }
-    
+
     output_panel
 })
 
 output$file_structure_plot <- renderCanvasXpress({
     canvasXpress(
-        data             = files_idx, 
+        data             = files_idx,
         smpAnnot         = app_files,
         graphType        = "Tree",
         hierarchy        = list("App_Root", "L1"),
@@ -213,9 +213,14 @@ output$file_structure_plot <- renderCanvasXpress({
 observeEvent(input$node_name, {
     node_name <- gsub(pattern     = "Tree:| \\(\\d*\\)",
                       replacement = "",
-                      x           = input$node_name) %>% 
+                      x           = input$node_name) %>%
         trimws()
     output$file_description <- renderText({
         node_description[[node_name]]
     })
+})
+
+
+observeEvent(input$hideFileOrganization, {
+    updateBox("files_organization", action = "toggle")
 })
