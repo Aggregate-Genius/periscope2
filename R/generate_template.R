@@ -4,7 +4,7 @@
 #'
 #' Creates ready-to-use templated application files using the periscope
 #' framework.  The application can be created either empty (default) or with a
-#' sample/documented example application.\cr \cr A running instance of the exact 
+#' sample/documented example application.\cr \cr A running instance of the exact
 #' sample application that will be created is
 #' \href{http://periscope2apps.org:3838/periscope_template}{hosted here} if you
 #' would like to see the sample application before creating your own copy.
@@ -113,37 +113,37 @@
 #' name\\www\\img\\loader.gif
 #' name\\www\\img\\tooltip.png
 #' }
-#' 
+#'
 #'
 #'@examples
 #' # sample app named 'mytestapp' created in a temp dir
 #' create_application(name = 'mytestapp', location = tempdir(), sample_app = TRUE)
-#' 
+#'
 #' # sample app named 'mytestapp' with a right sidebar using a custom icon created in a temp dir
-#' create_application(name = 'mytestapp', location = tempdir(), sample_app = TRUE, 
+#' create_application(name = 'mytestapp', location = tempdir(), sample_app = TRUE,
 #' right_sidebar = TRUE)
-#' 
+#'
 #' # blank app named 'myblankapp' created in a temp dir
 #' create_application(name = 'myblankapp', location = tempdir())
 #' # blank app named 'myblankapp' without a left sidebar created in a temp dir
 #' create_application(name = 'myblankapp', location = tempdir(), left_sidebar = FALSE)
 #'
 #' @export
-create_application <- function(name, 
-                               location, 
+create_application <- function(name,
+                               location,
                                sample_app    = FALSE,
-                               right_sidebar = FALSE, 
+                               right_sidebar = FALSE,
                                left_sidebar  = TRUE,
                                footer        = FALSE) {
     application_created <- FALSE
-    
+
     tryCatch({
         if (!dir.exists(location)) {
             warning("Framework creation could not proceed, path=<", location, "> does not exists!")
         } else {
             usersep <- .Platform$file.sep
             newloc  <- paste(location, name, sep = usersep)
-            
+
             if (dir.exists(newloc)) {
                 warning("Framework creation could not proceed, path=<", newloc, "> already exists!")
             } else if (!(dir.exists(location))) {
@@ -152,25 +152,25 @@ create_application <- function(name,
                 .create_dirs(newloc  = newloc,
                              usersep = usersep)
                 .copy_fw_files(newloc            = newloc,
-                               usersep           = usersep, 
-                               left_sidebar      = left_sidebar, 
+                               usersep           = usersep,
+                               left_sidebar      = left_sidebar,
                                right_sidebar     = right_sidebar,
                                footer            = footer,
                                sample_app        = sample_app)
                 .copy_program_files(newloc        = newloc,
-                                    usersep       = usersep, 
-                                    sample_app    = sample_app, 
-                                    left_sidebar  = left_sidebar, 
+                                    usersep       = usersep,
+                                    sample_app    = sample_app,
+                                    left_sidebar  = left_sidebar,
                                     right_sidebar = right_sidebar,
                                     footer        = footer)
-            }  
-            application_created <- TRUE   
+            }
+            application_created <- TRUE
         }
-    }, 
+    },
     error = function(e) {
         warning("Framework creation could not proceed due to:", e$message)
     })
-    
+
     if (application_created) {
         message(paste("Periscope application", name, "is created successfully at location", location))
     }
@@ -217,9 +217,9 @@ create_application <- function(name,
 #' @param sample_app    - boolean to control copying sample app files (default = FALSE)
 #'
 #' @return nothing
-.copy_fw_files <- function(newloc, 
+.copy_fw_files <- function(newloc,
                            usersep,
-                           left_sidebar  = TRUE, 
+                           left_sidebar  = TRUE,
                            right_sidebar = FALSE,
                            footer        = FALSE,
                            sample_app    = FALSE) {
@@ -227,36 +227,36 @@ create_application <- function(name,
 
     for (file in files) {
         file_contents <- readLines(con = system.file("fw_templ", file, package = "periscope2"))
-        
-        if (file == "ui.R"){
+
+        if (file == "ui.R") {
             if (left_sidebar) {
-                file_contents <- append(file_contents, 
+                file_contents <- append(file_contents,
                                         "source(paste(\"program\", \"ui_left_sidebar.R\", sep = .Platform$file.sep), local = TRUE)")
             }
-            
+
             if (right_sidebar) {
-                file_contents <- append(file_contents, 
+                file_contents <- append(file_contents,
                                         "source(paste(\"program\", \"ui_right_sidebar.R\", sep = .Platform$file.sep), local = TRUE)")
-    
+
             }
-            
+
             if (footer) {
-                file_contents <- append(file_contents, 
+                file_contents <- append(file_contents,
                                         "source(paste(\"program\", \"ui_footer.R\", sep = .Platform$file.sep), local = TRUE)")
-                
+
             }
-            
+
             file_contents <- append(file_contents, "create_application_dashboard()")
         }
-        
+
         ui_file <- file(paste(newloc, file, sep = usersep), open = "w+")
         writeLines(file_contents, con = ui_file)
         close(ui_file)
     }
-    
+
     #subdir copies
     imgs <- c("loader.gif", "tooltip.png")
-    
+
     for (file in imgs) {
         writeBin(readBin(
             con = system.file("fw_templ", "www", file,
@@ -267,7 +267,7 @@ create_application <- function(name,
 
     file.copy(system.file("fw_templ", "www", "custom.js", package = "periscope2"),
               paste(newloc, "www", "js", "custom.js", sep = usersep))
-    
+
     if (!is.null(sample_app)) {
         file.copy(system.file("fw_templ", "p_example", "periscope_style.yaml", package = "periscope2"),
                   paste(newloc, "www", "periscope_style.yaml", sep = usersep))
@@ -295,7 +295,7 @@ create_application <- function(name,
 #' @return nothing
 .copy_program_files <- function(newloc,
                                 usersep,
-                                sample_app, 
+                                sample_app,
                                 left_sidebar  = TRUE,
                                 right_sidebar = FALSE,
                                 footer        = FALSE) {
@@ -304,25 +304,29 @@ create_application <- function(name,
                   "server_local.R"  = "server_local.R",
                   "ui_body.R"       = "ui_body.R",
                   "ui_header.R"     = "ui_header.R")
-    
+
     if (left_sidebar) {
         files["ui_left_sidebar.R"] <- "ui_left_sidebar.R"
     }
     if (right_sidebar) {
         files["ui_right_sidebar.R"] <- "ui_right_sidebar.R"
     }
-    
+
     if (footer) {
         files["ui_footer.R"] <- "ui_footer.R"
     }
-    
+
     targetdir <- paste(newloc, "program", sep = usersep)
     sourcedir <- paste("fw_templ",
                        ifelse(sample_app, "p_example", "p_blank"),
                        sep = usersep)
 
-    for (file in files) {
-        file_contents <- readLines(con = system.file(paste(sourcedir, file, sep = usersep), package = "periscope2"))
+    if (sample_app && !left_sidebar) {
+        files["ui_body.R"] <- "ui_body_no_left_sidebar.R"
+    }
+
+    for (file in names(files)) {
+        file_contents <- readLines(con = system.file(paste(sourcedir, files[[file]], sep = usersep), package = "periscope2"))
         program_file  <- file(paste(targetdir, file, sep = usersep), open = "w+")
         writeLines(file_contents, con = program_file)
         close(program_file)
