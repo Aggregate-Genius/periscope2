@@ -22,10 +22,14 @@
 
 # -- Create Elements
 # Left text
-left  <- ""
+left  <- a(
+    href   = "https://periscopeapps.org/",
+    target = "_blank",
+    "periscope2"
+)
 
 # Right text
-right <- ""
+right <- "2022"
 
 # Whether to fix the foote
 fixed <- FALSE
