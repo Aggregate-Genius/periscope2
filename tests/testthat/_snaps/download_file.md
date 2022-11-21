@@ -2,7 +2,7 @@
 
     <span data-toggle="tooltip" data-placement="top" title="myhovertext">
       <a id="myid-csv" class="btn btn-default shiny-download-link periscope-download-btn" href="" target="_blank" download>
-        <i class="fa fa-download" role="presentation" aria-label="download icon"></i>
+        <i class="fas fa-download" role="presentation" aria-label="download icon"></i>
       </a>
     </span>
 
@@ -10,7 +10,7 @@
 
     <span class="btn-group" data-toggle="tooltip" data-placement="top" title="myhovertext">
       <button aria-expanded="false" aria-haspopup="true" class="btn btn-default action-button dropdown-toggle periscope-download-btn" data-toggle="dropdown" id="myid-downloadFileList" type="button action">
-        <i class="fa fa-copy" role="presentation" aria-label="copy icon"></i>
+        <i class="far fa-copy" role="presentation" aria-label="copy icon"></i>
       </button>
       <ul class="dropdown-menu" id="myid-testList">
         <li>
