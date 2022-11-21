@@ -1,6 +1,6 @@
 # .appResetButton
 
-    <div align="center">
+    <div>
       <div class="form-group shiny-input-container" style="width: 90%;">
         <div class="pretty p-toggle p-default p-round p-fill">
           <input id="myid-resetButton" type="checkbox"/>
