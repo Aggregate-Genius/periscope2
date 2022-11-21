@@ -6,7 +6,7 @@
           <h3 class="card-title">User Action Log</h3>
           <div class="card-tools float-right">
             <button class="btn btn-tool btn-sm" type="button" data-card-widget="collapse">
-              <i class="fa fa-plus" role="presentation" aria-label="plus icon"></i>
+              <i class="fas fa-plus" role="presentation" aria-label="plus icon"></i>
             </button>
           </div>
         </div>

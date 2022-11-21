@@ -1,4 +1,4 @@
-context("periscope - Log Viewer")
+context("periscope2 - Log Viewer")
 local_edition(3)
 # Helper functions
 sample_log <- function(){
@@ -23,7 +23,7 @@ test_that("logViewerOutput", {
 
 # Server unit tests
 test_that("logViewer - valid sample log", {
-    testServer(logViewer, 
+    testServer(logViewer,
                args = list(logdata = sample_log),
                expr = {
                    expect_snapshot_output(output$dt_userlog)
@@ -31,7 +31,7 @@ test_that("logViewer - valid sample log", {
 })
 
 test_that("logViewer - null sample log", {
-    testServer(logViewer, 
+    testServer(logViewer,
                args = list(logdata = null_log),
                expr = {
                    expect_null(output$dt_userlog)
@@ -39,7 +39,7 @@ test_that("logViewer - null sample log", {
 })
 
 test_that("logViewer - empty sample log", {
-    testServer(logViewer, 
+    testServer(logViewer,
                args = list(logdata = empty_log),
                expr = {
                    expect_null(output$dt_userlog)
