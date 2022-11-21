@@ -4,7 +4,7 @@
     <span id="myid-dtableButtonDiv" class="periscope-downloadable-table-button" style="">
       <span data-toggle="tooltip" data-placement="top" title="myHoverText">
         <a id="myid-dtableButtonID-csv" class="btn btn-default shiny-download-link periscope-download-btn" href="" target="_blank" download>
-          <i class="fa fa-download" role="presentation" aria-label="download icon"></i>
+          <i class="fas fa-download" role="presentation" aria-label="download icon"></i>
         </a>
       </span>
     </span>

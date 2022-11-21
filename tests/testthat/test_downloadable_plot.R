@@ -1,8 +1,8 @@
-context("periscope - downloadablePlot")
+context("periscope2 - downloadablePlot")
 
 test_that("downloadablePlotUI btn_overlap=true btn_halign=left btn_valign=bottom", {
     local_edition(3)
-    expect_snapshot_output(downloadablePlotUI(id = "myid",
+    expect_snapshot_output(downloadablePlotUI(id                 = "myid",
                                               downloadtypes      = c("png"),
                                               download_hovertext = "myhovertext",
                                               width              = "80%",
@@ -17,22 +17,22 @@ test_that("downloadablePlotUI btn_overlap=true btn_halign=left btn_valign=bottom
 
 test_that("downloadablePlotUI btn_overlap=false btn_halign=center btn_valign=top", {
     local_edition(3)
-    expect_snapshot_output(downloadablePlotUI(id = "myid",
-                                 downloadtypes      = c("png"),
-                                 download_hovertext = "myhovertext",
-                                 width              = "80%",
-                                 height             = "300px",
-                                 btn_halign         = "center",
-                                 btn_valign         = "top",
-                                 btn_overlap        = FALSE,
-                                 clickOpts          = NULL,
-                                 hoverOpts          = NULL,
-                                 brushOpts          = NULL))
+    expect_snapshot_output(downloadablePlotUI(id                 = "myid",
+                                              downloadtypes      = c("png"),
+                                              download_hovertext = "myhovertext",
+                                              width              = "80%",
+                                              height             = "300px",
+                                              btn_halign         = "center",
+                                              btn_valign         = "top",
+                                              btn_overlap        = FALSE,
+                                              clickOpts          = NULL,
+                                              hoverOpts          = NULL,
+                                              brushOpts          = NULL))
 })
 
 test_that("downloadablePlotUI invalid btn_halign", {
 
-    expect_warning(downloadablePlotUI(id = "myid",
+    expect_warning(downloadablePlotUI(id                 = "myid",
                                       downloadtypes      = c("png"),
                                       download_hovertext = "myhovertext",
                                       width              = "80%",
@@ -48,7 +48,7 @@ test_that("downloadablePlotUI invalid btn_halign", {
 
 test_that("downloadablePlotUI invalid btn_valign", {
 
-    expect_warning(downloadablePlotUI(id = "myid",
+    expect_warning(downloadablePlotUI(id                 = "myid",
                                       downloadtypes      = c("png"),
                                       download_hovertext = "myhovertext",
                                       width              = "80%",
@@ -67,8 +67,8 @@ test_that("downloadablePlot", {
         ggplot2::ggplot(data = download_data(), aes(x = wt, y = mpg)) +
             geom_point(aes(color = cyl)) +
             theme(legend.justification = c(1, 1),
-                  legend.position = c(1, 1),
-                  legend.title = element_blank()) +
+                  legend.position      = c(1, 1),
+                  legend.title         = element_blank()) +
             ggtitle("GGPlot Example w/Hover") +
             xlab("wt") +
             ylab("mpg")
