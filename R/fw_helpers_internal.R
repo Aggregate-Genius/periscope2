@@ -238,7 +238,7 @@
                    formatter = formatter)
     }
 
-    return(logfile)
+    logfile
 }
 
 

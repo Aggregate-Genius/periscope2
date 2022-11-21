@@ -33,45 +33,6 @@ fw_get_user_log <- function() {
     getLogger(name = "actions")
 }
 
-# Framework UI Header Creation
-fw_create_header <- function() {
-        bs4Dash::dashboardHeader(
-            .header_injection(),
-            title = shiny::div(class = "periscope-busy-ind",
-                               "Working",
-                               shiny::img(alt = "Working...",
-                                          hspace = "5px",
-                                          src = "img/loader.gif") ),
-            titleWidth = shiny::isolate(.g_opts$sidebar_size))
-}
-
-# Framework UI Header Creation that includes a right sidebar
-fw_create_header_plus <- function(sidebar_right_icon = shiny::isolate(.g_opts$sidebar_right_icon)) {
-    if (!(.g_sdp_installed)) {
-        stop('bs4DashPlus is not installed')
-    }
-    
-    if (.g_sdp_oldver) {
-        plus_fxn <- getExportedValue("bs4DashPlus", "dashboardHeaderPlus")
-        arg_list <- list(enable_rightsidebar = TRUE, 
-                         rightSidebarIcon = sidebar_right_icon)
-    } else {
-        plus_fxn <- getExportedValue("bs4DashPlus", "dashboardHeader")
-        arg_list <- list(controlbarIcon = shiny::icon(sidebar_right_icon))
-    }
-    
-    return(
-        do.call(plus_fxn, args = c(list(
-            title = shiny::div(class = "periscope-busy-ind",
-                               "Working",
-                               shiny::img(alt = "Working...",
-                                          hspace = "5px",
-                                          src = "img/loader.gif") ),
-            titleWidth = shiny::isolate(.g_opts$sidebar_size)),
-            arg_list)
-        )
-    )
-}
 
 # Framework UI Left Sidebar Creation
 fw_create_sidebar <- function(showsidebar = shiny::isolate(.g_opts$show_left_sidebar),
@@ -80,7 +41,7 @@ fw_create_sidebar <- function(showsidebar = shiny::isolate(.g_opts$show_left_sid
     if (showsidebar) {
         basic <- shiny::isolate(.g_opts$side_basic)
         adv   <- shiny::isolate(.g_opts$side_advanced)
-        
+
         if (!is.null(adv) && length(adv) > 0 && resetbutton) {
             adv[[length(adv) + 1]] <- .appResetButton("appResetId")
         }
@@ -122,13 +83,13 @@ fw_create_sidebar <- function(showsidebar = shiny::isolate(.g_opts$show_left_sid
 # Framework UI Right Sidebar Creation
 fw_create_right_sidebar <- function() {
     side_right <- shiny::isolate(.g_opts$side_right)
-    
+
     params <- list(div(id = "sidebarRightAlert"))
     if (!is.null(side_right) && length(side_right) > 0) {
         params <- c(params, side_right)
     }
-    
-    
+
+
     bs4Dash::dashboardControlbar(params)
 }
 
@@ -149,7 +110,7 @@ fw_create_body <- function() {
                                                   $('.control-sidebar').css('width', '-' +  main_width);
                                                }
                                            });"
-                                           
+
     app_info <- shiny::isolate(.g_opts$app_info)
     info_content <- NULL
 
@@ -172,12 +133,12 @@ fw_create_body <- function() {
         info_content,
         shiny::isolate(.g_opts$body_elements),
         if (shiny::isolate(.g_opts$show_userlog)) {
-            logViewerOutput("footerId") 
+            logViewerOutput("footerId")
         } else {
             NULL
         }
     )
-    
+
 }
 
 #' @export
@@ -194,7 +155,7 @@ create_application_dashboard <- function() {
 
 create_theme <- function() {
     theme_settings <- NULL
-    
+
     ## statuses colors
     primary   <- NULL
     secondary <- NULL
@@ -204,7 +165,7 @@ create_theme <- function() {
     danger    <- NULL
     light     <- NULL
     dark      <- NULL
-    
+
     ## layout options
     sidebar_width                   <- NULL
     sidebar_horizontal_padding      <- NULL
@@ -214,7 +175,7 @@ create_theme <- function() {
     main_content_horizontal_padding <- NULL
     main_content_vertical_padding   <- NULL
     main_background_color           <- NULL
-    
+
     ## sidebar colors
     sidebar_background_color        <- NULL
     sidebar_background_hover_color  <- NULL
@@ -228,29 +189,29 @@ create_theme <- function() {
     submenu_active_color            <- NULL
     submenu_active_background_color <- NULL
     header_color                    <- NULL
-    
+
     ## button colors
     button_background_color <- NULL
     button_color            <- NULL
     button_border_color     <- NULL
-    
+
     # keys
-    status_keys          <- c("primary", "secondary", "success", "info", 
-                              "warning", "danger", "light", "dark") 
+    status_keys          <- c("primary", "secondary", "success", "info",
+                              "warning", "danger", "light", "dark")
     layout_colors_keys   <- c("main_background_color")
-    layout_measures_keys <- c("sidebar_width", "sidebar_horizontal_padding", 
+    layout_measures_keys <- c("sidebar_width", "sidebar_horizontal_padding",
                               "sidebar_vertical_padding", "sidebar_mini_width",
-                              "right_sidebar_width", "main_content_horizontal_padding", 
+                              "right_sidebar_width", "main_content_horizontal_padding",
                               "main_content_vertical_padding")
-    sidebar_colors_keys  <- c("sidebar_background_color", "sidebar_background_hover_color", 
+    sidebar_colors_keys  <- c("sidebar_background_color", "sidebar_background_hover_color",
                              "sidebar_hover_color", "sidebar_color", "sidebar_active_color",
                              "submenu_background_color", "submenu_color", "submenu_hover_color",
-                             "submenu_background_hover_color", "submenu_active_color", 
+                             "submenu_background_hover_color", "submenu_active_color",
                              "submenu_active_background_color", "header_color")
     button_colors_keys   <- c("button_background_color", "button_color", "button_border_color")
     all_colors_keys      <- c(status_keys, layout_colors_keys, sidebar_colors_keys,
                               layout_measures_keys, button_colors_keys)
-    
+
     if (file.exists("www/periscope_style.yaml")) {
         theme_settings <- tryCatch({
             yaml::read_yaml("www/periscope_style.yaml")
@@ -259,7 +220,7 @@ create_theme <- function() {
             warning("Could not parse 'periscope_style.yaml' due to: ", e$message)
             NULL
         })
-        
+
         if (!is.null(theme_settings) && is.list(theme_settings)) {
             for (color in all_colors_keys) {
                 if (!is_valid_color(theme_settings[[color]])) {
@@ -267,7 +228,7 @@ create_theme <- function() {
                     theme_settings[[color]] <- NULL
                 }
             }
-            
+
             # statuses
             primary   <- theme_settings[["primary"]]
             secondary <- theme_settings[["secondary"]]
@@ -277,10 +238,10 @@ create_theme <- function() {
             danger    <- theme_settings[["danger"]]
             light     <- theme_settings[["light"]]
             dark      <- theme_settings[["dark"]]
-            
+
             # layout colors
             main_background_color <- theme_settings[["main_background_color"]]
-            
+
             ## sidebar colors
             sidebar_background_color        <- theme_settings[["sidebar_background_color"]]
             sidebar_background_hover_color  <- theme_settings[["sidebar_background_hover_color"]]
@@ -294,15 +255,15 @@ create_theme <- function() {
             submenu_active_color            <- theme_settings[["submenu_active_color"]]
             submenu_active_background_color <- theme_settings[["submenu_active_background_color"]]
             header_color                    <- theme_settings[["header_color"]]
-            
+
             ## button colors
             button_background_color <- theme_settings[["button_background_color"]]
             button_color            <- theme_settings[["button_color"]]
             button_border_color     <- theme_settings[["button_border_color"]]
-            
+
             for (measure_key in layout_measures_keys) {
                 measure <- theme_settings[[measure_key]]
-                
+
                 if (!is.null(measure)) {
                     if (any(!is.numeric(measure), measure <= 0)) {
                         warning(measure, " must be positive value. Setting default value.")
@@ -312,7 +273,7 @@ create_theme <- function() {
                     }
                 }
             }
-            
+
             sidebar_width                   <- theme_settings[["sidebar_width"]]
             sidebar_horizontal_padding      <- theme_settings[["sidebar_horizontal_padding"]]
             sidebar_vertical_padding        <- theme_settings[["sidebar_vertical_padding"]]
@@ -320,10 +281,10 @@ create_theme <- function() {
             right_sidebar_width             <- theme_settings[["right_sidebar_width"]]
             main_content_horizontal_padding <- theme_settings[["main_content_horizontal_padding"]]
             main_content_vertical_padding   <- theme_settings[["main_content_vertical_padding"]]
-            
+
         }
     }
-    
+
     fresh::create_theme(
         fresh::bs4dash_status(
             primary   = primary,
@@ -383,7 +344,7 @@ load_announcements <- function() {
     announce_setup     <- NULL
     auto_close         <- NULL
     announcements_file <- isolate(.g_opts$announcements_file)
-    
+
     if ((!is.null(announcements_file)) &&
         (file.exists(announcements_file))) {
         tryCatch({
@@ -392,7 +353,7 @@ load_announcements <- function() {
                     !is.list(announce_setup),
                     length(announce_setup) < 1)) {
                 logwarn(paste("File",
-                              announcements_file, 
+                              announcements_file,
                               "is empty or corrupted. Announcements will be ignored"))
                 announce_setup <- NULL
             }
@@ -400,7 +361,7 @@ load_announcements <- function() {
         error = function(e) {
             logwarn(paste("Could not parse", announcements_file, "due to", e$message))
         })
-        
+
         if (!is.null(announce_setup)) {
             start_date        <- announce_setup[["start_date"]]
             start_date_format <- announce_setup[["start_date_format"]]
@@ -411,14 +372,14 @@ load_announcements <- function() {
             text              <- announce_setup[["text"]]
             auto_close        <- announce_setup[["auto_close"]]
             valid             <- TRUE
-            
+
             if (!is.null(start_date)) {
                 if (!is_valid_format(start_date, start_date_format)) {
                     if (is.null(start_date_format)) {
                         start_date_format <- ""
                     }
                     logwarn(paste("Announcement 'start_date' value '",
-                                  start_date, 
+                                  start_date,
                                   "' could not be converted to a valid date",
                                   " with the given 'start_date_format' value: '",
                                   start_date_format, "' "))
@@ -427,7 +388,7 @@ load_announcements <- function() {
                     start_date <- as_date(start_date, format = start_date_format)
                 }
             }
-            
+
             if (valid && !is.null(end_date)) {
                 if (!is_valid_format(end_date, end_date_format)) {
                     if (is.null(end_date_format)) {
@@ -441,15 +402,15 @@ load_announcements <- function() {
                     end_date <- as_date(end_date, format = end_date_format)
                 }
             }
-            
+
             if (valid && !(any(is.null(start_date), start_date <= Sys.Date()) &&
                            any(is.null(end_date), Sys.Date() <= end_date))) {
                 valid <- FALSE
             }
-            
+
             valid_styles <- c("info", "danger", "success", "warning", "primary")
             style        <- tolower(style)
-            
+
             if (valid && any(length(style) == 0,
                              style == "",
                              !(tolower(style) %in% valid_styles))) {
@@ -457,12 +418,12 @@ load_announcements <- function() {
                               paste(valid_styles, collapsed = ', ')))
                 valid <- FALSE
             }
-            
+
             if (valid && any(is.null(text), text == "")) {
                 logwarn("Announcement 'text' value is empty. It must contain non empty text value")
                 valid <- FALSE
             }
-            
+
             if (valid) {
                 createAlert("announceAlert",
                             options = list(title    = title,
@@ -472,10 +433,10 @@ load_announcements <- function() {
                 if (all(!is.null(auto_close),
                         !is.numeric(auto_close))) {
                     logwarn(paste("Announcement 'auto_close' value '",
-                                  auto_close, 
+                                  auto_close,
                                   "' is invalid. It must contain numeric value."))
                 }
-                
+
                 if (all(!is.null(auto_close), auto_close > 0)) {
                     auto_close <- auto_close * 1000
                 }
@@ -487,7 +448,7 @@ load_announcements <- function() {
 
 is_valid_format <- function(x, format = NULL) {
     valid_format <- FALSE
-    
+
     tryCatch({
         date <- as_date(x, format = format)
         if (!is.na(date)) {
@@ -497,7 +458,7 @@ is_valid_format <- function(x, format = NULL) {
     warning = function(w) {
         logerror(paste("Could not convert date: '",
                        x,
-                       "' with format: '", 
+                       "' with format: '",
                        format,
                        "' with error: '", w$message,
                        "'"))
@@ -505,11 +466,11 @@ is_valid_format <- function(x, format = NULL) {
     error = function(e) {
         logerror(paste("Could not convert date: '",
                        x,
-                       "' with format: '", 
+                       "' with format: '",
                        format,
                        "' with error: '", w$message,
                        "'"))
     })
-    
+
     valid_format
 }
