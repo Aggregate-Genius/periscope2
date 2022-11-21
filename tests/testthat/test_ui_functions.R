@@ -11,15 +11,16 @@ test_that("add_ui_header", {
     fixed          <- FALSE
     left_ui        <- NULL
     right_ui       <- NULL
-    expect_snapshot_output(periscope2::add_ui_header(skin           = skin,
-                                                     status         = status,
-                                                     border         = border,
-                                                     compact        = compact,
-                                                     sidebarIcon    = sidebarIcon,
-                                                     controlbarIcon = controlbarIcon,
-                                                     fixed          = fixed,
-                                                     left_ui        = left_ui,
-                                                     right_ui       = right_ui))
+    periscope2::add_ui_header(skin           = skin,
+                              status         = status,
+                              border         = border,
+                              compact        = compact,
+                              sidebarIcon    = sidebarIcon,
+                              controlbarIcon = controlbarIcon,
+                              fixed          = fixed,
+                              left_ui        = left_ui,
+                              right_ui       = right_ui)
+    expect_snapshot_output(shiny::isolate(periscope2:::.g_opts$header))
 })
 
 #check_sidebar_result(result, showsidebar = TRUE, basic_existing = TRUE, advanced_existing = TRUE)
