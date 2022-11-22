@@ -18,7 +18,6 @@
     announcements_file  = NULL,
     data_download_types = c("csv", "xlsx", "tsv", "txt"),
     plot_download_types = c("png", "jpeg", "tiff", "bmp"),
-    ############################
     left_sidebar        = list(disable = TRUE),
     body_elements       = c(),
     header              = NULL,

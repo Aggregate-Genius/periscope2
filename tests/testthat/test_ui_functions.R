@@ -98,6 +98,47 @@ test_that("add_ui_left_sidebar example left sidebar", {
 })
 
 
+test_that("add_ui_right_sidebar no right sidebar", {
+    expect_null(shiny::isolate(periscope2:::.g_opts$right_sidebar))
+})
+
+
+test_that("add_ui_right_sidebar empty right sidebar", {
+    collapsed        <- TRUE
+    overlay          <- TRUE
+    skin             <- "light"
+    pinned           <- FALSE
+    sidebar_elements <- NULL
+    controlbar_menu  <- NULL
+
+    add_ui_right_sidebar(sidebar_elements = sidebar_elements,
+                         collapsed        = collapsed,
+                         overlay          = overlay,
+                         skin             = skin,
+                         pinned           = pinned,
+                         controlbar_menu  = controlbar_menu)
+    expect_snapshot_output(shiny::isolate(periscope2:::.g_opts$right_sidebar))
+})
+
+
+test_that("add_ui_right_sidebar example right sidebar", {
+    collapsed        <- TRUE
+    overlay          <- TRUE
+    skin             <- "light"
+    pinned           <- FALSE
+    sidebar_elements <-  list(div(checkboxInput("hideFileOrganization", "Show Files Organization"), style = "margin-left:20px"))
+    controlbar_menu  <- NULL
+
+    add_ui_right_sidebar(sidebar_elements = sidebar_elements,
+                         collapsed        = collapsed,
+                         overlay          = overlay,
+                         skin             = skin,
+                         pinned           = pinned,
+                         controlbar_menu  = controlbar_menu)
+    expect_snapshot_output(shiny::isolate(periscope2:::.g_opts$right_sidebar))
+})
+
+
 # test_that("fw_create_body app_info", {
 #     # setup
 #     app_info         <- shiny::isolate(.g_opts$app_info)

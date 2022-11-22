@@ -143,3 +143,35 @@
     </ul>
     
 
+# add_ui_right_sidebar empty right sidebar
+
+    <aside class="control-sidebar control-sidebar-light" id="controlbarId" data-collapsed="true" data-overlay="true" data-show="true" data-pin="false" data-slide="true">
+      <button id="controlbarPin" class="m-2 p-1 btn btn-xs btn-outline-secondary" type="button">
+        <i class="fas fa-thumbtack" role="presentation" aria-label="thumbtack icon"></i>
+      </button>
+      <div class="control-sidebar-content" id="controlbarTitle">
+        <div id="sidebarRightAlert"></div>
+      </div>
+    </aside>
+
+# add_ui_right_sidebar example right sidebar
+
+    <aside class="control-sidebar control-sidebar-light" id="controlbarId" data-collapsed="true" data-overlay="true" data-show="true" data-pin="false" data-slide="true">
+      <button id="controlbarPin" class="m-2 p-1 btn btn-xs btn-outline-secondary" type="button">
+        <i class="fas fa-thumbtack" role="presentation" aria-label="thumbtack icon"></i>
+      </button>
+      <div class="control-sidebar-content" id="controlbarTitle">
+        <div id="sidebarRightAlert"></div>
+        <div style="margin-left:20px">
+          <div class="form-group shiny-input-container">
+            <div class="checkbox">
+              <label>
+                <input id="hideFileOrganization" type="checkbox"/>
+                <span>Show Files Organization</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
