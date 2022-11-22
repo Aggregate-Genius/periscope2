@@ -1,8 +1,5 @@
 # FRAMEWORK HELPER FUNCTIONS -------
 # -- (INTERNAL ONLY - No Exports) --
-
-.g_sidebar_default_value <- c()
-
 # .g_opts --------------------
 # holds the app options values
 .g_opts <- shiny::reactiveValues(
@@ -21,15 +18,6 @@
     announcements_file  = NULL,
     data_download_types = c("csv", "xlsx", "tsv", "txt"),
     plot_download_types = c("png", "jpeg", "tiff", "bmp"),
-    reset_button        = TRUE,
-    reset_wait          = 5000,  #milliseconds
-    show_userlog        = TRUE,
-    show_left_sidebar   = TRUE,
-    side_basic          = .g_sidebar_default_value,
-    side_basic_label    = "Basic",
-    side_advanced       = .g_sidebar_default_value,
-    side_advanced_label = "Advanced",
-    sidebar_right_icon  = "cogs",
     ############################
     left_sidebar        = list(disable = TRUE),
     body_elements       = c(),
@@ -37,11 +25,6 @@
     right_sidebar       = NULL,
     footer              = NULL)
 
-# reset app options
-.reset_app_options <- function() {
-    .g_opts$side_basic    <- .g_sidebar_default_value
-    .g_opts$side_advanced <- .g_sidebar_default_value
-}
 
 
 # UI ----------------------------

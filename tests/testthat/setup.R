@@ -1,5 +1,6 @@
 require(testthat)
 require(shiny)
+require(bs4Dash)
 require(periscope2)
 require(ggplot2)
 

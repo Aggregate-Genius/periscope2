@@ -2,6 +2,7 @@ context("periscope2 - UI functionality")
 local_edition(3)
 
 test_that("add_ui_header", {
+    expect_null(shiny::isolate(periscope2:::.g_opts$header))
     skin           <- "light"
     status         <- "white"
     border         <- TRUE
@@ -23,103 +24,79 @@ test_that("add_ui_header", {
     expect_snapshot_output(shiny::isolate(periscope2:::.g_opts$header))
 })
 
-#check_sidebar_result(result, showsidebar = TRUE, basic_existing = TRUE, advanced_existing = TRUE)
-# check_sidebar_result <- function(result, showsidebar = TRUE,  basic_existing = FALSE, advanced_existing = FALSE) {
-#     expect_equal(result$name, "aside")
-#     if (length(result$attribs) == 2) {
-#         expect_equal(result$attribs, list(class = "main-sidebar", 'data-collapsed' = "false"))
-#     } else {
-#         if (showsidebar) {
-#             expect_snapshot(result$attribs)
-#         } else {
-#             expect_snapshot(result$attribs)
-#         }
-#     }
-#
-#     result.children <- result$children
-#     expect_equal(length(result.children), 2)
-#     if (showsidebar) {
-#         expect_equal(result.children[[1]], NULL) ## ?
-#     } else {
-#         expect_equal(length(result.children[[1]]), 3)
-#         expect_equal(result.children[[1]][[1]], "head")
-#         expect_equal(class(result.children[[1]][[2]]), "list")
-#         expect_equal(class(result.children[[1]][[3]]), "list")
-#     }
-#
-#     expect_equal(result.children[[2]]$name, "div")
-#     expect_equal(result.children[[2]]$attribs$class, "sidebar")
-#     expect_equal(result.children[[2]][[2]]$id, "sidebarItemExpanded")
-#
-#     result.subchilds <- result.children[[2]]$children[[1]]
-#     expect_equal(length(result.subchilds), 3)
-#
-#     # expect_equal(result.subchilds[[1]][[1]]$name, "script")
-#     # expect_true(grepl("Set using set_app_parameters\\() in program/global.R", result.subchilds[[1]][[1]]$children[[1]]))
-#     #
-#     # if (basic_existing || advanced_existing) {
-#     #     expect_equal(result.subchilds[[3]]$name, "div")
-#     #
-#     #     if (basic_existing && advanced_existing) {
-#     #         expect_equal(result.subchilds[[3]]$attribs$class, "tab-content")
-#     #     } else {
-#     #         expect_equal(result.subchilds[[3]]$attribs$class, "notab-content")
-#     #     }
-#     # }
-# }
-#
-#
-# test_that("fw_create_sidebar no sidebar", {
-#     expect_snapshot_output(periscope2:::fw_create_sidebar(showsidebar = F, resetbutton = F))
-# })
-#
-# test_that("fw_create_sidebar empty", {
-#     expect_snapshot_output(periscope2:::fw_create_sidebar(showsidebar = T, resetbutton = F))
-# })
-#
-# test_that("fw_create_sidebar only basic", {
-#     # setup
-#     side_basic            <- shiny::isolate(.g_opts$side_basic)
-#     .g_opts$side_basic    <- list(tags$p())
-#     side_advanced         <- shiny::isolate(.g_opts$side_advanced)
-#     .g_opts$side_advanced <- NULL
-#
-#     expect_snapshot_output(periscope2:::fw_create_sidebar(showsidebar = T, resetbutton = F))
-#
-#     # teardown
-#     .g_opts$side_basic    <- side_basic
-#     .g_opts$side_advanced <- side_advanced
-# })
-#
-# test_that("fw_create_sidebar only advanced", {
-#     # setup
-#     side_basic            <- shiny::isolate(.g_opts$side_basic)
-#     .g_opts$side_basic    <- NULL
-#     side_advanced         <- shiny::isolate(.g_opts$side_advanced)
-#     .g_opts$side_advanced <- list(tags$p())
-#
-#     expect_snapshot_output(periscope2:::fw_create_sidebar())
-#
-#     # teardown
-#     .g_opts$side_basic    <- side_basic
-#     .g_opts$side_advanced <- side_advanced
-# })
-#
-# test_that("fw_create_sidebar basic and advanced", {
-#     # setup
-#     side_basic            <- shiny::isolate(.g_opts$side_basic)
-#     .g_opts$side_basic    <- list(tags$p())
-#     side_advanced         <- shiny::isolate(.g_opts$side_advanced)
-#     .g_opts$side_advanced <- list(tags$p())
-#
-#     result <- periscope2:::fw_create_sidebar()
-#
-#     check_sidebar_result(result, showsidebar = TRUE, basic_existing = TRUE, advanced_existing = TRUE)
-#
-#     # teardown
-#     .g_opts$side_basic    <- side_basic
-#     .g_opts$side_advanced <- side_advanced
-# })
+
+test_that("add_ui_left_sidebar no left sidebar", {
+    expect_snapshot_output(shiny::isolate(periscope2:::.g_opts$left_sidebar))
+})
+
+
+test_that("add_ui_left_sidebar empty left sidebar", {
+    skin             <- "light"
+    status           <- "primary"
+    elevation        <- 4
+    collapsed        <- FALSE
+    minified         <- FALSE
+    expand_on_hover  <- FALSE
+    fixed            <- TRUE
+    sidebar_elements <- NULL
+    sidebar_menu     <- NULL
+    custom_area      <- NULL
+    add_ui_left_sidebar(sidebar_elements = sidebar_elements,
+                        skin             = skin,
+                        status           = status,
+                        elevation        = elevation,
+                        collapsed        = collapsed,
+                        minified         = minified,
+                        expand_on_hover  = expand_on_hover,
+                        fixed            = fixed,
+                        sidebar_menu     = sidebar_menu,
+                        custom_area      = custom_area)
+    expect_snapshot_output(shiny::isolate(periscope2:::.g_opts$left_sidebar))
+})
+
+
+test_that("add_ui_left_sidebar example left sidebar", {
+    skin             <- "light"
+    status           <- "primary"
+    elevation        <- 4
+    collapsed        <- FALSE
+    minified         <- FALSE
+    expand_on_hover  <- FALSE
+    fixed            <- TRUE
+    sidebar_elements <- NULL
+    sidebar_menu     <-  sidebarMenu(
+        id = "features_id",
+        sidebarHeader("Periscope2 Features"),
+        menuItem(
+            text    = "Application Setup",
+            tabName = "application_setup",
+            icon    = icon("building")
+        ),
+        menuItem(
+            text    = "Periscope2 Modules",
+            tabName = "periscope_modules",
+            icon    = icon("cubes")
+        ),
+        menuItem(
+            text    = "User Notifications",
+            tabName = "user_notifications",
+            icon    = icon("comments")
+        )
+    )
+    custom_area      <- NULL
+    add_ui_left_sidebar(sidebar_elements = sidebar_elements,
+                        skin             = skin,
+                        status           = status,
+                        elevation        = elevation,
+                        collapsed        = collapsed,
+                        minified         = minified,
+                        expand_on_hover  = expand_on_hover,
+                        fixed            = fixed,
+                        sidebar_menu     = sidebar_menu,
+                        custom_area      = custom_area)
+    expect_snapshot_output(shiny::isolate(periscope2:::.g_opts$left_sidebar))
+})
+
 
 # test_that("fw_create_body app_info", {
 #     # setup

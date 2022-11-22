@@ -40,3 +40,106 @@
     NULL
     
 
+# add_ui_left_sidebar no left sidebar
+
+    $disable
+    [1] TRUE
+    
+
+# add_ui_left_sidebar empty left sidebar
+
+    [[1]]
+    [[1]][[1]]
+    <div id="sidebarBasicAlert"></div>
+    
+    [[1]][[2]]
+    NULL
+    
+    
+    $skin
+    [1] "light"
+    
+    $status
+    [1] "primary"
+    
+    $elevation
+    [1] 4
+    
+    $collapsed
+    [1] FALSE
+    
+    $minified
+    [1] FALSE
+    
+    $expand_on_hover
+    [1] FALSE
+    
+    $fixed
+    [1] TRUE
+    
+    $custom_area
+    NULL
+    
+    [[10]]
+    NULL
+    
+
+# add_ui_left_sidebar example left sidebar
+
+    [[1]]
+    [[1]][[1]]
+    <div id="sidebarBasicAlert"></div>
+    
+    [[1]][[2]]
+    NULL
+    
+    
+    $skin
+    [1] "light"
+    
+    $status
+    [1] "primary"
+    
+    $elevation
+    [1] 4
+    
+    $collapsed
+    [1] FALSE
+    
+    $minified
+    [1] FALSE
+    
+    $expand_on_hover
+    [1] FALSE
+    
+    $fixed
+    [1] TRUE
+    
+    $custom_area
+    NULL
+    
+    [[10]]
+    <ul class="nav nav-pills nav-sidebar flex-column sidebar-menu nav-child-indent" data-widget="treeview" role="menu" data-accordion="true">
+      <li class="nav-header">Periscope2 Features</li>
+      <li class="nav-item">
+        <a class="nav-link" id="tab-application_setup" href="#" data-target="#shiny-tab-application_setup" data-toggle="tab" data-value="application_setup">
+          <i class="far fa-building nav-icon" role="presentation" aria-label="building icon"></i>
+          <p>Application Setup</p>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="tab-periscope_modules" href="#" data-target="#shiny-tab-periscope_modules" data-toggle="tab" data-value="periscope_modules">
+          <i class="fas fa-cubes nav-icon" role="presentation" aria-label="cubes icon"></i>
+          <p>Periscope2 Modules</p>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="tab-user_notifications" href="#" data-target="#shiny-tab-user_notifications" data-toggle="tab" data-value="user_notifications">
+          <i class="far fa-comments nav-icon" role="presentation" aria-label="comments icon"></i>
+          <p>User Notifications</p>
+        </a>
+      </li>
+      <div id="features_id" class="sidebarMenuSelectedTabItem" data-value="null"></div>
+    </ul>
+    
+

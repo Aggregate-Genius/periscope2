@@ -8,10 +8,6 @@ fw_server_setup <- function(input, output, session, logger, logger_viewer_id) {
     logViewer(logger_viewer_id, logfile)
 }
 
-# Reset app options
-fw_reset_app_options <- function() {
-    .reset_app_options()
-}
 
 # Get LogLevel
 fw_get_loglevel <- function() {
@@ -33,113 +29,6 @@ fw_get_user_log <- function() {
     getLogger(name = "actions")
 }
 
-
-# Framework UI Left Sidebar Creation
-fw_create_sidebar <- function(showsidebar = shiny::isolate(.g_opts$show_left_sidebar),
-                              resetbutton = shiny::isolate(.g_opts$reset_button)) {
-    result <- NULL
-    if (showsidebar) {
-        basic <- shiny::isolate(.g_opts$side_basic)
-        adv   <- shiny::isolate(.g_opts$side_advanced)
-
-        if (!is.null(adv) && length(adv) > 0 && resetbutton) {
-            adv[[length(adv) + 1]] <- .appResetButton("appResetId")
-        }
-        result <- bs4Dash::dashboardSidebar(
-                    minified = FALSE,
-                    width = shiny::isolate(.g_opts$sidebar_size),
-                    ## TODO: title header
-                    #.header_injection(),             #injected header elements
-                    #.right_sidebar_injection(),
-                    if (!is.null(basic[[1]]) && !is.null(adv[[1]])) {
-                        bs4Dash::tabsetPanel(
-                            id = "Options",
-                            selected = shiny::isolate(.g_opts$side_basic_label),
-                            shiny::tabPanel(
-                                shiny::isolate(.g_opts$side_basic_label),
-                                basic),
-                            shiny::tabPanel(
-                                shiny::isolate(.g_opts$side_advanced_label),
-                                adv))
-                    }
-                    else if (!is.null(basic[[1]]) && is.null(adv[[1]])) {
-                        shiny::div(class = "notab-content",
-                                   basic)
-                    }
-                    else if (is.null(basic[[1]]) && !is.null(adv[[1]])) {
-                        shiny::div(class = "notab-content",
-                                   adv)
-                    })
-    } else {
-        result <- bs4Dash::dashboardSidebar(width = 0,
-                                            minified = FALSE,
-                                                   collapsed = TRUE,
-                                                   .header_injection(),
-                                                   .remove_sidebar_toggle())
-    }
-    result
-}
-
-# Framework UI Right Sidebar Creation
-fw_create_right_sidebar <- function() {
-    side_right <- shiny::isolate(.g_opts$side_right)
-
-    params <- list(div(id = "sidebarRightAlert"))
-    if (!is.null(side_right) && length(side_right) > 0) {
-        params <- c(params, side_right)
-    }
-
-
-    bs4Dash::dashboardControlbar(params)
-}
-
-# Framework UI Body Creation
-fw_create_body <- function() {
-    header_color_style          <- "$('.logo').css('background-color', $('.navbar').css('background-color'))"
-    update_right_side_bar_width <- "$('.navbar-custom-menu').on('click',
-                                           function() {
-                                               main_width = $('.main-sidebar').css('width');
-                                               if ($('.control-sidebar-open').length != 0) {
-                                                   $('.control-sidebar-open').css('width', main_width);
-                                                   $('.control-sidebar-bg').css('width', main_width);
-                                                   $('.control-sidebar-bg').css('right', '0px' );
-                                                   $('.control-sidebar').css('right', '0px');
-                                               } else {
-                                                  $('.control-sidebar-bg').css('right', '-' + main_width);
-                                                  $('.control-sidebar').css('right', '-' +  main_width);
-                                                  $('.control-sidebar').css('width', '-' +  main_width);
-                                               }
-                                           });"
-
-    app_info <- shiny::isolate(.g_opts$app_info)
-    info_content <- NULL
-
-    if (!is.null(app_info) && (class(app_info)[1] == "html")) {
-        info_content <- shinyBS::bsModal(
-                id = "titleinfobox",
-                title = shiny::isolate(.g_opts$app_title),
-                trigger = "titleinfobox_trigger",
-                size = "large",
-                app_info)
-    }
-
-    bs4Dash::dashboardBody(
-        # fresh::use_theme(create_theme()),
-         shiny::tags$head(
-             #shiny::tags$style(.framework_css()),
-             shiny::tags$script(.framework_js())),
-        # shiny::tags$script(update_right_side_bar_width),
-        # shiny::tags$script(header_color_style),
-        info_content,
-        shiny::isolate(.g_opts$body_elements),
-        if (shiny::isolate(.g_opts$show_userlog)) {
-            logViewerOutput("footerId")
-        } else {
-            NULL
-        }
-    )
-
-}
 
 #' @export
 create_application_dashboard <- function() {

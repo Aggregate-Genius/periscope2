@@ -2,7 +2,7 @@
 % Please edit documentation in R/ui_helpers.R
 \name{ui_tooltip}
 \alias{ui_tooltip}
-\title{Add UI Elements to the Body area}
+\title{Insert a standardized tooltip}
 \usage{
 ui_tooltip(id, label = "", text = "", placement = "top")
 }
@@ -12,40 +12,8 @@ ui_tooltip(id, label = "", text = "", placement = "top")
 \item{label}{text label to appear to the left of the tooltip image}
 
 \item{text}{tooltip text shown when the user hovers over the image}
-
-\item{elementlist}{list of UI elements to add to the body}
-
-\item{append}{whether to append the \code{elementlist} to the currently
-registered elements or replace the currently registered elements completely}
 }
 \description{
-This function registers UI elements to the body of the application (the
-right side).  Items are added in the order given.
-}
-\section{Shiny Usage}{
-
-Call this function after creating elements in \code{program/ui_body.R} to
-register them to the application framework and show them on the body area
-of the dashboard application
-}
-
-\examples{
-require(shiny)
-
-body1 <- htmlOutput("example1")
-body2 <- actionButton("exButton", label = "Example")
-
-add_ui_body(list(body1, body2))
-
-
-Insert a standardized tooltip
-
 This function inserts a standardized tooltip image, label (optional),
 and hovertext into the application UI
-
-}
-\seealso{
-\link[periscope]{add_ui_sidebar_basic}
-
-\link[periscope]{add_ui_sidebar_advanced}
 }

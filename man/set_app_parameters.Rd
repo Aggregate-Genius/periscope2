@@ -8,7 +8,6 @@ set_app_parameters(
   title,
   app_info = NULL,
   log_level = "DEBUG",
-  show_log = TRUE,
   app_version = "1.0.0",
   loading_indicator = NULL,
   announcements_file = NULL
@@ -34,10 +33,6 @@ application title.}
 
 \item{loglevel}{character string designating the log level to use for
 the userlog (default = 'DEBUG')}
-
-\item{showlog}{enable or disable the visible userlog at the bottom of the
-body on the application.  Logging will still take place, this disables the
-visible functionality only.}
 }
 \description{
 This function sets global parameters customizing the shiny application.
