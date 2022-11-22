@@ -175,3 +175,18 @@
       </div>
     </aside>
 
+# add_ui_footer empty footer
+
+    <footer class="main-footer" data-fixed="false">
+      <div class="float-right d-none d-sm-inline"></div>
+      <div id="footerAlert"></div>
+    </footer>
+
+# add_ui_footer example footer
+
+    <footer class="main-footer" data-fixed="false">
+      <div class="float-right d-none d-sm-inline">2022</div>
+      <div id="footerAlert"></div>
+      <a href="https://periscopeapps.org/" target="_blank">periscope2</a>
+    </footer>
+

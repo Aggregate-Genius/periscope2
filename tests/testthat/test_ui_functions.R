@@ -2,7 +2,9 @@ context("periscope2 - UI functionality")
 local_edition(3)
 
 test_that("add_ui_header", {
+    # no header
     expect_null(shiny::isolate(periscope2:::.g_opts$header))
+    # normal header
     skin           <- "light"
     status         <- "white"
     border         <- TRUE
@@ -139,6 +141,32 @@ test_that("add_ui_right_sidebar example right sidebar", {
 })
 
 
+test_that("add_ui_footer no footer", {
+    expect_null(shiny::isolate(periscope2:::.g_opts$footer))
+})
+
+
+test_that("add_ui_footer empty footer", {
+    right <- NULL
+    fixed <- FALSE
+    left  <- NULL
+
+    add_ui_footer(left, right, fixed)
+    expect_snapshot_output(shiny::isolate(periscope2:::.g_opts$footer))
+})
+
+
+test_that("add_ui_footer example footer", {
+    right <- "2022"
+    fixed <- FALSE
+    left  <- a(
+        href   = "https://periscopeapps.org/",
+        target = "_blank",
+        "periscope2")
+
+    add_ui_footer(left, right, fixed)
+    expect_snapshot_output(shiny::isolate(periscope2:::.g_opts$footer))
+})
 # test_that("fw_create_body app_info", {
 #     # setup
 #     app_info         <- shiny::isolate(.g_opts$app_info)
