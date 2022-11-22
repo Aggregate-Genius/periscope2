@@ -167,6 +167,35 @@ test_that("add_ui_footer example footer", {
     add_ui_footer(left, right, fixed)
     expect_snapshot_output(shiny::isolate(periscope2:::.g_opts$footer))
 })
+
+
+test_that("add_ui_body empty body", {
+    expect_equal(shiny::isolate(periscope2:::.g_opts$body_elements), c())
+    add_ui_body()
+    expect_snapshot(shiny::isolate(periscope2:::.g_opts$body_elements))
+})
+
+
+test_that("add_ui_body example body", {
+    about_box <- jumbotron(
+        title = "periscope2: Enterprise Streamlined 'Shiny' Application Framework",
+        lead  = p("periscope2 is a scalable and UI-standardized 'shiny' framework including a variety of developer convenience",
+                  "functions with the goal of both streamlining robust application development and assisting in creating a consistent",
+                  " user experience regardless of application or developer."),
+        tags$dl(tags$dt("Features"),
+                tags$ul(tags$li("A predefined but flexible template for new Shiny applications with a default dashboard layout"),
+                        tags$li("Separation by file of functionality that exists in one of the three shiny scopes: global, server-global, and server-local."),
+                        tags$li("Six off shelf and ready to be used modules ('Announcments', 'Table Downloader', 'Plot Downloader', 'File Downloader', 'Application Logger' and 'Reset Application'"),
+                        tags$li("Different methods to notify user and add useful information about application UI and server operations"))),
+        status = "info",
+        href   = "https://periscopeapps.org/"
+    )
+
+    add_ui_body(list(about_box))
+    expect_snapshot_output(shiny::isolate(periscope2:::.g_opts$body_elements))
+})
+
+
 # test_that("fw_create_body app_info", {
 #     # setup
 #     app_info         <- shiny::isolate(.g_opts$app_info)
