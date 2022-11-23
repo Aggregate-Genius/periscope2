@@ -193,6 +193,9 @@ test_that("add_ui_body example body", {
 
     add_ui_body(list(about_box))
     expect_snapshot_output(shiny::isolate(periscope2:::.g_opts$body_elements))
+
+    add_ui_body(list(div("more elements")), append = TRUE)
+    expect_snapshot_output(shiny::isolate(periscope2:::.g_opts$body_elements))
 })
 
 test_that("set_app_parameters default values", {
@@ -220,72 +223,12 @@ test_that("set_app_parameters update values", {
     expect_equal(shiny::isolate(periscope2:::.g_opts$announcements_file), "./program/config/announce.yaml")
 })
 
+test_that("ui_tooltip", {
+    expect_snapshot_output(ui_tooltip(id = "id", label = "mylabel", text = "mytext"))
+    expect_snapshot_output(ui_tooltip(id = "id2", label = "mylabel2", text = "mytext2", placement = "left"))
+    expect_snapshot_error(ui_tooltip(id = "id2", label = "mylabel2", text = "mytext2", placement = "nowhere"))
+})
 
-# test_that("add_ui_sidebar_basic", {
-#     result <- add_ui_sidebar_basic(elementlist = NULL, append = FALSE, tabname = "Basic")
-#     expect_null(result, "add_ui_sidebar_basic")
-# })
-#
-# test_that("add_ui_sidebar_basic append", {
-#     result <- add_ui_sidebar_basic(elementlist = NULL, append = TRUE, tabname = "Basic")
-#     expect_null(result, "add_ui_sidebar_basic")
-# })
-#
-# test_that("add_ui_sidebar_advanced", {
-#     result <- add_ui_sidebar_advanced(elementlist = NULL, append = FALSE, tabname = "Advanced")
-#     expect_null(result, "add_ui_sidebar_advanced")
-# })
-#
-# test_that("add_ui_sidebar_advanced append", {
-#     result <- add_ui_sidebar_advanced(elementlist = NULL, append = TRUE, tabname = "Advanced")
-#     expect_null(result, "add_ui_sidebar_advanced")
-# })
-#
-# test_that("add_ui_body", {
-#     result <- add_ui_body(elementlist = NULL, append = FALSE)
-#     expect_null(result, "add_ui_body")
-# })
-#
-# test_that("add_ui_body", {
-#     result <- add_ui_body(elementlist = NULL, append = TRUE)
-#     expect_null(result, "add_ui_body")
-# })
-#
-# test_that("ui_tooltip", {
-#     expect_snapshot_output(ui_tooltip(id = "id", label = "mylabel", text = "mytext"))
-# })
-#
-# test_that("ui_tooltip no text", {
-#     expect_warning(ui_tooltip(id = "id", label = "mylabel", text = ""), "ui_tooltip\\() called without tooltip text.")
-# })
-
-# test_that("fw_create_right_sidebar", {
-#     expect_snapshot_output(periscope2:::fw_create_right_sidebar())
-# })
-#
-# test_that("fw_create_right_sidebar SDP<2", {
-#     skip_if_not(t_sdp_old)
-#
-#     expect_snapshot_output(periscope2:::fw_create_right_sidebar())
-#     expect_snapshot_output(add_ui_sidebar_right(elementlist = list(selectInput(inputId = "id", choices = 1:3, label = "Input widget"))))
-#     expect_snapshot_output(periscope2:::fw_create_right_sidebar())
-# })
-#
-# test_that("fw_create_right_sidebar SDP>=2", {
-#     skip_if(t_sdp_old)
-#
-#     expect_snapshot_output(periscope2:::fw_create_right_sidebar())
-# })
-#
-# test_that("add_ui_sidebar_right", {
-#     result <- add_ui_sidebar_right(elementlist = NULL)
-#     expect_null(result, "add_ui_sidebar_right")
-# })
-#
-# test_that("add_ui_sidebar_right with append", {
-#     result <- add_ui_sidebar_right(elementlist = NULL, append = TRUE)
-#     expect_null(result, "add_ui_sidebar_right")
-#
-#     result <- add_ui_sidebar_right(elementlist = NULL, append = FALSE)
-#     expect_null(result, "add_ui_sidebar_right")
-# })
+test_that("ui_tooltip no text", {
+    expect_warning(ui_tooltip(id = "id", label = "mylabel", text = ""), "ui_tooltip\\() called without tooltip text.")
+})
