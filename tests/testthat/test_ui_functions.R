@@ -195,29 +195,32 @@ test_that("add_ui_body example body", {
     expect_snapshot_output(shiny::isolate(periscope2:::.g_opts$body_elements))
 })
 
+test_that("set_app_parameters default values", {
+    expect_equal(shiny::isolate(periscope2:::.g_opts$app_title), "Set using set_app_parameters() in program/global.R")
+    expect_null(shiny::isolate(periscope2:::.g_opts$app_info), NULL)
+    expect_equal(shiny::isolate(periscope2:::.g_opts$loglevel), "DEBUG")
+    expect_equal(shiny::isolate(periscope2:::.g_opts$app_version), "1.0.0")
+    expect_null(shiny::isolate(periscope2:::.g_opts$loading_indicator))
+    expect_null(shiny::isolate(periscope2:::.g_opts$announcements_file))
+})
 
-# test_that("fw_create_body app_info", {
-#     # setup
-#     app_info         <- shiny::isolate(.g_opts$app_info)
-#     .g_opts$app_info <- HTML("<b>app_info</b>")
-#
-#     expect_snapshot_output(periscope2:::fw_create_body())
-#
-#     # teardown
-#     .g_opts$app_info <- app_info
-# })
-#
-# test_that("fw_create_body no log", {
-#     # setup
-#     show_userlog         <- shiny::isolate(.g_opts$show_userlog)
-#     .g_opts$show_userlog <- FALSE
-#
-#     expect_snapshot_output(periscope2:::fw_create_body())
-#
-#     # teardown
-#     .g_opts$show_userlog <- show_userlog
-# })
-#
+test_that("set_app_parameters update values", {
+    periscope2::set_app_parameters(title              = "periscope Example Application",
+                                   app_info           = HTML("Demonstrat periscope features and generated application layout"),
+                                   log_level          = "INFO",
+                                   app_version        = "2.3.1",
+                                   loading_indicator  = list(html = tagList(div("Loading ..."))),
+                                   announcements_file = "./program/config/announce.yaml")
+
+    expect_equal(shiny::isolate(periscope2:::.g_opts$app_title), "periscope Example Application")
+    expect_snapshot(shiny::isolate(periscope2:::.g_opts$app_info))
+    expect_equal(shiny::isolate(periscope2:::.g_opts$loglevel), "INFO")
+    expect_equal(shiny::isolate(periscope2:::.g_opts$app_version), "2.3.1")
+    expect_snapshot(shiny::isolate(periscope2:::.g_opts$loading_indicator))
+    expect_equal(shiny::isolate(periscope2:::.g_opts$announcements_file), "./program/config/announce.yaml")
+})
+
+
 # test_that("add_ui_sidebar_basic", {
 #     result <- add_ui_sidebar_basic(elementlist = NULL, append = FALSE, tabname = "Basic")
 #     expect_null(result, "add_ui_sidebar_basic")

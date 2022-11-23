@@ -21,7 +21,6 @@ library(canvasXpress)
 set_app_parameters(title              = "periscope Example Application",
                    app_info           = HTML("Demonstrat periscope features and generated application layout"),
                    log_level          = "DEBUG",
-                   show_log           = FALSE,
                    app_version        = "1.0.0",
                    loading_indicator  = list(html = tagList(spin_1(), "Loading ...")),
                    announcements_file = "./program/config/announce.yaml")

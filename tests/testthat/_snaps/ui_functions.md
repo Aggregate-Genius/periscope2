@@ -241,3 +241,19 @@
     
     
 
+# set_app_parameters update values
+
+    Code
+      shiny::isolate(periscope2:::.g_opts$app_info)
+    Output
+      Demonstrat periscope features and generated application layout
+
+---
+
+    Code
+      shiny::isolate(periscope2:::.g_opts$loading_indicator)
+    Output
+      $html
+      <div>Loading ...</div>
+      
+

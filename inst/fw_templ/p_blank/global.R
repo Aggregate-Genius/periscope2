@@ -20,7 +20,6 @@ library(shinyjs)
 set_app_parameters(title              = "Set title in global.R using set_app_parameters()",
                    app_info           = NULL,
                    log_level          = "DEBUG",
-                   show_log           = FALSE,
                    app_version        = "1.0.0",
                    loading_indicator  = list(html = tagList(spin_1(), "Loading ...")),
                    announcements_file = "./program/config/announce.yaml")
