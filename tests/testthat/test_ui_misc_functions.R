@@ -1,11 +1,6 @@
-context("periscope - misc functions")
+context("periscope2 - misc functions")
 
 log_directory <- tempdir()
-
-test_that("set_app_parameters", {
-    result <- set_app_parameters(title = "application title", titleinfo = NULL, loglevel = "DEBUG", showlog = TRUE, app_version = "2.1.0")
-    expect_null(result, "set_app_parameters")
-})
 
 test_that("get_url_parameters - NULL", {
     result <- get_url_parameters(NULL)
@@ -14,23 +9,8 @@ test_that("get_url_parameters - NULL", {
 
 test_that("get_url_parameters", {
     fake_session <- list(clientData = list(url_search = "&test1=ABC&test2=123"))
-    result <- get_url_parameters(fake_session)
+    result       <- get_url_parameters(fake_session)
     expect_equal(result, list(test1 = "ABC", test2 = "123"), "get_url_parameters")
-})
-
-test_that("fw_get_loglevel", {
-    result <- periscope2:::fw_get_loglevel()
-    expect_equal(result, "DEBUG")
-})
-
-test_that("fw_get_title", {
-    result <- periscope2:::fw_get_title()
-    expect_equal(result, "application title")
-})
-
-test_that("fw_get_version", {
-    result <- periscope2:::fw_get_version()
-    expect_equal(result, "2.1.0")
 })
 
 test_that("fw_get_user_log", {
@@ -51,16 +31,12 @@ test_that("setup_logging existing log", {
     expect_true(shiny::is.reactive(result))
 })
 
-test_that("fw_reset_app_options", {
-    result <- periscope2:::fw_reset_app_options()
-    expect_null(result, "fw_reset_app_options")
-})
-
 test_that("fw_server_setup", {
-    expect_error(fw_server_setup(input = list(),
-                                   output = list(), 
-                                   session = MockShinySession$new(),
-                                   logger = periscope2:::fw_get_user_log()))
+    local_edition(3)
+    expect_snapshot_error(fw_server_setup(input = list(),
+                                          output = list(),
+                                          session = MockShinySession$new(),
+                                          logger = periscope2:::fw_get_user_log()))
 })
 
 test_that("is_valid_color", {

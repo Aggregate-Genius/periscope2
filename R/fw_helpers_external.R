@@ -11,7 +11,7 @@ fw_server_setup <- function(input, output, session, logger, logger_viewer_id) {
 
 # Get LogLevel
 fw_get_loglevel <- function() {
-    return(shiny::isolate(.g_opts$loglevel))
+    shiny::isolate(.g_opts$loglevel)
 }
 
 # Get Application Title
@@ -21,7 +21,7 @@ fw_get_title <- function() {
 
 # Get Application Version
 fw_get_version <- function() {
-    return(shiny::isolate(.g_opts$app_version))
+    shiny::isolate(.g_opts$app_version)
 }
 
 # Get User Action Log

@@ -221,6 +221,9 @@ test_that("set_app_parameters update values", {
     expect_equal(shiny::isolate(periscope2:::.g_opts$app_version), "2.3.1")
     expect_snapshot(shiny::isolate(periscope2:::.g_opts$loading_indicator))
     expect_equal(shiny::isolate(periscope2:::.g_opts$announcements_file), "./program/config/announce.yaml")
+    expect_equal( periscope2:::fw_get_loglevel(), "INFO")
+    expect_equal(periscope2:::fw_get_title(), "periscope Example Application")
+    expect_equal(periscope2:::fw_get_version(), "2.3.1")
 })
 
 test_that("ui_tooltip", {
