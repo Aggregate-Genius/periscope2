@@ -145,23 +145,23 @@ create_application <- function(name,
                             msg = "Framework creation could not proceed, please provide valid character application location")
     assertthat::assert_that(dir.exists(location),
                             msg = paste0("Framework creation could not proceed, path=<", location, "> does not exists!"))
-    if (is.null(sample_app)) {
-        warning("'sample_app' cannot be NULL. Setting 'sample_app' to default value 'FALSE'")
+    if (!is.logical(sample_app)) {
+        warning("'sample_app' must have valid boolean value. Setting 'sample_app' to default value 'FALSE'")
         sample_app <- FALSE
     }
 
-    if (is.null(right_sidebar)) {
-        warning("'right_sidebar' cannot be NULL. Setting 'right_sidebar' to default value 'FALSE'")
+    if (!is.logical(right_sidebar)) {
+        warning("'right_sidebar' must have valid boolean value. Setting 'right_sidebar' to default value 'FALSE'")
         right_sidebar <- FALSE
     }
 
-    if (is.null(left_sidebar)) {
-        warning("'left_sidebar' cannot be NULL. Setting 'left_sidebar' to default value 'TRUE'")
+    if (!is.logical(left_sidebar)) {
+        warning("'left_sidebar' must have valid boolean value. Setting 'left_sidebar' to default value 'TRUE'")
         left_sidebar <- TRUE
     }
 
-    if (is.null(footer)) {
-        warning("'left_sidebar' cannot be NULL. Setting 'footer' to default value 'FALSE'")
+    if (!is.logical(footer)) {
+        warning("'left_sidebar' must have valid boolean value. Setting 'footer' to default value 'FALSE'")
         footer <- FALSE
     }
 
