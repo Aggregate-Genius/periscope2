@@ -274,7 +274,7 @@ load_announcements <- function() {
                                   start_date_format, "' "))
                     valid <- FALSE
                 } else {
-                    start_date <- as_date(start_date, format = start_date_format)
+                    start_date <- lubridate::as_date(start_date, format = start_date_format)
                 }
             }
 
@@ -288,7 +288,7 @@ load_announcements <- function() {
                                   " with the given 'end_date_format' value: '", end_date_format, "' "))
                     valid <- FALSE
                 } else {
-                    end_date <- as_date(end_date, format = end_date_format)
+                    end_date <- lubridate::as_date(end_date, format = end_date_format)
                 }
             }
 
@@ -319,15 +319,16 @@ load_announcements <- function() {
                                            status   = style,
                                            closable = TRUE,
                                            content  = text))
-                if (all(!is.null(auto_close),
-                        !is.numeric(auto_close))) {
-                    logwarn(paste("Announcement 'auto_close' value '",
-                                  auto_close,
-                                  "' is invalid. It must contain numeric value."))
-                }
-
-                if (all(!is.null(auto_close), auto_close > 0)) {
-                    auto_close <- auto_close * 1000
+                if (!is.null(auto_close)) {
+                    if (!is.numeric(auto_close)) {
+                        logwarn(paste("Announcement 'auto_close' value '",
+                                      auto_close,
+                                      "' is invalid. It must contain numeric value.",
+                                      "Setting 'auto_close' to default value 'NULL'"))
+                        auto_close <- NULL
+                    } else {
+                        auto_close <- auto_close * 1000
+                    }
                 }
             }
         }
@@ -339,20 +340,12 @@ is_valid_format <- function(x, format = NULL) {
     valid_format <- FALSE
 
     tryCatch({
-        date <- as_date(x, format = format)
+        date <- lubridate::as_date(x, format = format)
         if (!is.na(date)) {
             valid_format <- TRUE
         }
     },
     warning = function(w) {
-        logerror(paste("Could not convert date: '",
-                       x,
-                       "' with format: '",
-                       format,
-                       "' with error: '", w$message,
-                       "'"))
-    },
-    error = function(e) {
         logerror(paste("Could not convert date: '",
                        x,
                        "' with format: '",

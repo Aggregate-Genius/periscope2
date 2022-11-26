@@ -295,7 +295,7 @@ create_application <- function(name,
     file.copy(system.file("fw_templ", "www", "custom.js", package = "periscope2"),
               paste(newloc, "www", "js", "custom.js", sep = usersep))
 
-    if (!is.null(sample_app)) {
+    if (sample_app) {
         file.copy(system.file("fw_templ", "p_example", "periscope_style.yaml", package = "periscope2"),
                   paste(newloc, "www", "periscope_style.yaml", sep = usersep))
         file.copy(system.file("fw_templ", "p_example", "custom.css", package = "periscope2"),

@@ -1,6 +1,35 @@
 context("periscope2 - UI functionality")
 local_edition(3)
 
+# helper functions
+create_announcements <- function(start_date        = NULL,
+                                 end_data          = NULL,
+                                 start_date_format = NULL,
+                                 end_date_format   = NULL,
+                                 style             = NULL,
+                                 text              = NULL,
+                                 auto_close        = NULL) {
+    appTemp_dir        <- tempdir()
+    appTemp            <- tempfile(pattern = "TestThatApp", tmpdir = appTemp_dir)
+    announcements_file <- paste0(gsub('\\\\|/', '', (gsub(appTemp_dir, "", appTemp, fixed = TRUE))), ".yaml")
+    yaml::write_yaml(list("start_date"        = start_date,
+                          "end_date"          = end_data,
+                          "start_date_format" = start_date_format,
+                          "end_date_format"   = end_date_format,
+                          "style"             = style,
+                          "text"              = text,
+                          "auto_close"        = auto_close),
+                     announcements_file)
+    yaml::read_yaml(announcements_file)
+    periscope2::set_app_parameters(title              = "title",
+                                   announcements_file = announcements_file)
+    announce_output <- load_announcements()
+    unlink(announcements_file, TRUE)
+    announce_output
+}
+
+#########################################
+
 test_that("add_ui_header", {
     # no header
     expect_null(shiny::isolate(periscope2:::.g_opts$header))
@@ -205,25 +234,68 @@ test_that("set_app_parameters default values", {
     expect_equal(shiny::isolate(periscope2:::.g_opts$app_version), "1.0.0")
     expect_null(shiny::isolate(periscope2:::.g_opts$loading_indicator))
     expect_null(shiny::isolate(periscope2:::.g_opts$announcements_file))
+    expect_null(load_announcements())
 })
 
 test_that("set_app_parameters update values", {
-    periscope2::set_app_parameters(title              = "periscope Example Application",
-                                   app_info           = HTML("Demonstrat periscope features and generated application layout"),
-                                   log_level          = "INFO",
-                                   app_version        = "2.3.1",
-                                   loading_indicator  = list(html = tagList(div("Loading ..."))),
-                                   announcements_file = "./program/config/announce.yaml")
+    announcements_file <- system.file("fw_templ", "announce.yaml", package = "periscope2")
+    title              <- "periscope Example Application"
+    app_info           <- HTML("Demonstrat periscope features and generated application layout")
+    log_level          <- "INFO"
+    app_version        <- "2.3.1"
+    loading_indicator  <- list(html = tagList(div("Loading ...")))
 
-    expect_equal(shiny::isolate(periscope2:::.g_opts$app_title), "periscope Example Application")
+    periscope2::set_app_parameters(title              = title,
+                                   app_info           = app_info,
+                                   log_level          = log_level,
+                                   app_version        = app_version,
+                                   loading_indicator  = loading_indicator,
+                                   announcements_file = announcements_file)
+
+    expect_equal(shiny::isolate(periscope2:::.g_opts$app_title), title)
     expect_snapshot(shiny::isolate(periscope2:::.g_opts$app_info))
-    expect_equal(shiny::isolate(periscope2:::.g_opts$loglevel), "INFO")
-    expect_equal(shiny::isolate(periscope2:::.g_opts$app_version), "2.3.1")
+    expect_equal(shiny::isolate(periscope2:::.g_opts$loglevel), log_level)
+    expect_equal(shiny::isolate(periscope2:::.g_opts$app_version), app_version)
     expect_snapshot(shiny::isolate(periscope2:::.g_opts$loading_indicator))
-    expect_equal(shiny::isolate(periscope2:::.g_opts$announcements_file), "./program/config/announce.yaml")
-    expect_equal( periscope2:::fw_get_loglevel(), "INFO")
-    expect_equal(periscope2:::fw_get_title(), "periscope Example Application")
-    expect_equal(periscope2:::fw_get_version(), "2.3.1")
+    expect_equal(shiny::isolate(periscope2:::.g_opts$announcements_file), announcements_file)
+    expect_equal(load_announcements(), 30000)
+    expect_equal( periscope2:::fw_get_loglevel(), log_level)
+    expect_equal(periscope2:::fw_get_title(), title)
+    expect_equal(periscope2:::fw_get_version(), app_version)
+})
+
+test_that("load_announcements empty file", {
+    # test empty announcement
+    appTemp_dir        <- tempdir()
+    appTemp            <- tempfile(pattern = "TestThatApp", tmpdir = appTemp_dir)
+    announcements_file <- paste0(gsub('\\\\|/', '', (gsub(appTemp_dir, "", appTemp, fixed = TRUE))), ".yaml")
+    yaml::write_yaml("", announcements_file)
+
+    periscope2::set_app_parameters(title              = "title",
+                                   announcements_file = announcements_file)
+    expect_null(load_announcements())
+    unlink(announcements_file, TRUE)
+})
+
+test_that("load_announcements start and end dates", {
+    expect_null(create_announcements(start_date = "11-26-2022",
+                                     end_data   = "12-26-2022"))
+    expect_null(create_announcements(start_date        = "11-26-2022",
+                                     end_data          = "12-26-2022",
+                                     start_date_format = "%m-%d-%y",
+                                     end_date_format   = "%m-%d-%y"))
+    expect_null(create_announcements(start_date        = "11-26-2022",
+                                     end_data          = "12-26-2022",
+                                     end_date_format   = "%m-%d-%y"))
+    expect_null(create_announcements(start_date        = "11-26-2022",
+                                     end_data          = "12-26-2022",
+                                     start_date_format = "%m-%d-%y"))
+    expect_null(create_announcements(start_date        = "11-26-2022",
+                                     start_date_format = "%m-%d-%y"))
+    expect_null(create_announcements(style = "info"))
+    expect_null(create_announcements(style      = "info",
+                                     text       = "text",
+                                     auto_close = "abc"))
 })
 
 test_that("ui_tooltip", {

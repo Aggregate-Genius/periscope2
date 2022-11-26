@@ -88,13 +88,17 @@ createAlert <- function(id = NULL, selector = NULL, options, session = shiny::ge
         stop("Please choose either target or selector!")
     }
 
-    message <- bs4Dash:::dropNulls(list(
-        id = if (!is.null(id)) session$ns(id),
-        selector = selector,
-        options = options
-    ))
+    if (!is.null(id) && !is.null(session)) {
+        id = session$ns(id)
+    }
 
-    session$sendCustomMessage("pcreate-alert", message)
+    message <- bs4Dash:::dropNulls(list(id       = id,
+                                        selector = selector,
+                                        options  = options))
+
+    if (!is.null(session)) {
+        session$sendCustomMessage("pcreate-alert", message)
+    }
 }
 
 closeResetAlert <- function(id, session = shiny::getDefaultReactiveDomain()) {
