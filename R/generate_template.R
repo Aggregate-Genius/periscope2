@@ -132,37 +132,63 @@ create_application <- function(name,
                                right_sidebar = FALSE,
                                left_sidebar  = TRUE,
                                footer        = FALSE) {
+    assertthat::assert_that(!missing(name),
+                            length(name) > 0,
+                            name != "",
+                            is.character(name),
+                            msg = "Framework creation could not proceed, please provide valid character application name")
+
+    assertthat::assert_that(!missing(location),
+                            length(location) > 0,
+                            location != "",
+                            is.character(location),
+                            msg = "Framework creation could not proceed, please provide valid character application location")
+    assertthat::assert_that(dir.exists(location),
+                            msg = paste0("Framework creation could not proceed, path=<", location, "> does not exists!"))
+    if (is.null(sample_app)) {
+        warning("'sample_app' cannot be NULL. Setting 'sample_app' to default value 'FALSE'")
+        sample_app <- FALSE
+    }
+
+    if (is.null(right_sidebar)) {
+        warning("'right_sidebar' cannot be NULL. Setting 'right_sidebar' to default value 'FALSE'")
+        right_sidebar <- FALSE
+    }
+
+    if (is.null(left_sidebar)) {
+        warning("'left_sidebar' cannot be NULL. Setting 'left_sidebar' to default value 'TRUE'")
+        left_sidebar <- TRUE
+    }
+
+    if (is.null(footer)) {
+        warning("'left_sidebar' cannot be NULL. Setting 'footer' to default value 'FALSE'")
+        footer <- FALSE
+    }
+
+    usersep <- .Platform$file.sep
+    newloc  <- paste(location, name, sep = usersep)
+
+    assertthat::assert_that(dir.exists(location),
+                            msg = paste0("Framework creation could not proceed, path=<", newloc, "> already exists!"))
+
     application_created <- FALSE
 
     tryCatch({
-        if (!dir.exists(location)) {
-            warning("Framework creation could not proceed, path=<", location, "> does not exists!")
-        } else {
-            usersep <- .Platform$file.sep
-            newloc  <- paste(location, name, sep = usersep)
-
-            if (dir.exists(newloc)) {
-                warning("Framework creation could not proceed, path=<", newloc, "> already exists!")
-            } else if (!(dir.exists(location))) {
-                warning("Framework creation could not proceed, location=<", location, "> does not exist!")
-            } else {
-                .create_dirs(newloc  = newloc,
-                             usersep = usersep)
-                .copy_fw_files(newloc            = newloc,
-                               usersep           = usersep,
-                               left_sidebar      = left_sidebar,
-                               right_sidebar     = right_sidebar,
-                               footer            = footer,
-                               sample_app        = sample_app)
-                .copy_program_files(newloc        = newloc,
-                                    usersep       = usersep,
-                                    sample_app    = sample_app,
-                                    left_sidebar  = left_sidebar,
-                                    right_sidebar = right_sidebar,
-                                    footer        = footer)
-            }
-            application_created <- TRUE
-        }
+        .create_dirs(newloc  = newloc,
+                     usersep = usersep)
+        .copy_fw_files(newloc            = newloc,
+                       usersep           = usersep,
+                       left_sidebar      = left_sidebar,
+                       right_sidebar     = right_sidebar,
+                       footer            = footer,
+                       sample_app        = sample_app)
+        .copy_program_files(newloc        = newloc,
+                            usersep       = usersep,
+                            sample_app    = sample_app,
+                            left_sidebar  = left_sidebar,
+                            right_sidebar = right_sidebar,
+                            footer        = footer)
+        application_created <- TRUE
     },
     error = function(e) {
         warning("Framework creation could not proceed due to:", e$message)
