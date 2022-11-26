@@ -299,8 +299,16 @@ test_that("load_announcements function parameters", {
                                      auto_close = "abc"))
 })
 
-test_that("create_theme", {
-    expect_snapshot(periscope2:::create_theme())
+test_that("load_theme_settings - null settings", {
+    stub(load_theme_settings, "file.exists", TRUE)
+    expect_snapshot(load_theme_settings())
+})
+
+test_that("create_theme - full settings", {
+    stub(where = create_theme,
+         what  = "load_theme_settings",
+         how   = yaml::read_yaml(system.file("fw_templ", "p_example", "periscope_style.yaml", package = "periscope2")))
+    expect_snapshot(create_theme())
 })
 
 test_that("ui_tooltip", {

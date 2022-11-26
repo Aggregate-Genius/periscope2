@@ -100,78 +100,68 @@ create_theme <- function() {
     button_colors_keys   <- c("button_background_color", "button_color", "button_border_color")
     all_colors_keys      <- c(status_keys, layout_colors_keys, sidebar_colors_keys,
                               layout_measures_keys, button_colors_keys)
+    theme_settings       <- load_theme_settings()
 
-    if (file.exists("www/periscope_style.yaml")) {
-        theme_settings <- tryCatch({
-            yaml::read_yaml("www/periscope_style.yaml")
-        },
-        error = function(e){
-            warning("Could not parse 'periscope_style.yaml' due to: ", e$message)
-            NULL
-        })
-
-        if (!is.null(theme_settings) && is.list(theme_settings)) {
-            for (color in all_colors_keys) {
-                if (!is_valid_color(theme_settings[[color]])) {
-                    warning(color, " has invalid color value. Setting default color.")
-                    theme_settings[[color]] <- NULL
-                }
+    if (!is.null(theme_settings) && is.list(theme_settings)) {
+        for (color in all_colors_keys) {
+            if (!is_valid_color(theme_settings[[color]])) {
+                warning(color, " has invalid color value. Setting default color.")
+                theme_settings[[color]] <- NULL
             }
-
-            # statuses
-            primary   <- theme_settings[["primary"]]
-            secondary <- theme_settings[["secondary"]]
-            success   <- theme_settings[["success"]]
-            info      <- theme_settings[["info"]]
-            warning   <- theme_settings[["warning"]]
-            danger    <- theme_settings[["danger"]]
-            light     <- theme_settings[["light"]]
-            dark      <- theme_settings[["dark"]]
-
-            # layout colors
-            main_background_color <- theme_settings[["main_background_color"]]
-
-            ## sidebar colors
-            sidebar_background_color        <- theme_settings[["sidebar_background_color"]]
-            sidebar_background_hover_color  <- theme_settings[["sidebar_background_hover_color"]]
-            sidebar_hover_color             <- theme_settings[["sidebar_hover_color"]]
-            sidebar_color                   <- theme_settings[["sidebar_color"]]
-            sidebar_active_color            <- theme_settings[["sidebar_active_color"]]
-            submenu_background_color        <- theme_settings[["submenu_background_color"]]
-            submenu_color                   <- theme_settings[["submenu_color"]]
-            submenu_hover_color             <- theme_settings[["submenu_hover_color"]]
-            submenu_background_hover_color  <- theme_settings[["submenu_background_hover_color"]]
-            submenu_active_color            <- theme_settings[["submenu_active_color"]]
-            submenu_active_background_color <- theme_settings[["submenu_active_background_color"]]
-            header_color                    <- theme_settings[["header_color"]]
-
-            ## button colors
-            button_background_color <- theme_settings[["button_background_color"]]
-            button_color            <- theme_settings[["button_color"]]
-            button_border_color     <- theme_settings[["button_border_color"]]
-
-            for (measure_key in layout_measures_keys) {
-                measure <- theme_settings[[measure_key]]
-
-                if (!is.null(measure)) {
-                    if (any(!is.numeric(measure), measure <= 0)) {
-                        warning(measure, " must be positive value. Setting default value.")
-                        theme_settings[[measure_key]] <- NULL
-                    } else {
-                        theme_settings[[measure_key]] <- paste0(measure, "px")
-                    }
-                }
-            }
-
-            sidebar_width                   <- theme_settings[["sidebar_width"]]
-            sidebar_horizontal_padding      <- theme_settings[["sidebar_horizontal_padding"]]
-            sidebar_vertical_padding        <- theme_settings[["sidebar_vertical_padding"]]
-            sidebar_mini_width              <- theme_settings[["sidebar_mini_width"]]
-            right_sidebar_width             <- theme_settings[["right_sidebar_width"]]
-            main_content_horizontal_padding <- theme_settings[["main_content_horizontal_padding"]]
-            main_content_vertical_padding   <- theme_settings[["main_content_vertical_padding"]]
-
         }
+
+        # statuses
+        primary   <- theme_settings[["primary"]]
+        secondary <- theme_settings[["secondary"]]
+        success   <- theme_settings[["success"]]
+        info      <- theme_settings[["info"]]
+        warning   <- theme_settings[["warning"]]
+        danger    <- theme_settings[["danger"]]
+        light     <- theme_settings[["light"]]
+        dark      <- theme_settings[["dark"]]
+
+        # layout colors
+        main_background_color <- theme_settings[["main_background_color"]]
+
+        ## sidebar colors
+        sidebar_background_color        <- theme_settings[["sidebar_background_color"]]
+        sidebar_background_hover_color  <- theme_settings[["sidebar_background_hover_color"]]
+        sidebar_hover_color             <- theme_settings[["sidebar_hover_color"]]
+        sidebar_color                   <- theme_settings[["sidebar_color"]]
+        sidebar_active_color            <- theme_settings[["sidebar_active_color"]]
+        submenu_background_color        <- theme_settings[["submenu_background_color"]]
+        submenu_color                   <- theme_settings[["submenu_color"]]
+        submenu_hover_color             <- theme_settings[["submenu_hover_color"]]
+        submenu_background_hover_color  <- theme_settings[["submenu_background_hover_color"]]
+        submenu_active_color            <- theme_settings[["submenu_active_color"]]
+        submenu_active_background_color <- theme_settings[["submenu_active_background_color"]]
+        header_color                    <- theme_settings[["header_color"]]
+
+        ## button colors
+        button_background_color <- theme_settings[["button_background_color"]]
+        button_color            <- theme_settings[["button_color"]]
+        button_border_color     <- theme_settings[["button_border_color"]]
+
+        for (measure_key in layout_measures_keys) {
+            measure <- theme_settings[[measure_key]]
+
+            if (!is.null(measure)) {
+                if (any(!is.numeric(measure), measure <= 0)) {
+                    warning(measure, " must be positive value. Setting default value.")
+                    theme_settings[[measure_key]] <- NULL
+                } else {
+                    theme_settings[[measure_key]] <- paste0(measure, "px")
+                }
+            }
+        }
+
+        sidebar_width                   <- theme_settings[["sidebar_width"]]
+        sidebar_horizontal_padding      <- theme_settings[["sidebar_horizontal_padding"]]
+        sidebar_vertical_padding        <- theme_settings[["sidebar_vertical_padding"]]
+        sidebar_mini_width              <- theme_settings[["sidebar_mini_width"]]
+        right_sidebar_width             <- theme_settings[["right_sidebar_width"]]
+        main_content_horizontal_padding <- theme_settings[["main_content_horizontal_padding"]]
+        main_content_vertical_padding   <- theme_settings[["main_content_vertical_padding"]]
     }
 
     fresh::create_theme(
@@ -355,4 +345,19 @@ is_valid_format <- function(x, format = NULL) {
     })
 
     valid_format
+}
+
+load_theme_settings <- function() {
+    theme_settings <- NULL
+
+    if (file.exists("www/periscope_style.yaml")) {
+        tryCatch({
+            theme_settings <- yaml::read_yaml("www/periscope_style.yaml")
+        },
+        error = function(e){
+            warning("Could not parse 'periscope_style.yaml' due to: ", e$message)
+        })
+    }
+
+    theme_settings
 }
