@@ -322,6 +322,9 @@ create_application <- function(name,
                                 left_sidebar  = TRUE,
                                 right_sidebar = FALSE,
                                 footer        = FALSE) {
+    file.copy(system.file("fw_templ", "announce.yaml", package = "periscope2"),
+              paste(newloc, "program", "config", "announce.yaml", sep = usersep))
+
     files <- list("global.R"        = "global.R",
                   "server_global.R" = "server_global.R",
                   "server_local.R"  = "server_local.R",
@@ -361,8 +364,7 @@ create_application <- function(name,
                                  "structure.csv"     = "data",
                                  "struc_indx.csv"    = "data",
                                  "program_helpers.R" = "fxn",
-                                 "plots.R"           = "fxn",
-                                 "announce.yaml"     = "config")
+                                 "plots.R"           = "fxn")
         for (file in names(supporting_files)) {
             writeLines(readLines(
                 con = system.file(sourcedir, file,
