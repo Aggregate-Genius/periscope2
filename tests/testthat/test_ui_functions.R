@@ -225,6 +225,7 @@ test_that("add_ui_body example body", {
 
     add_ui_body(list(div("more elements")), append = TRUE)
     expect_snapshot_output(shiny::isolate(periscope2:::.g_opts$body_elements))
+    expect_snapshot(periscope2::create_application_dashboard())
 })
 
 test_that("set_app_parameters default values", {
@@ -277,7 +278,7 @@ test_that("load_announcements empty file", {
     unlink(announcements_file, TRUE)
 })
 
-test_that("load_announcements start and end dates", {
+test_that("load_announcements function parameters", {
     expect_null(create_announcements(start_date = "11-26-2022",
                                      end_data   = "12-26-2022"))
     expect_null(create_announcements(start_date        = "11-26-2022",
@@ -296,6 +297,10 @@ test_that("load_announcements start and end dates", {
     expect_null(create_announcements(style      = "info",
                                      text       = "text",
                                      auto_close = "abc"))
+})
+
+test_that("create_theme", {
+    expect_snapshot(periscope2:::create_theme())
 })
 
 test_that("ui_tooltip", {
