@@ -134,33 +134,37 @@ create_application <- function(name,
                                footer        = FALSE) {
     assertthat::assert_that(!missing(name),
                             length(name) > 0,
+                            !is.na(name),
                             name != "",
                             is.character(name),
                             msg = "Framework creation could not proceed, please provide valid character application name")
 
     assertthat::assert_that(!missing(location),
                             length(location) > 0,
+                            !is.na(location),
                             location != "",
                             is.character(location),
                             msg = "Framework creation could not proceed, please provide valid character application location")
     assertthat::assert_that(dir.exists(location),
                             msg = paste0("Framework creation could not proceed, path=<", location, "> does not exists!"))
-    if (!is.logical(sample_app)) {
+    assertthat::assert_that(assertthat::is.writeable(location),
+                            msg = paste0("Framework creation could not proceed, path=<", location, "> is not writeable!"))
+    if (is.na(sample_app) || !is.logical(sample_app)) {
         warning("'sample_app' must have valid boolean value. Setting 'sample_app' to default value 'FALSE'")
         sample_app <- FALSE
     }
 
-    if (!is.logical(right_sidebar)) {
+    if (is.na(right_sidebar) || !is.logical(right_sidebar)) {
         warning("'right_sidebar' must have valid boolean value. Setting 'right_sidebar' to default value 'FALSE'")
         right_sidebar <- FALSE
     }
 
-    if (!is.logical(left_sidebar)) {
+    if (is.na(left_sidebar) || !is.logical(left_sidebar)) {
         warning("'left_sidebar' must have valid boolean value. Setting 'left_sidebar' to default value 'TRUE'")
         left_sidebar <- TRUE
     }
 
-    if (!is.logical(footer)) {
+    if (is.na(footer) || !is.logical(footer)) {
         warning("'left_sidebar' must have valid boolean value. Setting 'footer' to default value 'FALSE'")
         footer <- FALSE
     }
@@ -168,7 +172,7 @@ create_application <- function(name,
     usersep <- .Platform$file.sep
     newloc  <- paste(location, name, sep = usersep)
 
-    assertthat::assert_that(dir.exists(location),
+    assertthat::assert_that(!dir.exists(newloc),
                             msg = paste0("Framework creation could not proceed, path=<", newloc, "> already exists!"))
 
     application_created <- FALSE
