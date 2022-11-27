@@ -30,8 +30,8 @@
 #' When there is nothing to download in any of the linked downloadfxns the
 #' button will be hidden as there is nothing to download.
 #'
-#' This module is NOT compatible with the built-in (base) graphics \emph{(such as 
-#' basic plot, etc.)} because they cannot be saved into an object and are directly 
+#' This module is NOT compatible with the built-in (base) graphics \emph{(such as
+#' basic plot, etc.)} because they cannot be saved into an object and are directly
 #' output by the system at the time of creation.
 #'
 #' @section Shiny Usage:
@@ -45,15 +45,15 @@
 #' @seealso \link[shiny]{clickOpts}
 #' @seealso \link[shiny]{hoverOpts}
 #' @seealso \link[shiny]{brushOpts}
-#' 
-#' @examples 
+#'
+#' @examples
 #' # Inside ui_body.R or ui_sidebar.R
-#' downloadablePlotUI("object_id1", 
-#'                    downloadtypes = c("png", "csv"), 
+#' downloadablePlotUI("object_id1",
+#'                    downloadtypes = c("png", "csv"),
 #'                    download_hovertext = "Download the plot and data here!",
-#'                    height = "500px", 
+#'                    height = "500px",
 #'                    btn_halign = "left")
-#' 
+#'
 #' @export
 downloadablePlotUI <- function(id,
                                downloadtypes      = c("png"),
@@ -113,12 +113,12 @@ downloadablePlotUI <- function(id,
                                    hover    = hoverOpts,
                                    brush    = brushOpts)
     module_output <- list(plot_item, btn_item)
-     
+
     if (!btn_overlap && (btn_valign == "top")) {
         module_output <- list(btn_item, plot_item)
     }
-    
-    module_output 
+
+    module_output
 }
 
 #' downloadablePlot Module
@@ -154,10 +154,10 @@ downloadablePlotUI <- function(id,
 #'
 #' @seealso \link[periscope]{downloadablePlotUI}
 #'
-#' @examples 
+#' @examples
 #' # Inside server_local.R
-#' 
-#' # downloadablePlot("object_id1", 
+#'
+#' # downloadablePlot("object_id1",
 #' #                  logger = ss_userAction.Log,
 #' #                  filenameroot = "mydownload1",
 #' #                  aspectratio = 1.33,
@@ -175,12 +175,12 @@ downloadablePlot <- function(id,
         id,
         function(input, output, session) {
             downloadFile("dplotButtonID", logger, filenameroot, downloadfxns, aspectratio)
-            
-            dpInfo <- shiny::reactiveValues(visibleplot = NULL,
+
+            dpInfo <- shiny::reactiveValues(visibleplot  = NULL,
                                             downloadfxns = NULL)
-            
+
             shiny::observe({
-                dpInfo$visibleplot <- visibleplot()
+                dpInfo$visibleplot   <- visibleplot()
                 output$dplotOutputID <- shiny::renderPlot({
                     plot <- dpInfo$visibleplot
                     if (inherits(plot, "grob")) {
@@ -189,11 +189,11 @@ downloadablePlot <- function(id,
                     plot
                 })
             })
-            
+
             shiny::observe({
                 if (!is.null(downloadfxns) && (length(downloadfxns) > 0)) {
                     dpInfo$downloadfxns <- lapply(downloadfxns, do.call, list())
-                    
+
                     rowct <- lapply(dpInfo$downloadfxns, is.null)
                     session$sendCustomMessage(
                         "downloadbutton_toggle",
@@ -201,5 +201,5 @@ downloadablePlot <- function(id,
                                        rows = sum(unlist(rowct) == FALSE)) )
                 }
             })
-        }) 
+        })
 }

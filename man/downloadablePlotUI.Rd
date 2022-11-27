@@ -60,8 +60,8 @@ produced graphics.
 When there is nothing to download in any of the linked downloadfxns the
 button will be hidden as there is nothing to download.
 
-This module is NOT compatible with the built-in (base) graphics \emph{(such as 
-basic plot, etc.)} because they cannot be saved into an object and are directly 
+This module is NOT compatible with the built-in (base) graphics \emph{(such as
+basic plot, etc.)} because they cannot be saved into an object and are directly
 output by the system at the time of creation.
 }
 
@@ -75,10 +75,10 @@ in server.R
 
 \examples{
 # Inside ui_body.R or ui_sidebar.R
-downloadablePlotUI("object_id1", 
-                   downloadtypes = c("png", "csv"), 
+downloadablePlotUI("object_id1",
+                   downloadtypes = c("png", "csv"),
                    download_hovertext = "Download the plot and data here!",
-                   height = "500px", 
+                   height = "500px",
                    btn_halign = "left")
 
 }

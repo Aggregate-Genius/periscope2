@@ -1,7 +1,8 @@
 context("periscope2 - downloadablePlot")
 
+local_edition(3)
 test_that("downloadablePlotUI btn_overlap=true btn_halign=left btn_valign=bottom", {
-    local_edition(3)
+
     expect_snapshot_output(downloadablePlotUI(id                 = "myid",
                                               downloadtypes      = c("png"),
                                               download_hovertext = "myhovertext",
@@ -48,7 +49,7 @@ test_that("downloadablePlotUI invalid btn_halign", {
 
 test_that("downloadablePlotUI invalid btn_valign", {
 
-    expect_warning(downloadablePlotUI(id                 = "myid",
+    expect_snapshot(downloadablePlotUI(id                 = "myid",
                                       downloadtypes      = c("png"),
                                       download_hovertext = "myhovertext",
                                       width              = "80%",
@@ -58,8 +59,7 @@ test_that("downloadablePlotUI invalid btn_valign", {
                                       btn_overlap        = FALSE,
                                       clickOpts          = NULL,
                                       hoverOpts          = NULL,
-                                      brushOpts          = NULL),
-                   "center  is not a valid btn_valign input - using default value. Valid values: <'top', 'bottom'>")
+                                      brushOpts          = NULL))
 })
 
 test_that("downloadablePlot", {
@@ -78,14 +78,23 @@ test_that("downloadablePlot", {
         head(mtcars)
     }
 
-   testthat::expect_silent(testServer(downloadablePlot,
+   testServer(downloadablePlot,
                args = list(logger = periscope2:::fw_get_user_log(),
                            filenameroot = "mydownload1",
                            aspectratio  = 2,
                            downloadfxns = list(png  = download_plot,
+                                               png2 = download_plot,
                                                tiff = download_plot,
                                                txt  = download_data,
                                                tsv  = download_data),
-                           visibleplot = download_plot),
-               expr = {}))
+                           visibleplot  = download_plot),
+               expr = {
+                   session$setInputs(visibleplot = download_plot)
+                   session$setInputs(downloadfxns = list(png  = download_plot,
+                                                         png2 = download_plot,
+                                                         tiff = download_plot,
+                                                         txt  = download_data,
+                                                         tsv  = download_data))
+                   expect_equal(output$dplotOutputID$width, 600)
+               })
 })

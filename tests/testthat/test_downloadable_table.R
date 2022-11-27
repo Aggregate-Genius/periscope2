@@ -111,7 +111,6 @@ test_that("downloadableTable - invalid_selection", {
 })
 
 test_that("build_datatable_arguments", {
-    local_edition(3)
     table_options <- list(rownames = FALSE,
                           callback   = "table.order([2, 'asc']).draw();",
                           caption    = " Very Important Information",
@@ -128,7 +127,6 @@ test_that("build_datatable_arguments", {
 
 
 test_that("format_columns", {
-    local_edition(3)
     set.seed(123)
     dt           <- cbind(matrix(rnorm(60, 1e5, 1e6), 20), runif(20), rnorm(20, 100))
     dt[, 1:3]    <- round(dt[, 1:3])

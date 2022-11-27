@@ -41,7 +41,7 @@ server.R using the same id provided in \code{downloadFileButton}:
 # Inside server_local.R
 
 #single download type
-# downloadFile("object_id1", 
+# downloadFile("object_id1",
 #              logger = ss_userAction.Log,
 #              filenameroot = "mydownload1",
 #              datafxns = list(csv = mydatafxn1),
