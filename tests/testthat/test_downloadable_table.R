@@ -1,8 +1,7 @@
 context("periscope2 - downloadable table")
-
+local_edition(3)
 
 test_that("downloadableTableUI", {
-    local_edition(3)
     expect_snapshot_output(downloadableTableUI(id            = "myid",
                                                downloadtypes = c("csv"),
                                                hovertext     = "myHoverText"))
@@ -10,7 +9,13 @@ test_that("downloadableTableUI", {
 
 # helper functions
 data <- reactive({
-    c(1,2)
+    head(mtcars)
+})
+
+data_without_rownames <- reactive({
+    sub_data           <- head(mtcars)
+    rownames(sub_data) <- NULL
+    sub_data
 })
 
 mydataRowIds <- function(){
@@ -18,43 +23,72 @@ mydataRowIds <- function(){
 }
 
 test_that("downloadableTable - singleSelect_FALSE_selection_enabled", {
-        expect_silent(testServer(downloadableTable,
-                                 args = list(logger           = periscope2:::fw_get_user_log(),
-                                             filenameroot     = "mydownload1",
-                                             downloaddatafxns = list(csv = data, tsv = data),
-                                             tabledata        = data,
-                                             selection        = mydataRowIds),
-                                 expr = {}))
+        testServer(downloadableTable,
+                   args = list(logger           = periscope2:::fw_get_user_log(),
+                               filenameroot     = "mydownload1",
+                               downloaddatafxns = list(csv = data, tsv = data),
+                               tabledata        = data,
+                               selection        = mydataRowIds),
+                   expr = {
+                       session$setInputs(dtableSingleSelect = "FALSE")
+                       expect_snapshot(output$dtableOutputID)
+
+                   })
 })
 
-test_that("downloadableTable - free_parameters", {
-    expect_silent(testServer(downloadableTable,
-                             args = list(logger           = periscope2:::fw_get_user_log(),
-                                         filenameroot     = "mydownload1",
-                                         downloaddatafxns = list(csv = data, tsv = data),
-                                         tabledata        = data,
-                                         selection        = mydataRowIds),
-                             expr = {}))
+test_that("downloadableTable - null data", {
+    testServer(downloadableTable,
+               args = list(logger           = periscope2:::fw_get_user_log(),
+                           filenameroot     = "mydownload1",
+                           tabledata        = function() { NULL }),
+               expr = {
+                   session$setInputs(dtableSingleSelect = "FALSE")
+                   expect_snapshot(output$dtableOutputID)
+
+               })
 })
 
-test_that("downloadableTable - new module call", {
-    expect_silent(testServer(downloadableTable,
-                             args = list(logger           = periscope2:::fw_get_user_log(),
-                                         filenameroot     = "mydownload1",
-                                         downloaddatafxns = list(csv = data, tsv = data),
-                                         tabledata        = data,
-                                         selection        = mydataRowIds),
-                             expr = {}))
+test_that("downloadableTable - invalid download option", {
+    testServer(downloadableTable,
+               args = list(logger           = periscope2:::fw_get_user_log(),
+                           filenameroot     = "mydownload1",
+                           downloaddatafxns = list(sv = data),
+                           tabledata        = data,
+                           selection        = mydataRowIds),
+               expr = {
+                   session$setInputs(dtableSingleSelect = "FALSE")
+                   expect_snapshot(output$dtableOutputID)
+
+               })
 })
 
 test_that("downloadableTable - singleSelect_TRUE_selection_enabled", {
-    expect_silent(testServer(downloadableTable,
-                             args = list(logger           = periscope2:::fw_get_user_log(),
-                                         filenameroot     = "mydownload1",
-                                         downloaddatafxns = list(csv = data, tsv = data),
-                                         tabledata        = data,
-                                         selection        = mydataRowIds),
-                             expr = {}))
+    testServer(downloadableTable,
+               args = list(logger           = periscope2:::fw_get_user_log(),
+                           filenameroot     = "mydownload1",
+                           downloaddatafxns = list(csv = data, tsv = data),
+                           tabledata        = data,
+                           selection        = mydataRowIds),
+               expr = {
+                   session$setInputs(dtableSingleSelect = "TRUE")
+                   expect_snapshot(output$dtableOutputID)
+
+               })
+})
+
+test_that("downloadableTable - null rownames", {
+
+    testServer(downloadableTable,
+               args = list(logger           = periscope2:::fw_get_user_log(),
+                           filenameroot     = "mydownload1",
+                           downloaddatafxns = list(csv = data_without_rownames, tsv = data_without_rownames),
+                           tabledata        = data_without_rownames,
+                           selection        = NULL),
+               expr = {
+                   session$setInputs(dtableSingleSelect = "FALSE")
+                   expect_snapshot(output$dtableOutputID)
+
+               })
 })
 
 test_that("downloadableTable - singleSelect and selection disabled", {
@@ -96,10 +130,10 @@ test_that("build_datatable_arguments", {
 test_that("format_columns", {
     local_edition(3)
     set.seed(123)
-    dt           <-  cbind(matrix(rnorm(60, 1e5, 1e6), 20), runif(20), rnorm(20, 100))
+    dt           <- cbind(matrix(rnorm(60, 1e5, 1e6), 20), runif(20), rnorm(20, 100))
     dt[, 1:3]    <- round(dt[, 1:3])
     dt[, 4:5]    <- round(dt[, 4:5], 7)
-    colnames(dt) <- head(LETTERS, ncol(dt))
+    colnames(dt) <- head(LETTERS, NCOL(dt))
     expect_snapshot(format_columns(DT::datatable(dt),
                                    list(formatCurrency   = list(columns = c("A", "C")),
                                         formatPercentage = list(columns = c("D"), 2))))

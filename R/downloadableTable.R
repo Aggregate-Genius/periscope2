@@ -32,7 +32,7 @@
 #'
 #' @section Notes:
 #' When there are no rows to download in any of the linked downloaddatafxns the
-#' button will be hidden as there is nothing to download. 
+#' button will be hidden as there is nothing to download.
 #'
 #' @section Shiny Usage:
 #' Call this function at the place in ui.R where the table should be placed.
@@ -43,14 +43,14 @@
 #' @seealso \link[periscope]{downloadableTable}
 #' @seealso \link[periscope]{downloadFileButton}
 #'
-#' @examples 
+#' @examples
 #' # Inside ui_body.R or ui_sidebar.R
-#' downloadableTableUI("object_id1", 
-#'                     downloadtypes = c("csv", "tsv"), 
+#' downloadableTableUI("object_id1",
+#'                     downloadtypes = c("csv", "tsv"),
 #'                     hovertext = "Download the data here!",
 #'                     contentHeight = "300px",
 #'                     singleSelect = FALSE)
-#' 
+#'
 #' @export
 downloadableTableUI <- function(id,
                                 downloadtypes = c("csv"),
@@ -87,19 +87,19 @@ downloadableTableUI <- function(id,
 #' Server-side function for the downloadableTableUI.  This is a custom
 #' high-functionality table paired with a linked downloadFile
 #' button.
-#' 
+#'
 #' Generated table can highly customized using function \code{?DT::datatable} same arguments
-#'  except for `options` and `selection` parameters. 
-#'  
-#' For `options` user can pass the same \code{?DT::datatable} options using the same names and 
+#'  except for `options` and `selection` parameters.
+#'
+#' For `options` user can pass the same \code{?DT::datatable} options using the same names and
 #' values one by one separated by comma.
-#'  
+#'
 #' For `selection` parameter it can be either a function or reactive expression providing the row_ids of the
 #' rows that should be selected.
-#' 
+#'
 #' Also, user can apply the same provided \code{?DT::formatCurrency} columns formats on passed
 #' dataset using format functions names as keys and their options as a list.
-#'  
+#'
 #'
 #' @param ... free parameters list to pass table customization options. See example below.
 #'            \emph{Note}: The first argument of this function must be the ID of the Module's UI element
@@ -120,9 +120,9 @@ downloadableTableUI <- function(id,
 #'
 #' @section Notes:
 #'  \itemize{
-#'   \item When there are no rows to download in any of the linked downloaddatafxns 
+#'   \item When there are no rows to download in any of the linked downloaddatafxns
 #'   the button will be hidden as there is nothing to download.
-#'   \item \code{selection} parameter has different usage than DT::datatable \code{selection} option. 
+#'   \item \code{selection} parameter has different usage than DT::datatable \code{selection} option.
 #'   See parameters usage section.
 #'   \item DT::datatable options \code{editable}, \code{width} and \code{height} are not supported
 #' }
@@ -139,11 +139,11 @@ downloadableTableUI <- function(id,
 #'
 #' @seealso \link[periscope]{downloadableTableUI}
 #'
-#' @examples 
+#' @examples
 #' # Inside server_local.R
-#' 
+#'
 #' # selectedrows <- downloadableTable(
-#' #     "object_id1", 
+#' #     "object_id1",
 #' #     logger = ss_userAction.Log,
 #' #     filenameroot = "mydownload1",
 #' #     downloaddatafxns = list(csv = mydatafxn1, tsv = mydatafxn2),
@@ -157,42 +157,42 @@ downloadableTableUI <- function(id,
 #' #     height = "50px",
 #' #     extensions = 'Buttons',
 #' #     plugins = 'natural',
-#' #     editable = TRUE, 
-#' #     dom = 'Bfrtip', 
+#' #     editable = TRUE,
+#' #     dom = 'Bfrtip',
 #' #     buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
 #' #     formatStyle = list(columns = c('Area'),  color = 'red'),
-#' #     formatStyle = list(columns = c('Increase'), color = DT::styleInterval(0, c('red', 'green'))), 
+#' #     formatStyle = list(columns = c('Increase'), color = DT::styleInterval(0, c('red', 'green'))),
 #' #     formatCurrency = list(columns = c('Delta')))
-#' 
+#'
 #' # selectedrows is the reactive return value, captured for later use
-#' 
+#'
 #' @export
 downloadableTable <- function(id,
                               logger,
-                              filenameroot, 
+                              filenameroot,
                               downloaddatafxns = list(),
                               tabledata,
-                              selection = NULL,
-                              table_options = list()) {
-    shiny::moduleServer(id, 
+                              selection        = NULL,
+                              table_options    = list()) {
+    shiny::moduleServer(id,
                         function(input, output, session) {
                             if (all(!is.null(selection),
                                     is.character(selection))) {
                                 message("'selection' parameter must be a function or reactive expression. Setting default value NULL.")
                                 selection <- NULL
                             }
-                            
+
                             downloadFile("dtableButtonID", logger, filenameroot, downloaddatafxns)
-                            
+
                             session$sendCustomMessage("downloadbutton_toggle",
                                                       message = list(btn  = session$ns("dtableButtonDiv"),
                                                                      rows = -1))
-                            
+
                             dtInfo <- shiny::reactiveValues(selection        = NULL,
                                                             selected         = NULL,
                                                             tabledata        = NULL,
                                                             downloaddatafxns = NULL)
-                            
+
                             shiny::observe({
                                 result <- list(mode = ifelse(input$dtableSingleSelect == "TRUE", "single", "multiple"))
                                 if (!is.null(selection)) {
@@ -205,50 +205,50 @@ downloadableTable <- function(id,
                                 }
                                 dtInfo$selection <- result
                             })
-                            
+
                             shiny::observe({
                                 dtInfo$selected  <- input$dtableOutputID_rows_selected
                             })
-                            
+
                             shiny::observe({
                                 dtInfo$tabledata <- tabledata()
                             })
-                            
+
                             shiny::observe({
                                 dtInfo$downloaddatafxns <- lapply(downloaddatafxns, do.call, list())
-                                
-                                rowct <- lapply(dtInfo$downloaddatafxns, nrow)
+
+                                rowct <- lapply(dtInfo$downloaddatafxns, NROW)
                                 session$sendCustomMessage("downloadbutton_toggle",
                                                           message = list(btn  = session$ns("dtableButtonDiv"),
                                                                          rows = sum(unlist(rowct))))
                             })
-                            
+
                             output$dtableOutputID <- DT::renderDataTable({
                                 sourcedata <- dtInfo$tabledata
-                                
-                                if (!is.null(sourcedata) && nrow(sourcedata) > 0) {
+
+                                if (NROW(sourcedata) > 0) {
                                     row.names <- rownames(sourcedata)
-                                    row.ids   <- as.character(seq(1:nrow(sourcedata)))
+                                    row.ids   <- as.character(seq(1:NROW(sourcedata)))
                                     if (is.null(row.names) || identical(row.names, row.ids)) {
                                         DT_RowId <- paste0("rowid_", row.ids)
                                         rownames(sourcedata) <- DT_RowId
                                     }
                                 }
-                                
+
                                 if (is.null(table_options[["scrollY"]])) {
                                     table_options[["scrollY"]] <- input$dtableOutputHeight
                                 }
-                                
+
                                 table_options[["selection"]] <- dtInfo$selection
-                                
+
                                 if (is.null(table_options[["escape"]])) {
                                     table_options[["escape"]] <- FALSE
                                 }
-                                
+
                                 if (is.null(table_options[["rownames"]])) {
                                     table_options[["rownames"]] <- FALSE
                                 }
-                                
+
                                 # get format functions
                                 format_options_idx <- which(startsWith(names(table_options), "format"))
                                 format_options <- table_options[format_options_idx]
@@ -257,16 +257,16 @@ downloadableTable <- function(id,
                                 } else {
                                     dt_args <- build_datatable_arguments(table_options)
                                 }
-                                
+
                                 if (is.null(sourcedata)) {
                                     sourcedata <- data.frame()
                                 }
-                                
+
                                 dt_args[["data"]] <- sourcedata
-                                
+
                                 tryCatch({
                                     dt <- do.call(DT::datatable, dt_args)
-                                    
+
                                     if ((length(format_options) > 0) && (NROW(dt_args$data) > 0)) {
                                         dt <- format_columns(dt, format_options)
                                     }
@@ -277,11 +277,11 @@ downloadableTable <- function(id,
                                     DT::datatable(sourcedata)
                                 })
                             })
-                            
-                            
+
+
                             shiny::reactive({
-                                return(shiny::isolate(dtInfo$tabledata)[dtInfo$selected, ])
-                            }) 
+                                shiny::isolate(dtInfo$tabledata)[dtInfo$selected, ]
+                            })
                         })
 }
 
@@ -297,38 +297,38 @@ build_datatable_arguments <- function(table_options) {
             message("DT option '", option ,"' is not supported. Ignoring it.")
             next
         }
-        
+
         if (option %in% formal_dt_args) {
             dt_args[[option]] <- table_options[[option]]
         } else {
             options[[option]] <- table_options[[option]]
         }
     }
-    
+
     if (is.null(options[["deferRender"]])) {
         options[["deferRender"]] <- FALSE
     }
-    
+
     if (is.null(options[["paging"]]) && is.null(table_options[["pageLength"]])) {
         options[["paging"]] <- FALSE
     }
-    
+
     if (is.null(options[["scrollX"]])) {
         options[["scrollX"]] <- TRUE
     }
-    
+
     if (is.null(options[["dom"]]) && is.null(table_options[["pageLength"]])) {
         options[["dom"]] <- '<"periscope-downloadable-table-header"f>tr'
     }
-    
+
     if (is.null(options[["processing"]])) {
         options[["processing"]] <- TRUE
     }
-    
+
     if (is.null(options[["rowId"]])) {
         options[["rowId"]] <- 1
     }
-    
+
     if (is.null(options[["searchHighlight"]])) {
         options[["searchHighlight"]] <- TRUE
     }

@@ -153,5 +153,5 @@ test_that("downloadFile - unknown type", {
 
     app <- shinytest::ShinyDriver$new(shinyApp(ui, server))
     app$click("objecid-sv")
-    print(app$getValue("objecid-sv"))
+    expect_error(app$getValue("objecid-sv"))
 })
