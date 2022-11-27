@@ -22,3 +22,11 @@
       </ul>
     </span>
 
+# downloadFileButton invalid type
+
+    <span data-toggle="tooltip" data-placement="top" title="myhovertext">
+      <a id="myid-sv" class="btn btn-default shiny-download-link periscope-download-btn" href="" target="_blank" download>
+        <i class="fas fa-download" role="presentation" aria-label="download icon"></i>
+      </a>
+    </span>
+
