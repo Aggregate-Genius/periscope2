@@ -305,10 +305,38 @@ test_that("load_theme_settings - null settings", {
 })
 
 test_that("create_theme - full settings", {
+    theme_settings                  <- yaml::read_yaml(system.file("fw_templ", "p_example", "periscope_style.yaml",
+                                                                   package = "periscope2"))
+    theme_settings["sidebar_width"] <- 300
+
+
     stub(where = create_theme,
          what  = "load_theme_settings",
-         how   = yaml::read_yaml(system.file("fw_templ", "p_example", "periscope_style.yaml", package = "periscope2")))
-    expect_snapshot(create_theme())
+         how   = theme_settings)
+    expect_snapshot(nchar(create_theme()))
+})
+
+test_that("create_theme - invalid color settings", {
+    theme_settings <- yaml::read_yaml(system.file("fw_templ", "p_example", "periscope_style.yaml", package = "periscope2"))
+
+    theme_settings["primary"] <- "not color"
+
+    stub(where = create_theme,
+         what  = "load_theme_settings",
+         how   = theme_settings)
+    expect_snapshot(nchar(create_theme()))
+})
+
+test_that("create_theme - invalid measure settings", {
+    theme_settings <- yaml::read_yaml(system.file("fw_templ", "p_example", "periscope_style.yaml", package = "periscope2"))
+
+    theme_settings["sidebar_horizontal_padding"] <- "3oo"
+    theme_settings["sidebar_mini_width"]         <- -2
+
+    stub(where = create_theme,
+         what  = "load_theme_settings",
+         how   = theme_settings)
+    expect_snapshot(nchar(create_theme()))
 })
 
 test_that("ui_tooltip", {

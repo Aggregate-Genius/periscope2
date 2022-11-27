@@ -98,8 +98,7 @@ create_theme <- function() {
                              "submenu_background_hover_color", "submenu_active_color",
                              "submenu_active_background_color", "header_color")
     button_colors_keys   <- c("button_background_color", "button_color", "button_border_color")
-    all_colors_keys      <- c(status_keys, layout_colors_keys, sidebar_colors_keys,
-                              layout_measures_keys, button_colors_keys)
+    all_colors_keys      <- c(status_keys, layout_colors_keys, sidebar_colors_keys, button_colors_keys)
     theme_settings       <- load_theme_settings()
 
     if (!is.null(theme_settings) && is.list(theme_settings)) {
