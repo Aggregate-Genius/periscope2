@@ -89,6 +89,7 @@ test_that("create_application sample", {
 })
 
 test_that("create_application sample full app", {
+    local_edition(3)
     appTemp_dir  <- tempdir()
     appTemp      <- tempfile(pattern = "TestThatApp", tmpdir = appTemp_dir)
     appTemp_name <- gsub('\\\\|/', '', (gsub(appTemp_dir, "", appTemp, fixed = TRUE)))

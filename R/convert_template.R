@@ -13,13 +13,9 @@ no_reset_button_expr              <- "fw_create_sidebar\\(resetbutton = FALSE"
 no_reset_button_closed_expr       <- "fw_create_sidebar\\(resetbutton = FALSE\\)"
 
 
-# Checks if the location contains a periscope application.
+# Checks if the location contains a periscope application by checking mandatory structure
 .is_periscope_app <- function(location = ".") {
-    result <- TRUE
-    if (!all(file.exists(file.path(location, c("server.R", "ui.R", "global.R", "program"))))) {
-        result <- FALSE
-    }
-    result
+    all(file.exists(file.path(location, c("server.R", "ui.R", "global.R", "program"))))
 }
 
 #' Add the left sidebar to an existing application.
@@ -40,7 +36,7 @@ add_left_sidebar <- function(location) {
         }
         else {
             usersep <- .Platform$file.sep
-            
+
             files_updated <- c()
             ui_content           <- readLines(con = paste(location, ui_filename, sep = usersep))
             ui_content_formatted <- gsub(" ", "", ui_content)
@@ -52,20 +48,20 @@ add_left_sidebar <- function(location) {
                     new_ui_content <- readLines(con = system.file("fw_templ",  ui_filename, package = "periscope2"))
                 }
                 if (any(grepl("resetbutton=FALSE", ui_content_formatted))) {
-                    new_ui_content <- gsub(create_left_sidebar_closed_expr, no_reset_button_closed_expr, new_ui_content)    
+                    new_ui_content <- gsub(create_left_sidebar_closed_expr, no_reset_button_closed_expr, new_ui_content)
                 }
-                writeLines(new_ui_content, con = paste(location, ui_filename, sep = usersep)) 
-                
-                # add left_sidebar file    
-                writeLines(readLines(con = system.file("fw_templ",  "p_blank", ui_left_sidebar_filename, package = "periscope2")), 
+                writeLines(new_ui_content, con = paste(location, ui_filename, sep = usersep))
+
+                # add left_sidebar file
+                writeLines(readLines(con = system.file("fw_templ",  "p_blank", ui_left_sidebar_filename, package = "periscope2")),
                            con = paste(location, "program", ui_left_sidebar_filename, sep = usersep))
-                
+
                 files_updated <- c(files_updated, c(ui_filename, ui_left_sidebar_filename))
             }
             if (length(files_updated) > 0) {
                 message(paste("Add left sidebar conversion was successful. File(s) updated:",  paste(files_updated, collapse = ", ")))
             } else {
-                message("Left sidebar already available, no conversion needed")  
+                message("Left sidebar already available, no conversion needed")
             }
         }
     },
@@ -93,7 +89,7 @@ add_right_sidebar <- function(location) {
         }
         else {
             usersep <- .Platform$file.sep
-            
+
             files_updated <- c()
             # replace ui by ui_plus (take care of resetbutton!)
             ui_content <- gsub(" ", "", readLines(con = paste(location, ui_filename, sep = usersep)))
@@ -101,10 +97,10 @@ add_right_sidebar <- function(location) {
             if (!any(grepl("fw_create_right_sidebar", ui_content))) {
                 reset_button   <- TRUE
                 new_ui_content <- ui_content
-                if (any(grepl("resetbutton=FALSE", ui_content))) { 
-                    reset_button <- FALSE 
+                if (any(grepl("resetbutton=FALSE", ui_content))) {
+                    reset_button <- FALSE
                 }
-                if (!any(grepl("showsidebar=FALSE", ui_content))) { 
+                if (!any(grepl("showsidebar=FALSE", ui_content))) {
                     new_ui_content <- readLines(con = system.file("fw_templ", ui_plus_filename, package = "periscope2"))
                     if (!reset_button) {
                         new_ui_content <- gsub(create_left_sidebar_closed_expr, no_reset_button_closed_expr, new_ui_content)
@@ -115,19 +111,19 @@ add_right_sidebar <- function(location) {
                         new_ui_content <- gsub(create_left_sidebar_closed_expr, no_reset_button_closed_expr, new_ui_content)
                     }
                 }
-                writeLines(new_ui_content, con = paste(location, ui_filename, sep = usersep))   
-                
-                # add right_sidebar file    
-                writeLines(readLines(con = system.file("fw_templ",  "p_blank", ui_right_sidebar_filename, package = "periscope2")), 
+                writeLines(new_ui_content, con = paste(location, ui_filename, sep = usersep))
+
+                # add right_sidebar file
+                writeLines(readLines(con = system.file("fw_templ",  "p_blank", ui_right_sidebar_filename, package = "periscope2")),
                            con = paste(location, "program", ui_right_sidebar_filename, sep = usersep))
-                
+
                 files_updated <- c(files_updated, c(ui_filename, ui_right_sidebar_filename))
             }
-            
+
             if (length(files_updated) > 0) {
                 message(paste("Add right sidebar conversion was successful. File(s) updated:",  paste(files_updated, collapse = ", ")))
             } else {
-                message("Right sidebar already available, no conversion needed")  
+                message("Right sidebar already available, no conversion needed")
             }
         }
     },
@@ -155,23 +151,23 @@ remove_reset_button <- function(location) {
         }
         else {
             usersep <- .Platform$file.sep
-            
+
             files_updated <- c()
             ui_content <- readLines(con = paste(location, ui_filename, sep = usersep))
             ui_content_formatted <- gsub(" ", "", ui_content)
             # update ui if needed
             if (!any(grepl("resetbutton=FALSE", ui_content_formatted))) {
-                if (any(grepl("showsidebar=FALSE", ui_content_formatted))) { 
-                    message("Left sidebar not available, reset button cannot be removed")  
+                if (any(grepl("showsidebar=FALSE", ui_content_formatted))) {
+                    message("Left sidebar not available, reset button cannot be removed")
                 } else {
                     new_ui_content <- gsub(create_left_sidebar_expr, no_reset_button_expr, ui_content)
-                    writeLines(new_ui_content, 
+                    writeLines(new_ui_content,
                                con = paste(location, ui_filename, sep = usersep))
                     files_updated <- c(files_updated, ui_filename)
                     message(paste("Remove reset button conversion was successful. File(s) updated:",  paste(files_updated, collapse = ",")))
                 }
             } else {
-                message("Reset button already removed, no conversion needed")  
+                message("Reset button already removed, no conversion needed")
             }
         }
     },
@@ -199,26 +195,26 @@ add_reset_button <- function(location) {
         }
         else {
             usersep <- .Platform$file.sep
-            
+
             files_updated <- c()
             ui_content           <- readLines(con = paste(location, ui_filename, sep = usersep))
             ui_content_formatted <- gsub(" ", "", ui_content)
             # update ui if needed
             if (any(grepl("resetbutton=FALSE", ui_content_formatted))) {
-                if (any(grepl("showsidebar=FALSE", ui_content_formatted))) { 
+                if (any(grepl("showsidebar=FALSE", ui_content_formatted))) {
                     message("Left sidebar is not available, please first run 'add_left_sidebar'")
                 } else {
                     new_ui_content <- gsub(no_reset_button_expr, create_left_sidebar_expr, ui_content)
-                    writeLines(new_ui_content, 
+                    writeLines(new_ui_content,
                                con = paste(location, ui_filename, sep = usersep))
                     files_updated <- c(files_updated, ui_filename)
                     message(paste("Add reset button conversion was successful. File(s) updated:",  paste(files_updated, collapse = ",")))
                 }
             } else {
-                if (any(grepl("showsidebar=FALSE", ui_content_formatted))) { 
+                if (any(grepl("showsidebar=FALSE", ui_content_formatted))) {
                     message("Left sidebar is not available, please first run 'add_left_sidebar'")
                 } else {
-                    message("Reset button already available, no conversion needed")  
+                    message("Reset button already available, no conversion needed")
                 }
             }
         }
