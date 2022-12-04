@@ -33,6 +33,7 @@ Imports:
     shinyWidgets
 RoxygenNote: 7.2.1
 Suggests:
+    assertthat,
     knitr,
     rmarkdown,
     testthat (>= 3.0),

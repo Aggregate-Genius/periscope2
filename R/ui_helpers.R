@@ -116,10 +116,10 @@ add_ui_body <- function(body_elements = NULL, append = FALSE) {
         .g_opts$body_elements <- list(shiny::div(id = "bodyAlert"),
                                       shiny::div(id = "head",
                                                  shinyjs::useShinyjs(),
-                                                 shiny::tags$head(tags$link(rel  = "stylesheet",
-                                                                            type = "text/css",
-                                                                            href = "css/custom.css"),
-                                                           tags$head(tags$script(src = "js/custom.js")))),
+                                                 shiny::tags$head(shiny::tags$link(rel  = "stylesheet",
+                                                                                   type = "text/css",
+                                                                                   href = "css/custom.css"),
+                                                                  shiny::tags$head(shiny::tags$script(src = "js/custom.js")))),
                                       body_elements)
     }
 }
@@ -154,12 +154,14 @@ createAlert <- function(id       = NULL,
         id = session$ns(id)
     }
 
-    message <- bs4Dash:::dropNulls(list(id       = id,
-                                        selector = selector,
-                                        options  = options))
+    message_params <- list(id       = id,
+                           selector = selector,
+                           options  = options)
+
+    message_params <- message_params[!vapply(message_params, is.null, FUN.VALUE = logical(1))]
 
     if (!is.null(session)) {
-        session$sendCustomMessage("pcreate-alert", message)
+        session$sendCustomMessage("pcreate-alert", message_params)
     }
 }
 
