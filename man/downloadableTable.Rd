@@ -15,6 +15,8 @@ downloadableTable(
 )
 }
 \arguments{
+\item{id}{the ID of the Module's UI element}
+
 \item{logger}{logger to use}
 
 \item{filenameroot}{the base text used for user-downloaded file - can be
@@ -30,9 +32,6 @@ data as a return value. This function should require no input parameters.}
 
 \item{selection}{function or reactive expression providing the row_ids of the
 rows that should be selected}
-
-\item{...}{free parameters list to pass table customization options. See example below.
-\emph{Note}: The first argument of this function must be the ID of the Module's UI element}
 }
 \value{
 Reactive expression containing the currently selected rows in the
@@ -83,30 +82,30 @@ currently selected rows in the display table.
 # Inside server_local.R
 
 # selectedrows <- downloadableTable(
-#     "object_id1",
-#     logger = ss_userAction.Log,
-#     filenameroot = "mydownload1",
+#     id               = "object_id1",
+#     logger           = ss_userAction.Log,
+#     filenameroot     = "mydownload1",
 #     downloaddatafxns = list(csv = mydatafxn1, tsv = mydatafxn2),
-#     tabledata = mydatafxn3,
-#     rownames = FALSE,
-#     caption = "This is a great table!  By: Me",
-#     selection = mydataRowIds,
-#     colnames = c("Area", "Delta", "Increase"),
-#     filter = "bottom",
-#     width = "150px",
-#     height = "50px",
-#     extensions = 'Buttons',
-#     plugins = 'natural',
-#     editable = TRUE,
-#     dom = 'Bfrtip',
-#     buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
-#     formatStyle = list(columns = c('Area'),  color = 'red'),
-#     formatStyle = list(columns = c('Increase'), color = DT::styleInterval(0, c('red', 'green'))),
-#     formatCurrency = list(columns = c('Delta')))
+#     tabledata        = mydatafxn3,
+#     rownames         = FALSE,
+#     caption          = "This is a great table!  By: Me",
+#     selection        = mydataRowIds,
+#     colnames         = c("Area", "Delta", "Increase"),
+#     filter           = "bottom",
+#     width            = "150px",
+#     height           = "50px",
+#     extensions       = 'Buttons',
+#     plugins          = 'natural',
+#     editable         = TRUE,
+#     dom              = 'Bfrtip',
+#     buttons          = c('copy', 'csv', 'excel', 'pdf', 'print'),
+#     formatStyle      = list(columns = c('Area'),  color = 'red'),
+#     formatStyle      = list(columns = c('Increase'), color = DT::styleInterval(0, c('red', 'green'))),
+#     formatCurrency   = list(columns = c('Delta')))
 
 # selectedrows is the reactive return value, captured for later use
 
 }
 \seealso{
-\link[periscope]{downloadableTableUI}
+\link[periscope2]{downloadableTableUI}
 }

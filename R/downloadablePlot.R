@@ -1,4 +1,6 @@
-# downloadablePlot Shiny Module --
+# -------------------------------------------
+# -- Application Downloadable Plot Module --
+# -------------------------------------------
 
 
 #' downloadablePlot UI

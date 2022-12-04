@@ -67,13 +67,13 @@ in server.R
 # Inside ui_body.R or ui_sidebar.R
 downloadableTableUI("object_id1",
                     downloadtypes = c("csv", "tsv"),
-                    hovertext = "Download the data here!",
+                    hovertext     = "Download the data here!",
                     contentHeight = "300px",
-                    singleSelect = FALSE)
+                    singleSelect  = FALSE)
 
 }
 \seealso{
-\link[periscope]{downloadableTable}
+\link[periscope2]{downloadableTable}
 
-\link[periscope]{downloadFileButton}
+\link[periscope2]{downloadFileButton}
 }

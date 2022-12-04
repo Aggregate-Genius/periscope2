@@ -1,4 +1,6 @@
-# downloadableTable Shiny Module --
+# -------------------------------------------
+# -- Application Downloadable Table Module --
+# -------------------------------------------
 
 
 #' downloadableTable UI
@@ -40,16 +42,16 @@
 #' Paired with a call to \code{downloadableTable(id, ...)}
 #' in server.R
 #'
-#' @seealso \link[periscope]{downloadableTable}
-#' @seealso \link[periscope]{downloadFileButton}
+#' @seealso \link[periscope2]{downloadableTable}
+#' @seealso \link[periscope2]{downloadFileButton}
 #'
 #' @examples
 #' # Inside ui_body.R or ui_sidebar.R
 #' downloadableTableUI("object_id1",
 #'                     downloadtypes = c("csv", "tsv"),
-#'                     hovertext = "Download the data here!",
+#'                     hovertext     = "Download the data here!",
 #'                     contentHeight = "300px",
-#'                     singleSelect = FALSE)
+#'                     singleSelect  = FALSE)
 #'
 #' @export
 downloadableTableUI <- function(id,
@@ -61,21 +63,21 @@ downloadableTableUI <- function(id,
 
     list(
         shiny::span(
-            id = ns("dtableButtonDiv"),
-            class = "periscope-downloadable-table-button",
+            id    = ns("dtableButtonDiv"),
+            class = "periscope2-downloadable-table-button",
             style = ifelse(length(downloadtypes) > 0, "", "display:none"),
             downloadFileButton(ns("dtableButtonID"),
                                downloadtypes,
                                hovertext)),
         DT::dataTableOutput(ns("dtableOutputID")),
         shiny::tags$input(
-            id = ns("dtableOutputHeight"),
-            type = "text",
+            id    = ns("dtableOutputHeight"),
+            type  = "text",
             class = "shiny-input-container hidden",
             value = contentHeight),
         shiny::tags$input(
-            id = ns("dtableSingleSelect"),
-            type = "text",
+            id    = ns("dtableSingleSelect"),
+            type  = "text",
             class = "shiny-input-container hidden",
             value = singleSelect)
     )
@@ -101,8 +103,7 @@ downloadableTableUI <- function(id,
 #' dataset using format functions names as keys and their options as a list.
 #'
 #'
-#' @param ... free parameters list to pass table customization options. See example below.
-#'            \emph{Note}: The first argument of this function must be the ID of the Module's UI element
+#' @param id  the ID of the Module's UI element
 #' @param logger logger to use
 #' @param filenameroot the base text used for user-downloaded file - can be
 #' either a character string or a reactive expression returning a character
@@ -137,32 +138,32 @@ downloadableTableUI <- function(id,
 #' \emph{Note}: calling module server returns the reactive expression containing the
 #' currently selected rows in the display table.
 #'
-#' @seealso \link[periscope]{downloadableTableUI}
+#' @seealso \link[periscope2]{downloadableTableUI}
 #'
 #' @examples
 #' # Inside server_local.R
 #'
 #' # selectedrows <- downloadableTable(
-#' #     "object_id1",
-#' #     logger = ss_userAction.Log,
-#' #     filenameroot = "mydownload1",
+#' #     id               = "object_id1",
+#' #     logger           = ss_userAction.Log,
+#' #     filenameroot     = "mydownload1",
 #' #     downloaddatafxns = list(csv = mydatafxn1, tsv = mydatafxn2),
-#' #     tabledata = mydatafxn3,
-#' #     rownames = FALSE,
-#' #     caption = "This is a great table!  By: Me",
-#' #     selection = mydataRowIds,
-#' #     colnames = c("Area", "Delta", "Increase"),
-#' #     filter = "bottom",
-#' #     width = "150px",
-#' #     height = "50px",
-#' #     extensions = 'Buttons',
-#' #     plugins = 'natural',
-#' #     editable = TRUE,
-#' #     dom = 'Bfrtip',
-#' #     buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
-#' #     formatStyle = list(columns = c('Area'),  color = 'red'),
-#' #     formatStyle = list(columns = c('Increase'), color = DT::styleInterval(0, c('red', 'green'))),
-#' #     formatCurrency = list(columns = c('Delta')))
+#' #     tabledata        = mydatafxn3,
+#' #     rownames         = FALSE,
+#' #     caption          = "This is a great table!  By: Me",
+#' #     selection        = mydataRowIds,
+#' #     colnames         = c("Area", "Delta", "Increase"),
+#' #     filter           = "bottom",
+#' #     width            = "150px",
+#' #     height           = "50px",
+#' #     extensions       = 'Buttons',
+#' #     plugins          = 'natural',
+#' #     editable         = TRUE,
+#' #     dom              = 'Bfrtip',
+#' #     buttons          = c('copy', 'csv', 'excel', 'pdf', 'print'),
+#' #     formatStyle      = list(columns = c('Area'),  color = 'red'),
+#' #     formatStyle      = list(columns = c('Increase'), color = DT::styleInterval(0, c('red', 'green'))),
+#' #     formatCurrency   = list(columns = c('Delta')))
 #'
 #' # selectedrows is the reactive return value, captured for later use
 #'
@@ -289,7 +290,7 @@ build_datatable_arguments <- function(table_options) {
     dt_args <- list()
     formal_dt_args <- methods::formalArgs(DT::datatable)
     dt_args[["rownames"]] <- TRUE
-    dt_args[["class"]] <- paste("periscope-downloadable-table table-condensed",
+    dt_args[["class"]] <- paste("periscope2-downloadable-table table-condensed",
                                "table-striped table-responsive")
     options <- list()
     for (option in names(table_options)) {
@@ -318,7 +319,7 @@ build_datatable_arguments <- function(table_options) {
     }
 
     if (is.null(options[["dom"]]) && is.null(table_options[["pageLength"]])) {
-        options[["dom"]] <- '<"periscope-downloadable-table-header"f>tr'
+        options[["dom"]] <- '<"periscope2-downloadable-table-header"f>tr'
     }
 
     if (is.null(options[["processing"]])) {
