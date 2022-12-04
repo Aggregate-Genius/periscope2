@@ -16,7 +16,13 @@ set_app_parameters(
 \arguments{
 \item{title}{application title text}
 
-\item{app_version}{character string designating the application version (default = '1.0.0').}
+\item{app_version}{character string designating the application version (default = '1.0.0')}
+
+\item{loading_indicator}{uses waiter (see https://waiter.john-coene.com/#/).
+Pass a list like list(html = spin_1(), color = "#333e48") to configure
+waiterShowOnLoad (refer to the package help for all styles).}
+
+\item{announcements_file}{path to announcements configuration file}
 
 \item{titleinfo}{character string, HTML value or NULL
 \itemize{

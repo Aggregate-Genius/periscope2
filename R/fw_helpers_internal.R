@@ -49,15 +49,15 @@
     file.create(logfile)
 
     addHandler(writeToFile,
-               file = logfile,
-               level = loglevel,
-               logger = logger,
+               file      = logfile,
+               level     = loglevel,
+               logger    = logger,
                formatter = formatter)
 
     if (loglevel == "DEBUG") {
         addHandler(writeToConsole,
-                   level = loglevel,
-                   logger = logger,
+                   level     = loglevel,
+                   logger    = logger,
                    formatter = formatter)
     }
 

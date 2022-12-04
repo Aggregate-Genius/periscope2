@@ -2,7 +2,7 @@
 % Please edit documentation in R/ui_helpers.R
 \name{ui_tooltip}
 \alias{ui_tooltip}
-\title{Insert a standardized tooltip}
+\title{ui_tooltip}
 \usage{
 ui_tooltip(id, label = "", text = "", placement = "top")
 }
@@ -12,6 +12,9 @@ ui_tooltip(id, label = "", text = "", placement = "top")
 \item{label}{text label to appear to the left of the tooltip image}
 
 \item{text}{tooltip text shown when the user hovers over the image}
+
+\item{placement}{where to display tooltip label.
+Available places are "top", "bottom", "left", "right" (default is "top")}
 }
 \description{
 This function inserts a standardized tooltip image, label (optional),
