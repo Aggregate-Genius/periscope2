@@ -114,16 +114,16 @@
 #'
 #'@examples
 #' # sample app named 'mytestapp' created in a temp dir
-#' create_application(name = 'mytestapp', location = tempdir(), sample_app = TRUE)
+#' #create_application(name = 'mytestapp', location = tempdir(), sample_app = TRUE)
 #'
 #' # sample app named 'mytestapp' with a right sidebar using a custom icon created in a temp dir
-#' create_application(name = 'mytestapp', location = tempdir(), sample_app = TRUE,
-#' right_sidebar = TRUE)
+#' #create_application(name = 'mytestapp', location = tempdir(), sample_app = TRUE,
+#' #right_sidebar = TRUE)
 #'
 #' # blank app named 'myblankapp' created in a temp dir
-#' create_application(name = 'myblankapp', location = tempdir())
+#' #create_application(name = 'myblankapp', location = tempdir())
 #' # blank app named 'myblankapp' without a left sidebar created in a temp dir
-#' create_application(name = 'myblankapp', location = tempdir(), left_sidebar = FALSE)
+#' #create_application(name = 'myblankapp', location = tempdir(), left_sidebar = FALSE)
 #'
 #' @export
 create_application <- function(name,
