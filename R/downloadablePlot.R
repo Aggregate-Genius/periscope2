@@ -40,8 +40,8 @@
 #' Paired with a call to \code{downloadablePlot(id, ...)}
 #' in server.R
 #'
-#' @seealso \link[periscope]{downloadablePlot}
-#' @seealso \link[periscope]{downloadFileButton}
+#' @seealso \link[periscope2]{downloadablePlot}
+#' @seealso \link[periscope2]{downloadFileButton}
 #' @seealso \link[shiny]{clickOpts}
 #' @seealso \link[shiny]{hoverOpts}
 #' @seealso \link[shiny]{brushOpts}
@@ -49,10 +49,10 @@
 #' @examples
 #' # Inside ui_body.R or ui_sidebar.R
 #' downloadablePlotUI("object_id1",
-#'                    downloadtypes = c("png", "csv"),
+#'                    downloadtypes      = c("png", "csv"),
 #'                    download_hovertext = "Download the plot and data here!",
-#'                    height = "500px",
-#'                    btn_halign = "left")
+#'                    height             = "500px",
+#'                    btn_halign         = "left")
 #'
 #' @export
 downloadablePlotUI <- function(id,
@@ -99,12 +99,11 @@ downloadablePlotUI <- function(id,
     }
 
     btn_item <- shiny::span(id    = ns("dplotButtonDiv"),
-                            class = "periscope-downloadable-plot-button",
+                            class = "periscope2-downloadable-plot-button",
                             style = styleval,
-                            periscope2::downloadFileButton(
-                                ns("dplotButtonID"),
-                                downloadtypes,
-                                download_hovertext))
+                            periscope2::downloadFileButton(ns("dplotButtonID"),
+                                                           downloadtypes,
+                                                           download_hovertext))
 
     plot_item <- shiny::plotOutput(outputId = ns("dplotOutputID"),
                                    width    = width,
@@ -152,17 +151,17 @@ downloadablePlotUI <- function(id,
 #' \strong{\code{downloadablePlot(id, logger, filenameroot,
 #' downloadfxns, visibleplot)}}
 #'
-#' @seealso \link[periscope]{downloadablePlotUI}
+#' @seealso \link[periscope2]{downloadablePlotUI}
 #'
 #' @examples
 #' # Inside server_local.R
 #'
 #' # downloadablePlot("object_id1",
-#' #                  logger = ss_userAction.Log,
+#' #                  logger       = ss_userAction.Log,
 #' #                  filenameroot = "mydownload1",
-#' #                  aspectratio = 1.33,
+#' #                  aspectratio  = 1.33,
 #' #                  downloadfxns = list(png = myplotfxn, tsv = mydatafxn),
-#' #                  visibleplot = myplotfxn)
+#' #                  visibleplot  = myplotfxn)
 #'
 #' @export
 downloadablePlot <- function(id,
@@ -175,7 +174,6 @@ downloadablePlot <- function(id,
         id,
         function(input, output, session) {
             downloadFile("dplotButtonID", logger, filenameroot, downloadfxns, aspectratio)
-
             dpInfo <- shiny::reactiveValues(visibleplot  = NULL,
                                             downloadfxns = NULL)
 
@@ -193,7 +191,6 @@ downloadablePlot <- function(id,
             shiny::observe({
                 if (!is.null(downloadfxns) && (length(downloadfxns) > 0)) {
                     dpInfo$downloadfxns <- lapply(downloadfxns, do.call, list())
-
                     rowct <- lapply(dpInfo$downloadfxns, is.null)
                     session$sendCustomMessage(
                         "downloadbutton_toggle",

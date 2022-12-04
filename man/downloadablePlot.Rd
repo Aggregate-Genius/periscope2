@@ -57,13 +57,13 @@ downloadfxns, visibleplot)}}
 # Inside server_local.R
 
 # downloadablePlot("object_id1",
-#                  logger = ss_userAction.Log,
+#                  logger       = ss_userAction.Log,
 #                  filenameroot = "mydownload1",
-#                  aspectratio = 1.33,
+#                  aspectratio  = 1.33,
 #                  downloadfxns = list(png = myplotfxn, tsv = mydatafxn),
-#                  visibleplot = myplotfxn)
+#                  visibleplot  = myplotfxn)
 
 }
 \seealso{
-\link[periscope]{downloadablePlotUI}
+\link[periscope2]{downloadablePlotUI}
 }
