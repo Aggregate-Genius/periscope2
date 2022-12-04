@@ -36,6 +36,7 @@ Suggests:
     knitr,
     rmarkdown,
     testthat (>= 3.0),
+    mockery,
     canvasXpress,
     openxlsx (>= 3.0),
     colourpicker
