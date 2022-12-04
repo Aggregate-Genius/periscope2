@@ -242,7 +242,7 @@ is_valid_color <- function(color) {
 load_announcements <- function() {
     announce_setup     <- NULL
     auto_close         <- NULL
-    announcements_file <- isolate(.g_opts$announcements_file)
+    announcements_file <- shiny::isolate(.g_opts$announcements_file)
 
     if ((!is.null(announcements_file)) &&
         (file.exists(announcements_file))) {

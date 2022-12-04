@@ -25,7 +25,7 @@ add_ui_left_sidebar <- function(sidebar_elements = NULL,
                                 fixed,
                                 sidebar_menu,
                                 custom_area) {
-    .g_opts$left_sidebar <- list(list(div(id = "sidebarBasicAlert"),
+    .g_opts$left_sidebar <- list(list(shiny::div(id = "sidebarBasicAlert"),
                                       sidebar_elements),
                                  skin            = skin,
                                  status          = status,
@@ -65,23 +65,23 @@ add_ui_header <- function(skin,
                           left_ui,
                           right_ui) {
     app_title <- shiny::isolate(.g_opts$app_title)
-    title     <- div(id = "app_header", app_title)
+    title     <- shiny::div(id = "app_header", app_title)
     app_info  <- shiny::isolate(.g_opts$app_info)
 
     if (!is.null(app_info) && (class(app_info)[1] == "html")) {
-        title <- div(id = "headerAlert",
-                     div(id = "app_header"),
-                     actionLink("app_info", app_title))
+        title <- shiny::div(id = "headerAlert",
+                            shiny::div(id = "app_header"),
+                            shiny::actionLink("app_info", app_title))
     }
     title_header_alert <- shiny::fluidRow(style = "width:100%",
-                                          shiny::column(width = 12, div(id = "announceAlert")),
-                                          shiny::column(width = 12, div(id = "headerAlert")),
+                                          shiny::column(width = 12, shiny::div(id = "announceAlert")),
+                                          shiny::column(width = 12, shiny::div(id = "headerAlert")),
                                           shiny::column(width = 4,
-                                                        div(class = "periscope-busy-ind",
-                                                            "Working",
-                                                            shiny::img(alt = "Working...",
-                                                                       hspace = "5px",
-                                                                       src = "img/loader.gif"))),
+                                                        shiny::div(class = "periscope-busy-ind",
+                                                                   "Working",
+                                                                   shiny::img(alt = "Working...",
+                                                                              hspace = "5px",
+                                                                              src = "img/loader.gif"))),
                                           shiny::column(width = 4, title),
                                           shiny::column(width = 4))
     .g_opts$header <- bs4Dash::bs4DashNavbar(title_header_alert,
@@ -113,11 +113,13 @@ add_ui_body <- function(body_elements = NULL, append = FALSE) {
             body_elements,
             shiny::isolate(length(.g_opts$body_elements)) - 1)
     } else {
-        .g_opts$body_elements <- list(div(id = "bodyAlert"),
-                                      div(id = "head",
-                                          shinyjs::useShinyjs(),
-                                          tags$head(tags$link(rel = "stylesheet", type = "text/css", href = "css/custom.css"),
-                                                    tags$head(tags$script(src = "js/custom.js")))),
+        .g_opts$body_elements <- list(shiny::div(id = "bodyAlert"),
+                                      shiny::div(id = "head",
+                                                 shinyjs::useShinyjs(),
+                                                 shiny::tags$head(tags$link(rel  = "stylesheet",
+                                                                            type = "text/css",
+                                                                            href = "css/custom.css"),
+                                                           tags$head(tags$script(src = "js/custom.js")))),
                                       body_elements)
     }
 }
@@ -186,7 +188,7 @@ add_ui_right_sidebar <- function(sidebar_elements = NULL,
                                  skin,
                                  pinned,
                                  controlbar_menu) {
-    .g_opts$right_sidebar <- bs4Dash::bs4DashControlbar(list(div(id = "sidebarRightAlert"),
+    .g_opts$right_sidebar <- bs4Dash::bs4DashControlbar(list(shiny::div(id = "sidebarRightAlert"),
                                                              sidebar_elements,
                                                              controlbar_menu),
                                                         collapsed = collapsed,
@@ -206,7 +208,7 @@ add_ui_right_sidebar <- function(sidebar_elements = NULL,
 #'
 #' @export
 add_ui_footer <- function(left, right, fixed) {
-    .g_opts$footer <- bs4Dash::bs4DashFooter(left  = list(div(id = "footerAlert"),
+    .g_opts$footer <- bs4Dash::bs4DashFooter(left  = list(shiny::div(id = "footerAlert"),
                                                           left),
                                              right = right,
                                              fixed = fixed)
@@ -246,7 +248,7 @@ ui_tooltip <- function(id, label = "", text = "", placement = "top") {
 #' This function sets global parameters customizing the shiny application.
 #'
 #' @param title application title text
-#' @param titleinfo character string, HTML value or NULL
+#' @param app_info character string, HTML value or NULL
 #' \itemize{
 #' \item{A \strong{character} string will be used to set a link target.  This means the user
 #' will be able to click on the application title and be redirected in a new
@@ -258,8 +260,8 @@ ui_tooltip <- function(id, label = "", text = "", placement = "top") {
 #' application title.}
 #' \item{Supplying \strong{NULL} will disable the title link functionality.}
 #' }
-#' @param loglevel character string designating the log level to use for
-#'                 the userlog (default = 'DEBUG')
+#' @param log_level character string designating the log level to use for
+#'                  the userlog (default = 'DEBUG')
 #' @param app_version character string designating the application version (default = '1.0.0')
 #' @param loading_indicator  uses waiter (see https://waiter.john-coene.com/#/).
 #'                           Pass a list like list(html = spin_1(), color = "#333e48") to configure

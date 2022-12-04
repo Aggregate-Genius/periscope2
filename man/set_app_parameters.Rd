@@ -16,15 +16,7 @@ set_app_parameters(
 \arguments{
 \item{title}{application title text}
 
-\item{app_version}{character string designating the application version (default = '1.0.0')}
-
-\item{loading_indicator}{uses waiter (see https://waiter.john-coene.com/#/).
-Pass a list like list(html = spin_1(), color = "#333e48") to configure
-waiterShowOnLoad (refer to the package help for all styles).}
-
-\item{announcements_file}{path to announcements configuration file}
-
-\item{titleinfo}{character string, HTML value or NULL
+\item{app_info}{character string, HTML value or NULL
 \itemize{
 \item{A \strong{character} string will be used to set a link target.  This means the user
 will be able to click on the application title and be redirected in a new
@@ -37,8 +29,16 @@ application title.}
 \item{Supplying \strong{NULL} will disable the title link functionality.}
 }}
 
-\item{loglevel}{character string designating the log level to use for
+\item{log_level}{character string designating the log level to use for
 the userlog (default = 'DEBUG')}
+
+\item{app_version}{character string designating the application version (default = '1.0.0')}
+
+\item{loading_indicator}{uses waiter (see https://waiter.john-coene.com/#/).
+Pass a list like list(html = spin_1(), color = "#333e48") to configure
+waiterShowOnLoad (refer to the package help for all styles).}
+
+\item{announcements_file}{path to announcements configuration file}
 }
 \description{
 This function sets global parameters customizing the shiny application.

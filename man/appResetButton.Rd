@@ -45,7 +45,7 @@ in server
 \examples{
 # Inside ui_body.R or ui_left_sidebar.R
 
-appReset(id = 'appResetId', logger = logger)
+#appReset(id = 'appResetId', logger = logger)
 
 
 }

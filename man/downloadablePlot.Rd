@@ -14,6 +14,8 @@ downloadablePlot(
 )
 }
 \arguments{
+\item{id}{the ID of the Module's UI element}
+
 \item{logger}{logger to use}
 
 \item{filenameroot}{the base text used for user-downloaded file - can be
@@ -30,9 +32,6 @@ the same names that were used when the plot UI was created.}
 
 \item{visibleplot}{function or reactive expression providing the plot to
 display as a return value.  This function should require no input parameters.}
-
-\item{...}{free parameters list for shiny to pass session variables based on the module call(session, input, output)
-variables. \emph{Note}: The first argument of this function must be the ID of the Module's UI element}
 }
 \description{
 Server-side function for the downloadablePlotUI.  This is a custom

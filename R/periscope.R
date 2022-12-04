@@ -10,7 +10,7 @@
 #' @section Function Overview:
 #'
 #' \emph{Create a new framework application instance:\cr}
-#' \link[periscope2]{create_new_application}\cr
+#' \link[periscope2]{create_application}\cr
 #'
 #' \emph{Set application parameters in program/global.R:\cr}
 #' \link[periscope2]{set_app_parameters}\cr
@@ -19,10 +19,11 @@
 #' \link[periscope2]{get_url_parameters}\cr
 #'
 #' \emph{Register user-created UI objects to the requisite application locations:\cr}
-#' \link[periscope2]{add_ui_sidebar_basic}\cr
-#' \link[periscope2]{add_ui_sidebar_advanced}\cr
-#' \link[periscope2]{add_ui_sidebar_right}\cr
-#' \link[periscope2]{add_ui_body}
+#' \link[periscope2]{add_left_sidebar}\cr
+#' \link[periscope2]{add_right_sidebar}\cr
+#' \link[periscope2]{add_ui_header}\cr
+#' \link[periscope2]{add_ui_body}\cr
+#' \link[periscope2]{add_ui_footer}
 #'
 #' \emph{Included shiny modules with a customized UI:\cr}
 #' \link[periscope2]{downloadFileButton}\cr

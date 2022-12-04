@@ -139,19 +139,3 @@ test_that("downloadFile - download txt numeric data", {
                    expect_warning(output$txt, "txt could not be processed")
                })
 })
-
-test_that("downloadFile - unknown type", {
-    ui <- fluidPage(downloadFileButton("objecid",
-                                       downloadtypes = c("sv"),
-                                       hovertext     = "Button 2 Tooltip"))
-    server <- function(input, output, session) {
-        downloadFile("objecid",
-                     logger       = periscope2:::fw_get_user_log(),
-                     filenameroot = "sv",
-                     datafxns     = list(txt = function() {"data"}))
-    }
-
-    app <- shinytest::ShinyDriver$new(shinyApp(ui, server))
-    app$click("objecid-sv")
-    expect_error(app$getValue("objecid-sv"))
-})

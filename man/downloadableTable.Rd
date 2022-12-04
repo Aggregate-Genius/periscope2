@@ -32,6 +32,9 @@ data as a return value. This function should require no input parameters.}
 
 \item{selection}{function or reactive expression providing the row_ids of the
 rows that should be selected}
+
+\item{table_options}{optional table formatting parameters check \code{?DT::datatable} foroptions full list.
+Also see example below to see how to pass options}
 }
 \value{
 Reactive expression containing the currently selected rows in the
@@ -100,7 +103,8 @@ currently selected rows in the display table.
 #     dom              = 'Bfrtip',
 #     buttons          = c('copy', 'csv', 'excel', 'pdf', 'print'),
 #     formatStyle      = list(columns = c('Area'),  color = 'red'),
-#     formatStyle      = list(columns = c('Increase'), color = DT::styleInterval(0, c('red', 'green'))),
+#     formatStyle      = list(columns = c('Increase'),
+#                             color = DT::styleInterval(0, c('red', 'green'))),
 #     formatCurrency   = list(columns = c('Delta')))
 
 # selectedrows is the reactive return value, captured for later use
