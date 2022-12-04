@@ -64,7 +64,7 @@ downloadableTableUI <- function(id,
     list(
         shiny::span(
             id    = ns("dtableButtonDiv"),
-            class = "periscope2-downloadable-table-button",
+            class = "periscope-downloadable-table-button",
             style = ifelse(length(downloadtypes) > 0, "", "display:none"),
             downloadFileButton(ns("dtableButtonID"),
                                downloadtypes,
@@ -290,7 +290,7 @@ build_datatable_arguments <- function(table_options) {
     dt_args <- list()
     formal_dt_args <- methods::formalArgs(DT::datatable)
     dt_args[["rownames"]] <- TRUE
-    dt_args[["class"]] <- paste("periscope2-downloadable-table table-condensed",
+    dt_args[["class"]] <- paste("periscope-downloadable-table table-condensed",
                                "table-striped table-responsive")
     options <- list()
     for (option in names(table_options)) {
@@ -319,7 +319,7 @@ build_datatable_arguments <- function(table_options) {
     }
 
     if (is.null(options[["dom"]]) && is.null(table_options[["pageLength"]])) {
-        options[["dom"]] <- '<"periscope2-downloadable-table-header"f>tr'
+        options[["dom"]] <- '<"periscope-downloadable-table-header"f>tr'
     }
 
     if (is.null(options[["processing"]])) {

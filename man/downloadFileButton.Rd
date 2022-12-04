@@ -48,18 +48,18 @@ in server.R
 #single download type
 downloadFileButton("object_id1",
                    downloadtypes = c("csv"),
-                   hovertext = "Button 1 Tooltip")
+                   hovertext     = "Button 1 Tooltip")
 
 #multiple download types
 downloadFileButton("object_id2",
                    downloadtypes = c("csv", "tsv"),
-                   hovertext = "Button 2 Tooltip")
+                   hovertext     = "Button 2 Tooltip")
 
 }
 \seealso{
-\link[periscope]{downloadFile}
+\link[periscope2]{downloadFile}
 
-\link[periscope]{downloadFile_ValidateTypes}
+\link[periscope2]{downloadFile_ValidateTypes}
 
-\link[periscope]{downloadFile_AvailableTypes}
+\link[periscope2]{downloadFile_AvailableTypes}
 }

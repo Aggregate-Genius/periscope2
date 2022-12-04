@@ -13,7 +13,7 @@ a vector of all supported types
 Returns a list of all supported types
 }
 \seealso{
-\link[periscope]{downloadFileButton}
+\link[periscope2]{downloadFileButton}
 
-\link[periscope]{downloadFile}
+\link[periscope2]{downloadFile}
 }

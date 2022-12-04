@@ -101,7 +101,7 @@ downloadablePlotUI <- function(id,
     }
 
     btn_item <- shiny::span(id    = ns("dplotButtonDiv"),
-                            class = "periscope2-downloadable-plot-button",
+                            class = "periscope-download-plot-button",
                             style = styleval,
                             periscope2::downloadFileButton(ns("dplotButtonID"),
                                                            downloadtypes,

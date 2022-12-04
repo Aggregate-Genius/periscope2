@@ -21,7 +21,7 @@ Checks a given list of file types and warns if an invalid type is included
 }
 
 \seealso{
-\link[periscope]{downloadFileButton}
+\link[periscope2]{downloadFileButton}
 
-\link[periscope]{downloadFile}
+\link[periscope2]{downloadFile}
 }

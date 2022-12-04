@@ -7,6 +7,8 @@
 downloadFile(id, logger, filenameroot, datafxns = list(), aspectratio = 1)
 }
 \arguments{
+\item{id}{ID of the Module's UI element}
+
 \item{logger}{logger to use}
 
 \item{filenameroot}{the base text used for user-downloaded file - can be
@@ -20,9 +22,6 @@ when the button UI was created.}
 \item{aspectratio}{the downloaded chart image width:height ratio (ex:
 1 = square, 1.3 = 4:3, 0.5 = 1:2). Where not applicable for a download type
 it is ignored (e.g. data downloads).}
-
-\item{...}{free parameters list for shiny to pass session variables based on the module call(session, input, output)
-variables. \emph{Note}: The first argument of this function must be the ID of the Module's UI element}
 }
 \description{
 Server-side function for the downloadFileButton.  This is a custom
@@ -41,24 +40,24 @@ server.R using the same id provided in \code{downloadFileButton}:
 # Inside server_local.R
 
 #single download type
-# downloadFile("object_id1",
-#              logger = ss_userAction.Log,
+# downloadFile(id           = "object_id1",
+#              logger       = ss_userAction.Log,
 #              filenameroot = "mydownload1",
-#              datafxns = list(csv = mydatafxn1),
-#              aspectratio = 1)
+#              datafxns     = list(csv = mydatafxn1),
+#              aspectratio  = 1)
 
 #multiple download types
 # downloadFile("object_id2",
-#              logger = ss_userAction.Log,
+#              logger       = ss_userAction.Log,
 #              filenameroot = "mytype2",
-#              datafxns = list(csv = mydatafxn1, xlsx = mydatafxn2),
-#              aspectratio = 1)
+#              datafxns     = list(csv = mydatafxn1, xlsx = mydatafxn2),
+#              aspectratio  = 1)
 
 }
 \seealso{
-\link[periscope]{downloadFileButton}
+\link[periscope2]{downloadFileButton}
 
-\link[periscope]{downloadFile_ValidateTypes}
+\link[periscope2]{downloadFile_ValidateTypes}
 
-\link[periscope]{downloadFile_AvailableTypes}
+\link[periscope2]{downloadFile_AvailableTypes}
 }

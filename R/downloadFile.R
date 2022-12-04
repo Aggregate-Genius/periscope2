@@ -1,4 +1,6 @@
-# downloadFile Shiny Module -----
+# -------------------------------------------
+# -- Application Downloadable File Module --
+# -------------------------------------------
 
 
 #' downloadFileButton UI
@@ -29,9 +31,9 @@
 #' It is paired with a call to \code{downloadFile(id, ...)}
 #' in server.R
 #'
-#' @seealso \link[periscope]{downloadFile}
-#' @seealso \link[periscope]{downloadFile_ValidateTypes}
-#' @seealso \link[periscope]{downloadFile_AvailableTypes}
+#' @seealso \link[periscope2]{downloadFile}
+#' @seealso \link[periscope2]{downloadFile_ValidateTypes}
+#' @seealso \link[periscope2]{downloadFile_AvailableTypes}
 #'
 #' @examples
 #' # Inside ui_body.R or ui_sidebar.R
@@ -39,18 +41,18 @@
 #' #single download type
 #' downloadFileButton("object_id1",
 #'                    downloadtypes = c("csv"),
-#'                    hovertext = "Button 1 Tooltip")
+#'                    hovertext     = "Button 1 Tooltip")
 #'
 #' #multiple download types
 #' downloadFileButton("object_id2",
 #'                    downloadtypes = c("csv", "tsv"),
-#'                    hovertext = "Button 2 Tooltip")
+#'                    hovertext     = "Button 2 Tooltip")
 #'
 #' @export
 downloadFileButton <- function(id,
                                downloadtypes = c("csv"),
-                               hovertext = NULL) {
-    ns <- shiny::NS(id)
+                               hovertext     = NULL) {
+    ns     <- shiny::NS(id)
     output <- ""
 
     if (length(downloadtypes) > 1) {
@@ -88,7 +90,7 @@ downloadFileButton <- function(id,
         output <- bs4Dash::tooltip(shiny::span(shiny::downloadButton(ns(downloadtypes[1]),
                                                                      label = NULL,
                                                                      class = "periscope-download-btn")),
-                                   title = hovertext,
+                                   title     = hovertext,
                                    placement = "top")
     }
     output
@@ -100,8 +102,7 @@ downloadFileButton <- function(id,
 #' Server-side function for the downloadFileButton.  This is a custom
 #' high-functionality button for file downloads supporting single or multiple
 #' download types.  The server function is used to provide the data for download.
-#' @param ... free parameters list for shiny to pass session variables based on the module call(session, input, output)
-#'  variables. \emph{Note}: The first argument of this function must be the ID of the Module's UI element
+#' @param id ID of the Module's UI element
 #' @param logger logger to use
 #' @param filenameroot the base text used for user-downloaded file - can be
 #' either a character string or a reactive expression that returns a character
@@ -119,26 +120,26 @@ downloadFileButton <- function(id,
 #'
 #' \strong{\code{downloadFile(id, logger, filenameroot, datafxns)}}
 #'
-#' @seealso \link[periscope]{downloadFileButton}
-#' @seealso \link[periscope]{downloadFile_ValidateTypes}
-#' @seealso \link[periscope]{downloadFile_AvailableTypes}
+#' @seealso \link[periscope2]{downloadFileButton}
+#' @seealso \link[periscope2]{downloadFile_ValidateTypes}
+#' @seealso \link[periscope2]{downloadFile_AvailableTypes}
 #'
 #' @examples
 #' # Inside server_local.R
 #'
 #' #single download type
-#' # downloadFile("object_id1",
-#' #              logger = ss_userAction.Log,
+#' # downloadFile(id           = "object_id1",
+#' #              logger       = ss_userAction.Log,
 #' #              filenameroot = "mydownload1",
-#' #              datafxns = list(csv = mydatafxn1),
-#' #              aspectratio = 1)
+#' #              datafxns     = list(csv = mydatafxn1),
+#' #              aspectratio  = 1)
 #'
 #' #multiple download types
 #' # downloadFile("object_id2",
-#' #              logger = ss_userAction.Log,
+#' #              logger       = ss_userAction.Log,
 #' #              filenameroot = "mytype2",
-#' #              datafxns = list(csv = mydatafxn1, xlsx = mydatafxn2),
-#' #              aspectratio = 1)
+#' #              datafxns     = list(csv = mydatafxn1, xlsx = mydatafxn2),
+#' #              aspectratio  = 1)
 #'
 #' @export
 downloadFile <- function(id,
@@ -330,8 +331,8 @@ downloadFile <- function(id,
 #' @section Example:
 #' \code{downloadFile_ValidateTypes(c("csv", "tsv"))}
 #'
-#' @seealso \link[periscope]{downloadFileButton}
-#' @seealso \link[periscope]{downloadFile}
+#' @seealso \link[periscope2]{downloadFileButton}
+#' @seealso \link[periscope2]{downloadFile}
 #'
 #' @export
 downloadFile_ValidateTypes <- function(types) {
@@ -352,8 +353,8 @@ downloadFile_ValidateTypes <- function(types) {
 #'
 #' @return a vector of all supported types
 #'
-#' @seealso \link[periscope]{downloadFileButton}
-#' @seealso \link[periscope]{downloadFile}
+#' @seealso \link[periscope2]{downloadFileButton}
+#' @seealso \link[periscope2]{downloadFile}
 #'
 #' @export
 downloadFile_AvailableTypes <- function() {
