@@ -1,66 +1,69 @@
 context("periscope2 convert existing application")
 
 
-# expect_converted_application <- function(location, right_sidebar = NULL, reset_button = NULL, left_sidebar = NULL) {
-#     local_edition(3)
-#     expect_true(dir.exists(location))
-#     expect_true(file.exists(file.path(location, "global.R")))
-#     expect_true(file.exists(file.path(location, "server.R")))
-#     expect_true(file.exists(file.path(location, "ui.R")))
-#     expect_true(file.exists(file.path(location, "program")))
-#     expect_snapshot_file(file.path(location, "global.R"))
-#     expect_snapshot_file(file.path(location, "server.R"))
-#
-#     ui_content <- readLines(con = paste(location, "ui.R", sep = .Platform$file.sep))
-#
-#     if (!is.null(right_sidebar)) {
-#         if (right_sidebar) {
-#             expect_true(any(grepl("fw_create_right_sidebar", ui_content)))
-#         } else {
-#             expect_true(!any(grepl("fw_create_right_sidebar", ui_content)))
-#         }
-#     }
-#
-#     if (!is.null(reset_button)) {
-#         if (reset_button) {
-#             expect_true(!any(grepl("resetbutton", ui_content)))
-#         } else {
-#             expect_true(any(grepl("resetbutton", ui_content)))
-#         }
-#     }
-#     if (!is.null(left_sidebar)) {
-#         if (left_sidebar) {
-#             expect_true(file.exists(file.path(location, "program", "ui_sidebar.R")))
-#         } else {
-#             expect_true(!file.exists(file.path(location, "program", "ui_sidebar.R")))
-#         }
-#
-#     }
-#     # clean up
-#     unlink(location, TRUE)
-# }
-#
-# # creates a temp directory, copies the sample_app to this directory and returns the path of the temp app
-# create_app_tmp_dir <- function(left_sidebar = TRUE, right_sidebar = FALSE, reset_button = TRUE) {
-#     app_name     <- "sample_app"
-#
-#     if (left_sidebar && right_sidebar) {
-#         app_name <- "sample_app_both_sidebar"
-#     } else if (!left_sidebar && right_sidebar) {
-#         app_name <- "sample_app_r_sidebar"
-#     } else if (!left_sidebar && !right_sidebar) {
-#         app_name <- "sample_app_no_sidebar"
-#     }
-#
-#     if (!reset_button && !left_sidebar && !right_sidebar) {
-#         app_name <- "sample_app_no_sidebar_no_resetbutton"
-#     }
-#
-#     app_temp.dir <- tempdir()
-#     file.copy(app_name, app_temp.dir, recursive = TRUE)
-#     file.path(app_temp.dir, app_name)
-# }
-#
+expect_converted_application <- function(location, left_sidebar = TRUE, right_sidebar = FALSE, footer = FALSE) {
+    local_edition(3)
+    expect_true(dir.exists(location))
+    expect_true(file.exists(file.path(location, "global.R")))
+    expect_true(file.exists(file.path(location, "server.R")))
+    expect_true(file.exists(file.path(location, "ui.R")))
+    expect_true(dir.exists(file.path(location, "program")))
+    expect_true(file.exists(file.path(location, "program/ui_header.R")))
+    expect_true(file.exists(file.path(location, "program/ui_body.R")))
+
+    ui_content <- readLines(con = paste(location, "ui.R", sep = .Platform$file.sep))
+    expect_true(any(grepl("source(paste(\"program\", \"ui_body.R\", sep = .Platform$file.sep), local = TRUE)", ui_content, fixed = TRUE)))
+    expect_true(any(grepl("source(paste(\"program\", \"ui_header.R\", sep = .Platform$file.sep), local = TRUE)", ui_content, fixed = TRUE)))
+    expect_true(any(grepl("create_application_dashboard()", ui_content, fixed = TRUE)))
+
+    if (right_sidebar) {
+        expect_true(any(grepl("source(paste(\"program\", \"ui_right_sidebar.R\", sep = .Platform$file.sep), local = TRUE)", ui_content, fixed = TRUE)))
+    } else {
+        expect_false(any(grepl("source(paste(\"program\", \"ui_right_sidebar.R\", sep = .Platform$file.sep), local = TRUE)", ui_content, fixed = TRUE)))
+    }
+
+    if (left_sidebar) {
+        expect_true(any(grepl("source(paste(\"program\", \"ui_left_sidebar.R\", sep = .Platform$file.sep), local = TRUE)", ui_content, fixed = TRUE)))
+    } else {
+        expect_false(any(grepl("source(paste(\"program\", \"ui_left_sidebar.R\", sep = .Platform$file.sep), local = TRUE)", ui_content, fixed = TRUE)))
+    }
+
+    if (footer) {
+        expect_true(any(grepl("source(paste(\"program\", \"ui_footer.R\", sep = .Platform$file.sep), local = TRUE)", ui_content, fixed = TRUE)))
+    } else {
+        expect_false(any(grepl("source(paste(\"program\", \"ui_footer.R\", sep = .Platform$file.sep), local = TRUE)", ui_content, fixed = TRUE)))
+    }
+
+    # clean up
+    unlink(location, TRUE)
+}
+
+# creates a temp directory, copies the sample_app to this directory and returns the path of the temp app
+create_app_tmp_dir <- function(left_sidebar = TRUE, right_sidebar = FALSE, footer = FALSE) {
+    app_name     <- "sample_app_both_sidebar_footer"
+
+    if (left_sidebar && right_sidebar && !footer) {
+        app_name <- "sample_app_both_sidebar_no_footer"
+    } else if (left_sidebar && !right_sidebar && footer) {
+        app_name <- "sample_app_left_sidebar_footer"
+    } else if (left_sidebar && !right_sidebar && !footer) {
+        app_name <- "sample_app_left_sidebar"
+    } else if (!left_sidebar && right_sidebar && footer) {
+        app_name <- "sample_app_right_sidebar_footer"
+    } else if (!left_sidebar && right_sidebar && !footer) {
+        app_name <- "sample_app_right_sidebar"
+    } else if (!left_sidebar && !right_sidebar && footer) {
+        app_name <- "sample_app_footer"
+    } else if (!left_sidebar && !right_sidebar && !footer) {
+        app_name <- "sample_app_no_bars_or_footer"
+    }
+
+
+    app_temp.dir <- tempdir()
+    file.copy(app_name, app_temp.dir, recursive = TRUE)
+    file.path(app_temp.dir, app_name)
+}
+
 ## left_sidebar tests
 
 test_that("add_left_sidebar null location", {
@@ -83,35 +86,46 @@ test_that("add_left_sidebar location does not contain an existing application", 
                  "Add left sidebar conversion could not proceed, location=<../testthat> does not contain a valid periscope application!")
 })
 
-# test_that("add_left_sidebar to r sidebar, valid location", {
-#     app_location <- create_app_tmp_dir(left_sidebar = FALSE, right_sidebar = TRUE)
-#
-#     expect_message(add_left_sidebar(location = app_location), "Add left sidebar conversion was successful. File\\(s\\) updated: ui.R")
-#     expect_converted_application(location = app_location, left_sidebar = TRUE)
-# })
-#
-# test_that("add_left_sidebar to no sidebars, valid location", {
-#     app_location <- create_app_tmp_dir(left_sidebar = FALSE, right_sidebar = FALSE)
-#
-#     expect_message(add_left_sidebar(location = app_location), "Add left sidebar conversion was successful. File\\(s\\) updated: ui.R")
-#     expect_converted_application(location = app_location, left_sidebar = TRUE)
-# })
-#
-# test_that("add_left_sidebar valid location, added twice", {
-#     app_location <- create_app_tmp_dir(left_sidebar = FALSE)
-#
-#     expect_message(add_left_sidebar(location = app_location), "Add left sidebar conversion was successful. File\\(s\\) updated: ui.R")
-#     expect_message(add_left_sidebar(location = app_location), "Left sidebar already available, no conversion needed")
-#     expect_converted_application(location = app_location, left_sidebar = TRUE)
-# })
-#
-# test_that("add_left_sidebar to no resetbutton, valid location", {
-#     app_location <- create_app_tmp_dir(left_sidebar = FALSE, right_sidebar = FALSE, reset_button = FALSE)
-#
-#     expect_message(add_left_sidebar(location = app_location), "Add left sidebar conversion was successful. File\\(s\\) updated: ui.R")
-#     expect_converted_application(location = app_location, left_sidebar = TRUE)
-# })
-#
+test_that("add_left_sidebar to right sidebar and footer, valid location", {
+    app_location <- create_app_tmp_dir(left_sidebar = FALSE, right_sidebar = TRUE, footer = TRUE)
+
+    expect_message(add_left_sidebar(location = app_location), "Add left sidebar conversion was successful. File\\(s\\) updated: ui.R")
+    print(app_location)
+    expect_converted_application(location = app_location, left_sidebar = TRUE, right_sidebar = TRUE, footer = TRUE)
+})
+
+test_that("add_left_sidebar to right sidebar, valid location", {
+    app_location <- create_app_tmp_dir(left_sidebar = FALSE, right_sidebar = TRUE)
+
+    expect_message(add_left_sidebar(location = app_location), "Add left sidebar conversion was successful. File\\(s\\) updated: ui.R")
+    expect_converted_application(location = app_location, left_sidebar = TRUE, right_sidebar = TRUE)
+})
+
+test_that("add_left_sidebar to footer, valid location", {
+    app_location <- create_app_tmp_dir(left_sidebar = FALSE, footer = TRUE)
+
+    expect_message(add_left_sidebar(location = app_location), "Add left sidebar conversion was successful. File\\(s\\) updated: ui.R")
+    print(app_location)
+    expect_converted_application(location = app_location, left_sidebar = TRUE, footer = TRUE)
+})
+
+
+test_that("add_left_sidebar to empty sample app, valid location", {
+    app_location <- create_app_tmp_dir(left_sidebar = FALSE)
+
+    expect_message(add_left_sidebar(location = app_location), "Add left sidebar conversion was successful. File\\(s\\) updated: ui.R")
+    print(app_location)
+    expect_converted_application(location = app_location, left_sidebar = TRUE)
+})
+
+test_that("add_left_sidebar valid location, added twice", {
+    app_location <- create_app_tmp_dir(left_sidebar = FALSE)
+
+    expect_message(add_left_sidebar(location = app_location), "Add left sidebar conversion was successful. File\\(s\\) updated: ui.R")
+    expect_message(add_left_sidebar(location = app_location), "Left sidebar already available, no conversion needed")
+    expect_converted_application(location = app_location, left_sidebar = TRUE)
+})
+
 # ## add_right_sidebar tests
 #
 # test_that("add_right_sidebar null location", {
