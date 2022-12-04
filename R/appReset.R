@@ -77,7 +77,7 @@ appResetButton <- function(id) {
 #'
 #' @section Shiny Usage:
 #' This function is not called directly by consumers - it is accessed in
-#' server_local.R (or similar file) using the same id provided in \code{downloadFileButton}:
+#' server_local.R (or similar file) using the same id provided in \code{appResetButton}:
 #'
 #' \strong{\code{appReset(id = "appResetId", logger = ss_userAction.Log)}}
 #'
