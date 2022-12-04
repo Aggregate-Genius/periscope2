@@ -30,6 +30,11 @@ fw_get_user_log <- function() {
 }
 
 
+#' create_application_dashboard
+#'
+#' Creates application final dashboard from application different settings and configurations.
+#' It is called once in the application in "ui.R". It should not be modified or updated by user
+#'
 #' @export
 create_application_dashboard <- function() {
     bs4Dash::bs4DashPage(header     = shiny::isolate(.g_opts$header),
@@ -217,6 +222,22 @@ is_valid_color <- function(color) {
 }
 
 
+#' load_announcements
+#'
+#' Reads and parses application announcements configurations in \code{config/announce.yaml}, then display announcements in
+#' application header.
+#'
+#' If announce.yaml does not exist or contains invalid configurations. Nothing will be displayed.
+#' Closing announements is caller applicaion responsibility
+#'
+#' @return number of seconds an announcement should be staying in caller application
+#'
+#'@examples
+#' # announce_close_time <- load_announcements()
+#' # if (!is.null(announce_close_time)) {
+#' #     shinyjs::delay(announce_close_time,{bs4Dash::closeAlert("announceAlert")})
+#' # }
+#'
 #' @export
 load_announcements <- function() {
     announce_setup     <- NULL
