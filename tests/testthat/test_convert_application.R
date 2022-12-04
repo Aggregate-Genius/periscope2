@@ -181,3 +181,62 @@ test_that("add_right_sidebar valid location, added twice", {
     expect_message(add_right_sidebar(location = app_location), "Right sidebar already available, no conversion needed")
     expect_converted_application(location = app_location, right_sidebar = TRUE)
 })
+
+## add_footer tests
+
+test_that("add_footer null location", {
+    expect_error(add_footer(location = NULL),
+                 "Add footer conversion could not proceed, location cannot be empty!")
+})
+
+test_that("add_footer empty location", {
+    expect_error(add_footer(location = ""),
+                 "Add footer conversion could not proceed, location cannot be empty!")
+})
+
+test_that("add_footer invalid location", {
+    expect_error(add_footer(location = "invalid"),
+                 "Add footer conversion could not proceed, location=<invalid> does not exist!")
+})
+
+test_that("add_footer location does not contain an existing application", {
+    expect_error(add_footer(location = "../testthat"),
+                 "Add footer conversion could not proceed, location=<../testthat> does not contain a valid periscope application!")
+})
+
+test_that("add_footer to right and left sidebar, valid location", {
+    app_location <- create_app_tmp_dir(right_sidebar = TRUE, left_sidebar = TRUE, footer = FALSE)
+
+    expect_message(add_footer(location = app_location), "Add footer conversion was successful. File\\(s\\) updated: ui.R")
+    expect_converted_application(location = app_location, right_sidebar = TRUE, left_sidebar = TRUE, footer = TRUE)
+})
+
+test_that("add_footer to left sidebar, valid location", {
+    app_location <- create_app_tmp_dir(footer = FALSE, left_sidebar = TRUE)
+
+    expect_message(add_footer(location = app_location), "Add footer conversion was successful. File\\(s\\) updated: ui.R")
+    expect_converted_application(location = app_location, footer = TRUE, left_sidebar = TRUE)
+})
+
+test_that("add_footer to right sidebar, valid location", {
+    app_location <- create_app_tmp_dir(footer = FALSE, right_sidebar = TRUE, left_sidebar = FALSE)
+
+    expect_message(add_footer(location = app_location), "Add footer conversion was successful. File\\(s\\) updated: ui.R")
+    expect_converted_application(location = app_location, footer = TRUE, right_sidebar = TRUE, left_sidebar = FALSE)
+})
+
+
+test_that("add_footer to empty sample app, valid location", {
+    app_location <- create_app_tmp_dir(footer = FALSE, left_sidebar = FALSE)
+
+    expect_message(add_footer(location = app_location), "Add footer conversion was successful. File\\(s\\) updated: ui.R")
+    expect_converted_application(location = app_location, footer = TRUE, left_sidebar = FALSE)
+})
+
+test_that("add_footer valid location, added twice", {
+    app_location <- create_app_tmp_dir(footer = FALSE)
+
+    expect_message(add_footer(location = app_location), "Add footer conversion was successful. File\\(s\\) updated: ui.R")
+    expect_message(add_footer(location = app_location), "Footer already available, no conversion needed")
+    expect_converted_application(location = app_location, footer = TRUE)
+})
