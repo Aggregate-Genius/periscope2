@@ -1,6 +1,6 @@
 ---
 title: "Creating a new framework-based application"
-author: "Mohammed Ali"
+author: "Dr. Connie Brett"
 date: "`r Sys.Date()`"
 output:
     rmarkdown::html_vignette:
