@@ -79,10 +79,10 @@ it available to you via an input$ variable.
 # Inside ui_body.R or ui_sidebar.R
 
 downloadablePlotUI("object_id1", 
-                   downloadtypes = c("png", "csv"), 
+                   downloadtypes      = c("png", "csv"), 
                    download_hovertext = "Download the plot and data here!",
-                   height = "500px", 
-                   btn_halign = "left")
+                   height             = "500px", 
+                   btn_halign         = "left")
 ```
 
 
@@ -130,11 +130,12 @@ to the user from the application.  All the above requirements apply.
 # Inside server_local.R
 
 downloadablePlot("object_id1",
-                 logger = ss_userAction.Log,
+                 logger       = ss_userAction.Log,
                  filenameroot = "mydownload1",
-                 aspectratio = 1.33,
-                 downloadfxns = list(png = myplotfxn, tsv = mydatafxn),
-                 visibleplot = myplotfxn)
+                 aspectratio  = 1.33,
+                 downloadfxns = list(png = myplotfxn,
+                                     tsv = mydatafxn),
+                 visibleplot  = myplotfxn)
            
 ```
 
