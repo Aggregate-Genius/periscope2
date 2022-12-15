@@ -35,4 +35,6 @@ right <- "2022"
 fixed <- FALSE
 
 # -- Register Elements in the ORDER SHOWN in the UI
-add_ui_footer(left, right, fixed)
+add_ui_footer(left  = left,
+              right = right,
+              fixed = fixed)
