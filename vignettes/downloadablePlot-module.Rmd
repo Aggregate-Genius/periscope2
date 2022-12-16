@@ -148,3 +148,4 @@ downloadablePlot("object_id1",
 * [New Application](new-application.html)
 * [downloadFile Module](downloadFile-module.html)
 * [downloadableTable Module](downloadableTable-module.html)
+* [logViewer Moule](logViewer-moule.html)

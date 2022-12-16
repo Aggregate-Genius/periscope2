@@ -52,7 +52,7 @@ objects). The module server function that is called only once to set it up using
 module name as a function inside the server function (i.e. user-local session
 scope.  The function first arguments is string represents the module id (the same id used in module UI function). Additional arguments can be supplied by the user based on the specific shiny module that is called.  There can be additional helper functions that are a part of a shiny module.
 
-The **downloadableTable** Shiny Module is a part of the *periscope* package and 
+The **downloadableTable** Shiny Module is a part of the *periscope2* package and 
 consists of the following functions:
 
 * **downloadableTableUI** - the UI function to place the table in the 
@@ -87,9 +87,9 @@ to TRUE.
 
 downloadableTableUI("object_id1", 
                     downloadtypes = c("csv", "tsv"), 
-                    hovertext = "Download the data here!",
+                    hovertext     = "Download the data here!",
                     contentHeight = "300px",
-                    singleSelect = FALSE)
+                    singleSelect  = FALSE)
 ```
 
 ## downloadableTable
@@ -170,12 +170,12 @@ selectedrows <- downloadableTable("exampleDT1",
                                   "exampletable",
                                   list(csv = load_data3, tsv = load_data3),
                                   load_data3,
-                                  colnames = c("Area", "Delta", "Increase"),
-                                  filter = "bottom",
-                                  callback = htmlwidgets::JS("table.order([1, 'asc']).draw();"),
-                                  container = sketch,
+                                  colnames    = c("Area", "Delta", "Increase"),
+                                  filter      = "bottom",
+                                  callback    = htmlwidgets::JS("table.order([1, 'asc']).draw();"),
+                                  container   = sketch,
                                   formatStyle = list(columns = c("Total.Population.Change"),   
-                                                     color = DT::styleInterval(0, c("red", "green"))),
+                                                     color   = DT::styleInterval(0, c("red", "green"))),
                                   formatStyle = list(columns = c("Natural.Increase"),   
                                                      backgroundColor = DT::styleInterval(
                                                          c(7614, 15914, 34152),
@@ -188,13 +188,13 @@ selectedrows <- downloadableTable("exampleDT1",
 ## Sample Application
 
 For a complete running shiny example application using the downloadableTable
-module you can create and run a *periscope* sample application using:
+module you can create and run a *periscope2* sample application using:
 
 ```{r, eval=F}
-library(periscope)
+library(periscope2)
 
 app_dir = tempdir()
-create_new_application('mysampleapp', location = app_dir, sampleapp = TRUE)
+create_new_application(name = 'mysampleapp', location = app_dir, sample_app = TRUE)
 runApp(paste(app_dir, 'mysampleapp', sep = .Platform$file.sep))
 ```
 
@@ -208,4 +208,5 @@ runApp(paste(app_dir, 'mysampleapp', sep = .Platform$file.sep))
 * [New Application](new-application.html)
 * [downloadFile Module](downloadFile-module.html)
 * [downloadablePlot Module](downloadablePlot-module.html)
+* [logViewer Moule](logViewer-moule.html) 
 
