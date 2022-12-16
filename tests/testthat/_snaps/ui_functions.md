@@ -231,7 +231,7 @@
           <ul>
             <li>A predefined but flexible template for new Shiny applications with a default dashboard layout</li>
             <li>Separation by file of functionality that exists in one of the three shiny scopes: global, server-global, and server-local.</li>
-            <li>Six off shelf and ready to be used modules ('Announcments', 'Table Downloader', 'Plot Downloader', 'File Downloader', 'Application Logger' and 'Reset Application'</li>
+            <li>Six off shelf and ready to be used modules ('Announcements', 'Table Downloader', 'Plot Downloader', 'File Downloader', 'Application Logger' and 'Reset Application'</li>
             <li>Different methods to notify user and add useful information about application UI and server operations</li>
           </ul>
         </dl>
@@ -270,7 +270,7 @@
           <ul>
             <li>A predefined but flexible template for new Shiny applications with a default dashboard layout</li>
             <li>Separation by file of functionality that exists in one of the three shiny scopes: global, server-global, and server-local.</li>
-            <li>Six off shelf and ready to be used modules ('Announcments', 'Table Downloader', 'Plot Downloader', 'File Downloader', 'Application Logger' and 'Reset Application'</li>
+            <li>Six off shelf and ready to be used modules ('Announcements', 'Table Downloader', 'Plot Downloader', 'File Downloader', 'Application Logger' and 'Reset Application'</li>
             <li>Different methods to notify user and add useful information about application UI and server operations</li>
           </ul>
         </dl>
@@ -371,7 +371,7 @@
                     <ul>
                       <li>A predefined but flexible template for new Shiny applications with a default dashboard layout</li>
                       <li>Separation by file of functionality that exists in one of the three shiny scopes: global, server-global, and server-local.</li>
-                      <li>Six off shelf and ready to be used modules ('Announcments', 'Table Downloader', 'Plot Downloader', 'File Downloader', 'Application Logger' and 'Reset Application'</li>
+                      <li>Six off shelf and ready to be used modules ('Announcements', 'Table Downloader', 'Plot Downloader', 'File Downloader', 'Application Logger' and 'Reset Application'</li>
                       <li>Different methods to notify user and add useful information about application UI and server operations</li>
                     </ul>
                   </dl>

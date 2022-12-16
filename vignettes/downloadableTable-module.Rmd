@@ -209,5 +209,6 @@ runApp(paste(app_dir, 'mysampleapp', sep = .Platform$file.sep))
 * [downloadFile Module](downloadFile-module.html)
 * [downloadablePlot Module](downloadablePlot-module.html)
 * [logViewer Moule](logViewer-moule.html) 
-* [applicationReset Moule](applicationReset-module.Rmd)
+* [applicationReset Moule](applicationReset-module.html)
+* [announcement Module](announcement-module.html)
 

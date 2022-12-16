@@ -32,7 +32,7 @@ about_box <- jumbotron(
     tags$dl(tags$dt("Features"),
             tags$ul(tags$li("A predefined but flexible template for new Shiny applications with a default dashboard layout"),
                     tags$li("Separation by file of functionality that exists in one of the three shiny scopes: global, server-global, and server-local."),
-                    tags$li("Six off shelf and ready to be used modules ('Announcments', 'Table Downloader', 'Plot Downloader', 'File Downloader', 'Application Logger' and 'Reset Application'"),
+                    tags$li("Six off shelf and ready to be used modules ('Announcements', 'Table Downloader', 'Plot Downloader', 'File Downloader', 'Application Logger' and 'Reset Application'"),
                     tags$li("Different methods to notify user and add useful information about application UI and server operations"))),
     status = "info",
     href   = "https://periscopeapps.org/"
@@ -56,15 +56,15 @@ application_setup <- tabItem(tabName = "application_setup",
 ### Application Modules Elements
 plot2_hover <- hoverOpts(id = "examplePlot2_hover")
 
-announcments_box <- box(
-    id          = "announcments",
-    title       = "Announcments",
+announcements_box <- box(
+    id          = "announcements",
+    title       = "Announcements",
     status      = "info",
     solidHeader = TRUE,
     collapsible = TRUE,
     width       = 12,
     tags$dl(tags$dt("Features"),
-            tags$dd("- Announcments module aim to alert app user with customized admin messages upon application start for predefined time."),
+            tags$dd("- Announcements module aim to alert app user with customized admin messages upon application start for predefined time."),
             tags$dt("Setup"),
             tags$dd("- Module can be configured via 'program/config/announce.yaml'"),
             tags$dd("- Review current application example configuration for more details on how to configure/disable announcements`"))
@@ -203,7 +203,7 @@ logger_box <- box(
 
 
 periscope_modules <- tabItem(tabName = "periscope_modules",
-                             announcments_box,
+                             announcements_box,
                              table_downloader_box,
                              plot_downloader_box,
                              fluidRow(file_downloader_box,
@@ -311,7 +311,7 @@ user_notifications <- tabItem(tabName = "user_notifications",
 # -- Register Elements in the ORDER SHOWN in the UI
 add_ui_body(list(about_box,
                  files_organization_box,
-                 announcments_box,
+                 announcements,
                  table_downloader_box,
                  plot_downloader_box,
                  fluidRow(file_downloader_box,
