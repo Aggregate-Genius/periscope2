@@ -10,3 +10,4 @@
 ^CRAN-SUBMISSION$
 ^doc$
 ^Meta$
+^cran-comments\.md$

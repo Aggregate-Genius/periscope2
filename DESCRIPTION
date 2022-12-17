@@ -3,7 +3,7 @@ Type: Package
 Title: Enterprise Streamlined 'Shiny' Application Framework
 Version: 1.0.0.9000
 Authors@R: c(
-    person("Mohammed", "Ali", email="connie@aggregate-genius.com", role = c("aut", "cre")),
+    person("Mohammed", "Ali", email="mohammed@aggregate-genius.com", role = c("aut", "cre")),
     person("Isaac", "Neuhaus", role = "aut", comment = "canvasXpress JavaScript Library Maintainer"),
     person("Constance", "Brett", role = c("ctb"))
     )
