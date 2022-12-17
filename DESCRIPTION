@@ -1,7 +1,7 @@
 Package: periscope2
 Type: Package
 Title: Enterprise Streamlined 'Shiny' Application Framework
-Version: 1.0.0
+Version: 1.0.0.9000
 Authors@R: c(
     person("Mohammed", "Ali", email="connie@aggregate-genius.com", role = c("aut", "cre")),
     person("Isaac", "Neuhaus", role = "aut", comment = "canvasXpress JavaScript Library Maintainer"),
@@ -11,8 +11,8 @@ Description: An enterprise-targeted scalable and UI-standardized 'shiny' framewo
     including a variety of developer convenience functions with the goal of both 
     streamlining robust application development while assisting with creating a 
     consistent user experience regardless of application or developer.
-URL: https://github.com/cb4ds/periscope, http://periscopeapps.org:3838
-BugReports: https://github.com/cb4ds/periscope/issues
+URL: https://github.com/Aggregate-Genius/periscope2
+BugReports: https://github.com/Aggregate-Genius/periscope2/issues
 License: GPL-3
 Encoding: UTF-8
 Language: en-US
@@ -23,7 +23,6 @@ Imports:
     lubridate (>= 1.6),
     DT (>= 0.2),
     writexl (>= 1.3),
-    ggplot2 (>= 2.2),
     methods,
     utils,
     fresh,
@@ -42,6 +41,7 @@ Suggests:
     shinyjs,
     waiter,
     canvasXpress,
+    ggplot2 (>= 2.2),
     openxlsx (>= 3.0),
     colourpicker
 VignetteBuilder: knitr
