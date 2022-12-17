@@ -5,7 +5,10 @@ output:
         self_contained: yes
 ---
 
-
+<!-- badges: start -->
+  [![R-CMD-check](https://github.com/Aggregate-Genius/periscope2/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Aggregate-Genius/periscope2/actions/workflows/R-CMD-check.yaml)
+<!-- badges: end -->
+  
 ***periscope2*** is an extension of [periscope](https://cran.rstudio.com/web/packages/periscope/index.html) package. It provides a predefined but flexible template for new Shiny applications with a default dashboard layout, three locations for user alerts, a nice busy indicator and logging features. 
 
 One of the most important features of the shiny applications created with this framework is the separation by file of functionality that exists in one of the three shiny scopes: global, server-global, and server-local. The framework forces application developers to consciously consider scoping in Shiny applications by making scoping distinctions very clear without interfering with normal application development. Scoping consideration is important for performance and scaling, which is critical when working with large datasets and/or across many users.  In addition to creating a consistent UI experience this framework reduces development time for new applications by removing some of the boilerplate aspects of new applications such as alerting, logging, etc.

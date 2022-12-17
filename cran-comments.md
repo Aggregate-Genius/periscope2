@@ -49,11 +49,11 @@ devtools::check()
 **NONE**
     
 ```
-tools::package_dependencies(packages = c('periscope'),
+tools::package_dependencies(packages = c('periscope2'),
                             db       = available.packages(), 
                             reverse  = TRUE)
 
-$periscope  
+$periscope2  
 character(0)
 ```
 
