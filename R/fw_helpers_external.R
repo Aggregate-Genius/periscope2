@@ -314,7 +314,7 @@ load_announcements <- function() {
                              style == "",
                              !(tolower(style) %in% valid_styles))) {
                 logwarn(paste("Announcement 'style' must be one of ",
-                              paste(valid_styles, collapsed = ', ')))
+                              paste(valid_styles, collapse = ", ")))
                 valid <- FALSE
             }
 
