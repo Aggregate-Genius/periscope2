@@ -329,16 +329,16 @@ load_announcements <- function() {
                                            status   = style,
                                            closable = TRUE,
                                            content  = text))
-                if (!is.null(auto_close)) {
-                    if (!is.numeric(auto_close)) {
-                        logwarn(paste("Announcement 'auto_close' value '",
-                                      auto_close,
-                                      "' is invalid. It must contain numeric value.",
-                                      "Setting 'auto_close' to default value 'NULL'"))
-                        auto_close <- NULL
-                    } else {
-                        auto_close <- auto_close * 1000
-                    }
+                if (is.null(auto_close) ||
+                    !is.numeric(auto_close) ||
+                    auto_close == 0) {
+                    logwarn(paste("Announcement 'auto_close' value '",
+                                  auto_close,
+                                  "' is invalid. It must contain numeric value.",
+                                  "Setting 'auto_close' to default value 'NULL'"))
+                    auto_close <- NULL
+                } else {
+                    auto_close <- auto_close * 1000
                 }
             }
         }
