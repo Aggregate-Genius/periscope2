@@ -25,9 +25,9 @@ Created an alert panel in server to be displayed the given ui anchor
 }
 \examples{
          #createAlert(id       = "sidebarRightAlert",
-         #            options  = list(title   = "Right Side",
-         #            status   = "success",
-         #            closable = TRUE,
-         #            content  = "Example Basic Sidebar Alert"))
+         #            options  = list(title    = "Right Side",
+         #                            status   = "success",
+         #                            closable = TRUE,
+         #                            content  = "Example Basic Sidebar Alert"))
 
 }

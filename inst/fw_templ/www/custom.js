@@ -35,10 +35,12 @@ Shiny.addCustomMessageHandler('pcreate-alert', function (message) {
 
     // build the tag from options
     var config = message.options, alertCl, alertTag, iconType, closeButton, titleTag, contentTag;
+
     alertCl = 'alert alert-dismissible';
     if (config.status !== undefined) {
       alertCl = `${alertCl} alert-${config.status}`;
     }
+
     if (config.elevation !== undefined) {
       alertCl = `${alertCl} elevation-${config.elevation}`;
     }
@@ -63,7 +65,12 @@ Shiny.addCustomMessageHandler('pcreate-alert', function (message) {
       closeButton = '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>'
     }
 
-    titleTag = `<h5><i class="icon fa fa-${iconType}"></i>${config.title}</h5>`
+    title = config.title;
+    if (!title) {
+      title = '';
+    }
+
+    titleTag = `<h5><i class="icon fa fa-${iconType}"></i>${title}</h5>`
     contentTag = config.content;
 
     alertTag = `<div

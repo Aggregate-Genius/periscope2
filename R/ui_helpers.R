@@ -136,10 +136,10 @@ add_ui_body <- function(body_elements = NULL, append = FALSE) {
 #'
 #' @examples
 #'          #createAlert(id       = "sidebarRightAlert",
-#'          #            options  = list(title   = "Right Side",
-#'          #            status   = "success",
-#'          #            closable = TRUE,
-#'          #            content  = "Example Basic Sidebar Alert"))
+#'          #            options  = list(title    = "Right Side",
+#'          #                            status   = "success",
+#'          #                            closable = TRUE,
+#'          #                            content  = "Example Basic Sidebar Alert"))
 #'
 #' @export
 createAlert <- function(id       = NULL,
