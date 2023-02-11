@@ -426,9 +426,6 @@
 
     Code
       load_theme_settings()
-    Warning <simpleWarning>
-      cannot open file 'www/periscope_style.yaml': No such file or directory
-      Could not parse 'periscope_style.yaml' due to: cannot open the connection
     Output
       NULL
 
@@ -437,26 +434,21 @@
     Code
       nchar(create_theme())
     Output
-      [1] 669350
+      [1] 669361
 
 # create_theme - invalid color settings
 
     Code
       nchar(create_theme())
-    Warning <simpleWarning>
-      primary has invalid color value. Setting default color.
     Output
-      [1] 669324
+      [1] 669361
 
 # create_theme - invalid measure settings
 
     Code
       nchar(create_theme())
-    Warning <simpleWarning>
-      3oo must be positive value. Setting default value.
-      -2 must be positive value. Setting default value.
     Output
-      [1] 669350
+      [1] 669361
 
 # ui_tooltip
 

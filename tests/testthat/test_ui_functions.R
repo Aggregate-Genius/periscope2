@@ -300,7 +300,6 @@ test_that("load_announcements function parameters", {
 })
 
 test_that("load_theme_settings - null settings", {
-    stub(load_theme_settings, "file.exists", TRUE)
     expect_snapshot(load_theme_settings())
 })
 
@@ -309,10 +308,6 @@ test_that("create_theme - full settings", {
                                                                    package = "periscope2"))
     theme_settings["sidebar_width"] <- 300
 
-
-    stub(where = create_theme,
-         what  = "load_theme_settings",
-         how   = theme_settings)
     expect_snapshot(nchar(create_theme()))
 })
 
@@ -321,9 +316,6 @@ test_that("create_theme - invalid color settings", {
 
     theme_settings["primary"] <- "not color"
 
-    stub(where = create_theme,
-         what  = "load_theme_settings",
-         how   = theme_settings)
     expect_snapshot(nchar(create_theme()))
 })
 
@@ -333,9 +325,6 @@ test_that("create_theme - invalid measure settings", {
     theme_settings["sidebar_horizontal_padding"] <- "3oo"
     theme_settings["sidebar_mini_width"]         <- -2
 
-    stub(where = create_theme,
-         what  = "load_theme_settings",
-         how   = theme_settings)
     expect_snapshot(nchar(create_theme()))
 })
 
