@@ -1,38 +1,46 @@
 context("periscope2 - downloadablePlot")
 
-local_edition(3)
 test_that("downloadablePlotUI btn_overlap=true btn_halign=left btn_valign=bottom", {
-
-    expect_snapshot_output(downloadablePlotUI(id                 = "myid",
-                                              downloadtypes      = c("png"),
-                                              download_hovertext = "myhovertext",
-                                              width              = "80%",
-                                              height             = "300px",
-                                              btn_halign         = "left",
-                                              btn_valign         = "bottom",
-                                              btn_overlap        = TRUE,
-                                              clickOpts          = NULL,
-                                              hoverOpts          = NULL,
-                                              brushOpts          = NULL))
+    plot_ui <- downloadablePlotUI(id                 = "myid",
+                                  downloadtypes      = c("png"),
+                                  download_hovertext = "myhovertext",
+                                  width              = "80%",
+                                  height             = "300px",
+                                  btn_halign         = "left",
+                                  btn_valign         = "bottom",
+                                  btn_overlap        = TRUE,
+                                  clickOpts          = NULL,
+                                  hoverOpts          = NULL,
+                                  brushOpts          = NULL)
+    expect_equal(length(plot_ui), 2)
+    expect_true(grepl('id="myid-dplotOutputID"', plot_ui[[1]], fixed = TRUE))
+    expect_true(grepl('style="width:80%;height:300px;"', plot_ui[[1]], fixed = TRUE))
+    expect_true(grepl('id="myid-dplotButtonDiv"', plot_ui[[2]], fixed = TRUE))
+    expect_true(grepl('title="myhovertext"', plot_ui[[2]], fixed = TRUE))
+    expect_true(grepl('"myid-dplotButtonID-png"', plot_ui[[2]], fixed = TRUE))
 })
 
 test_that("downloadablePlotUI btn_overlap=false btn_halign=center btn_valign=top", {
-    local_edition(3)
-    expect_snapshot_output(downloadablePlotUI(id                 = "myid",
-                                              downloadtypes      = c("png"),
-                                              download_hovertext = "myhovertext",
-                                              width              = "80%",
-                                              height             = "300px",
-                                              btn_halign         = "center",
-                                              btn_valign         = "top",
-                                              btn_overlap        = FALSE,
-                                              clickOpts          = NULL,
-                                              hoverOpts          = NULL,
-                                              brushOpts          = NULL))
+    plot_ui <- downloadablePlotUI(id                 = "myid",
+                                  downloadtypes      = c("png"),
+                                  download_hovertext = "myhovertext",
+                                  width              = "80%",
+                                  height             = "300px",
+                                  btn_halign         = "center",
+                                  btn_valign         = "top",
+                                  btn_overlap        = FALSE,
+                                  clickOpts          = NULL,
+                                  hoverOpts          = NULL,
+                                  brushOpts          = NULL)
+    expect_equal(length(plot_ui), 2)
+    expect_true(grepl('id="myid-dplotButtonDiv"', plot_ui[[1]], fixed = TRUE))
+    expect_true(grepl('style="display:inherit; padding: 5px;float:none;margin-left:45%;top: -5px"', plot_ui[[1]], fixed = TRUE))
+    expect_true(grepl('id="myid-dplotButtonID-png"', plot_ui[[1]], fixed = TRUE))
+    expect_true(grepl('title="myhovertext"', plot_ui[[1]], fixed = TRUE))
+    expect_true(grepl('id="myid-dplotOutputID"', plot_ui[[2]], fixed = TRUE))
 })
 
 test_that("downloadablePlotUI invalid btn_halign", {
-
     expect_warning(downloadablePlotUI(id                 = "myid",
                                       downloadtypes      = c("png"),
                                       download_hovertext = "myhovertext",
@@ -48,18 +56,28 @@ test_that("downloadablePlotUI invalid btn_halign", {
 })
 
 test_that("downloadablePlotUI invalid btn_valign", {
-
-    expect_snapshot(downloadablePlotUI(id                 = "myid",
-                                      downloadtypes      = c("png"),
-                                      download_hovertext = "myhovertext",
-                                      width              = "80%",
-                                      height             = "300px",
-                                      btn_halign         = "bottom",
-                                      btn_valign         = "center",
-                                      btn_overlap        = FALSE,
-                                      clickOpts          = NULL,
-                                      hoverOpts          = NULL,
-                                      brushOpts          = NULL))
+    download_warnings <- capture_warnings(plot_ui <- downloadablePlotUI(id                 = "myid",
+                                                                        downloadtypes      = c("png"),
+                                                                        download_hovertext = "myhovertext",
+                                                                        width              = "80%",
+                                                                        height             = "300px",
+                                                                        btn_halign         = "bottom",
+                                                                        btn_valign         = "center",
+                                                                        btn_overlap        = FALSE,
+                                                                        clickOpts          = NULL,
+                                                                        hoverOpts          = NULL,
+                                                                        brushOpts          = NULL))
+    expect_equal(length(download_warnings), 2)
+    expect_equal("bottom  is not a valid btn_halign input - using default value. Valid values: <'left', 'center', 'right'>",
+                 download_warnings[1])
+    expect_equal("center  is not a valid btn_valign input - using default value. Valid values: <'top', 'bottom'>",
+                 download_warnings[2])
+    expect_equal(length(plot_ui), 2)
+    expect_true(grepl('id="myid-dplotOutputID"', plot_ui[[1]], fixed = TRUE))
+    expect_true(grepl('style="width:80%;height:300px;"', plot_ui[[1]], fixed = TRUE))
+    expect_true(grepl('id="myid-dplotButtonDiv"', plot_ui[[2]], fixed = TRUE))
+    expect_true(grepl('title="myhovertext"', plot_ui[[2]], fixed = TRUE))
+    expect_true(grepl('id="myid-dplotButtonID-png"', plot_ui[[2]], fixed = TRUE))
 })
 
 test_that("downloadablePlot", {
