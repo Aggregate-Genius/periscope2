@@ -1,7 +1,7 @@
 # downloadablePlotUI btn_overlap=true btn_halign=left btn_valign=bottom
 
     [[1]]
-    <div id="myid-dplotOutputID" class="shiny-plot-output" style="width:80%;height:300px;"></div>
+    <div class="shiny-plot-output html-fill-item" id="myid-dplotOutputID" style="width:80%;height:300px;"></div>
     
     [[2]]
     <span id="myid-dplotButtonDiv" class="periscope-downloadable-plot-button" style="display:inherit; padding: 5px;float:left;top: -50px">
@@ -25,7 +25,7 @@
     </span>
     
     [[2]]
-    <div id="myid-dplotOutputID" class="shiny-plot-output" style="width:80%;height:300px;"></div>
+    <div class="shiny-plot-output html-fill-item" id="myid-dplotOutputID" style="width:80%;height:300px;"></div>
     
 
 # downloadablePlotUI invalid btn_valign
@@ -39,7 +39,7 @@
       center  is not a valid btn_valign input - using default value. Valid values: <'top', 'bottom'>
     Output
       [[1]]
-      <div id="myid-dplotOutputID" class="shiny-plot-output" style="width:80%;height:300px;"></div>
+      <div class="shiny-plot-output html-fill-item" id="myid-dplotOutputID" style="width:80%;height:300px;"></div>
       
       [[2]]
       <span id="myid-dplotButtonDiv" class="periscope-downloadable-plot-button" style="display:inherit; padding: 5px;top: 5px">

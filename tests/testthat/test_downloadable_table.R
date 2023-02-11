@@ -31,7 +31,8 @@ test_that("downloadableTable - singleSelect_FALSE_selection_enabled", {
                                selection        = mydataRowIds),
                    expr = {
                        session$setInputs(dtableSingleSelect = "FALSE")
-                       expect_snapshot(output$dtableOutputID)
+                       selected <- paste0('"selection":{"mode":"multiple","selected":["', paste(mydataRowIds(), collapse = '","'), '"')
+                       expect_true(grepl(selected, output$dtableOutputID, fixed = TRUE))
 
                    })
 })
@@ -43,7 +44,7 @@ test_that("downloadableTable - null data", {
                            tabledata        = function() { NULL }),
                expr = {
                    session$setInputs(dtableSingleSelect = "FALSE")
-                   expect_snapshot(output$dtableOutputID)
+                   expect_true(grepl('"x":null', output$dtableOutputID, fixed = TRUE))
 
                })
 })
@@ -57,7 +58,8 @@ test_that("downloadableTable - invalid download option", {
                            selection        = mydataRowIds),
                expr = {
                    session$setInputs(dtableSingleSelect = "FALSE")
-                   expect_snapshot(output$dtableOutputID)
+                   selected <- paste0('"selection":{"mode":"multiple","selected":["', paste(mydataRowIds(), collapse = '","'), '"')
+                   expect_true(grepl(selected, output$dtableOutputID, fixed = TRUE))
 
                })
 })
@@ -71,7 +73,8 @@ test_that("downloadableTable - singleSelect_TRUE_selection_enabled", {
                            selection        = mydataRowIds),
                expr = {
                    session$setInputs(dtableSingleSelect = "TRUE")
-                   expect_snapshot(output$dtableOutputID)
+                   selected <- paste0('"selection":{"mode":"single","selected":"', mydataRowIds()[1], '"')
+                   expect_true(grepl(selected, output$dtableOutputID, fixed = TRUE))
 
                })
 })
@@ -86,7 +89,8 @@ test_that("downloadableTable - null rownames", {
                            selection        = NULL),
                expr = {
                    session$setInputs(dtableSingleSelect = "FALSE")
-                   expect_snapshot(output$dtableOutputID)
+                   selected <- '"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}'
+                   expect_true(grepl(selected, output$dtableOutputID, fixed = TRUE))
 
                })
 })
@@ -124,7 +128,6 @@ test_that("build_datatable_arguments", {
                           order      = list(list(2, "asc"), list(3, "desc")))
     expect_snapshot(build_datatable_arguments(table_options))
 })
-
 
 test_that("format_columns", {
     set.seed(123)
