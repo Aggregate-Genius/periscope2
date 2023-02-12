@@ -19,28 +19,27 @@ Language: en-US
 Depends:
     R (>= 4.0)
 Imports:
-    shiny (>= 1.7),
-    lubridate,
-    DT,
-    writexl,
-    methods,
-    utils,
-    fresh,
-    yaml,
     bs4Dash,
+    DT,
+    fresh,
     grDevices,
-    shinyWidgets
-RoxygenNote: 7.2.1
+    lubridate,
+    methods,
+    shiny (>= 1.7),
+    shinyWidgets,
+    utils,
+    writexl,
+    yaml
+RoxygenNote: 7.2.3
 Suggests:
     assertthat,
-    knitr,
-    rmarkdown,
-    testthat,
-    lattice,
-    shinyjs,
-    waiter,
     canvasXpress,
     ggplot2,
+    knitr,
+    lattice,
     openxlsx,
-    colourpicker
+    rmarkdown,
+    shinyjs,
+    testthat,
+    waiter
 VignetteBuilder: knitr
