@@ -71,7 +71,7 @@ appResetButton <- function(id) {
 #' @param id             - the ID of the Module's UI element
 #' @param reset_wait     - period to wait before session reload (in milliseconds)
 #' @param alert_location - where to display module related messages
-#'       (defult = "bodyAlert")
+#'       (default = "bodyAlert")
 #' @param logger         - logger to use
 #'
 #'

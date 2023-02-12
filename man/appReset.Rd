@@ -12,7 +12,7 @@ appReset(id, reset_wait = 5000, alert_location = "bodyAlert", logger)
 \item{reset_wait}{- period to wait before session reload (in milliseconds)}
 
 \item{alert_location}{- where to display module related messages
-(defult = "bodyAlert")}
+(default = "bodyAlert")}
 
 \item{logger}{- logger to use}
 }

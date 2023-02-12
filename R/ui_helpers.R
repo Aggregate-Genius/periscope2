@@ -51,8 +51,8 @@ add_ui_left_sidebar <- function(sidebar_elements = NULL,
 #' @param sidebarIcon Icon of the main sidebar toggle
 #' @param controlbarIcon Icon to toggle the controlbar (left)
 #' @param fixed Whether to fix the navbar to the top. FALSE by default.
-#' @param left_ui Custom left Ui content. Any element like dropdownMenu.
-#' @param right_ui Custom right Ui content. Any element like dropdownMenu.
+#' @param left_ui Custom left UI content. Any element like dropdownMenu.
+#' @param right_ui Custom right UI content. Any element like dropdownMenu.
 #'
 #' @export
 add_ui_header <- function(skin,

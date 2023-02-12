@@ -15,7 +15,7 @@ application header.
 }
 \details{
 If announce.yaml does not exist or contains invalid configurations. Nothing will be displayed.
-Closing announements is caller applicaion responsibility
+Closing announcements is caller application responsibility
 }
 \examples{
 # announce_close_time <- load_announcements()

@@ -33,7 +33,7 @@ data as a return value. This function should require no input parameters.}
 \item{selection}{function or reactive expression providing the row_ids of the
 rows that should be selected}
 
-\item{table_options}{optional table formatting parameters check \code{?DT::datatable} foroptions full list.
+\item{table_options}{optional table formatting parameters check \code{?DT::datatable} for options full list.
 Also see example below to see how to pass options}
 }
 \value{

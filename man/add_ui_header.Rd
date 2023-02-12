@@ -31,9 +31,9 @@ add_ui_header(
 
 \item{fixed}{Whether to fix the navbar to the top. FALSE by default.}
 
-\item{left_ui}{Custom left Ui content. Any element like dropdownMenu.}
+\item{left_ui}{Custom left UI content. Any element like dropdownMenu.}
 
-\item{right_ui}{Custom right Ui content. Any element like dropdownMenu.}
+\item{right_ui}{Custom right UI content. Any element like dropdownMenu.}
 }
 \description{
 Builds application header with given configurations and elements. It is called within "ui_header.R".
