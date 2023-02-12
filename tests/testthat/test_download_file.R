@@ -46,7 +46,6 @@ test_that("downloadFileButton multiple types", {
     expect_true(grepl('class="btn-group"', file_btn, fixed = TRUE))
     expect_true(grepl('myid-downloadFileList"', file_btn, fixed = TRUE))
     expect_true(grepl('id="myid-csv"', file_btn, fixed = TRUE))
-    expect_true(grepl('id="myid-csv"', file_btn, fixed = TRUE))
     expect_true(grepl('id="myid-tsv"', file_btn, fixed = TRUE))
 })
 
