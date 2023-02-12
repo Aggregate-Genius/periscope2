@@ -40,6 +40,7 @@ Suggests:
     openxlsx,
     rmarkdown,
     shinyjs,
+    spelling,
     testthat,
     waiter
 VignetteBuilder: knitr

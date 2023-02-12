@@ -42,13 +42,13 @@ controlbarIcon <-  shiny::icon("th")
 
 # Whether to fix the navbar to the top
 fixed          <-  FALSE
-    
+
 # -- Create Header Elements
 
-# Custom left Ui content
+# Custom left UI content
 left_ui  <- NULL
 
-# Custom right Ui content
+# Custom right UI content
 right_ui <- NULL
 
 # -- Register Header Elements in the ORDER SHOWN in the UI
