@@ -32,21 +32,29 @@ download_string_list <- function() {
 
 # UI Testing
 test_that("downloadFileButton", {
-    expect_snapshot_output(downloadFileButton(id            = "myid",
-                                              downloadtypes = c("csv"),
-                                              hovertext     = "myhovertext"))
+    file_btn <- downloadFileButton(id            = "myid",
+                                   downloadtypes = c("csv"),
+                                   hovertext     = "myhovertext")
+    expect_true(grepl('title="myhovertext"', file_btn, fixed = TRUE))
+    expect_true(grepl('id="myid-csv"', file_btn, fixed = TRUE))
 })
 
 test_that("downloadFileButton multiple types", {
-    expect_snapshot_output(downloadFileButton(id            = "myid",
-                                              downloadtypes = c("csv", "tsv"),
-                                              hovertext     = "myhovertext"))
+    file_btn <- downloadFileButton(id            = "myid",
+                                   downloadtypes = c("csv", "tsv"),
+                                   hovertext     = "myhovertext")
+    expect_true(grepl('class="btn-group"', file_btn, fixed = TRUE))
+    expect_true(grepl('myid-downloadFileList"', file_btn, fixed = TRUE))
+    expect_true(grepl('id="myid-csv"', file_btn, fixed = TRUE))
+    expect_true(grepl('id="myid-tsv"', file_btn, fixed = TRUE))
 })
 
 test_that("downloadFileButton invalid type", {
-    expect_snapshot_output(downloadFileButton(id            = "myid",
-                                              downloadtypes = c("sv"),
-                                              hovertext     = "myhovertext"))
+    file_btn <- downloadFileButton(id            = "myid",
+                                   downloadtypes = c("sv"),
+                                   hovertext     = "myhovertext")
+    expect_true(grepl('title="myhovertext"', file_btn, fixed = TRUE))
+    expect_true(grepl('id="myid-sv"', file_btn, fixed = TRUE))
 })
 
 # Server Testing

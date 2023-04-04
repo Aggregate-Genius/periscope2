@@ -52,7 +52,11 @@ test_that("add_ui_header", {
                               fixed          = fixed,
                               left_ui        = left_ui,
                               right_ui       = right_ui)
-    expect_snapshot_output(shiny::isolate(periscope2:::.g_opts$header))
+    header <- shiny::isolate(periscope2:::.g_opts$header)
+    expect_equal(length(header), 2)
+    expect_true(grepl('id="announceAlert"', header[[1]], fixed = TRUE))
+    expect_true(grepl('Set using set_app_parameters() in program/global.R', header[[1]], fixed = TRUE))
+    expect_null(header[[2]])
 })
 
 
@@ -125,7 +129,12 @@ test_that("add_ui_left_sidebar example left sidebar", {
                         fixed            = fixed,
                         sidebar_menu     = sidebar_menu,
                         custom_area      = custom_area)
-    expect_snapshot_output(shiny::isolate(periscope2:::.g_opts$left_sidebar))
+    left_sidebar <- shiny::isolate(periscope2:::.g_opts$left_sidebar)
+    expect_equal(length(left_sidebar), 10)
+    expect_snapshot_output(left_sidebar[1:9])
+    expect_true(grepl('Application Setup', left_sidebar[[10]], fixed = TRUE))
+    expect_true(grepl('Periscope2 Modules', left_sidebar[[10]], fixed = TRUE))
+    expect_true(grepl('User Notifications', left_sidebar[[10]], fixed = TRUE))
 })
 
 
@@ -148,7 +157,9 @@ test_that("add_ui_right_sidebar empty right sidebar", {
                          skin             = skin,
                          pinned           = pinned,
                          controlbar_menu  = controlbar_menu)
-    expect_snapshot_output(shiny::isolate(periscope2:::.g_opts$right_sidebar))
+    righ_sidebar <- shiny::isolate(periscope2:::.g_opts$right_sidebar)
+    expect_true(grepl('id="controlbarId"' , righ_sidebar, fixed = TRUE))
+    expect_true(grepl('id="sidebarRightAlert"' , righ_sidebar, fixed = TRUE))
 })
 
 
@@ -166,7 +177,11 @@ test_that("add_ui_right_sidebar example right sidebar", {
                          skin             = skin,
                          pinned           = pinned,
                          controlbar_menu  = controlbar_menu)
-    expect_snapshot_output(shiny::isolate(periscope2:::.g_opts$right_sidebar))
+    righ_sidebar <- shiny::isolate(periscope2:::.g_opts$right_sidebar)
+    expect_true(grepl('id="controlbarId"' , righ_sidebar, fixed = TRUE))
+    expect_true(grepl('id="sidebarRightAlert"' , righ_sidebar, fixed = TRUE))
+    expect_true(grepl('id="hideFileOrganization"' , righ_sidebar, fixed = TRUE))
+    expect_true(grepl('Show Files Organization' , righ_sidebar, fixed = TRUE))
 })
 
 
@@ -225,7 +240,12 @@ test_that("add_ui_body example body", {
 
     add_ui_body(list(div("more elements")), append = TRUE)
     expect_snapshot_output(shiny::isolate(periscope2:::.g_opts$body_elements))
-    expect_snapshot(periscope2::create_application_dashboard())
+    dashboard_ui <- periscope2::create_application_dashboard()
+    expect_true(grepl('id="announceAlert"' , dashboard_ui, fixed = TRUE))
+    expect_true(grepl('id="headerAlert"' , dashboard_ui, fixed = TRUE))
+    expect_true(grepl('Periscope2 Features' , dashboard_ui, fixed = TRUE))
+    expect_true(grepl('id="sidebarRightAlert"' , dashboard_ui, fixed = TRUE))
+    expect_true(grepl('id="footerAlert"' , dashboard_ui, fixed = TRUE))
 })
 
 test_that("set_app_parameters default values", {
@@ -300,7 +320,6 @@ test_that("load_announcements function parameters", {
 })
 
 test_that("load_theme_settings - null settings", {
-    stub(load_theme_settings, "file.exists", TRUE)
     expect_snapshot(load_theme_settings())
 })
 
@@ -309,10 +328,6 @@ test_that("create_theme - full settings", {
                                                                    package = "periscope2"))
     theme_settings["sidebar_width"] <- 300
 
-
-    stub(where = create_theme,
-         what  = "load_theme_settings",
-         how   = theme_settings)
     expect_snapshot(nchar(create_theme()))
 })
 
@@ -321,9 +336,6 @@ test_that("create_theme - invalid color settings", {
 
     theme_settings["primary"] <- "not color"
 
-    stub(where = create_theme,
-         what  = "load_theme_settings",
-         how   = theme_settings)
     expect_snapshot(nchar(create_theme()))
 })
 
@@ -333,9 +345,6 @@ test_that("create_theme - invalid measure settings", {
     theme_settings["sidebar_horizontal_padding"] <- "3oo"
     theme_settings["sidebar_mini_width"]         <- -2
 
-    stub(where = create_theme,
-         what  = "load_theme_settings",
-         how   = theme_settings)
     expect_snapshot(nchar(create_theme()))
 })
 

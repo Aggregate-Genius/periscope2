@@ -115,7 +115,7 @@ downloadableTableUI <- function(id,
 #' data as a return value. This function should require no input parameters.
 #' @param selection function or reactive expression providing the row_ids of the
 #' rows that should be selected
-#' @param table_options optional table formatting parameters check \code{?DT::datatable} foroptions full list.
+#' @param table_options optional table formatting parameters check \code{?DT::datatable} for options full list.
 #' Also see example below to see how to pass options
 #'
 #' @return Reactive expression containing the currently selected rows in the

@@ -3,7 +3,6 @@ require(shiny)
 require(bs4Dash)
 require(periscope2)
 require(ggplot2)
-require(mockery)
 
 if (interactive()) {
     test_source_path <- "periscope2/R"

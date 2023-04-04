@@ -228,7 +228,7 @@ is_valid_color <- function(color) {
 #' application header.
 #'
 #' If announce.yaml does not exist or contains invalid configurations. Nothing will be displayed.
-#' Closing announements is caller applicaion responsibility
+#' Closing announcements is caller application responsibility
 #'
 #' @return number of seconds an announcement should be staying in caller application
 #'

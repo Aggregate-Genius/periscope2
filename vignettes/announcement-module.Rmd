@@ -89,7 +89,7 @@ set_app_parameters(title              = "periscope Example Application",
 
 ## Sample Application
 
-For a complete running shiny example application using the annoucements
+For a complete running shiny example application using the announcements
 module you can create and run a *periscope2* sample application using:
 
 ```{r, eval=F}
@@ -108,5 +108,5 @@ runApp(paste(app_dir, 'mysampleapp', sep = .Platform$file.sep))
 * [downloadableTable Module](downloadableTable-module.html)
 * [downloadablePlot Module](downloadablePlot-module.html)
 * [downloadFile Module](downloadFile-module.html)
-* [logViewer Moule](logViewer-moule.html)
-* [applicationReset Moule](applicationReset-module.html)
+* [logViewer Module](logViewer-module.html)
+* [applicationReset Module](applicationReset-module.html)
