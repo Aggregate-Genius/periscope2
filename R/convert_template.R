@@ -14,6 +14,9 @@ ui_filename <- "ui.R"
 #'
 #' User can update an existing application that does not have a left side bar and add a new empty one using this function.
 #'
+#' If conversion is successful, the following message will be returned
+#' \emph{"Add left sidebar conversion was successful. File(s) updated: ui.R, ui_left_sidebar.R"}
+#'
 #' If the function called on an application with an existing left bar, message
 #' \emph{"Left sidebar already available, no conversion needed"}
 #' will be returned with no conversion
@@ -74,6 +77,9 @@ create_left_sidebar <- function(location) {
 #' Add the right sidebar to an existing application
 #'
 #' User can update an existing application that does not have a right side bar and add a new empty one using this function.
+#'
+#' If conversion is successful, the following message will be returned
+#' \emph{"Add right sidebar conversion was successful. File(s) updated: ui.R, ui_right_sidebar.R"}
 #'
 #' If the function called on an application with an existing right bar, message
 #' \emph{"Right sidebar already available, no conversion needed"}

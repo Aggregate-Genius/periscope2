@@ -13,6 +13,9 @@ create_left_sidebar(location)
 User can update an existing application that does not have a left side bar and add a new empty one using this function.
 }
 \details{
+If conversion is successful, the following message will be returned
+\emph{"Add left sidebar conversion was successful. File(s) updated: ui.R, ui_left_sidebar.R"}
+
 If the function called on an application with an existing left bar, message
 \emph{"Left sidebar already available, no conversion needed"}
 will be returned with no conversion
