@@ -9,7 +9,14 @@ ui_filename <- "ui.R"
     all(file.exists(file.path(location, c("server.R", "ui.R", "global.R", "program"))))
 }
 
+
 #' Add the left sidebar to an existing application
+#'
+#' User can update an existing application that does not have a left side bar and add a new empty one using this function.
+#'
+#' If the function called on an application with an existing left bar, message
+#' \emph{"Left sidebar already available, no conversion needed"}
+#' will be returned with no conversion
 #'
 #' If the passed location is invalid, empty, not exist or not a valid periscope2 application, nothing will be added
 #' and a related error message will be printed in console
@@ -65,6 +72,12 @@ create_left_sidebar <- function(location) {
 
 
 #' Add the right sidebar to an existing application
+#'
+#' User can update an existing application that does not have a right side bar and add a new empty one using this function.
+#'
+#' If the function called on an application with an existing right bar, message
+#' \emph{"Right sidebar already available, no conversion needed"}
+#' will be returned with no conversion
 #'
 #' If the passed location is invalid, empty, not exist or not a valid periscope2 application, nothing will be added
 #' and a related error message will be printed in console

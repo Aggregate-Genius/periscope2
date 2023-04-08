@@ -10,6 +10,13 @@ create_left_sidebar(location)
 \item{location}{path of the existing periscope2 application.}
 }
 \description{
+User can update an existing application that does not have a left side bar and add a new empty one using this function.
+}
+\details{
+If the function called on an application with an existing left bar, message
+\emph{"Left sidebar already available, no conversion needed"}
+will be returned with no conversion
+
 If the passed location is invalid, empty, not exist or not a valid periscope2 application, nothing will be added
 and a related error message will be printed in console
 }
