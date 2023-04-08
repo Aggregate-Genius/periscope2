@@ -2,13 +2,17 @@
 % Please edit documentation in R/convert_template.R
 \name{create_left_sidebar}
 \alias{create_left_sidebar}
-\title{Add the left sidebar to an existing application.}
+\title{Add the left sidebar to an existing application}
 \usage{
 create_left_sidebar(location)
 }
 \arguments{
-\item{location}{path of the existing application.}
+\item{location}{path of the existing periscope2 application.}
 }
 \description{
-Add the left sidebar to an existing application.
+If the passed location is invalid, empty, not exist or not a valid periscope2 application, nothing will be added
+and a related error message will be printed in console
+}
+\seealso{
+\link[periscope2]{create_right_sidebar}
 }

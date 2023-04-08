@@ -9,11 +9,16 @@ ui_filename <- "ui.R"
     all(file.exists(file.path(location, c("server.R", "ui.R", "global.R", "program"))))
 }
 
-#' Add the left sidebar to an existing application.
+#' Add the left sidebar to an existing application
 #'
-#' @param location path of the existing application.
+#' If the passed location is invalid, empty, not exist or not a valid periscope2 application, nothing will be added
+#' and a related error message will be printed in console
+#'
+#'
+#' @param location path of the existing periscope2 application.
 #'
 #' @export
+#' @seealso \link[periscope2]{create_right_sidebar}
 create_left_sidebar <- function(location) {
     assertthat::assert_that(!is.null(location),
                             location != "",
@@ -58,11 +63,16 @@ create_left_sidebar <- function(location) {
     })
 }
 
-#' Add the right sidebar to an existing application.
+
+#' Add the right sidebar to an existing application
 #'
-#' @param location path of the existing application.
+#' If the passed location is invalid, empty, not exist or not a valid periscope2 application, nothing will be added
+#' and a related error message will be printed in console
 #'
+#'
+#' @param location path of the existing periscope2 application.
 #' @export
+#' @seealso \link[periscope2]{create_left_sidebar}
 create_right_sidebar <- function(location) {
     assertthat::assert_that(!is.null(location),
                             location != "",
