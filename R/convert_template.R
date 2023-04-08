@@ -14,7 +14,7 @@ ui_filename <- "ui.R"
 #' @param location path of the existing application.
 #'
 #' @export
-add_left_sidebar <- function(location) {
+create_left_sidebar <- function(location) {
     assertthat::assert_that(!is.null(location),
                             location != "",
                             msg = "Add left sidebar conversion could not proceed, location cannot be empty!")
@@ -63,7 +63,7 @@ add_left_sidebar <- function(location) {
 #' @param location path of the existing application.
 #'
 #' @export
-add_right_sidebar <- function(location) {
+create_right_sidebar <- function(location) {
     assertthat::assert_that(!is.null(location),
                             location != "",
                             msg = "Add right sidebar conversion could not proceed, location cannot be empty!")

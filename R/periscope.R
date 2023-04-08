@@ -19,8 +19,8 @@
 #' \link[periscope2]{get_url_parameters}\cr
 #'
 #' \emph{Register user-created UI objects to the requisite application locations:\cr}
-#' \link[periscope2]{add_left_sidebar}\cr
-#' \link[periscope2]{add_right_sidebar}\cr
+#' \link[periscope2]{create_left_sidebar}\cr
+#' \link[periscope2]{create_right_sidebar}\cr
 #' \link[periscope2]{add_ui_header}\cr
 #' \link[periscope2]{add_ui_body}\cr
 #' \link[periscope2]{add_ui_footer}
