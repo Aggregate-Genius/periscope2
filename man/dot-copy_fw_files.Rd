@@ -10,7 +10,6 @@
   usersep,
   left_sidebar = TRUE,
   right_sidebar = FALSE,
-  footer = FALSE,
   sample_app = FALSE
 )
 }
@@ -22,8 +21,6 @@
 \item{left_sidebar}{- boolean to control copying left ui sidebar (default = TRUE)}
 
 \item{right_sidebar}{- boolean to control copying right ui sidebar (default = FALSE)}
-
-\item{footer}{- boolean to control copying footer ui (default = FALSE)}
 
 \item{sample_app}{- boolean to control copying sample app files (default = FALSE)}
 }

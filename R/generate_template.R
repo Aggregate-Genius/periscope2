@@ -11,7 +11,6 @@
 #' @param sample_app    - whether to create a sample shiny application
 #' @param left_sidebar  - whether the left sidebar should be enabled. It can be TRUE/FALSE
 #' @param right_sidebar - parameter to set the right sidebar. It can be TRUE/FALSE
-#' @param footer        - whether the footer sidebar should be enabled. It can be TRUE/FALSE
 #'
 #' @section Name:
 #' The \code{name} directory must not exist in \code{location}.  If the code
@@ -56,12 +55,8 @@
 #' Create right sidebar UI elements in this file and register them with the
 #' framework using a call to \link[periscope2]{add_ui_right_sidebar} \cr
 #' \cr
-#' \strong{\emph{name/program}/ui_footer.R} :\cr
-#' Create footer UI elements in this file and register them with the
-#' framework using a call to \link[periscope2]{add_ui_footer} \cr
-#' \cr
 #' \strong{\emph{name/program}/ui_header.R} :\cr
-#' Create footer UI elements in this file and register them with the
+#' Create header UI elements in this file and register them with the
 #' framework using a call to \link[periscope2]{add_ui_header} \cr
 #' \cr
 #' \strong{\emph{name/program/data}} directory :\cr
@@ -130,8 +125,7 @@ create_application <- function(name,
                                location,
                                sample_app    = FALSE,
                                left_sidebar  = TRUE,
-                               right_sidebar = FALSE,
-                               footer        = FALSE) {
+                               right_sidebar = FALSE) {
     assertthat::assert_that(!missing(name),
                             length(name) > 0,
                             !is.na(name),
@@ -164,11 +158,6 @@ create_application <- function(name,
         left_sidebar <- TRUE
     }
 
-    if (is.na(footer) || !is.logical(footer)) {
-        warning("'left_sidebar' must have valid boolean value. Setting 'footer' to default value 'FALSE'")
-        footer <- FALSE
-    }
-
     usersep <- .Platform$file.sep
     newloc  <- paste(location, name, sep = usersep)
 
@@ -180,18 +169,16 @@ create_application <- function(name,
     tryCatch({
         .create_dirs(newloc  = newloc,
                      usersep = usersep)
-        .copy_fw_files(newloc            = newloc,
-                       usersep           = usersep,
-                       left_sidebar      = left_sidebar,
-                       right_sidebar     = right_sidebar,
-                       footer            = footer,
-                       sample_app        = sample_app)
+        .copy_fw_files(newloc        = newloc,
+                       usersep       = usersep,
+                       left_sidebar  = left_sidebar,
+                       right_sidebar = right_sidebar,
+                       sample_app    = sample_app)
         .copy_program_files(newloc        = newloc,
                             usersep       = usersep,
                             sample_app    = sample_app,
                             left_sidebar  = left_sidebar,
-                            right_sidebar = right_sidebar,
-                            footer        = footer)
+                            right_sidebar = right_sidebar)
         application_created <- TRUE
     },
     error = function(e) {
@@ -240,7 +227,6 @@ create_application <- function(name,
 #' @param usersep       - string represents path separator based on running OS
 #' @param left_sidebar  - boolean to control copying left ui sidebar (default = TRUE)
 #' @param right_sidebar - boolean to control copying right ui sidebar (default = FALSE)
-#' @param footer        - boolean to control copying footer ui (default = FALSE)
 #' @param sample_app    - boolean to control copying sample app files (default = FALSE)
 #'
 #' @return nothing
@@ -248,7 +234,6 @@ create_application <- function(name,
                            usersep,
                            left_sidebar  = TRUE,
                            right_sidebar = FALSE,
-                           footer        = FALSE,
                            sample_app    = FALSE) {
     files <- c("global.R", "server.R", "ui.R")
 
@@ -267,11 +252,6 @@ create_application <- function(name,
 
             }
 
-            if (footer) {
-                file_contents <- append(file_contents,
-                                        "source(paste(\"program\", \"ui_footer.R\", sep = .Platform$file.sep), local = TRUE)")
-
-            }
 
             file_contents <- append(file_contents, "create_application_dashboard()")
         }
@@ -317,15 +297,13 @@ create_application <- function(name,
 #' @param sample_app    - boolean to control copying sample app files (default = FALSE)
 #' @param left_sidebar  - boolean to control copying left ui sidebar (default = TRUE)
 #' @param right_sidebar - boolean to control copying right ui sidebar (default = FALSE)
-#' @param footer        - boolean to control copying footer ui (default = FALSE)
 #'
 #' @return nothing
 .copy_program_files <- function(newloc,
                                 usersep,
                                 sample_app,
                                 left_sidebar  = TRUE,
-                                right_sidebar = FALSE,
-                                footer        = FALSE) {
+                                right_sidebar = FALSE) {
     file.copy(system.file("fw_templ", "announce.yaml", package = "periscope2"),
               paste(newloc, "program", "config", "announce.yaml", sep = usersep))
 
@@ -333,17 +311,15 @@ create_application <- function(name,
                   "server_global.R" = "server_global.R",
                   "server_local.R"  = "server_local.R",
                   "ui_body.R"       = "ui_body.R",
-                  "ui_header.R"     = "ui_header.R")
+                  "ui_header.R"     = "ui_header.R",
+                  "ui_footer.R"     = "ui_footer.R")
 
     if (left_sidebar) {
         files["ui_left_sidebar.R"] <- "ui_left_sidebar.R"
     }
+
     if (right_sidebar) {
         files["ui_right_sidebar.R"] <- "ui_right_sidebar.R"
-    }
-
-    if (footer) {
-        files["ui_footer.R"] <- "ui_footer.R"
     }
 
     targetdir <- paste(newloc, "program", sep = usersep)

@@ -10,8 +10,7 @@
   usersep,
   sample_app,
   left_sidebar = TRUE,
-  right_sidebar = FALSE,
-  footer = FALSE
+  right_sidebar = FALSE
 )
 }
 \arguments{
@@ -24,8 +23,6 @@
 \item{left_sidebar}{- boolean to control copying left ui sidebar (default = TRUE)}
 
 \item{right_sidebar}{- boolean to control copying right ui sidebar (default = FALSE)}
-
-\item{footer}{- boolean to control copying footer ui (default = FALSE)}
 }
 \value{
 nothing

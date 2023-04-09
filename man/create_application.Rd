@@ -9,8 +9,7 @@ create_application(
   location,
   sample_app = FALSE,
   left_sidebar = TRUE,
-  right_sidebar = FALSE,
-  footer = FALSE
+  right_sidebar = FALSE
 )
 }
 \arguments{
@@ -23,8 +22,6 @@ create_application(
 \item{left_sidebar}{- whether the left sidebar should be enabled. It can be TRUE/FALSE}
 
 \item{right_sidebar}{- parameter to set the right sidebar. It can be TRUE/FALSE}
-
-\item{footer}{- whether the footer sidebar should be enabled. It can be TRUE/FALSE}
 }
 \description{
 Creates ready-to-use templated application files using the periscope2
@@ -79,12 +76,8 @@ framework using a call to \link[periscope2]{add_ui_left_sidebar} \cr
 Create right sidebar UI elements in this file and register them with the
 framework using a call to \link[periscope2]{add_ui_right_sidebar} \cr
 \cr
-\strong{\emph{name/program}/ui_footer.R} :\cr
-Create footer UI elements in this file and register them with the
-framework using a call to \link[periscope2]{add_ui_footer} \cr
-\cr
 \strong{\emph{name/program}/ui_header.R} :\cr
-Create footer UI elements in this file and register them with the
+Create header UI elements in this file and register them with the
 framework using a call to \link[periscope2]{add_ui_header} \cr
 \cr
 \strong{\emph{name/program/data}} directory :\cr
