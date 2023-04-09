@@ -156,3 +156,8 @@ create_application(name = 'myblankapp', location = location, left_sidebar = FALS
 unlink(paste0(location,'/myblankapp'), TRUE)
 
 }
+\seealso{
+\link[bs4Dash:dashboardPage]{bs4Dash:dashboardPage()}
+
+\link[waiter:waiter]{waiter:waiter_show()}
+}

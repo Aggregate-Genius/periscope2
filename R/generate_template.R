@@ -112,6 +112,8 @@
 #' name\\www\\img\\tooltip.png
 #' }
 #'
+#' @seealso \link[bs4Dash:dashboardPage]{bs4Dash:dashboardPage()}
+#' @seealso \link[waiter:waiter]{waiter:waiter_show()}
 #'
 #'@examples
 #' # sample app named 'mytestapp' created in a temp dir
