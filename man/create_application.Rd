@@ -8,8 +8,8 @@ create_application(
   name,
   location,
   sample_app = FALSE,
-  right_sidebar = FALSE,
   left_sidebar = TRUE,
+  right_sidebar = FALSE,
   footer = FALSE
 )
 }
@@ -20,9 +20,9 @@ create_application(
 
 \item{sample_app}{- whether to create a sample shiny application}
 
-\item{right_sidebar}{- parameter to set the right sidebar. It can be TRUE/FALSE}
-
 \item{left_sidebar}{- whether the left sidebar should be enabled. It can be TRUE/FALSE}
+
+\item{right_sidebar}{- parameter to set the right sidebar. It can be TRUE/FALSE}
 
 \item{footer}{- whether the footer sidebar should be enabled. It can be TRUE/FALSE}
 }

@@ -9,8 +9,8 @@
 #' @param name          - name for the new application and directory
 #' @param location      - base path for creation of \code{name}
 #' @param sample_app    - whether to create a sample shiny application
-#' @param right_sidebar - parameter to set the right sidebar. It can be TRUE/FALSE
 #' @param left_sidebar  - whether the left sidebar should be enabled. It can be TRUE/FALSE
+#' @param right_sidebar - parameter to set the right sidebar. It can be TRUE/FALSE
 #' @param footer        - whether the footer sidebar should be enabled. It can be TRUE/FALSE
 #'
 #' @section Name:
@@ -129,8 +129,8 @@
 create_application <- function(name,
                                location,
                                sample_app    = FALSE,
-                               right_sidebar = FALSE,
                                left_sidebar  = TRUE,
+                               right_sidebar = FALSE,
                                footer        = FALSE) {
     assertthat::assert_that(!missing(name),
                             length(name) > 0,
