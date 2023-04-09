@@ -23,17 +23,16 @@
 #'
 #' \preformatted{
 #' name
-#'  -- www (supporting shiny files)
-#'  -- -- css  (application css files)
-#'  -- -- js   (application js files)
-#'  -- -- img  (application image files)
+#'  -- log (log files)
 #'  -- program (user application)
+#'  -- -- config   (application configuration files)
 #'  -- -- data     (user application data)
 #'  -- -- fxn      (user application function)
-#'  -- -- config   (application configuration files)
-#'  -- -- data     (application data files)
 #'  -- -- modules  (application modules files)
-#'  -- log (log files)
+#'  -- www (supporting shiny files)
+#'  -- -- css  (application css files)
+#'  -- -- img  (application image files)
+#'  -- -- js   (application js files)
 #' }
 #'
 #' @section File Information:
@@ -43,28 +42,15 @@
 #' of the framework-provided .R files should not be changed or the framework
 #' will fail to work as expected. \cr
 #' \cr
-#' \strong{\emph{name/program}/ui_body.R} :\cr
-#' Create body UI elements in this file and register them with the
-#' framework using a call to \link[periscope2]{add_ui_body} \cr
-#' \cr
-#' \strong{\emph{name/program}/ui_left_sidebar.R} :\cr
-#' Create sidebar UI elements in this file and register them with the
-#' framework using a call to \link[periscope2]{add_ui_left_sidebar} \cr
-#' \cr
-#' \strong{\emph{name/program}/ui_right_sidebar.R} :\cr
-#' Create right sidebar UI elements in this file and register them with the
-#' framework using a call to \link[periscope2]{add_ui_right_sidebar} \cr
-#' \cr
-#' \strong{\emph{name/program}/ui_header.R} :\cr
-#' Create header UI elements in this file and register them with the
-#' framework using a call to \link[periscope2]{add_ui_header} \cr
+#' \strong{\emph{name/program/config}} directory :\cr
+#' Use this location for configuration files.\cr
 #' \cr
 #' \strong{\emph{name/program/data}} directory :\cr
 #' Use this location for data files.  There is a \strong{.gitignore} file
 #' included in this directory to prevent accidental versioning of data\cr
 #' \cr
-#' \strong{\emph{name/program/config}} directory :\cr
-#' Use this location for configuration files.\cr
+#' \strong{\emph{name/program/fxn}} directory :\cr
+#' Use this location for supporting and helper R files.\cr
 #' \cr
 #' \strong{\emph{name/program/modules}} directory :\cr
 #' Use this location for application new modules files.\cr
@@ -85,9 +71,25 @@
 #' inside of the call to \code{shinyServer(...)}.  Anything placed in this
 #' file will be accessible only within a single user session.\cr
 #' \cr
-#' \strong{\emph{name}/www/periscope_style.yaml} :\cr
-#' This is the application custom styling yaml file. User can update
-#' application different parts style using this file.\cr
+#' \strong{\emph{name/program}/ui_body.R} :\cr
+#' Create body UI elements in this file and register them with the
+#' framework using a call to \link[periscope2]{add_ui_body} \cr
+#' \cr
+#' \strong{\emph{name/program}/ui_footer.R} :\cr
+#' Create footer UI elements in this file and register them with the
+#' framework using a call to \link[periscope2]{add_ui_footer} \cr
+#' \cr
+#' \strong{\emph{name/program}/ui_header.R} :\cr
+#' Create header UI elements in this file and register them with the
+#' framework using a call to \link[periscope2]{add_ui_header} \cr
+#' \cr
+#' \strong{\emph{name/program}/ui_left_sidebar.R} :\cr
+#' Create sidebar UI elements in this file and register them with the
+#' framework using a call to \link[periscope2]{add_ui_left_sidebar} \cr
+#' \cr
+#' \strong{\emph{name/program}/ui_right_sidebar.R} :\cr
+#' Create right sidebar UI elements in this file and register them with the
+#' framework using a call to \link[periscope2]{add_ui_right_sidebar} \cr
 #' \cr
 #' \strong{\emph{name}/www/css/custom.css} :\cr
 #' This is the application custom styling css file. User can update
@@ -95,6 +97,10 @@
 #' \cr
 #' \strong{\emph{name}/www/js/custom.js} :\cr
 #' This is the application custom javascript file.\cr
+#' \cr
+#' \strong{\emph{name}/www/periscope_style.yaml} :\cr
+#' This is the application custom styling yaml file. User can update
+#' application different parts style using this file.\cr
 #' \cr
 #' \cr
 #' \strong{Do not modify the following files}: \cr
@@ -109,16 +115,24 @@
 #'
 #'@examples
 #' # sample app named 'mytestapp' created in a temp dir
-#' #create_application(name = 'mytestapp', location = tempdir(), sample_app = TRUE)
+#' location <- tempdir()
+#' create_application(name = 'mytestapp', location = location, sample_app = TRUE)
+#' unlink(paste0(location,'/mytestapp'), TRUE)
 #'
 #' # sample app named 'mytestapp' with a right sidebar using a custom icon created in a temp dir
-#' #create_application(name = 'mytestapp', location = tempdir(), sample_app = TRUE,
-#' #right_sidebar = TRUE)
+#' location <- tempdir()
+#' create_application(name = 'mytestapp', location = location, sample_app = TRUE, right_sidebar = TRUE)
+#' unlink(paste0(location,'/mytestapp'), TRUE)
 #'
 #' # blank app named 'myblankapp' created in a temp dir
-#' #create_application(name = 'myblankapp', location = tempdir())
+#' location <- tempdir()
+#' create_application(name = 'myblankapp', location = location)
+#' unlink(paste0(location,'/myblankapp'), TRUE)
+#'
 #' # blank app named 'myblankapp' without a left sidebar created in a temp dir
-#' #create_application(name = 'myblankapp', location = tempdir(), left_sidebar = FALSE)
+#' location <- tempdir()
+#' create_application(name = 'myblankapp', location = location, left_sidebar = FALSE)
+#' unlink(paste0(location,'/myblankapp'), TRUE)
 #'
 #' @export
 create_application <- function(name,
