@@ -3,8 +3,7 @@ context("periscope2 create new application")
 expect_cleanup_create_new_application <- function(full_name,
                                                   sample_app    = FALSE,
                                                   left_sidebar  = TRUE,
-                                                  right_sidebar = FALSE,
-                                                  footer        = FALSE) {
+                                                  right_sidebar = FALSE) {
     expect_true(dir.exists(full_name))
     expect_true(file.exists(paste0(full_name, "/global.R")))
     expect_true(file.exists(paste0(full_name, "/server.R")))
@@ -22,6 +21,7 @@ expect_cleanup_create_new_application <- function(full_name,
     expect_true(file.exists(paste0(full_name, "/program/server_local.R")))
     expect_true(file.exists(paste0(full_name, "/program/ui_body.R")))
     expect_true(file.exists(paste0(full_name, "/program/ui_header.R")))
+    expect_true(file.exists(paste0(full_name, "/program/ui_footer.R")))
     expect_true(dir.exists(paste0(full_name, "/program/data")))
     expect_true(dir.exists(paste0(full_name, "/program/fxn")))
     expect_true(file.exists(paste0(full_name, "/program/config/announce.yaml")))
@@ -38,12 +38,6 @@ expect_cleanup_create_new_application <- function(full_name,
         expect_true(file.exists(paste0(full_name, "/program/ui_right_sidebar.R")))
     } else {
         expect_true(!file.exists(paste0(full_name, "/program/ui_right_sidebar.R")))
-    }
-
-    if (footer) {
-        expect_true(file.exists(paste0(full_name, "/program/ui_footer.R")))
-    } else {
-        expect_true(!file.exists(paste0(full_name, "/program/ui_footer.R")))
     }
 
     if (sample_app) {
@@ -66,12 +60,10 @@ test_that("create_application empty full app", {
     expect_message(create_application(name          = appTemp_name,
                                       location      = appTemp_dir,
                                       sample_app    = FALSE,
-                                      right_sidebar = TRUE,
-                                      footer        = TRUE),
+                                      right_sidebar = TRUE),
                    paste("Periscope2 application", appTemp_name, "is created successfully at location", appTemp_dir))
     expect_cleanup_create_new_application(full_name     = appTemp,
-                                          right_sidebar = TRUE,
-                                          footer        = TRUE)
+                                          right_sidebar = TRUE)
 })
 
 test_that("create_application sample", {
@@ -97,13 +89,11 @@ test_that("create_application sample full app", {
     expect_message(create_application(name          = appTemp_name,
                                       location      = appTemp_dir,
                                       sample_app    = TRUE,
-                                      right_sidebar = TRUE,
-                                      footer        = TRUE),
+                                      right_sidebar = TRUE),
                    paste("Periscope2 application", appTemp_name, "is created successfully at location", appTemp_dir))
     expect_cleanup_create_new_application(full_name     = appTemp,
                                           sample_app    = TRUE,
-                                          right_sidebar = TRUE,
-                                          footer        = TRUE)
+                                          right_sidebar = TRUE)
 })
 
 test_that("create_application sample right_sidebar without left_sidebar", {
@@ -123,7 +113,7 @@ test_that("create_application sample right_sidebar without left_sidebar", {
                                           left_sidebar  = FALSE)
 })
 
-test_that("create_application sample without bars and footer", {
+test_that("create_application sample without bars", {
     appTemp_dir  <- tempdir()
     appTemp      <- tempfile(pattern = "TestThatApp", tmpdir = appTemp_dir)
     appTemp_name <- gsub('\\\\|/', '', (gsub(appTemp_dir, "", appTemp, fixed = TRUE)))
@@ -138,7 +128,7 @@ test_that("create_application sample without bars and footer", {
                                           left_sidebar  = FALSE)
 })
 
-test_that("create_application empty app without bars and footer", {
+test_that("create_application empty app without bars", {
     appTemp_dir  <- tempdir()
     appTemp      <- tempfile(pattern = "TestThatApp", tmpdir = appTemp_dir)
     appTemp_name <- gsub('\\\\|/', '', (gsub(appTemp_dir, "", appTemp, fixed = TRUE)))
@@ -265,29 +255,5 @@ test_that("create_application invalid right sidebar", {
     appTemp_name <- gsub('\\\\|/', '', (gsub(appTemp_dir, "", appTemp, fixed = TRUE)))
     expect_warning(create_application(name = appTemp_name, location = appTemp_dir, right_sidebar = 123),
                    "'right_sidebar' must have valid boolean value. Setting 'right_sidebar' to default value 'FALSE'")
-    expect_cleanup_create_new_application(appTemp)
-})
-
-test_that("create_application invalid footer", {
-    appTemp_dir <- tempdir()
-
-    appTemp      <- tempfile(pattern = "InvalidApp", tmpdir = appTemp_dir)
-    appTemp_name <- gsub('\\\\|/', '', (gsub(appTemp_dir, "", appTemp, fixed = TRUE)))
-    expect_warning(create_application(name = appTemp_name, location = appTemp_dir, footer = "FALSE"),
-                   "'left_sidebar' must have valid boolean value. Setting 'footer' to default value 'FALSE'")
-    appTemp      <- tempfile(pattern = "InvalidApp", tmpdir = appTemp_dir)
-    appTemp_name <- gsub('\\\\|/', '', (gsub(appTemp_dir, "", appTemp, fixed = TRUE)))
-    expect_warning(create_application(name = appTemp_name, location = appTemp_dir, footer = NULL),
-                   "'left_sidebar' must have valid boolean value. Setting 'footer' to default value 'FALSE'")
-
-    appTemp      <- tempfile(pattern = "InvalidApp", tmpdir = appTemp_dir)
-    appTemp_name <- gsub('\\\\|/', '', (gsub(appTemp_dir, "", appTemp, fixed = TRUE)))
-    expect_warning(create_application(name = appTemp_name, location = appTemp_dir, footer = NA),
-                   "'left_sidebar' must have valid boolean value. Setting 'footer' to default value 'FALSE'")
-
-    appTemp      <- tempfile(pattern = "InvalidApp", tmpdir = appTemp_dir)
-    appTemp_name <- gsub('\\\\|/', '', (gsub(appTemp_dir, "", appTemp, fixed = TRUE)))
-    expect_warning(create_application(name = appTemp_name, location = appTemp_dir, footer = 123),
-                   "'left_sidebar' must have valid boolean value. Setting 'footer' to default value 'FALSE'")
     expect_cleanup_create_new_application(appTemp)
 })
