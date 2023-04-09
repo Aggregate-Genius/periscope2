@@ -25,7 +25,7 @@ create_application(
 }
 \description{
 Creates ready-to-use templated application files using the periscope2
-framework.  The application can be created either empty (default) or with a
+framework. The application can be created either empty (default) or with a
 sample/documented example application.\cr \cr
 }
 \section{Name}{
@@ -87,7 +87,7 @@ included in this directory to prevent accidental versioning of data\cr
 \strong{\emph{name/program/config}} directory :\cr
 Use this location for configuration files.
 \cr
-#' \strong{\emph{name/program/modules}} directory :\cr
+\strong{\emph{name/program/modules}} directory :\cr
 Use this location for application new modules files.
 \cr
 \strong{\emph{name/program}/global.R} :\cr
