@@ -64,10 +64,10 @@
 #' included in this directory to prevent accidental versioning of data\cr
 #' \cr
 #' \strong{\emph{name/program/config}} directory :\cr
-#' Use this location for configuration files.
+#' Use this location for configuration files.\cr
 #' \cr
 #' \strong{\emph{name/program/modules}} directory :\cr
-#' Use this location for application new modules files.
+#' Use this location for application new modules files.\cr
 #' \cr
 #' \strong{\emph{name/program}/global.R} :\cr
 #' Use this location for code that would have previously resided in global.R
