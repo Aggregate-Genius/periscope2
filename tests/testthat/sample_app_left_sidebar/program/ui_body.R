@@ -56,7 +56,7 @@ application_setup <- tabItem(tabName = "application_setup",
 ### Application Modules Elements
 plot2_hover <- hoverOpts(id = "examplePlot2_hover")
 
-announcements <- box(
+announcements_box <- box(
     id          = "announcements",
     title       = "Announcements",
     status      = "info",

@@ -203,7 +203,7 @@ logger_box <- box(
 
 
 periscope_modules <- tabItem(tabName = "periscope_modules",
-                             announcements,
+                             announcements_box,
                              table_downloader_box,
                              plot_downloader_box,
                              fluidRow(file_downloader_box,
