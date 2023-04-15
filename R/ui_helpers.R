@@ -74,16 +74,45 @@ add_ui_left_sidebar <- function(sidebar_elements = NULL,
 #' @section Shiny Usage:
 #' Call this function from \code{program/ui_header.R} to set header parameters
 #'
+#' @examples
+#'   library(shiny)
+#'   library(bs4Dash)
+#'
+#'   # Inside ui_header.R
+#'   # Custom left UI content
+#'   left_ui <- tagList(dropdownMenu(badgeStatus = "info",
+#'                                   type        = "notifications",
+#'                                    notificationItem(inputId = "triggerAction2",
+#'                                                     text    = "Error!",
+#'                                                     status  = "danger")),
+#'                       dropdownMenu(badgeStatus = "info",
+#'                                    type        = "tasks",
+#'                                    taskItem(inputId = "triggerAction3",
+#'                                             text    = "My progress",
+#'                                             color   = "orange",
+#'                                             value   = 10)))
+#'
+#'   # Custom right UI content
+#'   right_ui <- dropdownMenu(badgeStatus = "danger",
+#'                           type        = "messages",
+#'                           messageItem(inputId = "triggerAction1",
+#'                                       message = "message 1",
+#'                                       from    = "Divad Nojnarg",
+#'                                       time    = "today",
+#'                                       color   = "lime"))
+#'   # -- Register Header Elements in the ORDER SHOWN in the UI
+#'   add_ui_header(left_ui = left_ui, right_ui = right_ui)
+#'
 #' @export
-add_ui_header <- function(skin,
-                          status,
-                          border,
-                          compact,
-                          sidebarIcon,
-                          controlbarIcon,
-                          fixed,
-                          left_ui,
-                          right_ui) {
+add_ui_header <- function(skin           = "light",
+                          status         = "white",
+                          border         = TRUE,
+                          compact        = FALSE,
+                          sidebarIcon    = shiny::icon("th"),
+                          controlbarIcon = shiny::icon("bars"),
+                          fixed          = FALSE,
+                          left_ui        = NULL,
+                          right_ui       = NULL) {
     app_title <- shiny::isolate(.g_opts$app_title)
     title     <- shiny::div(id = "app_header", app_title)
     app_info  <- shiny::isolate(.g_opts$app_info)
