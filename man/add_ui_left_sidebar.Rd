@@ -7,20 +7,20 @@
 add_ui_left_sidebar(
   sidebar_elements = NULL,
   skin = "light",
-  status,
-  elevation,
-  collapsed,
-  minified,
-  expand_on_hover,
-  fixed,
-  sidebar_menu,
-  custom_area
+  status = "primary",
+  elevation = 4,
+  collapsed = FALSE,
+  minified = FALSE,
+  expand_on_hover = TRUE,
+  fixed = TRUE,
+  sidebar_menu = NULL,
+  custom_area = NULL
 )
 }
 \arguments{
 \item{sidebar_elements}{- List of shiny ui elements}
 
-\item{skin}{- Sidebar skin. "dark" or "light".}
+\item{skin}{- Sidebar skin. "dark" or "light"}
 
 \item{status}{- Sidebar status. Check \code{?bs4Dash::dashboardSidebar()} for list of valid values}
 
@@ -30,9 +30,9 @@ add_ui_left_sidebar(
 
 \item{minified}{- Whether to slightly close the sidebar but still show item icons. Default to TRUE}
 
-\item{expand_on_hover}{- Whether to expand the sidebar om hover. TRUE by default.}
+\item{expand_on_hover}{- Whether to expand the sidebar om hover. TRUE by default}
 
-\item{fixed}{- Whether to fix the sidebar. Default to TRUE.}
+\item{fixed}{- Whether to fix the sidebar. Default to TRUE}
 
 \item{sidebar_menu}{- Sidebar menu items}
 
@@ -44,6 +44,21 @@ Check example application for detailed example
 }
 \section{Shiny Usage}{
 
-Call this function from \code{program/ui_left_sidebar.R} to set left sidebar parameters.
+Call this function from \code{program/ui_left_sidebar.R} to set left sidebar parameters
 }
 
+\examples{
+  library(shiny)
+  library(bs4Dash)
+ # Inside ui_left_sidebar.R
+ # sidebar menu items
+ sidebar_elements <- textInput("text_id", "Test", "Test Data")
+ sidebar_menu     <- sidebarMenu(sidebarHeader("Main Menu"),
+                                 menuItem("menu item 1",
+                                          tabName = "item_1 page"),
+                                 menuItem("menu item 2",
+                                          tabName = "item_2 page"))
+ add_ui_left_sidebar(sidebar_elements = sidebar_elements,
+                     sidebar_menu     = sidebar_menu)
+
+}
