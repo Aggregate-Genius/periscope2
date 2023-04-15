@@ -42,3 +42,8 @@ add_ui_left_sidebar(
 This function adds left sidebar configurations and elements. It is called within "ui_left_sidebar.R".
 Check example application for detailed example
 }
+\section{Shiny Usage}{
+
+Call this function from \code{program/ui_left_sidebar.R} to set left sidebar parameters.
+}
+

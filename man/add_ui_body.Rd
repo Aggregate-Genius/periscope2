@@ -15,3 +15,8 @@ add_ui_body(body_elements = NULL, append = FALSE)
 Builds application body with given configurations and elements. It is called within "ui_body.R".
 Check example application for detailed example
 }
+\section{Shiny Usage}{
+
+Call this function from \code{program/ui_body.R} to set body parameters
+}
+

@@ -23,6 +23,11 @@ createAlert(
 \description{
 Created an alert panel in server to be displayed the given ui anchor
 }
+\section{Shiny Usage}{
+
+Call this function from \code{program/server_local.R} or any other server file to setup needed alert
+}
+
 \examples{
          createAlert(id       = "sidebarRightAlert",
                      options  = list(title    = "Right Side",

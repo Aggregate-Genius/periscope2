@@ -19,3 +19,8 @@ ui_tooltip(id, label = "", text = "", placement = "top")
 This function inserts a standardized tooltip image, label (optional),
 and hovertext into the application UI
 }
+\section{Shiny Usage}{
+
+Call this function from \code{program/ui_body.R} to set tooltip parameters
+}
+

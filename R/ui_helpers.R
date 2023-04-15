@@ -14,6 +14,9 @@
 #' @param sidebar_menu        - Sidebar menu items
 #' @param custom_area         - Sidebar bottom space area. Only works if sidebar is fixed
 #'
+#' @section Shiny Usage:
+#' Call this function from \code{program/ui_left_sidebar.R} to set left sidebar parameters.
+#'
 #' @export
 add_ui_left_sidebar <- function(sidebar_elements = NULL,
                                 skin             = "light",
@@ -54,6 +57,9 @@ add_ui_left_sidebar <- function(sidebar_elements = NULL,
 #' @param left_ui        - Custom left UI content. Any element like dropdownMenu
 #' @param right_ui       - Custom right UI content. Any element like dropdownMenu
 #'
+#' @section Shiny Usage:
+#' Call this function from \code{program/ui_header.R} to set header parameters
+#'
 #' @export
 add_ui_header <- function(skin,
                           status,
@@ -73,6 +79,7 @@ add_ui_header <- function(skin,
                             shiny::div(id = "app_header"),
                             shiny::actionLink("app_info", app_title))
     }
+
     title_header_alert <- shiny::fluidRow(style = "width:100%",
                                           shiny::column(width = 12, shiny::div(id = "announceAlert")),
                                           shiny::column(width = 12, shiny::div(id = "headerAlert")),
@@ -104,6 +111,9 @@ add_ui_header <- function(skin,
 #'
 #' @param body_elements - List of ui elements to be displayed in application body
 #' @param append        - Add elements to current body elements or remove previous body elements (default = FALSE)
+#'
+#' @section Shiny Usage:
+#' Call this function from \code{program/ui_body.R} to set body parameters
 #'
 #' @export
 add_ui_body <- function(body_elements = NULL, append = FALSE) {
@@ -140,6 +150,9 @@ add_ui_body <- function(body_elements = NULL, append = FALSE) {
 #'                                      status   = "success",
 #'                                      closable = TRUE,
 #'                                      content  = "Example Basic Sidebar Alert"))
+#'
+#' @section Shiny Usage:
+#' Call this function from \code{program/server_local.R} or any other server file to setup needed alert
 #'
 #' @export
 createAlert <- function(id       = NULL,
@@ -183,6 +196,9 @@ closeResetAlert <- function(id, session = shiny::getDefaultReactiveDomain()) {
 #' @param pinned           - Whether to block the controlbar state (TRUE or FALSE). Default to NULL
 #' @param controlbar_menu  - Right sidebar elements
 #'
+#' @section Shiny Usage:
+#' Call this function from \code{program/ui_right_sidebar.R} to set right sidebar parameters
+#'
 #' @export
 add_ui_right_sidebar <- function(sidebar_elements = NULL,
                                  collapsed,
@@ -209,6 +225,9 @@ add_ui_right_sidebar <- function(sidebar_elements = NULL,
 #' @param right - Right text
 #' @param fixed - Whether to fix the navbar to the top. FALSE by default.
 #'
+#' @section Shiny Usage:
+#' Call this function from \code{program/ui_footer.R} to set footer parameters
+#'
 #' @export
 add_ui_footer <- function(left, right, fixed) {
     .g_opts$footer <- bs4Dash::bs4DashFooter(left  = list(shiny::div(id = "footerAlert"),
@@ -227,6 +246,9 @@ add_ui_footer <- function(left, right, fixed) {
 #' @param label     - text label to appear to the left of the tooltip image
 #' @param text      - Tooltip text shown when the user hovers over the image
 #' @param placement - Where to display tooltip label. Available places are "top", "bottom", "left", "right" (default is "top")
+#'
+#' @section Shiny Usage:
+#' Call this function from \code{program/ui_body.R} to set tooltip parameters
 #'
 #' @export
 ui_tooltip <- function(id,

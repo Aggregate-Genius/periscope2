@@ -30,3 +30,8 @@ add_ui_right_sidebar(
 Builds application right sidebar with given configurations and elements. It is called within "ui_right_sidebar.R".
 Check example application for detailed example
 }
+\section{Shiny Usage}{
+
+Call this function from \code{program/ui_right_sidebar.R} to set right sidebar parameters
+}
+

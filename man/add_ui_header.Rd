@@ -39,3 +39,8 @@ add_ui_header(
 Builds application header with given configurations and elements. It is called within "ui_header.R".
 Check example application for detailed example
 }
+\section{Shiny Usage}{
+
+Call this function from \code{program/ui_header.R} to set header parameters
+}
+

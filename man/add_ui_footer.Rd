@@ -17,3 +17,8 @@ add_ui_footer(left, right, fixed)
 Builds application footer with given configurations and elements. It is called within "ui_footer.R".
 Check example application for detailed example
 }
+\section{Shiny Usage}{
+
+Call this function from \code{program/ui_footer.R} to set footer parameters
+}
+
