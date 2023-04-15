@@ -12,22 +12,22 @@ createAlert(
 )
 }
 \arguments{
-\item{id}{Anchor id}
+\item{id}{- Anchor id}
 
-\item{selector}{jQuery selector. Allow more customization for the anchor (nested tags).}
+\item{selector}{- jQuery selector. Allow more customization for the anchor (nested tags).}
 
-\item{options}{List of options to pass to the alert}
+\item{options}{- List of options to pass to the alert}
 
-\item{session}{Shiny session object.}
+\item{session}{- Shiny session object.}
 }
 \description{
 Created an alert panel in server to be displayed the given ui anchor
 }
 \examples{
-         #createAlert(id       = "sidebarRightAlert",
-         #            options  = list(title    = "Right Side",
-         #                            status   = "success",
-         #                            closable = TRUE,
-         #                            content  = "Example Basic Sidebar Alert"))
+         createAlert(id       = "sidebarRightAlert",
+                     options  = list(title    = "Right Side",
+                                     status   = "success",
+                                     closable = TRUE,
+                                     content  = "Example Basic Sidebar Alert"))
 
 }

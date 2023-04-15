@@ -18,25 +18,25 @@ add_ui_left_sidebar(
 )
 }
 \arguments{
-\item{sidebar_elements}{list of shiny ui elements}
+\item{sidebar_elements}{- List of shiny ui elements}
 
-\item{skin}{Sidebar skin. "dark" or "light".}
+\item{skin}{- Sidebar skin. "dark" or "light".}
 
-\item{status}{Sidebar status. Check \code{?bs4Dash::dashboardSidebar()} for list of valid values}
+\item{status}{- Sidebar status. Check \code{?bs4Dash::dashboardSidebar()} for list of valid values}
 
-\item{elevation}{Sidebar elevation. 4 by default (until 5)}
+\item{elevation}{- Sidebar elevation. 4 by default (until 5)}
 
-\item{collapsed}{If TRUE, the sidebar will be collapsed on app startup.}
+\item{collapsed}{- If TRUE, the sidebar will be collapsed on app startup.}
 
-\item{minified}{Whether to slightly close the sidebar but still show item icons. Default to TRUE}
+\item{minified}{- Whether to slightly close the sidebar but still show item icons. Default to TRUE}
 
-\item{expand_on_hover}{Whether to expand the sidebar om hover. TRUE by default.}
+\item{expand_on_hover}{- Whether to expand the sidebar om hover. TRUE by default.}
 
-\item{fixed}{character Whether to fix the sidebar. Default to TRUE.}
+\item{fixed}{- Whether to fix the sidebar. Default to TRUE.}
 
-\item{sidebar_menu}{sidebar menu items}
+\item{sidebar_menu}{- Sidebar menu items}
 
-\item{custom_area}{Sidebar bottom space area. Only works if sidebar is fixed}
+\item{custom_area}{- Sidebar bottom space area. Only works if sidebar is fixed}
 }
 \description{
 This function adds left sidebar configurations and elements. It is called within "ui_left_sidebar.R".

@@ -7,11 +7,11 @@
 add_ui_footer(left, right, fixed)
 }
 \arguments{
-\item{left}{Left text}
+\item{left}{- Left text}
 
-\item{right}{Right text}
+\item{right}{- Right text}
 
-\item{fixed}{Whether to fix the navbar to the top. FALSE by default.}
+\item{fixed}{- Whether to fix the navbar to the top. FALSE by default.}
 }
 \description{
 Builds application footer with given configurations and elements. It is called within "ui_footer.R".

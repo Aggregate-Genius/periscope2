@@ -14,17 +14,17 @@ add_ui_right_sidebar(
 )
 }
 \arguments{
-\item{sidebar_elements}{list of shiny ui elements}
+\item{sidebar_elements}{- List of shiny ui elements}
 
-\item{collapsed}{If TRUE, the sidebar will be collapsed on app startup.}
+\item{collapsed}{- If TRUE, the sidebar will be collapsed on app startup.}
 
-\item{overlay}{Whether the sidebar covers the content when expanded. Default to TRUE}
+\item{overlay}{- Whether the sidebar covers the content when expanded. Default to TRUE}
 
-\item{skin}{Sidebar skin. "dark" or "light".}
+\item{skin}{- Sidebar skin. "dark" or "light".}
 
-\item{pinned}{Whether to block the controlbar state (TRUE or FALSE). Default to NULL}
+\item{pinned}{- Whether to block the controlbar state (TRUE or FALSE). Default to NULL}
 
-\item{controlbar_menu}{right sidebar elements}
+\item{controlbar_menu}{- Right sidebar elements}
 }
 \description{
 Builds application right sidebar with given configurations and elements. It is called within "ui_right_sidebar.R".

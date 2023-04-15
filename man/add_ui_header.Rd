@@ -17,23 +17,23 @@ add_ui_header(
 )
 }
 \arguments{
-\item{skin}{Sidebar skin. "dark" or "light".}
+\item{skin}{- Sidebar skin. "dark" or "light"}
 
-\item{status}{Sidebar status. Check \code{?bs4Dash::bs4DashNavbar()} for list of valid values}
+\item{status}{- Sidebar status. Check \code{?bs4Dash::bs4DashNavbar()} for list of valid values}
 
-\item{border}{Whether to separate the navbar and body by a border. TRUE by default.}
+\item{border}{- Whether to separate the navbar and body by a border. TRUE by default}
 
-\item{compact}{Whether items should be compacted. FALSE by default.}
+\item{compact}{- Whether items should be compacted. FALSE by default}
 
-\item{sidebarIcon}{Icon of the main sidebar toggle}
+\item{sidebarIcon}{- Icon of the main sidebar toggle}
 
-\item{controlbarIcon}{Icon to toggle the controlbar (left)}
+\item{controlbarIcon}{- Icon to toggle the controlbar (left)}
 
-\item{fixed}{Whether to fix the navbar to the top. FALSE by default.}
+\item{fixed}{- Whether to fix the navbar to the top. FALSE by default}
 
-\item{left_ui}{Custom left UI content. Any element like dropdownMenu.}
+\item{left_ui}{- Custom left UI content. Any element like dropdownMenu}
 
-\item{right_ui}{Custom right UI content. Any element like dropdownMenu.}
+\item{right_ui}{- Custom right UI content. Any element like dropdownMenu}
 }
 \description{
 Builds application header with given configurations and elements. It is called within "ui_header.R".

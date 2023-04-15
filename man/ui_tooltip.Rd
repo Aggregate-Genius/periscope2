@@ -7,14 +7,13 @@
 ui_tooltip(id, label = "", text = "", placement = "top")
 }
 \arguments{
-\item{id}{character id for the tooltip object}
+\item{id}{- The id for the tooltip object}
 
-\item{label}{text label to appear to the left of the tooltip image}
+\item{label}{- text label to appear to the left of the tooltip image}
 
-\item{text}{tooltip text shown when the user hovers over the image}
+\item{text}{- Tooltip text shown when the user hovers over the image}
 
-\item{placement}{where to display tooltip label.
-Available places are "top", "bottom", "left", "right" (default is "top")}
+\item{placement}{- Where to display tooltip label. Available places are "top", "bottom", "left", "right" (default is "top")}
 }
 \description{
 This function inserts a standardized tooltip image, label (optional),

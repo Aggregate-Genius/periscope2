@@ -3,20 +3,20 @@
 #' This function adds left sidebar configurations and elements. It is called within "ui_left_sidebar.R".
 #' Check example application for detailed example
 #'
-#' @param sidebar_elements list of shiny ui elements
-#' @param skin Sidebar skin. "dark" or "light".
-#' @param status Sidebar status. Check \code{?bs4Dash::dashboardSidebar()} for list of valid values
-#' @param elevation Sidebar elevation. 4 by default (until 5)
-#' @param collapsed If TRUE, the sidebar will be collapsed on app startup.
-#' @param minified 	Whether to slightly close the sidebar but still show item icons. Default to TRUE
-#' @param expand_on_hover Whether to expand the sidebar om hover. TRUE by default.
-#' @param fixed character Whether to fix the sidebar. Default to TRUE.
-#' @param sidebar_menu sidebar menu items
-#' @param custom_area Sidebar bottom space area. Only works if sidebar is fixed
+#' @param sidebar_elements    - List of shiny ui elements
+#' @param skin                - Sidebar skin. "dark" or "light".
+#' @param status              - Sidebar status. Check \code{?bs4Dash::dashboardSidebar()} for list of valid values
+#' @param elevation           - Sidebar elevation. 4 by default (until 5)
+#' @param collapsed           - If TRUE, the sidebar will be collapsed on app startup.
+#' @param minified            - Whether to slightly close the sidebar but still show item icons. Default to TRUE
+#' @param expand_on_hover     - Whether to expand the sidebar om hover. TRUE by default.
+#' @param fixed               - Whether to fix the sidebar. Default to TRUE.
+#' @param sidebar_menu        - Sidebar menu items
+#' @param custom_area         - Sidebar bottom space area. Only works if sidebar is fixed
 #'
 #' @export
 add_ui_left_sidebar <- function(sidebar_elements = NULL,
-                                skin = "light",
+                                skin             = "light",
                                 status,
                                 elevation,
                                 collapsed,
@@ -44,15 +44,15 @@ add_ui_left_sidebar <- function(sidebar_elements = NULL,
 #' Builds application header with given configurations and elements. It is called within "ui_header.R".
 #' Check example application for detailed example
 #'
-#' @param skin Sidebar skin. "dark" or "light".
-#' @param status Sidebar status. Check \code{?bs4Dash::bs4DashNavbar()} for list of valid values
-#' @param border Whether to separate the navbar and body by a border. TRUE by default.
-#' @param compact Whether items should be compacted. FALSE by default.
-#' @param sidebarIcon Icon of the main sidebar toggle
-#' @param controlbarIcon Icon to toggle the controlbar (left)
-#' @param fixed Whether to fix the navbar to the top. FALSE by default.
-#' @param left_ui Custom left UI content. Any element like dropdownMenu.
-#' @param right_ui Custom right UI content. Any element like dropdownMenu.
+#' @param skin           - Sidebar skin. "dark" or "light"
+#' @param status         - Sidebar status. Check \code{?bs4Dash::bs4DashNavbar()} for list of valid values
+#' @param border         - Whether to separate the navbar and body by a border. TRUE by default
+#' @param compact        - Whether items should be compacted. FALSE by default
+#' @param sidebarIcon    - Icon of the main sidebar toggle
+#' @param controlbarIcon - Icon to toggle the controlbar (left)
+#' @param fixed          - Whether to fix the navbar to the top. FALSE by default
+#' @param left_ui        - Custom left UI content. Any element like dropdownMenu
+#' @param right_ui       - Custom right UI content. Any element like dropdownMenu
 #'
 #' @export
 add_ui_header <- function(skin,
@@ -102,8 +102,8 @@ add_ui_header <- function(skin,
 #' Builds application body with given configurations and elements. It is called within "ui_body.R".
 #' Check example application for detailed example
 #'
-#' @param body_elements list of ui elements to be displayed in application body
-#' @param append add elements to current body elements or remove previous body elements (default = FALSE)
+#' @param body_elements - List of ui elements to be displayed in application body
+#' @param append        - Add elements to current body elements or remove previous body elements (default = FALSE)
 #'
 #' @export
 add_ui_body <- function(body_elements = NULL, append = FALSE) {
@@ -129,17 +129,17 @@ add_ui_body <- function(body_elements = NULL, append = FALSE) {
 #'
 #' Created an alert panel in server to be displayed the given ui anchor
 #'
-#' @param id Anchor id
-#' @param selector jQuery selector. Allow more customization for the anchor (nested tags).
-#' @param options List of options to pass to the alert
-#' @param session Shiny session object.
+#' @param id       - Anchor id
+#' @param selector - jQuery selector. Allow more customization for the anchor (nested tags).
+#' @param options  - List of options to pass to the alert
+#' @param session  - Shiny session object.
 #'
 #' @examples
-#'          #createAlert(id       = "sidebarRightAlert",
-#'          #            options  = list(title    = "Right Side",
-#'          #                            status   = "success",
-#'          #                            closable = TRUE,
-#'          #                            content  = "Example Basic Sidebar Alert"))
+#'          createAlert(id       = "sidebarRightAlert",
+#'                      options  = list(title    = "Right Side",
+#'                                      status   = "success",
+#'                                      closable = TRUE,
+#'                                      content  = "Example Basic Sidebar Alert"))
 #'
 #' @export
 createAlert <- function(id       = NULL,
@@ -176,12 +176,12 @@ closeResetAlert <- function(id, session = shiny::getDefaultReactiveDomain()) {
 #' Builds application right sidebar with given configurations and elements. It is called within "ui_right_sidebar.R".
 #' Check example application for detailed example
 #'
-#' @param sidebar_elements list of shiny ui elements
-#' @param collapsed If TRUE, the sidebar will be collapsed on app startup.
-#' @param overlay Whether the sidebar covers the content when expanded. Default to TRUE
-#' @param skin Sidebar skin. "dark" or "light".
-#' @param pinned Whether to block the controlbar state (TRUE or FALSE). Default to NULL
-#' @param controlbar_menu right sidebar elements
+#' @param sidebar_elements - List of shiny ui elements
+#' @param collapsed        - If TRUE, the sidebar will be collapsed on app startup.
+#' @param overlay          - Whether the sidebar covers the content when expanded. Default to TRUE
+#' @param skin             - Sidebar skin. "dark" or "light".
+#' @param pinned           - Whether to block the controlbar state (TRUE or FALSE). Default to NULL
+#' @param controlbar_menu  - Right sidebar elements
 #'
 #' @export
 add_ui_right_sidebar <- function(sidebar_elements = NULL,
@@ -199,14 +199,15 @@ add_ui_right_sidebar <- function(sidebar_elements = NULL,
                                                         pinned    = pinned)
 }
 
+
 #' add_ui_footer
 #'
 #' Builds application footer with given configurations and elements. It is called within "ui_footer.R".
 #' Check example application for detailed example
 #'
-#' @param left Left text
-#' @param right Right text
-#' @param fixed Whether to fix the navbar to the top. FALSE by default.
+#' @param left  - Left text
+#' @param right - Right text
+#' @param fixed - Whether to fix the navbar to the top. FALSE by default.
 #'
 #' @export
 add_ui_footer <- function(left, right, fixed) {
@@ -222,14 +223,16 @@ add_ui_footer <- function(left, right, fixed) {
 #' This function inserts a standardized tooltip image, label (optional),
 #' and hovertext into the application UI
 #'
-#' @param id character id for the tooltip object
-#' @param label text label to appear to the left of the tooltip image
-#' @param text tooltip text shown when the user hovers over the image
-#' @param placement where to display tooltip label.
-#'                   Available places are "top", "bottom", "left", "right" (default is "top")
+#' @param id        - The id for the tooltip object
+#' @param label     - text label to appear to the left of the tooltip image
+#' @param text      - Tooltip text shown when the user hovers over the image
+#' @param placement - Where to display tooltip label. Available places are "top", "bottom", "left", "right" (default is "top")
 #'
 #' @export
-ui_tooltip <- function(id, label = "", text = "", placement = "top") {
+ui_tooltip <- function(id,
+                       label     = "",
+                       text      = "",
+                       placement = "top") {
     if (is.null(text) || is.na(text) || (text == "")) {
         warning("ui_tooltip() called without tooltip text.")
     }
@@ -249,26 +252,25 @@ ui_tooltip <- function(id, label = "", text = "", placement = "top") {
 #'
 #' This function sets global parameters customizing the shiny application.
 #'
-#' @param title application title text
-#' @param app_info character string, HTML value or NULL
-#' \itemize{
-#' \item{A \strong{character} string will be used to set a link target.  This means the user
-#' will be able to click on the application title and be redirected in a new
-#' window to whatever value is given in the string.  Any valid URL, File, or
-#' other script functionality that would normally be accepted in an <a href=...>
-#' tag is allowed.}
-#' \item{An \strong{HTML} value will be used to as the HTML content for a modal pop-up
-#' window that will appear on-top of the application when the user clicks on the
-#' application title.}
-#' \item{Supplying \strong{NULL} will disable the title link functionality.}
-#' }
-#' @param log_level character string designating the log level to use for
-#'                  the userlog (default = 'DEBUG')
-#' @param app_version character string designating the application version (default = '1.0.0')
-#' @param loading_indicator  uses waiter (see https://waiter.john-coene.com/#/).
-#'                           Pass a list like list(html = spin_1(), color = "#333e48") to configure
-#'                           waiterShowOnLoad (refer to the package help for all styles).
-#' @param announcements_file path to announcements configuration file
+#' @param title              - Application title text
+#' @param app_info           - Application detailed information. It can be character string, HTML value or NULL
+#'                             \itemize{
+#'                                      \item{A \strong{character} string will be used to set a link target.
+#'                                            This means the user will be able to click on the application title and be
+#'                                            redirected in a new window to whatever value is given in the string.
+#'                                            Any valid URL, File, or other script functionality that would normally be
+#'                                            accepted in an <a href=...>  tag is allowed.}
+#'                                      \item{An \strong{HTML} value will be used to as the HTML content for a modal pop-up
+#'                                            window that will appear on-top of the application when the user clicks on the
+#'                                            application title.}
+#'                                      \item{Supplying \strong{NULL} will disable the title link functionality.}
+#'                             }
+#' @param log_level          - Designating the log level to use for the user log (default = 'DEBUG')
+#' @param app_version        - Character string designating the application version (default = '1.0.0')
+#' @param loading_indicator  - It uses waiter (see https://waiter.john-coene.com/#/).\cr
+#'                             Pass a list like list(html = spin_1(), color = "#333e48") to \cr configure
+#'                             waiterShowOnLoad (refer to the package help for all styles).
+#' @param announcements_file - The path to announcements configuration file
 #'
 #' @section Shiny Usage:
 #' Call this function from \code{program/global.R} to set the application

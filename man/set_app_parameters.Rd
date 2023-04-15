@@ -14,31 +14,30 @@ set_app_parameters(
 )
 }
 \arguments{
-\item{title}{application title text}
+\item{title}{- Application title text}
 
-\item{app_info}{character string, HTML value or NULL
+\item{app_info}{- Application detailed information. It can be character string, HTML value or NULL
 \itemize{
-\item{A \strong{character} string will be used to set a link target.  This means the user
-will be able to click on the application title and be redirected in a new
-window to whatever value is given in the string.  Any valid URL, File, or
-other script functionality that would normally be accepted in an <a href=...>
-tag is allowed.}
-\item{An \strong{HTML} value will be used to as the HTML content for a modal pop-up
-window that will appear on-top of the application when the user clicks on the
-application title.}
-\item{Supplying \strong{NULL} will disable the title link functionality.}
+         \item{A \strong{character} string will be used to set a link target.
+               This means the user will be able to click on the application title and be
+               redirected in a new window to whatever value is given in the string.
+               Any valid URL, File, or other script functionality that would normally be
+               accepted in an <a href=...>  tag is allowed.}
+         \item{An \strong{HTML} value will be used to as the HTML content for a modal pop-up
+               window that will appear on-top of the application when the user clicks on the
+               application title.}
+         \item{Supplying \strong{NULL} will disable the title link functionality.}
 }}
 
-\item{log_level}{character string designating the log level to use for
-the userlog (default = 'DEBUG')}
+\item{log_level}{- Designating the log level to use for the user log (default = 'DEBUG')}
 
-\item{app_version}{character string designating the application version (default = '1.0.0')}
+\item{app_version}{- Character string designating the application version (default = '1.0.0')}
 
-\item{loading_indicator}{uses waiter (see https://waiter.john-coene.com/#/).
-Pass a list like list(html = spin_1(), color = "#333e48") to configure
+\item{loading_indicator}{- It uses waiter (see https://waiter.john-coene.com/#/).\cr
+Pass a list like list(html = spin_1(), color = "#333e48") to \cr configure
 waiterShowOnLoad (refer to the package help for all styles).}
 
-\item{announcements_file}{path to announcements configuration file}
+\item{announcements_file}{- The path to announcements configuration file}
 }
 \description{
 This function sets global parameters customizing the shiny application.
