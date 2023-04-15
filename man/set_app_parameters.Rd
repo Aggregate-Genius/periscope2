@@ -49,3 +49,6 @@ Call this function from \code{program/global.R} to set the application
 parameters.
 }
 
+\seealso{
+\link[waiter:waiter]{waiter:waiter_show()}
+}

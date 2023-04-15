@@ -274,6 +274,7 @@ ui_tooltip <- function(id, label = "", text = "", placement = "top") {
 #' Call this function from \code{program/global.R} to set the application
 #' parameters.
 #'
+#' @seealso \link[waiter:waiter]{waiter:waiter_show()}
 #' @export
 set_app_parameters <- function(title,
                                app_info           = NULL,
