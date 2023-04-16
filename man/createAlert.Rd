@@ -38,4 +38,5 @@ Call this function from \code{program/server_local.R} or any other server file t
                                           closable = TRUE,
                                           content  = "Example Basic Sidebar Alert"))
 
+
 }

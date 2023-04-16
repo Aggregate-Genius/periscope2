@@ -199,6 +199,9 @@ add_ui_body <- function(body_elements = NULL, append = FALSE) {
 #' @param options  - List of options to pass to the alert
 #' @param session  - Shiny session object.
 #'
+#' @section Shiny Usage:
+#' Call this function from \code{program/server_local.R} or any other server file to setup needed alert
+#'
 #' @examples
 #'   library(shiny)
 #'   library(bs4Dash)
@@ -209,8 +212,6 @@ add_ui_body <- function(body_elements = NULL, append = FALSE) {
 #'                                           closable = TRUE,
 #'                                           content  = "Example Basic Sidebar Alert"))
 #'
-#' @section Shiny Usage:
-#' Call this function from \code{program/server_local.R} or any other server file to setup needed alert
 #'
 #' @export
 createAlert <- function(id       = NULL,
@@ -337,6 +338,14 @@ add_ui_footer <- function(left  = NULL,
 #' @section Shiny Usage:
 #' Call this function from \code{program/ui_body.R} to set tooltip parameters
 #'
+#' @examples
+#'   library(shiny)
+#'   library(periscope2)
+#'
+#'   # Inside ui_body.R or similar ui file
+#'    ui_tooltip(id   = "top_tip",
+#'              label = "Top Tooltips",
+#'              text  = "Top tooltip")
 #' @export
 ui_tooltip <- function(id,
                        label     = "",
@@ -384,6 +393,19 @@ ui_tooltip <- function(id,
 #' @section Shiny Usage:
 #' Call this function from \code{program/global.R} to set the application
 #' parameters.
+#'
+#' @examples
+#'   library(shiny)
+#'   library(waiter)
+#'   library(periscope2)
+#'
+#'   # Inside program/global.R
+#'   set_app_parameters(title              = "periscope Example Application",
+#'                      app_info           = HTML("Example info"),
+#'                      log_level          = "DEBUG",
+#'                      app_version        = "1.0.0",
+#'                      loading_indicator  = list(html = tagList(spin_1(), "Loading ...")),
+#'                      announcements_file = "./program/config/announce.yaml")
 #'
 #' @seealso \link[waiter:waiter]{waiter:waiter_show()}
 #' @export

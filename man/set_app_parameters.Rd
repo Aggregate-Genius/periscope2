@@ -48,6 +48,20 @@ Call this function from \code{program/global.R} to set the application
 parameters.
 }
 
+\examples{
+  library(shiny)
+  library(waiter)
+  library(periscope2)
+
+  # Inside program/global.R
+  set_app_parameters(title              = "periscope Example Application",
+                     app_info           = HTML("Example info"),
+                     log_level          = "DEBUG",
+                     app_version        = "1.0.0",
+                     loading_indicator  = list(html = tagList(spin_1(), "Loading ...")),
+                     announcements_file = "./program/config/announce.yaml")
+
+}
 \seealso{
 \link[waiter:waiter]{waiter:waiter_show()}
 }

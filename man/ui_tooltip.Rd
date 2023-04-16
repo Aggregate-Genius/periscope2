@@ -24,3 +24,12 @@ and hovertext into the application UI
 Call this function from \code{program/ui_body.R} to set tooltip parameters
 }
 
+\examples{
+  library(shiny)
+  library(periscope2)
+
+  # Inside ui_body.R or similar ui file
+   ui_tooltip(id   = "top_tip",
+             label = "Top Tooltips",
+             text  = "Top tooltip")
+}
