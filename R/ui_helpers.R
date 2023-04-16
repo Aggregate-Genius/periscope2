@@ -292,9 +292,9 @@ add_ui_right_sidebar <- function(sidebar_elements = NULL,
 #' Builds application footer with given configurations and elements. It is called within "ui_footer.R".
 #' Check example application for detailed example
 #'
-#' @param left  - Left text
-#' @param right - Right text
-#' @param fixed - Whether to fix the navbar to the top. FALSE by default.
+#' @param left  - Left side ui elements
+#' @param right - Right side ui elements
+#' @param fixed - Always show footer at page bottom regardless page scroll location (default = FALSE).
 #'
 #' @section Shiny Usage:
 #' Call this function from \code{program/ui_footer.R} to set footer parameters
@@ -313,6 +313,12 @@ add_ui_right_sidebar <- function(sidebar_elements = NULL,
 #'
 #'   # -- Register Elements in the ORDER SHOWN in the UI
 #'   add_ui_footer(left, right)
+#'
+#' @seealso \link[bs4Dash:bs4DashFooter]{bs4Dash:bs4DashFooter()}
+#' @seealso \link[periscope2:add_ui_left_sidebar]{periscope2:add_ui_left_sidebar()}
+#' @seealso \link[periscope2:add_ui_header]{periscope2:add_ui_header()}
+#' @seealso \link[periscope2:add_ui_body]{periscope2:add_ui_body()}
+#' @seealso \link[periscope2:add_ui_right_sidebar]{periscope2:add_ui_right_sidebar()}
 #'
 #' @export
 add_ui_footer <- function(left  = NULL,

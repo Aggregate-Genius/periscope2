@@ -7,11 +7,11 @@
 add_ui_footer(left = NULL, right = NULL, fixed = FALSE)
 }
 \arguments{
-\item{left}{- Left text}
+\item{left}{- Left side ui elements}
 
-\item{right}{- Right text}
+\item{right}{- Right side ui elements}
 
-\item{fixed}{- Whether to fix the navbar to the top. FALSE by default.}
+\item{fixed}{- Always show footer at page bottom regardless page scroll location (default = FALSE).}
 }
 \description{
 Builds application footer with given configurations and elements. It is called within "ui_footer.R".
@@ -37,4 +37,15 @@ Call this function from \code{program/ui_footer.R} to set footer parameters
   # -- Register Elements in the ORDER SHOWN in the UI
   add_ui_footer(left, right)
 
+}
+\seealso{
+\link[bs4Dash:bs4DashFooter]{bs4Dash:bs4DashFooter()}
+
+\link[periscope2:add_ui_left_sidebar]{periscope2:add_ui_left_sidebar()}
+
+\link[periscope2:add_ui_header]{periscope2:add_ui_header()}
+
+\link[periscope2:add_ui_body]{periscope2:add_ui_body()}
+
+\link[periscope2:add_ui_right_sidebar]{periscope2:add_ui_right_sidebar()}
 }
