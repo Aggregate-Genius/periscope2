@@ -1,18 +1,19 @@
 #' add_ui_left_sidebar
 #'
-#' This function adds left sidebar configurations and elements. It is called within "ui_left_sidebar.R".
+#' This function adds left sidebar configurations and UI elements. It is called within "ui_left_sidebar.R".
 #' Check example application for detailed example
 #'
-#' @param sidebar_elements    - List of shiny ui elements
-#' @param skin                - Sidebar skin. "dark" or "light"
-#' @param status              - Sidebar status. Check \code{?bs4Dash::dashboardSidebar()} for list of valid values
-#' @param elevation           - Sidebar elevation. 4 by default (until 5)
-#' @param collapsed           - If TRUE, the sidebar will be collapsed on app startup.
-#' @param minified            - Whether to slightly close the sidebar but still show item icons. Default to TRUE
-#' @param expand_on_hover     - Whether to expand the sidebar om hover. TRUE by default
-#' @param fixed               - Whether to fix the sidebar. Default to TRUE
-#' @param sidebar_menu        - Sidebar menu items
-#' @param custom_area         - Sidebar bottom space area. Only works if sidebar is fixed
+#' @param sidebar_elements - List of regular shiny ui elements (inputText, textArea, etc..)
+#' @param sidebar_menu     - bs4SidebarMenu object to created a menu inside left sidebar
+#' @param collapsed        - If TRUE, the sidebar will be collapsed on app start up
+#' @param custom_area      - List of regular shiny ui elements but for sidebar bottom space area only.
+#'                           Only works if sidebar is fixed
+#' @param elevation        - A number between 0 and 5, which applies a shadow to the sidebar to add a shadow effect.
+#' @param expand_on_hover  - When \code{minified} is TRUE, if this property is TRUE, the sidebar opens when hovering but re-collapses as soon as the focus is lost (default = TRUE)
+#' @param fixed            - Whether to see all menus at once without scrolling up and down.(default = TRUE)
+#' @param minified         - Whether to slightly close the sidebar but still show item icons (default = FALSE)
+#' @param skin             - Sidebar skin. "dark" or "light" (default = "light")
+#' @param status           - Determins which color menu items (if exist) will have Check \code{?bs4Dash::dashboardSidebar()} for list of valid values
 #'
 #' @section Shiny Usage:
 #' Call this function from \code{program/ui_left_sidebar.R} to set left sidebar parameters
@@ -20,28 +21,33 @@
 #' @examples
 #'   library(shiny)
 #'   library(bs4Dash)
-#'  # Inside ui_left_sidebar.R
-#'  # sidebar menu items
-#'  sidebar_elements <- textInput("text_id", "Test", "Test Data")
-#'  sidebar_menu     <- sidebarMenu(sidebarHeader("Main Menu"),
-#'                                  menuItem("menu item 1",
-#'                                           tabName = "item_1 page"),
-#'                                  menuItem("menu item 2",
-#'                                           tabName = "item_2 page"))
-#'  add_ui_left_sidebar(sidebar_elements = sidebar_elements,
-#'                      sidebar_menu     = sidebar_menu)
+#'   # Inside ui_left_sidebar.R
+#'   # sidebar menu items
+#'   sidebar_elements <- textInput("text_id", "Test", "Test Data")
+#'   sidebar_menu     <- sidebarMenu(sidebarHeader("Main Menu"),
+#'                                   menuItem("menu item 1",
+#'                                            tabName = "item_1 page"),
+#'                                   menuItem("menu item 2",
+#'                                            tabName = "item_2 page"))
+#'   add_ui_left_sidebar(sidebar_elements = sidebar_elements,
+#'                       sidebar_menu     = sidebar_menu)
+#' @seealso \link[bs4Dash:bs4DashSidebar]{bs4Dash:bs4DashSidebar()}
+#' @seealso \link[periscope2:add_ui_footer]{periscope2:add_ui_footer()}
+#' @seealso \link[periscope2:add_ui_header]{periscope2:add_ui_header()}
+#' @seealso \link[periscope2:add_ui_body]{periscope2:add_ui_body()}
+#' @seealso \link[periscope2:add_ui_right_sidebar]{periscope2:add_ui_right_sidebar()}
 #'
 #' @export
 add_ui_left_sidebar <- function(sidebar_elements = NULL,
-                                skin             = "light",
-                                status           = "primary",
-                                elevation        = 4,
+                                sidebar_menu     = NULL,
                                 collapsed        = FALSE,
-                                minified         = FALSE,
+                                custom_area      = NULL,
+                                elevation        = 4,
                                 expand_on_hover  = TRUE,
                                 fixed            = TRUE,
-                                sidebar_menu     = NULL,
-                                custom_area      = NULL) {
+                                minified         = FALSE,
+                                status           = "primary",
+                                skin             = "light") {
     .g_opts$left_sidebar <- list(list(shiny::div(id = "sidebarBasicAlert"),
                                       sidebar_elements),
                                  skin            = skin,
