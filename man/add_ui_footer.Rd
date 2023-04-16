@@ -4,7 +4,7 @@
 \alias{add_ui_footer}
 \title{add_ui_footer}
 \usage{
-add_ui_footer(left, right, fixed)
+add_ui_footer(left = NULL, right = NULL, fixed = FALSE)
 }
 \arguments{
 \item{left}{- Left text}
@@ -22,3 +22,19 @@ Check example application for detailed example
 Call this function from \code{program/ui_footer.R} to set footer parameters
 }
 
+\examples{
+  library(shiny)
+  library(bs4Dash)
+
+  # Inside ui_footer.R
+  # Left text
+  left <- a(href   = "https://periscopeapps.org/",
+            target = "_blank",
+            "periscope2")
+  # Right text
+  right <- "2022"
+
+  # -- Register Elements in the ORDER SHOWN in the UI
+  add_ui_footer(left, right)
+
+}

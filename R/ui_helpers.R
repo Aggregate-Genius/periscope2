@@ -298,8 +298,25 @@ add_ui_right_sidebar <- function(sidebar_elements = NULL,
 #' @section Shiny Usage:
 #' Call this function from \code{program/ui_footer.R} to set footer parameters
 #'
+#' @examples
+#'   library(shiny)
+#'   library(bs4Dash)
+#'
+#'   # Inside ui_footer.R
+#'   # Left text
+#'   left <- a(href   = "https://periscopeapps.org/",
+#'             target = "_blank",
+#'             "periscope2")
+#'   # Right text
+#'   right <- "2022"
+#'
+#'   # -- Register Elements in the ORDER SHOWN in the UI
+#'   add_ui_footer(left, right)
+#'
 #' @export
-add_ui_footer <- function(left, right, fixed) {
+add_ui_footer <- function(left  = NULL,
+                          right = NULL,
+                          fixed = FALSE) {
     .g_opts$footer <- bs4Dash::bs4DashFooter(left  = list(shiny::div(id = "footerAlert"),
                                                           left),
                                              right = right,
