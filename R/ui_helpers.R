@@ -158,6 +158,18 @@ add_ui_header <- function(skin           = "light",
 #' @section Shiny Usage:
 #' Call this function from \code{program/ui_body.R} to set body parameters
 #'
+#' @examples
+#'   library(shiny)
+#'   library(bs4Dash)
+#'   # Inside ui_body.R
+#'   about_box <- jumbotron(title  = "periscope2: Test Example",
+#'                          lead   = p("periscope2 is a scalable and UI-standardized 'shiny' framework
+#'                          	       including a variety of developer convenience functions"),
+#'                          status = "info",
+#'                          href   = "https://periscopeapps.org/")
+#'   # -- Register Elements in the ORDER SHOWN in the UI
+#'   add_ui_body(list(about_box))
+#'
 #' @export
 add_ui_body <- function(body_elements = NULL, append = FALSE) {
     if (append) {
@@ -188,11 +200,14 @@ add_ui_body <- function(body_elements = NULL, append = FALSE) {
 #' @param session  - Shiny session object.
 #'
 #' @examples
-#'          createAlert(id       = "sidebarRightAlert",
-#'                      options  = list(title    = "Right Side",
-#'                                      status   = "success",
-#'                                      closable = TRUE,
-#'                                      content  = "Example Basic Sidebar Alert"))
+#'   library(shiny)
+#'   library(bs4Dash)
+#'   # Inside server_local.R
+#'   periscope2::createAlert(id       = "sidebarRightAlert",
+#'                           options  = list(title    = "Right Side",
+#'                                           status   = "success",
+#'                                           closable = TRUE,
+#'                                           content  = "Example Basic Sidebar Alert"))
 #'
 #' @section Shiny Usage:
 #' Call this function from \code{program/server_local.R} or any other server file to setup needed alert

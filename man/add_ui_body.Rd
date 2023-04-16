@@ -20,3 +20,16 @@ Check example application for detailed example
 Call this function from \code{program/ui_body.R} to set body parameters
 }
 
+\examples{
+  library(shiny)
+  library(bs4Dash)
+  # Inside ui_body.R
+  about_box <- jumbotron(title  = "periscope2: Test Example",
+                         lead   = p("periscope2 is a scalable and UI-standardized 'shiny' framework
+                         	       including a variety of developer convenience functions"),
+                         status = "info",
+                         href   = "https://periscopeapps.org/")
+  # -- Register Elements in the ORDER SHOWN in the UI
+  add_ui_body(list(about_box))
+
+}

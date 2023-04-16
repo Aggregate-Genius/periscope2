@@ -29,10 +29,13 @@ Call this function from \code{program/server_local.R} or any other server file t
 }
 
 \examples{
-         createAlert(id       = "sidebarRightAlert",
-                     options  = list(title    = "Right Side",
-                                     status   = "success",
-                                     closable = TRUE,
-                                     content  = "Example Basic Sidebar Alert"))
+  library(shiny)
+  library(bs4Dash)
+  # Inside server_local.R
+  periscope2::createAlert(id       = "sidebarRightAlert",
+                          options  = list(title    = "Right Side",
+                                          status   = "success",
+                                          closable = TRUE,
+                                          content  = "Example Basic Sidebar Alert"))
 
 }
