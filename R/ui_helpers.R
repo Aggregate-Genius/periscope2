@@ -257,13 +257,25 @@ closeResetAlert <- function(id, session = shiny::getDefaultReactiveDomain()) {
 #' @section Shiny Usage:
 #' Call this function from \code{program/ui_right_sidebar.R} to set right sidebar parameters
 #'
+#' @examples
+#'   library(shiny)
+#'   library(bs4Dash)
+#'
+#'   #Inside ui_right_sidebar.R
+#'   sidebar_elements <- list(div(checkboxInput("checkMe", "Example Check")))
+#'   controlbar_menu  <- controlbarMenu(id = "controlbarmenu",
+#'                                      controlbarItem("Item 2", "Simple text"))
+#'  # -- Register Right Sidebar Elements in the ORDER SHOWN in the UI
+#'   add_ui_right_sidebar(sidebar_elements = sidebar_elements,
+#'                        controlbar_menu  = controlbar_menu)
+#'
 #' @export
 add_ui_right_sidebar <- function(sidebar_elements = NULL,
-                                 collapsed,
-                                 overlay,
-                                 skin,
-                                 pinned,
-                                 controlbar_menu) {
+                                 collapsed        = TRUE,
+                                 overlay          = TRUE,
+                                 skin             = "light",
+                                 pinned           = FALSE,
+                                 controlbar_menu  = NULL) {
     .g_opts$right_sidebar <- bs4Dash::bs4DashControlbar(list(shiny::div(id = "sidebarRightAlert"),
                                                              sidebar_elements,
                                                              controlbar_menu),
