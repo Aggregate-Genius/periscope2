@@ -6,25 +6,25 @@
 \usage{
 add_ui_right_sidebar(
   sidebar_elements = NULL,
+  sidebar_menu = NULL,
   collapsed = TRUE,
   overlay = TRUE,
-  skin = "light",
   pinned = FALSE,
-  controlbar_menu = NULL
+  skin = "light"
 )
 }
 \arguments{
-\item{sidebar_elements}{- List of shiny ui elements}
+\item{sidebar_elements}{- List of regular shiny ui elements (inputText, textArea, etc..)}
 
-\item{collapsed}{- If TRUE, the sidebar will be collapsed on app startup.}
+\item{sidebar_menu}{- \code{?bs4Dash::controlbarMenu()} object to created a menu inside right sidebar}
 
-\item{overlay}{- Whether the sidebar covers the content when expanded. Default to TRUE}
+\item{collapsed}{- If TRUE, the sidebar will be collapsed on app startup (default = TRUE)}
 
-\item{skin}{- Sidebar skin. "dark" or "light".}
+\item{overlay}{- Whether the sidebar covers the content when expanded (default = TRUE)}
 
-\item{pinned}{- Whether to block the controlbar state (TRUE or FALSE). Default to NULL}
+\item{pinned}{- If TRUE, allows right sidebar to remain open even after a click outside (default = FALSE)}
 
-\item{controlbar_menu}{- Right sidebar elements}
+\item{skin}{- Sidebar skin. "dark" or "light" (default = "light")}
 }
 \description{
 Builds application right sidebar with given configurations and elements. It is called within "ui_right_sidebar.R".
@@ -39,12 +39,23 @@ Call this function from \code{program/ui_right_sidebar.R} to set right sidebar p
   library(shiny)
   library(bs4Dash)
 
-  #Inside ui_right_sidebar.R
+  # Inside ui_right_sidebar.R
   sidebar_elements <- list(div(checkboxInput("checkMe", "Example Check")))
-  controlbar_menu  <- controlbarMenu(id = "controlbarmenu",
+  sidebar_menu     <- controlbarMenu(id = "controlbarmenu",
                                      controlbarItem("Item 2", "Simple text"))
  # -- Register Right Sidebar Elements in the ORDER SHOWN in the UI
   add_ui_right_sidebar(sidebar_elements = sidebar_elements,
-                       controlbar_menu  = controlbar_menu)
+                       sidebar_menu     = sidebar_menu)
 
+}
+\seealso{
+\link[bs4Dash:bs4DashControlbar]{bs4Dash:bs4DashControlbar()}
+
+\link[periscope2:add_ui_footer]{periscope2:add_ui_footer()}
+
+\link[periscope2:add_ui_left_sidebar]{periscope2:add_ui_left_sidebar()}
+
+\link[periscope2:add_ui_header]{periscope2:add_ui_header()}
+
+\link[periscope2:add_ui_body]{periscope2:add_ui_body()}
 }

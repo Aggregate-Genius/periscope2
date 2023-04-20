@@ -20,7 +20,7 @@ add_ui_left_sidebar(
 \arguments{
 \item{sidebar_elements}{- List of regular shiny ui elements (inputText, textArea, etc..)}
 
-\item{sidebar_menu}{- bs4SidebarMenu object to created a menu inside left sidebar}
+\item{sidebar_menu}{- \code{?bs4Dash::bs4SidebarMenu()} object to created a menu inside left sidebar}
 
 \item{collapsed}{- If TRUE, the sidebar will be collapsed on app start up}
 

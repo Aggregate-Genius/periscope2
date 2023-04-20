@@ -4,7 +4,7 @@
 #' Check example application for detailed example
 #'
 #' @param sidebar_elements - List of regular shiny ui elements (inputText, textArea, etc..)
-#' @param sidebar_menu     - bs4SidebarMenu object to created a menu inside left sidebar
+#' @param sidebar_menu     - \code{?bs4Dash::bs4SidebarMenu()} object to created a menu inside left sidebar
 #' @param collapsed        - If TRUE, the sidebar will be collapsed on app start up
 #' @param custom_area      - List of regular shiny ui elements but for sidebar bottom space area only.
 #'                           Only works if sidebar is fixed
@@ -230,6 +230,7 @@ add_ui_body <- function(body_elements = NULL, append = FALSE) {
 #'                                           closable = TRUE,
 #'                                           content  = "Example Basic Sidebar Alert"))
 #'
+#' @seealso \link[bs4Dash:createAlert]{bs4Dash:createAlert()}
 #'
 #' @export
 createAlert <- function(id       = NULL,
@@ -266,12 +267,13 @@ closeResetAlert <- function(id, session = shiny::getDefaultReactiveDomain()) {
 #' Builds application right sidebar with given configurations and elements. It is called within "ui_right_sidebar.R".
 #' Check example application for detailed example
 #'
-#' @param sidebar_elements - List of shiny ui elements
-#' @param collapsed        - If TRUE, the sidebar will be collapsed on app startup.
-#' @param overlay          - Whether the sidebar covers the content when expanded. Default to TRUE
-#' @param skin             - Sidebar skin. "dark" or "light".
-#' @param pinned           - Whether to block the controlbar state (TRUE or FALSE). Default to NULL
-#' @param controlbar_menu  - Right sidebar elements
+#' @param sidebar_elements - List of regular shiny ui elements (inputText, textArea, etc..)
+#' @param sidebar_menu     - \code{?bs4Dash::controlbarMenu()} object to created a menu inside right sidebar
+#' @param collapsed        - If TRUE, the sidebar will be collapsed on app startup (default = TRUE)
+#' @param overlay          - Whether the sidebar covers the content when expanded (default = TRUE)
+#' @param pinned           - If TRUE, allows right sidebar to remain open even after a click outside (default = FALSE)
+#' @param skin             - Sidebar skin. "dark" or "light" (default = "light")
+#'
 #'
 #' @section Shiny Usage:
 #' Call this function from \code{program/ui_right_sidebar.R} to set right sidebar parameters
@@ -280,24 +282,30 @@ closeResetAlert <- function(id, session = shiny::getDefaultReactiveDomain()) {
 #'   library(shiny)
 #'   library(bs4Dash)
 #'
-#'   #Inside ui_right_sidebar.R
+#'   # Inside ui_right_sidebar.R
 #'   sidebar_elements <- list(div(checkboxInput("checkMe", "Example Check")))
-#'   controlbar_menu  <- controlbarMenu(id = "controlbarmenu",
+#'   sidebar_menu     <- controlbarMenu(id = "controlbarmenu",
 #'                                      controlbarItem("Item 2", "Simple text"))
 #'  # -- Register Right Sidebar Elements in the ORDER SHOWN in the UI
 #'   add_ui_right_sidebar(sidebar_elements = sidebar_elements,
-#'                        controlbar_menu  = controlbar_menu)
+#'                        sidebar_menu     = sidebar_menu)
+#'
+#' @seealso \link[bs4Dash:bs4DashControlbar]{bs4Dash:bs4DashControlbar()}
+#' @seealso \link[periscope2:add_ui_footer]{periscope2:add_ui_footer()}
+#' @seealso \link[periscope2:add_ui_left_sidebar]{periscope2:add_ui_left_sidebar()}
+#' @seealso \link[periscope2:add_ui_header]{periscope2:add_ui_header()}
+#' @seealso \link[periscope2:add_ui_body]{periscope2:add_ui_body()}
 #'
 #' @export
 add_ui_right_sidebar <- function(sidebar_elements = NULL,
+                                 sidebar_menu     = NULL,
                                  collapsed        = TRUE,
                                  overlay          = TRUE,
-                                 skin             = "light",
                                  pinned           = FALSE,
-                                 controlbar_menu  = NULL) {
+                                 skin             = "light") {
     .g_opts$right_sidebar <- bs4Dash::bs4DashControlbar(list(shiny::div(id = "sidebarRightAlert"),
                                                              sidebar_elements,
-                                                             controlbar_menu),
+                                                             sidebar_menu),
                                                         collapsed = collapsed,
                                                         overlay   = overlay,
                                                         skin      = skin,

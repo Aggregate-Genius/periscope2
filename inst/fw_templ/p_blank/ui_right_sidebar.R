@@ -4,7 +4,7 @@
 # USE: Create UI elements for the
 #      application right sidebar and
 #      ATTACH them to the UI by calling
-#      add_ui_right_sidebar() 
+#      add_ui_right_sidebar()
 #
 # NOTEs:
 #   - All variables/functions here are
@@ -38,12 +38,12 @@ pinned    <- FALSE
 # -- Create Right Sidebar Elements
 # elements to be placed before any menu
 sidebar_elements <- NULL
-controlbar_menu  <- NULL
+sidebar_menu     <- NULL
 
 # -- Register Right Sidebar Elements in the ORDER SHOWN in the UI
 add_ui_right_sidebar(sidebar_elements = sidebar_elements,
                      collapsed        = collapsed,
-                     overlay          = overlay, 
-                     skin             = skin, 
-                     pinned           = pinned, 
-                     controlbar_menu  = controlbar_menu)
+                     overlay          = overlay,
+                     skin             = skin,
+                     pinned           = pinned,
+                     sidebar_menu     = sidebar_menu)

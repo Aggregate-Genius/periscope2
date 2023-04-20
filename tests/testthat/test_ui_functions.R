@@ -149,14 +149,14 @@ test_that("add_ui_right_sidebar empty right sidebar", {
     skin             <- "light"
     pinned           <- FALSE
     sidebar_elements <- NULL
-    controlbar_menu  <- NULL
+    sidebar_menu     <- NULL
 
     add_ui_right_sidebar(sidebar_elements = sidebar_elements,
                          collapsed        = collapsed,
                          overlay          = overlay,
                          skin             = skin,
                          pinned           = pinned,
-                         controlbar_menu  = controlbar_menu)
+                         sidebar_menu     = sidebar_menu)
     righ_sidebar <- shiny::isolate(periscope2:::.g_opts$right_sidebar)
     expect_true(grepl('id="controlbarId"' , righ_sidebar, fixed = TRUE))
     expect_true(grepl('id="sidebarRightAlert"' , righ_sidebar, fixed = TRUE))
@@ -169,14 +169,14 @@ test_that("add_ui_right_sidebar example right sidebar", {
     skin             <- "light"
     pinned           <- FALSE
     sidebar_elements <-  list(div(checkboxInput("hideFileOrganization", "Show Files Organization"), style = "margin-left:20px"))
-    controlbar_menu  <- NULL
+    sidebar_menu     <- NULL
 
     add_ui_right_sidebar(sidebar_elements = sidebar_elements,
                          collapsed        = collapsed,
                          overlay          = overlay,
                          skin             = skin,
                          pinned           = pinned,
-                         controlbar_menu  = controlbar_menu)
+                         sidebar_menu     = sidebar_menu)
     righ_sidebar <- shiny::isolate(periscope2:::.g_opts$right_sidebar)
     expect_true(grepl('id="controlbarId"' , righ_sidebar, fixed = TRUE))
     expect_true(grepl('id="sidebarRightAlert"' , righ_sidebar, fixed = TRUE))
