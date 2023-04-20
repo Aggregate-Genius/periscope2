@@ -33,3 +33,14 @@ Call this function from \code{program/ui_body.R} to set body parameters
   add_ui_body(list(about_box))
 
 }
+\seealso{
+\link[bs4Dash:bs4DashBody]{bs4Dash:bs4DashBody()}
+
+\link[periscope2:add_ui_footer]{periscope2:add_ui_footer()}
+
+\link[periscope2:add_ui_left_sidebar]{periscope2:add_ui_left_sidebar()}
+
+\link[periscope2:add_ui_header]{periscope2:add_ui_header()}
+
+\link[periscope2:add_ui_right_sidebar]{periscope2:add_ui_right_sidebar()}
+}

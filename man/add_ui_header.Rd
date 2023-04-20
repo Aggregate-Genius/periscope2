@@ -5,35 +5,35 @@
 \title{add_ui_header}
 \usage{
 add_ui_header(
-  skin = "light",
-  status = "white",
+  left_ui = NULL,
+  right_ui = NULL,
   border = TRUE,
   compact = FALSE,
-  sidebarIcon = shiny::icon("th"),
   controlbarIcon = shiny::icon("bars"),
   fixed = FALSE,
-  left_ui = NULL,
-  right_ui = NULL
+  sidebarIcon = shiny::icon("th"),
+  skin = "light",
+  status = "white"
 )
 }
 \arguments{
-\item{skin}{- Sidebar skin. "dark" or "light"}
+\item{left_ui}{- Custom left UI content. Any element like dropdownMenu}
 
-\item{status}{- Sidebar status. Check \code{?bs4Dash::bs4DashNavbar()} for list of valid values}
+\item{right_ui}{- Custom right UI content. Any element like dropdownMenu}
 
 \item{border}{- Whether to separate the navbar and body by a border. TRUE by default}
 
 \item{compact}{- Whether items should be compacted. FALSE by default}
 
-\item{sidebarIcon}{- Icon of the main sidebar toggle}
-
 \item{controlbarIcon}{- Icon to toggle the controlbar (left)}
 
 \item{fixed}{- Whether to fix the navbar to the top. FALSE by default}
 
-\item{left_ui}{- Custom left UI content. Any element like dropdownMenu}
+\item{sidebarIcon}{- Icon of the main sidebar toggle}
 
-\item{right_ui}{- Custom right UI content. Any element like dropdownMenu}
+\item{skin}{- Sidebar skin. "dark" or "light"}
+
+\item{status}{- Sidebar status. Check \code{?bs4Dash::bs4DashNavbar()} for list of valid values}
 }
 \description{
 Builds application header with given configurations and elements. It is called within "ui_header.R".
@@ -73,4 +73,15 @@ Call this function from \code{program/ui_header.R} to set header parameters
   # -- Register Header Elements in the ORDER SHOWN in the UI
   add_ui_header(left_ui = left_ui, right_ui = right_ui)
 
+}
+\seealso{
+\link[bs4Dash:bs4DashNavbar]{bs4Dash:bs4DashNavbar()}
+
+\link[periscope2:add_ui_footer]{periscope2:add_ui_footer()}
+
+\link[periscope2:add_ui_left_sidebar]{periscope2:add_ui_left_sidebar()}
+
+\link[periscope2:add_ui_body]{periscope2:add_ui_body()}
+
+\link[periscope2:add_ui_right_sidebar]{periscope2:add_ui_right_sidebar()}
 }

@@ -67,15 +67,15 @@ add_ui_left_sidebar <- function(sidebar_elements = NULL,
 #' Builds application header with given configurations and elements. It is called within "ui_header.R".
 #' Check example application for detailed example
 #'
-#' @param skin           - Sidebar skin. "dark" or "light"
-#' @param status         - Sidebar status. Check \code{?bs4Dash::bs4DashNavbar()} for list of valid values
-#' @param border         - Whether to separate the navbar and body by a border. TRUE by default
-#' @param compact        - Whether items should be compacted. FALSE by default
-#' @param sidebarIcon    - Icon of the main sidebar toggle
-#' @param controlbarIcon - Icon to toggle the controlbar (left)
-#' @param fixed          - Whether to fix the navbar to the top. FALSE by default
 #' @param left_ui        - Custom left UI content. Any element like dropdownMenu
 #' @param right_ui       - Custom right UI content. Any element like dropdownMenu
+#' @param border         - Whether to separate the navbar and body by a border. TRUE by default
+#' @param compact        - Whether items should be compacted. FALSE by default
+#' @param controlbarIcon - Icon to toggle the controlbar (left)
+#' @param fixed          - Whether to fix the navbar to the top. FALSE by default
+#' @param skin           - Sidebar skin. "dark" or "light"
+#' @param sidebarIcon    - Icon of the main sidebar toggle
+#' @param status         - Sidebar status. Check \code{?bs4Dash::bs4DashNavbar()} for list of valid values
 #'
 #' @section Shiny Usage:
 #' Call this function from \code{program/ui_header.R} to set header parameters
@@ -109,16 +109,22 @@ add_ui_left_sidebar <- function(sidebar_elements = NULL,
 #'   # -- Register Header Elements in the ORDER SHOWN in the UI
 #'   add_ui_header(left_ui = left_ui, right_ui = right_ui)
 #'
+#' @seealso \link[bs4Dash:bs4DashNavbar]{bs4Dash:bs4DashNavbar()}
+#' @seealso \link[periscope2:add_ui_footer]{periscope2:add_ui_footer()}
+#' @seealso \link[periscope2:add_ui_left_sidebar]{periscope2:add_ui_left_sidebar()}
+#' @seealso \link[periscope2:add_ui_body]{periscope2:add_ui_body()}
+#' @seealso \link[periscope2:add_ui_right_sidebar]{periscope2:add_ui_right_sidebar()}
+#'
 #' @export
-add_ui_header <- function(skin           = "light",
-                          status         = "white",
+add_ui_header <- function(left_ui        = NULL,
+                          right_ui       = NULL,
                           border         = TRUE,
                           compact        = FALSE,
-                          sidebarIcon    = shiny::icon("th"),
                           controlbarIcon = shiny::icon("bars"),
                           fixed          = FALSE,
-                          left_ui        = NULL,
-                          right_ui       = NULL) {
+                          sidebarIcon    = shiny::icon("th"),
+                          skin           = "light",
+                          status         = "white") {
     app_title <- shiny::isolate(.g_opts$app_title)
     title     <- shiny::div(id = "app_header", app_title)
     app_info  <- shiny::isolate(.g_opts$app_info)
@@ -175,6 +181,12 @@ add_ui_header <- function(skin           = "light",
 #'                          href   = "https://periscopeapps.org/")
 #'   # -- Register Elements in the ORDER SHOWN in the UI
 #'   add_ui_body(list(about_box))
+#'
+#' @seealso \link[bs4Dash:bs4DashBody]{bs4Dash:bs4DashBody()}
+#' @seealso \link[periscope2:add_ui_footer]{periscope2:add_ui_footer()}
+#' @seealso \link[periscope2:add_ui_left_sidebar]{periscope2:add_ui_left_sidebar()}
+#' @seealso \link[periscope2:add_ui_header]{periscope2:add_ui_header()}
+#' @seealso \link[periscope2:add_ui_right_sidebar]{periscope2:add_ui_right_sidebar()}
 #'
 #' @export
 add_ui_body <- function(body_elements = NULL, append = FALSE) {
