@@ -34,7 +34,7 @@ Call this function from \code{program/server_local.R} or any other server file
                           animation           = "slide-from-top",
                           closeOnClickOutside = TRUE,
                           text                = url_params[["passed_paramter"]],
-                          title               = get_app_title())
+                          title               = "alert title")
   })
 
 
@@ -53,8 +53,4 @@ Call this function from \code{program/server_local.R} or any other server file
 \link[periscope2:add_ui_right_sidebar]{periscope2:add_ui_right_sidebar()}
 
 \link[periscope2:ui_tooltip]{periscope2:ui_tooltip()}
-
-\link[periscope2:get_app_info]{periscope2:get_app_info()}
-
-\link[periscope2:get_app_title]{periscope2:get_app_title()}
 }

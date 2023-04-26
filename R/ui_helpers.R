@@ -37,8 +37,6 @@
 #' @seealso \link[periscope2:add_ui_body]{periscope2:add_ui_body()}
 #' @seealso \link[periscope2:add_ui_right_sidebar]{periscope2:add_ui_right_sidebar()}
 #' @seealso \link[periscope2:ui_tooltip]{periscope2:ui_tooltip()}
-#' @seealso \link[periscope2:get_app_info]{periscope2:get_app_info()}
-#' @seealso \link[periscope2:get_app_title]{periscope2:get_app_title()}
 #' @seealso \link[periscope2:get_url_parameters]{periscope2:get_url_parameters()}
 #'
 #' @export
@@ -121,8 +119,6 @@ add_ui_left_sidebar <- function(sidebar_elements = NULL,
 #' @seealso \link[periscope2:add_ui_body]{periscope2:add_ui_body()}
 #' @seealso \link[periscope2:add_ui_right_sidebar]{periscope2:add_ui_right_sidebar()}
 #' @seealso \link[periscope2:ui_tooltip]{periscope2:ui_tooltip()}
-#' @seealso \link[periscope2:get_app_info]{periscope2:get_app_info()}
-#' @seealso \link[periscope2:get_app_title]{periscope2:get_app_title()}
 #' @seealso \link[periscope2:get_url_parameters]{periscope2:get_url_parameters()}
 #'
 #' @export
@@ -198,8 +194,6 @@ add_ui_header <- function(left_menu          = NULL,
 #' @seealso \link[periscope2:add_ui_header]{periscope2:add_ui_header()}
 #' @seealso \link[periscope2:add_ui_right_sidebar]{periscope2:add_ui_right_sidebar()}
 #' @seealso \link[periscope2:ui_tooltip]{periscope2:ui_tooltip()}
-#' @seealso \link[periscope2:get_app_info]{periscope2:get_app_info()}
-#' @seealso \link[periscope2:get_app_title]{periscope2:get_app_title()}
 #' @seealso \link[periscope2:get_url_parameters]{periscope2:get_url_parameters()}
 #'
 #' @export
@@ -248,8 +242,6 @@ add_ui_body <- function(body_elements = NULL, append = FALSE) {
 #' @seealso \link[bs4Dash:createAlert]{bs4Dash:closeAlert()}
 #' @seealso \link[periscope2:set_app_parameters]{periscope2:set_app_parameters()}
 #' @seealso \link[periscope2:ui_tooltip]{periscope2:ui_tooltip()}
-#' @seealso \link[periscope2:get_app_info]{periscope2:get_app_info()}
-#' @seealso \link[periscope2:get_app_title]{periscope2:get_app_title()}
 #' @seealso \link[periscope2:get_url_parameters]{periscope2:get_url_parameters()}
 #'
 #' @export
@@ -317,8 +309,6 @@ closeResetAlert <- function(id, session = shiny::getDefaultReactiveDomain()) {
 #' @seealso \link[periscope2:add_ui_body]{periscope2:add_ui_body()}
 #' @seealso \link[periscope2:set_app_parameters]{periscope2:set_app_parameters()}
 #' @seealso \link[periscope2:ui_tooltip]{periscope2:ui_tooltip()}
-#' @seealso \link[periscope2:get_app_info]{periscope2:get_app_info()}
-#' @seealso \link[periscope2:get_app_title]{periscope2:get_app_title()}
 #' @seealso \link[periscope2:get_url_parameters]{periscope2:get_url_parameters()}
 #'
 #' @export
@@ -372,8 +362,6 @@ add_ui_right_sidebar <- function(sidebar_elements = NULL,
 #' @seealso \link[periscope2:add_ui_right_sidebar]{periscope2:add_ui_right_sidebar()}
 #' @seealso \link[periscope2:set_app_parameters]{periscope2:set_app_parameters()}
 #' @seealso \link[periscope2:ui_tooltip]{periscope2:ui_tooltip()}
-#' @seealso \link[periscope2:get_app_info]{periscope2:get_app_info()}
-#' @seealso \link[periscope2:get_app_title]{periscope2:get_app_title()}
 #' @seealso \link[periscope2:get_url_parameters]{periscope2:get_url_parameters()}
 #'
 #' @export
@@ -416,8 +404,6 @@ add_ui_footer <- function(left  = NULL,
 #' @seealso \link[periscope2:add_ui_right_sidebar]{periscope2:add_ui_right_sidebar()}
 #' @seealso \link[periscope2:set_app_parameters]{periscope2:set_app_parameters()}
 #' @seealso \link[periscope2:ui_tooltip]{periscope2:ui_tooltip()}
-#' @seealso \link[periscope2:get_app_info]{periscope2:get_app_info()}
-#' @seealso \link[periscope2:get_app_title]{periscope2:get_app_title()}
 #' @seealso \link[periscope2:get_url_parameters]{periscope2:get_url_parameters()}
 #'
 #' @export
@@ -488,8 +474,6 @@ ui_tooltip <- function(id,
 #' @seealso \link[periscope2:add_ui_body]{periscope2:add_ui_body()}
 #' @seealso \link[periscope2:add_ui_right_sidebar]{periscope2:add_ui_right_sidebar()}
 #' @seealso \link[periscope2:ui_tooltip]{periscope2:ui_tooltip()}
-#' @seealso \link[periscope2:get_app_info]{periscope2:get_app_info()}
-#' @seealso \link[periscope2:get_app_title]{periscope2:get_app_title()}
 #' @seealso \link[periscope2:get_url_parameters]{periscope2:get_url_parameters()}
 #'
 #' @export
@@ -505,86 +489,6 @@ set_app_parameters <- function(title,
     .g_opts$app_version        <- app_version
     .g_opts$loading_indicator  <- loading_indicator
     .g_opts$announcements_file <- announcements_file
-}
-
-
-#' get_app_info
-#'
-#' Returns current application app info that is set in \code{set_app_parameters} method to
-#'  be used in any place in the application
-#'
-#' @return String of application info
-#'
-#' @section Shiny Usage:
-#' Call this function from \code{program/server_local.R} or any other server file
-#'
-#' @examples
-#'   library(shiny)
-#'   library(periscope2)
-#'
-#'   # Display application info
-#'   observeEvent(input$app_info, {
-#'                shinyalert(html                = TRUE,
-#'                           showConfirmButton   = FALSE,
-#'                           animation           = "slide-from-top",
-#'                           closeOnClickOutside = TRUE,
-#'                           text                = get_app_info(),
-#'                           title               = get_app_title())
-#'   })
-#'
-#' @seealso \link[periscope2:set_app_parameters]{periscope2:set_app_parameters()}
-#' @seealso \link[periscope2:add_ui_footer]{periscope2:add_ui_footer()}
-#' @seealso \link[periscope2:add_ui_left_sidebar]{periscope2:add_ui_left_sidebar()}
-#' @seealso \link[periscope2:add_ui_header]{periscope2:add_ui_header()}
-#' @seealso \link[periscope2:add_ui_body]{periscope2:add_ui_body()}
-#' @seealso \link[periscope2:add_ui_right_sidebar]{periscope2:add_ui_right_sidebar()}
-#' @seealso \link[periscope2:ui_tooltip]{periscope2:ui_tooltip()}
-#' @seealso \link[periscope2:get_app_info]{periscope2:get_app_info()}
-#' @seealso \link[periscope2:get_app_title]{periscope2:get_app_title()}
-#'
-#' @export
-get_app_info <- function() {
-    .g_opts$app_info
-}
-
-
-#' get_app_title
-#'
-#' Returns current application app title that is set in \code{set_app_parameters} method to
-#'  be used in any place in the application
-#'
-#' @return String of application title
-#'
-#' @section Shiny Usage:
-#' Call this function from \code{program/server_local.R} or any other server file
-#'
-#' @examples
-#'   library(shiny)
-#'   library(periscope2)
-#'
-#'   # Display application info
-#'   observeEvent(input$app_info, {
-#'                shinyalert(html                = TRUE,
-#'                           showConfirmButton   = FALSE,
-#'                           animation           = "slide-from-top",
-#'                           closeOnClickOutside = TRUE,
-#'                           text                = get_app_info(),
-#'                           title               = get_app_title())
-#'   })
-#'
-#' @seealso \link[periscope2:set_app_parameters]{periscope2:set_app_parameters()}
-#' @seealso \link[periscope2:add_ui_footer]{periscope2:add_ui_footer()}
-#' @seealso \link[periscope2:add_ui_left_sidebar]{periscope2:add_ui_left_sidebar()}
-#' @seealso \link[periscope2:add_ui_header]{periscope2:add_ui_header()}
-#' @seealso \link[periscope2:add_ui_body]{periscope2:add_ui_body()}
-#' @seealso \link[periscope2:add_ui_right_sidebar]{periscope2:add_ui_right_sidebar()}
-#' @seealso \link[periscope2:ui_tooltip]{periscope2:ui_tooltip()}
-#' @seealso \link[periscope2:get_app_info]{periscope2:get_app_info()}
-#' @seealso \link[periscope2:get_url_parameters]{periscope2:get_url_parameters()}
-#'
-#' @export
-get_app_title <- function() {
-    .g_opts$app_title
 }
 
 
@@ -613,7 +517,7 @@ get_app_title <- function() {
 #'                           animation           = "slide-from-top",
 #'                           closeOnClickOutside = TRUE,
 #'                           text                = url_params[["passed_paramter"]],
-#'                           title               = get_app_title())
+#'                           title               = "alert title")
 #'   })
 #'
 #'
@@ -624,8 +528,6 @@ get_app_title <- function() {
 #' @seealso \link[periscope2:add_ui_body]{periscope2:add_ui_body()}
 #' @seealso \link[periscope2:add_ui_right_sidebar]{periscope2:add_ui_right_sidebar()}
 #' @seealso \link[periscope2:ui_tooltip]{periscope2:ui_tooltip()}
-#' @seealso \link[periscope2:get_app_info]{periscope2:get_app_info()}
-#' @seealso \link[periscope2:get_app_title]{periscope2:get_app_title()}
 #'
 #' @export
 get_url_parameters <- function(session) {

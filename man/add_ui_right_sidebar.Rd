@@ -63,9 +63,5 @@ Call this function from \code{program/ui_right_sidebar.R} to set right sidebar p
 
 \link[periscope2:ui_tooltip]{periscope2:ui_tooltip()}
 
-\link[periscope2:get_app_info]{periscope2:get_app_info()}
-
-\link[periscope2:get_app_title]{periscope2:get_app_title()}
-
 \link[periscope2:get_url_parameters]{periscope2:get_url_parameters()}
 }
