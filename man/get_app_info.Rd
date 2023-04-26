@@ -7,10 +7,10 @@
 get_app_info()
 }
 \value{
-string of application info
+String of application info
 }
 \description{
-Returns current application app info that is set in `set_app_parameters` method to
+Returns current application app info that is set in \code{set_app_parameters} method to
  be used in any place in the application
 }
 \section{Shiny Usage}{

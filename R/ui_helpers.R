@@ -230,7 +230,7 @@ add_ui_body <- function(body_elements = NULL, append = FALSE) {
 #' @param session  - Shiny session object.
 #'
 #' @section Shiny Usage:
-#' Call this function from \code{program/server_local.R} or any other server file to setup needed alert
+#' Call this function from \code{program/server_local.R} or any other server file to setup the needed alert
 #'
 #' @examples
 #'   library(shiny)
@@ -508,7 +508,27 @@ set_app_parameters <- function(title,
 
 #' get_app_info
 #'
-#' Returns current application app info
+#' Returns current application app info that is set in \code{set_app_parameters} method to
+#'  be used in any place in the application
+#'
+#' @return String of application info
+#'
+#' @section Shiny Usage:
+#' Call this function from \code{program/server_local.R} or any other server file
+#'
+#' @examples
+#'   library(shiny)
+#'   library(periscope2)
+#'
+#'   # Display application info
+#'   observeEvent(input$app_info, {
+#'                shinyalert(html                = TRUE,
+#'                           showConfirmButton   = FALSE,
+#'                           animation           = "slide-from-top",
+#'                           closeOnClickOutside = TRUE,
+#'                           text                = get_app_info(),
+#'                           title               = get_app_title())
+#'               })
 #'
 #' @seealso \link[periscope2:set_app_parameters]{periscope2:set_app_parameters()}
 #' @seealso \link[periscope2:add_ui_footer]{periscope2:add_ui_footer()}
@@ -528,7 +548,27 @@ get_app_info <- function() {
 
 #' get_app_title
 #'
-#' Returns current application app title
+#' Returns current application app title that is set in \code{set_app_parameters} method to
+#'  be used in any place in the application
+#'
+#' @return String of application title
+#'
+#' @section Shiny Usage:
+#' Call this function from \code{program/server_local.R} or any other server file
+#'
+#' @examples
+#'   library(shiny)
+#'   library(periscope2)
+#'
+#'   # Display application info
+#'   observeEvent(input$app_info, {
+#'                shinyalert(html                = TRUE,
+#'                           showConfirmButton   = FALSE,
+#'                           animation           = "slide-from-top",
+#'                           closeOnClickOutside = TRUE,
+#'                           text                = get_app_info(),
+#'                           title               = get_app_title())
+#'               })
 #'
 #' @seealso \link[periscope2:set_app_parameters]{periscope2:set_app_parameters()}
 #' @seealso \link[periscope2:add_ui_footer]{periscope2:add_ui_footer()}
