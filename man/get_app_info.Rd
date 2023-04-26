@@ -24,13 +24,13 @@ Call this function from \code{program/server_local.R} or any other server file
 
   # Display application info
   observeEvent(input$app_info, {
-              shinyalert(html                = TRUE,
-                         showConfirmButton   = FALSE,
-                         animation           = "slide-from-top",
-                         closeOnClickOutside = TRUE,
-                         text                = get_app_info(),
-                         title               = get_app_title())
-              })
+               shinyalert(html                = TRUE,
+                          showConfirmButton   = FALSE,
+                          animation           = "slide-from-top",
+                          closeOnClickOutside = TRUE,
+                          text                = get_app_info(),
+                          title               = get_app_title())
+  })
 
 }
 \seealso{

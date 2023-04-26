@@ -528,7 +528,7 @@ set_app_parameters <- function(title,
 #'                           closeOnClickOutside = TRUE,
 #'                           text                = get_app_info(),
 #'                           title               = get_app_title())
-#'               })
+#'   })
 #'
 #' @seealso \link[periscope2:set_app_parameters]{periscope2:set_app_parameters()}
 #' @seealso \link[periscope2:add_ui_footer]{periscope2:add_ui_footer()}
@@ -568,7 +568,7 @@ get_app_info <- function() {
 #'                           closeOnClickOutside = TRUE,
 #'                           text                = get_app_info(),
 #'                           title               = get_app_title())
-#'               })
+#'   })
 #'
 #' @seealso \link[periscope2:set_app_parameters]{periscope2:set_app_parameters()}
 #' @seealso \link[periscope2:add_ui_footer]{periscope2:add_ui_footer()}
@@ -586,15 +586,34 @@ get_app_title <- function() {
 }
 
 
-#' Get URL Parameters
+#' get_url_parameters
 #'
 #' This function returns any url parameters passed to the application as
 #' a named list.  Keep in mind url parameters are always user-session scoped
 #'
-#' @param  session shiny session object
+#' @param session shiny session object
 #'
 #' @return named list of url parameters and values.  List may be empty if
-#' no URL parameters were passed when the application instance was launched.
+#' no URL parameters were passed when the application instance was launched
+#'
+#' @section Shiny Usage:
+#' Call this function from \code{program/server_local.R} or any other server file
+#'
+#' @examples
+#'   library(shiny)
+#'   library(periscope2)
+#'
+#'   Display application info
+#'   observeEvent(input$app_info, {
+#'                url_params <- get_url_parameters(session)
+#'                shinyalert(html                = TRUE,
+#'                           showConfirmButton   = FALSE,
+#'                           animation           = "slide-from-top",
+#'                           closeOnClickOutside = TRUE,
+#'                           text                = url_params[["passed_paramter"]],
+#'                           title               = get_app_title())
+#'   })
+#'
 #'
 #' @seealso \link[periscope2:set_app_parameters]{periscope2:set_app_parameters()}
 #' @seealso \link[periscope2:add_ui_footer]{periscope2:add_ui_footer()}

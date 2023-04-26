@@ -2,7 +2,7 @@
 % Please edit documentation in R/ui_helpers.R
 \name{get_url_parameters}
 \alias{get_url_parameters}
-\title{Get URL Parameters}
+\title{get_url_parameters}
 \usage{
 get_url_parameters(session)
 }
@@ -11,11 +11,33 @@ get_url_parameters(session)
 }
 \value{
 named list of url parameters and values.  List may be empty if
-no URL parameters were passed when the application instance was launched.
+no URL parameters were passed when the application instance was launched
 }
 \description{
 This function returns any url parameters passed to the application as
 a named list.  Keep in mind url parameters are always user-session scoped
+}
+\section{Shiny Usage}{
+
+Call this function from \code{program/server_local.R} or any other server file
+}
+
+\examples{
+  library(shiny)
+  library(periscope2)
+
+  Display application info
+  observeEvent(input$app_info, {
+               url_params <- get_url_parameters(session)
+               shinyalert(html                = TRUE,
+                          showConfirmButton   = FALSE,
+                          animation           = "slide-from-top",
+                          closeOnClickOutside = TRUE,
+                          text                = url_params[["passed_paramter"]],
+                          title               = get_app_title())
+  })
+
+
 }
 \seealso{
 \link[periscope2:set_app_parameters]{periscope2:set_app_parameters()}
