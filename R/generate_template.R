@@ -214,6 +214,8 @@ create_application <- function(name,
 #' @param usersep - string represents path separator based on running OS
 #'
 #' @return nothing
+#' @keywords internal
+#' @noRd
 .create_dirs <- function(newloc, usersep) {
     dir.create(newloc)
     dir.create(paste(newloc, "www", sep = usersep))
@@ -246,6 +248,8 @@ create_application <- function(name,
 #' @param sample_app    - boolean to control copying sample app files (default = FALSE)
 #'
 #' @return nothing
+#' @keywords internal
+#' @noRd
 .copy_fw_files <- function(newloc,
                            usersep,
                            left_sidebar  = TRUE,
@@ -315,6 +319,8 @@ create_application <- function(name,
 #' @param right_sidebar - boolean to control copying right ui sidebar (default = FALSE)
 #'
 #' @return nothing
+#' @keywords internal
+#' @noRd
 .copy_program_files <- function(newloc,
                                 usersep,
                                 sample_app,
