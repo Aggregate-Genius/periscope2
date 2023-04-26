@@ -35,10 +35,10 @@ border         <-  TRUE
 compact        <-  FALSE
 
 # Icon of the main sidebar toggle
-sidebarIcon    <-  shiny::icon("bars")
+left_sidebar_icon <-  shiny::icon("bars")
 
-# Icon to toggle the controlbar
-controlbarIcon <-  shiny::icon("th")
+# Icon to toggle the right sidebar
+right_sidebar_icon <-  shiny::icon("th")
 
 # Whether to fix the navbar to the top
 fixed          <-  FALSE
@@ -52,4 +52,12 @@ left_ui  <- NULL
 right_ui <- NULL
 
 # -- Register Header Elements in the ORDER SHOWN in the UI
-add_ui_header(skin, status, border, compact, sidebarIcon, controlbarIcon, fixed, left_ui, right_ui)
+add_ui_header(left_ui            = left_ui,
+              right_ui           = right_ui,
+              skin               = skin,
+              status             = status,
+              border             = border,
+              compact            = compact,
+              left_sidebar_icon  = left_sidebar_icon,
+              right_sidebar_icon = right_sidebar_icon,
+              fixed              = fixed)

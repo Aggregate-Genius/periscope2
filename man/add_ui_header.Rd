@@ -9,9 +9,9 @@ add_ui_header(
   right_ui = NULL,
   border = TRUE,
   compact = FALSE,
-  controlbarIcon = shiny::icon("bars"),
+  right_sidebar_icon = shiny::icon("bars"),
   fixed = FALSE,
-  sidebarIcon = shiny::icon("th"),
+  left_sidebar_icon = shiny::icon("th"),
   skin = "light",
   status = "white"
 )
@@ -25,11 +25,11 @@ add_ui_header(
 
 \item{compact}{- Whether items should be compacted. FALSE by default}
 
-\item{controlbarIcon}{- Icon to toggle the controlbar (left)}
+\item{right_sidebar_icon}{- Right sidebar toggle icon}
 
 \item{fixed}{- Whether to fix the navbar to the top. FALSE by default}
 
-\item{sidebarIcon}{- Icon of the main sidebar toggle}
+\item{left_sidebar_icon}{- Left sidebar toggle icon}
 
 \item{skin}{- Sidebar skin. "dark" or "light"}
 

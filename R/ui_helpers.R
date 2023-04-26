@@ -13,7 +13,7 @@
 #' @param fixed            - Whether to see all menus at once without scrolling up and down.(default = TRUE)
 #' @param minified         - Whether to slightly close the sidebar but still show item icons (default = FALSE)
 #' @param skin             - Sidebar skin. "dark" or "light" (default = "light")
-#' @param status           - Determins which color menu items (if exist) will have Check \code{?bs4Dash::dashboardSidebar()} for list of valid values
+#' @param status           - Determines which color menu items (if exist) will have Check \code{?bs4Dash::dashboardSidebar()} for list of valid values
 #'
 #' @section Shiny Usage:
 #' Call this function from \code{program/ui_left_sidebar.R} to set left sidebar parameters
@@ -71,15 +71,15 @@ add_ui_left_sidebar <- function(sidebar_elements = NULL,
 #' Builds application header with given configurations and elements. It is called within "ui_header.R".
 #' Check example application for detailed example
 #'
-#' @param left_ui        - Custom left UI content. Any element like dropdownMenu
-#' @param right_ui       - Custom right UI content. Any element like dropdownMenu
-#' @param border         - Whether to separate the navbar and body by a border. TRUE by default
-#' @param compact        - Whether items should be compacted. FALSE by default
-#' @param controlbarIcon - Icon to toggle the controlbar (left)
-#' @param fixed          - Whether to fix the navbar to the top. FALSE by default
-#' @param skin           - Sidebar skin. "dark" or "light"
-#' @param sidebarIcon    - Icon of the main sidebar toggle
-#' @param status         - Sidebar status. Check \code{?bs4Dash::bs4DashNavbar()} for list of valid values
+#' @param left_ui            - Custom left UI content. Any element like dropdownMenu
+#' @param right_ui           - Custom right UI content. Any element like dropdownMenu
+#' @param border             - Whether to separate the navbar and body by a border. TRUE by default
+#' @param compact            - Whether items should be compacted. FALSE by default
+#' @param fixed              - Whether to fix the navbar to the top. FALSE by default
+#' @param left_sidebar_icon  - Left sidebar toggle icon
+#' @param right_sidebar_icon - Right sidebar toggle icon
+#' @param skin               - Sidebar skin. "dark" or "light"
+#' @param status             - Sidebar status. Check \code{?bs4Dash::bs4DashNavbar()} for list of valid values
 #'
 #' @section Shiny Usage:
 #' Call this function from \code{program/ui_header.R} to set header parameters
@@ -124,15 +124,15 @@ add_ui_left_sidebar <- function(sidebar_elements = NULL,
 #' @seealso \link[periscope2:get_url_parameters]{periscope2:get_url_parameters()}
 #'
 #' @export
-add_ui_header <- function(left_ui        = NULL,
-                          right_ui       = NULL,
-                          border         = TRUE,
-                          compact        = FALSE,
-                          controlbarIcon = shiny::icon("bars"),
-                          fixed          = FALSE,
-                          sidebarIcon    = shiny::icon("th"),
-                          skin           = "light",
-                          status         = "white") {
+add_ui_header <- function(left_ui            = NULL,
+                          right_ui           = NULL,
+                          border             = TRUE,
+                          compact            = FALSE,
+                          right_sidebar_icon = shiny::icon("bars"),
+                          fixed              = FALSE,
+                          left_sidebar_icon  = shiny::icon("th"),
+                          skin               = "light",
+                          status             = "white") {
     app_title <- shiny::isolate(.g_opts$app_title)
     title     <- shiny::div(id = "app_header", app_title)
     app_info  <- shiny::isolate(.g_opts$app_info)
@@ -159,8 +159,8 @@ add_ui_header <- function(left_ui        = NULL,
                                              status         = status,
                                              border         = border,
                                              compact        = compact,
-                                             sidebarIcon    = sidebarIcon,
-                                             controlbarIcon = controlbarIcon,
+                                             sidebarIcon    = left_sidebar_icon,
+                                             controlbarIcon = right_sidebar_icon,
                                              fixed          = fixed,
                                              left_ui        = left_ui,
                                              rightUi        = right_ui)
@@ -603,7 +603,7 @@ get_app_title <- function() {
 #'   library(shiny)
 #'   library(periscope2)
 #'
-#'   Display application info
+#'   # Display application info
 #'   observeEvent(input$app_info, {
 #'                url_params <- get_url_parameters(session)
 #'                shinyalert(html                = TRUE,

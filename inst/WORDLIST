@@ -2,6 +2,7 @@ AvailableTypes
 CMD
 DT
 LogViewer
+Tooltip
 Tooltips
 UI
 ValidateTypes
@@ -15,7 +16,6 @@ clickOpts
 coene
 config
 contentHeight
-controlbar
 createAlert
 css
 csv
@@ -48,6 +48,7 @@ htmlOutput
 http
 https
 img
+inputText
 jQuery
 javascript
 js
@@ -68,6 +69,7 @@ singleSelect
 sortable
 ss
 templated
+textArea
 titleinfo
 tooltip
 tooltips

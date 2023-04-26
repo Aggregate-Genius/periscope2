@@ -35,7 +35,7 @@ Only works if sidebar is fixed}
 
 \item{minified}{- Whether to slightly close the sidebar but still show item icons (default = FALSE)}
 
-\item{status}{- Determins which color menu items (if exist) will have Check \code{?bs4Dash::dashboardSidebar()} for list of valid values}
+\item{status}{- Determines which color menu items (if exist) will have Check \code{?bs4Dash::dashboardSidebar()} for list of valid values}
 
 \item{skin}{- Sidebar skin. "dark" or "light" (default = "light")}
 }

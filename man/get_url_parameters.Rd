@@ -26,7 +26,7 @@ Call this function from \code{program/server_local.R} or any other server file
   library(shiny)
   library(periscope2)
 
-  Display application info
+  # Display application info
   observeEvent(input$app_info, {
                url_params <- get_url_parameters(session)
                shinyalert(html                = TRUE,

@@ -34,24 +34,26 @@ test_that("add_ui_header", {
     # no header
     expect_null(shiny::isolate(periscope2:::.g_opts$header))
     # normal header
-    skin           <- "light"
-    status         <- "white"
-    border         <- TRUE
-    compact        <- FALSE
-    sidebarIcon    <- shiny::icon("bars")
-    controlbarIcon <- shiny::icon("th")
-    fixed          <- FALSE
-    left_ui        <- NULL
-    right_ui       <- NULL
-    periscope2::add_ui_header(skin           = skin,
-                              status         = status,
-                              border         = border,
-                              compact        = compact,
-                              sidebarIcon    = sidebarIcon,
-                              controlbarIcon = controlbarIcon,
-                              fixed          = fixed,
-                              left_ui        = left_ui,
-                              right_ui       = right_ui)
+    skin               <- "light"
+    status             <- "white"
+    border             <- TRUE
+    compact            <- FALSE
+    left_sidebar_icon  <- shiny::icon("bars")
+    right_sidebar_icon <- shiny::icon("th")
+    fixed              <- FALSE
+    left_ui            <- NULL
+    right_ui           <- NULL
+
+    periscope2::add_ui_header(skin               = skin,
+                              status             = status,
+                              border             = border,
+                              compact            = compact,
+                              left_sidebar_icon  = left_sidebar_icon,
+                              right_sidebar_icon = right_sidebar_icon,
+                              fixed              = fixed,
+                              left_ui            = left_ui,
+                              right_ui           = right_ui)
+
     header <- shiny::isolate(periscope2:::.g_opts$header)
     expect_equal(length(header), 2)
     expect_true(grepl('id="announceAlert"', header[[1]], fixed = TRUE))
