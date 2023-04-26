@@ -9,7 +9,7 @@ ui_tooltip(id, label = "", text = "", placement = "top")
 \arguments{
 \item{id}{- The id for the tooltip object}
 
-\item{label}{- text label to appear to the left of the tooltip image}
+\item{label}{- Text label to appear to the left of the tooltip image}
 
 \item{text}{- Tooltip text shown when the user hovers over the image}
 
@@ -32,4 +32,26 @@ Call this function from \code{program/ui_body.R} to set tooltip parameters
    ui_tooltip(id   = "top_tip",
              label = "Top Tooltips",
              text  = "Top tooltip")
+
+}
+\seealso{
+\link[periscope2:add_ui_footer]{periscope2:add_ui_footer()}
+
+\link[periscope2:add_ui_left_sidebar]{periscope2:add_ui_left_sidebar()}
+
+\link[periscope2:add_ui_header]{periscope2:add_ui_header()}
+
+\link[periscope2:add_ui_body]{periscope2:add_ui_body()}
+
+\link[periscope2:add_ui_right_sidebar]{periscope2:add_ui_right_sidebar()}
+
+\link[periscope2:set_app_parameters]{periscope2:set_app_parameters()}
+
+\link[periscope2:ui_tooltip]{periscope2:ui_tooltip()}
+
+\link[periscope2:get_app_info]{periscope2:get_app_info()}
+
+\link[periscope2:get_app_title]{periscope2:get_app_title()}
+
+\link[periscope2:get_url_parameters]{periscope2:get_url_parameters()}
 }

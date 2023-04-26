@@ -17,3 +17,22 @@ no URL parameters were passed when the application instance was launched.
 This function returns any url parameters passed to the application as
 a named list.  Keep in mind url parameters are always user-session scoped
 }
+\seealso{
+\link[periscope2:set_app_parameters]{periscope2:set_app_parameters()}
+
+\link[periscope2:add_ui_footer]{periscope2:add_ui_footer()}
+
+\link[periscope2:add_ui_left_sidebar]{periscope2:add_ui_left_sidebar()}
+
+\link[periscope2:add_ui_header]{periscope2:add_ui_header()}
+
+\link[periscope2:add_ui_body]{periscope2:add_ui_body()}
+
+\link[periscope2:add_ui_right_sidebar]{periscope2:add_ui_right_sidebar()}
+
+\link[periscope2:ui_tooltip]{periscope2:ui_tooltip()}
+
+\link[periscope2:get_app_info]{periscope2:get_app_info()}
+
+\link[periscope2:get_app_title]{periscope2:get_app_title()}
+}

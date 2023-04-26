@@ -41,4 +41,16 @@ Call this function from \code{program/server_local.R} or any other server file t
 }
 \seealso{
 \link[bs4Dash:createAlert]{bs4Dash:createAlert()}
+
+\link[bs4Dash:createAlert]{bs4Dash:closeAlert()}
+
+\link[periscope2:set_app_parameters]{periscope2:set_app_parameters()}
+
+\link[periscope2:ui_tooltip]{periscope2:ui_tooltip()}
+
+\link[periscope2:get_app_info]{periscope2:get_app_info()}
+
+\link[periscope2:get_app_title]{periscope2:get_app_title()}
+
+\link[periscope2:get_url_parameters]{periscope2:get_url_parameters()}
 }
