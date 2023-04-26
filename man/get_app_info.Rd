@@ -6,8 +6,32 @@
 \usage{
 get_app_info()
 }
+\value{
+string of application info
+}
 \description{
-Returns current application app info
+Returns current application app info that is set in `set_app_parameters` method to
+ be used in any place in the application
+}
+\section{Shiny Usage}{
+
+Call this function from \code{program/server_local.R} or any other server file
+}
+
+\examples{
+  library(shiny)
+  library(periscope2)
+
+  # Display application info
+  observeEvent(input$app_info, {
+              shinyalert(html                = TRUE,
+                         showConfirmButton   = FALSE,
+                         animation           = "slide-from-top",
+                         closeOnClickOutside = TRUE,
+                         text                = get_app_info(),
+                         title               = get_app_title())
+              })
+
 }
 \seealso{
 \link[periscope2:set_app_parameters]{periscope2:set_app_parameters()}

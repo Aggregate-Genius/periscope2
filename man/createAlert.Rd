@@ -25,7 +25,7 @@ Created an alert panel in server to be displayed the given ui anchor
 }
 \section{Shiny Usage}{
 
-Call this function from \code{program/server_local.R} or any other server file to setup needed alert
+Call this function from \code{program/server_local.R} or any other server file to setup the needed alert
 }
 
 \examples{

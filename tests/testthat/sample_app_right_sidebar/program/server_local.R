@@ -94,7 +94,7 @@ downloadablePlot("examplePlot3",
 # ----------------------------------------
 # --          SHINY SERVER CODE         --
 # ----------------------------------------
-# Dsiplay application info
+# Display application info
 observeEvent(input$app_info, {
     shinyalert(html                = TRUE,
                showConfirmButton   = FALSE,

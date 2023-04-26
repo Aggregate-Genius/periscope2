@@ -35,9 +35,9 @@
 # ----------------------------------------
 # --          SHINY SERVER CODE         --
 # ----------------------------------------
-# Dsiplay application info
+# Display application info
 observeEvent(input$app_info, {
-    shinyalert(html                = TRUE, 
+    shinyalert(html                = TRUE,
                showConfirmButton   = FALSE,
                animation           = "slide-from-top",
                closeOnClickOutside = TRUE,
