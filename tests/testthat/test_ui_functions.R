@@ -41,18 +41,19 @@ test_that("add_ui_header", {
     left_sidebar_icon  <- shiny::icon("bars")
     right_sidebar_icon <- shiny::icon("th")
     fixed              <- FALSE
-    left_ui            <- NULL
-    right_ui           <- NULL
+    left_menu          <- NULL
+    right_menu         <- NULL
 
-    periscope2::add_ui_header(skin               = skin,
+    periscope2::add_ui_header(left_menu          = left_menu,
+                              right_menu         = right_menu,
+                              skin               = skin,
                               status             = status,
                               border             = border,
                               compact            = compact,
                               left_sidebar_icon  = left_sidebar_icon,
                               right_sidebar_icon = right_sidebar_icon,
-                              fixed              = fixed,
-                              left_ui            = left_ui,
-                              right_ui           = right_ui)
+                              fixed              = fixed)
+
 
     header <- shiny::isolate(periscope2:::.g_opts$header)
     expect_equal(length(header), 2)

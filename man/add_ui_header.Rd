@@ -5,8 +5,8 @@
 \title{add_ui_header}
 \usage{
 add_ui_header(
-  left_ui = NULL,
-  right_ui = NULL,
+  left_menu = NULL,
+  right_menu = NULL,
   border = TRUE,
   compact = FALSE,
   right_sidebar_icon = shiny::icon("bars"),
@@ -17,9 +17,11 @@ add_ui_header(
 )
 }
 \arguments{
-\item{left_ui}{- Custom left UI content. Any element like dropdownMenu}
+\item{left_menu}{- Left menu. bs4DropdownMenu object (or similar dropdown menu).
+Check \code{?bs4Dash::bs4DropdownMenu()}}
 
-\item{right_ui}{- Custom right UI content. Any element like dropdownMenu}
+\item{right_menu}{- Right menu. bs4DropdownMenu object (or similar dropdown menu).
+Check \code{?bs4Dash::bs4DropdownMenu()}}
 
 \item{border}{- Whether to separate the navbar and body by a border. TRUE by default}
 
@@ -49,8 +51,8 @@ Call this function from \code{program/ui_header.R} to set header parameters
   library(bs4Dash)
 
   # Inside ui_header.R
-  # Custom left UI content
-  left_ui <- tagList(dropdownMenu(badgeStatus = "info",
+  # Custom left UI menu
+  left_menu <- tagList(dropdownMenu(badgeStatus = "info",
                                   type        = "notifications",
                                    notificationItem(inputId = "triggerAction2",
                                                     text    = "Error!",
@@ -62,8 +64,8 @@ Call this function from \code{program/ui_header.R} to set header parameters
                                             color   = "orange",
                                             value   = 10)))
 
-  # Custom right UI content
-  right_ui <- dropdownMenu(badgeStatus = "danger",
+  # Custom right UI menu
+  right_menu <- dropdownMenu(badgeStatus = "danger",
                           type        = "messages",
                           messageItem(inputId = "triggerAction1",
                                       message = "message 1",
@@ -71,7 +73,7 @@ Call this function from \code{program/ui_header.R} to set header parameters
                                       time    = "today",
                                       color   = "lime"))
   # -- Register Header Elements in the ORDER SHOWN in the UI
-  add_ui_header(left_ui = left_ui, right_ui = right_ui)
+  add_ui_header(left_menu = left_menu, right_menu = right_menu)
 
 }
 \seealso{

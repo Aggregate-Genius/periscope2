@@ -1,6 +1,7 @@
 AvailableTypes
 CMD
 DT
+DropdownMenu
 LogViewer
 Tooltip
 Tooltips
@@ -35,7 +36,6 @@ downloaddatafxns
 downloadfxns
 downloadtypes
 dropdown
-dropdownMenu
 filesystem
 fw
 fxn

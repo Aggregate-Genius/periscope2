@@ -45,19 +45,20 @@ fixed          <-  FALSE
 
 # -- Create Header Elements
 
-# Custom left UI content
-left_ui        <- NULL
+# Custom left menu content
+left_menu  <- NULL
 
-# Custom right UI content
-right_ui       <- NULL
+# Custom right menu content
+right_menu <- NULL
 
 # -- Register Header Elements in the ORDER SHOWN in the UI
-add_ui_header(skin               = skin,
+add_ui_header(left_menu          = left_menu,
+              right_menu         = right_menu,
+              skin               = skin,
               status             = status,
               border             = border,
               compact            = compact,
               left_sidebar_icon  = left_sidebar_icon,
               right_sidebar_icon = right_sidebar_icon,
-              fixed              = fixed,
-              left_ui            = left_ui,
-              right_ui           = right_ui)
+              fixed              = fixed)
+

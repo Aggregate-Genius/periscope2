@@ -71,8 +71,10 @@ add_ui_left_sidebar <- function(sidebar_elements = NULL,
 #' Builds application header with given configurations and elements. It is called within "ui_header.R".
 #' Check example application for detailed example
 #'
-#' @param left_ui            - Custom left UI content. Any element like dropdownMenu
-#' @param right_ui           - Custom right UI content. Any element like dropdownMenu
+#' @param left_menu          - Left menu. bs4DropdownMenu object (or similar dropdown menu).
+#'                             Check \code{?bs4Dash::bs4DropdownMenu()}
+#' @param right_menu         - Right menu. bs4DropdownMenu object (or similar dropdown menu).
+#'                             Check \code{?bs4Dash::bs4DropdownMenu()}
 #' @param border             - Whether to separate the navbar and body by a border. TRUE by default
 #' @param compact            - Whether items should be compacted. FALSE by default
 #' @param fixed              - Whether to fix the navbar to the top. FALSE by default
@@ -89,8 +91,8 @@ add_ui_left_sidebar <- function(sidebar_elements = NULL,
 #'   library(bs4Dash)
 #'
 #'   # Inside ui_header.R
-#'   # Custom left UI content
-#'   left_ui <- tagList(dropdownMenu(badgeStatus = "info",
+#'   # Custom left UI menu
+#'   left_menu <- tagList(dropdownMenu(badgeStatus = "info",
 #'                                   type        = "notifications",
 #'                                    notificationItem(inputId = "triggerAction2",
 #'                                                     text    = "Error!",
@@ -102,8 +104,8 @@ add_ui_left_sidebar <- function(sidebar_elements = NULL,
 #'                                             color   = "orange",
 #'                                             value   = 10)))
 #'
-#'   # Custom right UI content
-#'   right_ui <- dropdownMenu(badgeStatus = "danger",
+#'   # Custom right UI menu
+#'   right_menu <- dropdownMenu(badgeStatus = "danger",
 #'                           type        = "messages",
 #'                           messageItem(inputId = "triggerAction1",
 #'                                       message = "message 1",
@@ -111,7 +113,7 @@ add_ui_left_sidebar <- function(sidebar_elements = NULL,
 #'                                       time    = "today",
 #'                                       color   = "lime"))
 #'   # -- Register Header Elements in the ORDER SHOWN in the UI
-#'   add_ui_header(left_ui = left_ui, right_ui = right_ui)
+#'   add_ui_header(left_menu = left_menu, right_menu = right_menu)
 #'
 #' @seealso \link[bs4Dash:bs4DashNavbar]{bs4Dash:bs4DashNavbar()}
 #' @seealso \link[periscope2:add_ui_footer]{periscope2:add_ui_footer()}
@@ -124,8 +126,8 @@ add_ui_left_sidebar <- function(sidebar_elements = NULL,
 #' @seealso \link[periscope2:get_url_parameters]{periscope2:get_url_parameters()}
 #'
 #' @export
-add_ui_header <- function(left_ui            = NULL,
-                          right_ui           = NULL,
+add_ui_header <- function(left_menu          = NULL,
+                          right_menu         = NULL,
                           border             = TRUE,
                           compact            = FALSE,
                           right_sidebar_icon = shiny::icon("bars"),
@@ -162,8 +164,8 @@ add_ui_header <- function(left_ui            = NULL,
                                              sidebarIcon    = left_sidebar_icon,
                                              controlbarIcon = right_sidebar_icon,
                                              fixed          = fixed,
-                                             left_ui        = left_ui,
-                                             rightUi        = right_ui)
+                                             leftUi         = left_menu,
+                                             rightUi        = right_menu)
 }
 
 
