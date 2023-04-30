@@ -37,15 +37,7 @@
 #' @export
 logViewerOutput <- function(id) {
     ns <- shiny::NS(id)
-
-    bs4Dash::box(
-        id          = ns("userlog"),
-        title       = "User Action Log",
-        width       = 12,
-        status      = NULL,
-        collapsible = TRUE,
-        collapsed   = TRUE,
-        shiny::tableOutput(ns("dt_userlog")) )
+    shiny::tableOutput(ns("dt_userlog"))
 }
 
 
@@ -75,7 +67,6 @@ logViewer <- function(id, logger) {
         id,
         function(input, output, session) {
             output$dt_userlog <- shiny::renderTable({
-
                 lines <- logger()
                 if (length(lines) > 0) {
                     out1 <- data.frame(orig = lines, stringsAsFactors = F)

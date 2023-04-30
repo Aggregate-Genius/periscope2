@@ -173,6 +173,7 @@ reset_application_box <- box(
             appResetButton("appResetId"))
 )
 
+
 logger_box <- box(
     id          = "logger",
     title       = "Logging Information",
@@ -195,9 +196,11 @@ logger_box <- box(
                                color = "info"),
                     tags$li(p("The XXXX should be replaced by an actual log level like 'info', 'debug', 'warn' or 'error'.
                               The framework will handle updating the footer UI element every time the log is added to.")),
-                    tags$li("To display application logs like below portlet add the following box to your box list",
+                    tags$li("To display application logs like below portlet add the following logViewer table to your box",
                             blockQuote(p(pre("U: logViewerOutput('logViewerId')")),
-                                       color = "info"))))
+                                       color = "info")))),
+    tags$dl(tags$dt("Example"),
+            logViewerOutput("logViewerId"))
 )
 
 
@@ -208,8 +211,7 @@ periscope_modules <- tabItem(tabName = "periscope_modules",
                              plot_downloader_box,
                              fluidRow(file_downloader_box,
                                       reset_application_box),
-                             logger_box,
-                             logViewerOutput("logViewerId"))
+                             logger_box)
 
 ### User Notifications Elements
 busy_indicator_box <- box(

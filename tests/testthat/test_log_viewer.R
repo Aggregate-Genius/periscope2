@@ -17,10 +17,8 @@ empty_log <- function(){
 
 # UI unit tests
 test_that("logViewerOutput", {
-    log_ui <- logViewerOutput("myid")
-    expect_true(grepl('id="myid-userlog"', log_ui, fixed = TRUE))
-    expect_true(grepl('id="myid-dt_userlog"', log_ui, fixed = TRUE))
-    expect_true(grepl('"title":"User Action Log"', log_ui, fixed = TRUE))
+    local_edition(3)
+    expect_snapshot_output(logViewerOutput("myid"))
 })
 
 
