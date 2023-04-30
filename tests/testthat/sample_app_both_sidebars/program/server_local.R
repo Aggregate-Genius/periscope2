@@ -34,8 +34,8 @@ source(paste("program", "fxn", "plots.R", sep = .Platform$file.sep))
 appReset(id     = "appResetId",
          logger = ss_userAction.Log)
 
-logViewer(id      = "logViewerId",
-          logdata = ss_userAction.Log)
+logViewer(id    = "logViewerId",
+          logger = ss_userAction.Log)
 
 downloadFile("exampleDownload1",
              ss_userAction.Log,

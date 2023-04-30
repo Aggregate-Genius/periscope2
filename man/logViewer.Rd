@@ -4,15 +4,15 @@
 \alias{logViewer}
 \title{logViewer Module Server Function}
 \usage{
-logViewer(id, logdata)
+logViewer(id, logger)
 }
 \arguments{
 \item{id}{- the ID of the Module's UI element}
 
-\item{logdata}{- action logs to be displayed}
+\item{logger}{- action logs to be displayed}
 }
 \description{
-Server-side function for the appResetButton  This is box with table displaying application logs.
+Server-side function for the logViewerOutput  This is box with table displaying application logs.
 The server function is used to provide module configurations.
 }
 \section{Shiny Usage}{
@@ -20,12 +20,12 @@ The server function is used to provide module configurations.
 This function is not called directly by consumers - it is accessed in
 server_local.R (or similar file) using the same id provided in \code{logViewerOutput}:
 
-\strong{\code{logViewer(id = "logViewerId", logdata = ss_userAction.Log)}}
+\strong{\code{logViewer(id = "logViewerId", logger = ss_userAction.Log)}}
 }
 
 \examples{
 # Inside server_local.R
 
-#logViewer(id = "logViewerId", logdata = ss_userAction.Log)
+#logViewer(id = "logViewerId", logger = ss_userAction.Log)
 
 }

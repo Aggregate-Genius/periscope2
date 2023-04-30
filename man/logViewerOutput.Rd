@@ -30,7 +30,7 @@ logged.
 
 Add the log viewer box to your box list
 
-It is paired with a call to \code{logViewer(id, logdata)}
+It is paired with a call to \code{logViewer(id, logger)}
 in server
 }
 

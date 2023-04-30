@@ -24,7 +24,7 @@
 #' @section Shiny Usage:
 #' Add the log viewer box to your box list
 #'
-#' It is paired with a call to \code{logViewer(id, logdata)}
+#' It is paired with a call to \code{logViewer(id, logger)}
 #' in server
 #'
 #'
@@ -51,32 +51,32 @@ logViewerOutput <- function(id) {
 
 #' logViewer Module Server Function
 #'
-#' Server-side function for the appResetButton  This is box with table displaying application logs.
+#' Server-side function for the logViewerOutput  This is box with table displaying application logs.
 #' The server function is used to provide module configurations.
 #'
-#' @param id      - the ID of the Module's UI element
-#' @param logdata - action logs to be displayed
+#' @param id     - the ID of the Module's UI element
+#' @param logger - action logs to be displayed
 #'
 #'
 #' @section Shiny Usage:
 #' This function is not called directly by consumers - it is accessed in
 #' server_local.R (or similar file) using the same id provided in \code{logViewerOutput}:
 #'
-#' \strong{\code{logViewer(id = "logViewerId", logdata = ss_userAction.Log)}}
+#' \strong{\code{logViewer(id = "logViewerId", logger = ss_userAction.Log)}}
 #'
 #' @examples
 #' # Inside server_local.R
 #'
-#' #logViewer(id = "logViewerId", logdata = ss_userAction.Log)
+#' #logViewer(id = "logViewerId", logger = ss_userAction.Log)
 #'
 #' @export
-logViewer <- function(id, logdata) {
+logViewer <- function(id, logger) {
     shiny::moduleServer(
         id,
         function(input, output, session) {
             output$dt_userlog <- shiny::renderTable({
 
-                lines <- logdata()
+                lines <- logger()
                 if (length(lines) > 0) {
                     out1 <- data.frame(orig = lines, stringsAsFactors = F)
                     loc1 <- regexpr("\\[", out1$orig)
