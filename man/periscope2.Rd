@@ -36,17 +36,23 @@ A gallery of example apps is hosted at \href{http://periscopeapps.org:3838}{http
 \emph{Get any url parameters passed to the application:\cr}
 \link[periscope2]{get_url_parameters}\cr
 
-\emph{Register user-created UI objects to the requisite application locations:\cr}
+\emph{Update an existing application with a needed sidebar:\cr}
 \link[periscope2]{create_left_sidebar}\cr
 \link[periscope2]{create_right_sidebar}\cr
-\link[periscope2]{add_ui_header}\cr
+
+\emph{Register user-created UI objects to the requisite application locations:\cr}
 \link[periscope2]{add_ui_body}\cr
-\link[periscope2]{add_ui_footer}
+\link[periscope2]{add_ui_footer}\cr
+\link[periscope2]{add_ui_header}\cr
+\link[periscope2]{add_ui_left_sidebar}\cr
+\link[periscope2]{add_ui_right_sidebar}
 
 \emph{Included shiny modules with a customized UI:\cr}
 \link[periscope2]{downloadFileButton}\cr
 \link[periscope2]{downloadableTableUI}\cr
-\link[periscope2]{downloadablePlotUI}
+\link[periscope2]{downloadablePlotUI}\cr
+\link[periscope2]{appResetButton}\cr
+\link[periscope2]{logViewerOutput}\cr
 
 \emph{High-functionality standardized tooltips:\cr}
 \link[periscope2]{ui_tooltip}
