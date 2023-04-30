@@ -1,9 +1,20 @@
 #' Periscope2 Shiny Application Framework
 #'
-#' This package supports a ui-standardized environment as well as
-#' a variety of convenience functions for shiny applications.  Base
+#' Periscope2 follows Periscope package on supporting a UI-standardized environment as well as
+#' a variety of convenience functions for shiny applications in a more modernized way. Base
 #' reusable functionality as well as UI paradigms are included to ensure a
 #' consistent user experience regardless of application or developer.
+#'
+#' Periscope2 is different than Periscope as follow:
+#' \itemize{
+#'  \item Periscope2 depends on bootstrap v4 while Periscope depends on bootstrap v3
+#'  \item Periscope2 has new user modules as \link[periscope2:load_announcements]{announcements} module
+#'  \item Periscope2 also updated some of Periscope modules usage to give user more functionality and more control as
+#'    \link[periscope2:createAlert]{aler}t and \link[periscope2:appResetButton]{reset} modules
+#'  \item Periscope2 gives the user more control on customizing different application parts (header, footer, left sidebar, right sidebar and body)
+#'  \item Periscope2 generated application has an updated files structure to organize application UI, shiny modules, app configuration, .. etc
+#' }
+#'
 #'
 #' A gallery of example apps is hosted at \href{http://periscopeapps.org:3838}{http://periscopeapps.org}
 #'
