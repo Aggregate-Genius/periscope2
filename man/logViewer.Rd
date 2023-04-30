@@ -29,3 +29,18 @@ server_local.R (or similar file) using the same id provided in \code{logViewerOu
 #logViewer(id = "logViewerId", logger = ss_userAction.Log)
 
 }
+\seealso{
+\link[periscope2]{logViewerOutput}
+
+\link[periscope2]{downloadFile}
+
+\link[periscope2]{downloadFile_ValidateTypes}
+
+\link[periscope2]{downloadFile_AvailableTypes}
+
+\link[periscope2]{downloadablePlot}
+
+\link[periscope2]{downloadFileButton}
+
+\link[periscope2]{downloadableTable}
+}

@@ -5,12 +5,13 @@
 
 #' logViewerOutput
 #'
-#' Creates a box with table containing logged user actions. Table contents are auto updated whenever a user action is
-#' logged.
-#'
+#' Creates a shiny table with table containing logged user actions. Table contents are auto updated whenever a user action is
+#' logged
 #'
 #'
 #' @param id character id for the object
+#'
+#' @returns shiny tableOutput instance
 #'
 #' @section Table columns:
 #' \itemize{
@@ -35,6 +36,13 @@
 #'
 #'
 #' @export
+#' @seealso \link[periscope2]{logViewer}
+#' @seealso \link[periscope2]{downloadFile}
+#' @seealso \link[periscope2]{downloadFile_ValidateTypes}
+#' @seealso \link[periscope2]{downloadFile_AvailableTypes}
+#' @seealso \link[periscope2]{downloadablePlot}
+#' @seealso \link[periscope2]{downloadFileButton}
+#' @seealso \link[periscope2]{downloadableTable}
 logViewerOutput <- function(id) {
     ns <- shiny::NS(id)
     shiny::tableOutput(ns("dt_userlog"))
@@ -62,6 +70,13 @@ logViewerOutput <- function(id) {
 #' #logViewer(id = "logViewerId", logger = ss_userAction.Log)
 #'
 #' @export
+#' @seealso \link[periscope2]{logViewerOutput}
+#' @seealso \link[periscope2]{downloadFile}
+#' @seealso \link[periscope2]{downloadFile_ValidateTypes}
+#' @seealso \link[periscope2]{downloadFile_AvailableTypes}
+#' @seealso \link[periscope2]{downloadablePlot}
+#' @seealso \link[periscope2]{downloadFileButton}
+#' @seealso \link[periscope2]{downloadableTable}
 logViewer <- function(id, logger) {
     shiny::moduleServer(
         id,
