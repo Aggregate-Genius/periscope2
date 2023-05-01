@@ -57,6 +57,8 @@ logViewerOutput <- function(id) {
 #' @param id     - the ID of the Module's UI element
 #' @param logger - action logs to be displayed
 #'
+#' @return Shiny table render expression containing the currently logged lines
+#'
 #'
 #' @section Shiny Usage:
 #' This function is not called directly by consumers - it is accessed in

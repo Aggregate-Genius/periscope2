@@ -243,7 +243,7 @@ alerts_box <- box(
     collapsible = TRUE,
     width       = 12,
     p("Alerts can be added with the following code in the server:"),
-    blockQuote(tags$pre("S:periscope2::createAlert('alert place',
+    blockQuote(tags$pre("S:periscope2::createAlert(id = 'alert place',
                          options = list(title    = 'alert title',
                          status   = 'alert status'',
                          closable = TRUE,

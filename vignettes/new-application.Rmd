@@ -137,11 +137,11 @@ Alerts can accumulate (i.e. append to each other) or replace previous alerts.
 *Code Example*
 
 ```{r, eval=F}
-periscope2::createAlert('alert place',
+periscope2::createAlert(id       = 'alert place',
                          options = list(title    = 'alert title',
-                         status   = 'alert status'',
-                         closable = TRUE,
-                         content  = alert contents))
+                                        status   = 'alert status'',
+                                        closable = TRUE,
+                                        content  = alert contents))
 # 'alert place' can be: 'sidebarRightAlert', 'sidebarBasicAlert', 'bodyAlert', 'footerAlert' and 'headerAlert'
 # 'alert status': 'primary', 'success', 'warning', 'danger' or 'info'.
 
@@ -506,9 +506,11 @@ downloadFile("ex_d1", ss_userAction.Log, "mydownload", list(csv=get_ref_data))
 
 observeEvent(input$exButton, {
     loginfo("exButton Pressed!", logger = ss_userAction.Log)
-    createAlert(session, "bodyAlert",
-                style = "success",
-                content = "Example Button Pressed!")
+    periscope2::createAlert(id = 'alert place',
+                         options  = list(title    = 'alert title',
+                                         status   = 'alert status'',
+                                         closable = TRUE,
+                                         content  = "alert contents"))
 })
 ```
 

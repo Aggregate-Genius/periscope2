@@ -11,6 +11,9 @@ logViewer(id, logger)
 
 \item{logger}{- action logs to be displayed}
 }
+\value{
+Shiny table render expression containing the currently logged lines
+}
 \description{
 Server-side function for the logViewerOutput  This is box with table displaying application logs.
 The server function is used to provide module configurations.

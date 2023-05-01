@@ -5,23 +5,27 @@
 \title{createAlert}
 \usage{
 createAlert(
+  session = shiny::getDefaultReactiveDomain(),
   id = NULL,
   selector = NULL,
-  options,
-  session = shiny::getDefaultReactiveDomain()
+  options
 )
 }
 \arguments{
-\item{id}{- Anchor id}
+\item{session}{- Shiny session object}
 
-\item{selector}{- jQuery selector. Allow more customization for the anchor (nested tags).}
+\item{id}{- Anchor id (either id or selector only should be set)}
+
+\item{selector}{- Character vectore represents jQuery selector to add the alert to is
+(i.e ".alertClass", div.badge-danger.navbar-badge). If 'id' is specified, this parameter will be neglected}
 
 \item{options}{- List of options to pass to the alert}
-
-\item{session}{- Shiny session object.}
+}
+\value{
+creates an alert html div and inserts it in the app DOM
 }
 \description{
-Created an alert panel in server to be displayed the given ui anchor
+Create an alert panel in server code to be displayed in the specified UI selector location
 }
 \section{Shiny Usage}{
 
@@ -31,18 +35,26 @@ Call this function from \code{program/server_local.R} or any other server file t
 \examples{
   library(shiny)
   library(bs4Dash)
+
   # Inside server_local.R
   periscope2::createAlert(id       = "sidebarRightAlert",
                           options  = list(title    = "Right Side",
                                           status   = "success",
                                           closable = TRUE,
                                           content  = "Example Basic Sidebar Alert"))
+  # Test selector
+  ## a div with class "badge-danger.navbar-badge" must be exist in UI to display alert
+  selector <- "div.badge-danger.navbar-badge"
+  periscope2::createAlert(selector = selector,
+                          options  = list(title    = "Selector Title",
+                                          status   = "danger",
+                                          closable = TRUE,
+                                          content  = "Selector Alert"))
+
 
 }
 \seealso{
-\link[bs4Dash:createAlert]{bs4Dash:createAlert()}
-
-\link[bs4Dash:createAlert]{bs4Dash:closeAlert()}
+\link[bs4Dash:closeAlert]{bs4Dash:closeAlert()}
 
 \link[periscope2:set_app_parameters]{periscope2:set_app_parameters()}
 

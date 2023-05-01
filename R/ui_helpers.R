@@ -218,12 +218,15 @@ add_ui_body <- function(body_elements = NULL, append = FALSE) {
 
 #' createAlert
 #'
-#' Created an alert panel in server to be displayed the given ui anchor
+#' Create an alert panel in server code to be displayed in the specified UI selector location
 #'
-#' @param id       - Anchor id
-#' @param selector - jQuery selector. Allow more customization for the anchor (nested tags).
+#' @param session  - Shiny session object
+#' @param id       - Anchor id (either id or selector only should be set)
+#' @param selector - Character vectore represents jQuery selector to add the alert to is
+#'                   (i.e ".alertClass", div.badge-danger.navbar-badge). If 'id' is specified, this parameter will be neglected
 #' @param options  - List of options to pass to the alert
-#' @param session  - Shiny session object.
+#'
+#' @return creates an alert html div and inserts it in the app DOM
 #'
 #' @section Shiny Usage:
 #' Call this function from \code{program/server_local.R} or any other server file to setup the needed alert
@@ -231,24 +234,33 @@ add_ui_body <- function(body_elements = NULL, append = FALSE) {
 #' @examples
 #'   library(shiny)
 #'   library(bs4Dash)
+#'
 #'   # Inside server_local.R
 #'   periscope2::createAlert(id       = "sidebarRightAlert",
 #'                           options  = list(title    = "Right Side",
 #'                                           status   = "success",
 #'                                           closable = TRUE,
 #'                                           content  = "Example Basic Sidebar Alert"))
+#'   # Test selector
+#'   ## a div with class "badge-danger.navbar-badge" must be exist in UI to display alert
+#'   selector <- "div.badge-danger.navbar-badge"
+#'   periscope2::createAlert(selector = selector,
+#'                           options  = list(title    = "Selector Title",
+#'                                           status   = "danger",
+#'                                           closable = TRUE,
+#'                                           content  = "Selector Alert"))
 #'
-#' @seealso \link[bs4Dash:createAlert]{bs4Dash:createAlert()}
-#' @seealso \link[bs4Dash:createAlert]{bs4Dash:closeAlert()}
+#'
+#' @seealso \link[bs4Dash:closeAlert]{bs4Dash:closeAlert()}
 #' @seealso \link[periscope2:set_app_parameters]{periscope2:set_app_parameters()}
 #' @seealso \link[periscope2:ui_tooltip]{periscope2:ui_tooltip()}
 #' @seealso \link[periscope2:get_url_parameters]{periscope2:get_url_parameters()}
 #'
 #' @export
-createAlert <- function(id       = NULL,
+createAlert <- function(session  = shiny::getDefaultReactiveDomain(),
+                        id       = NULL,
                         selector = NULL,
-                        options,
-                        session  = shiny::getDefaultReactiveDomain()) {
+                        options) {
     if (!is.null(id) && !is.null(selector)) {
         stop("Please choose either target or selector!")
     }
