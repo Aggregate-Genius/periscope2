@@ -17,6 +17,8 @@
 #'
 #' @param id character id for the object
 #'
+#' @return an html div with prettyToggle button
+#'
 #' @section Button Features:
 #' \itemize{
 #'     \item Initial state label is "Application Reset" with warning status
@@ -25,22 +27,31 @@
 #' }
 #'
 #' @section Example:
-#' \code{appReset(id = 'appResetId', logger = logger)}
+#' \code{appResetButton(id = 'appResetId')}
 #'
 #' @section Shiny Usage:
 #' Call this function at any place in UI section.
 #'
-#' It is paired with a call to \code{appResetButton(id, ...)}
+#' It is paired with a call to \code{appReset(id, ...)}
 #' in server
 #'
 #'
 #' @examples
 #' # Inside ui_body.R or ui_left_sidebar.R
 #'
-#' #appReset(id = 'appResetId', logger = logger)
+#' appResetButton(id = 'appResetId')
 #'
 #'
 #' @export
+#' @seealso \link[periscope2]{appReset}
+#' @seealso \link[periscope2]{downloadFile}
+#' @seealso \link[periscope2]{downloadFile_ValidateTypes}
+#' @seealso \link[periscope2]{downloadFile_AvailableTypes}
+#' @seealso \link[periscope2]{downloadablePlot}
+#' @seealso \link[periscope2]{downloadFileButton}
+#' @seealso \link[periscope2]{downloadableTable}
+#' @seealso \link[periscope2]{logViewer}
+#' @seealso \link[periscope2]{logViewerOutput}
 appResetButton <- function(id) {
     ns <- shiny::NS(id)
 
@@ -87,6 +98,17 @@ appResetButton <- function(id) {
 #' #appReset(id = "appResetId", logger = ss_userAction.Log)
 #'
 #' @export
+#' @export
+#'
+#' @seealso \link[periscope2]{appResetButton}
+#' @seealso \link[periscope2]{downloadFile}
+#' @seealso \link[periscope2]{downloadFile_ValidateTypes}
+#' @seealso \link[periscope2]{downloadFile_AvailableTypes}
+#' @seealso \link[periscope2]{downloadablePlot}
+#' @seealso \link[periscope2]{downloadFileButton}
+#' @seealso \link[periscope2]{downloadableTable}
+#' @seealso \link[periscope2]{logViewer}
+#' @seealso \link[periscope2]{logViewerOutput}
 appReset <- function(id,
                      reset_wait     = 5000,
                      alert_location = "bodyAlert",

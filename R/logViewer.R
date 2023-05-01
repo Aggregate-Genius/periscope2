@@ -79,6 +79,8 @@ logViewerOutput <- function(id) {
 #' @seealso \link[periscope2]{downloadablePlot}
 #' @seealso \link[periscope2]{downloadFileButton}
 #' @seealso \link[periscope2]{downloadableTable}
+#' @seealso \link[periscope2]{appResetButton}
+#' @seealso \link[periscope2]{appReset}
 logViewer <- function(id, logger) {
     shiny::moduleServer(
         id,
