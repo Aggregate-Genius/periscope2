@@ -243,7 +243,7 @@ test_that("add_ui_body example body", {
 
     add_ui_body(list(div("more elements")), append = TRUE)
     expect_snapshot_output(shiny::isolate(periscope2:::.g_opts$body_elements))
-    dashboard_ui <- periscope2::create_application_dashboard()
+    dashboard_ui <- periscope2:::create_application_dashboard()
     expect_true(grepl('id="announceAlert"' , dashboard_ui, fixed = TRUE))
     expect_true(grepl('id="headerAlert"' , dashboard_ui, fixed = TRUE))
     expect_true(grepl('Periscope2 Features' , dashboard_ui, fixed = TRUE))

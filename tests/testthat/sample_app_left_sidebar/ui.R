@@ -14,4 +14,4 @@ source(paste("program", "ui_header.R", sep = .Platform$file.sep), local = TRUE)
 
 source(paste("program", "ui_left_sidebar.R", sep = .Platform$file.sep), local = TRUE)
 source(paste("program", "ui_footer.R", sep = .Platform$file.sep), local = TRUE)
-create_application_dashboard()
+periscope2:::create_application_dashboard()

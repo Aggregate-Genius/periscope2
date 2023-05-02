@@ -35,7 +35,8 @@ fw_get_user_log <- function() {
 #' Creates application final dashboard from application different settings and configurations.
 #' It is called once in the application in "ui.R". It should not be modified or updated by user
 #'
-#' @export
+#' @keywords internal
+#' @noRd
 create_application_dashboard <- function() {
     bs4Dash::bs4DashPage(header     = shiny::isolate(.g_opts$header),
                          body       = bs4Dash::bs4DashBody(shiny::isolate(.g_opts$body_elements)),
