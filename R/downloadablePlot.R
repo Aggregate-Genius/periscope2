@@ -47,7 +47,14 @@
 #' @seealso \link[shiny]{clickOpts}
 #' @seealso \link[shiny]{hoverOpts}
 #' @seealso \link[shiny]{brushOpts}
-#'
+#' @seealso \link[periscope2]{appResetButton}
+#' @seealso \link[periscope2]{appReset}
+#' @seealso \link[periscope2]{downloadFile}
+#' @seealso \link[periscope2]{downloadFile_ValidateTypes}
+#' @seealso \link[periscope2]{downloadFile_AvailableTypes}
+#' @seealso \link[periscope2]{downloadableTable}
+#' @seealso \link[periscope2]{logViewer}
+#' @seealso \link[periscope2]{logViewerOutput}
 #' @examples
 #' # Inside ui_body.R or ui_sidebar.R
 #' downloadablePlotUI("object_id1",
@@ -153,6 +160,14 @@ downloadablePlotUI <- function(id,
 #' downloadfxns, visibleplot)}}
 #'
 #' @seealso \link[periscope2]{downloadablePlotUI}
+#' @seealso \link[periscope2]{appResetButton}
+#' @seealso \link[periscope2]{appReset}
+#' @seealso \link[periscope2]{downloadFile}
+#' @seealso \link[periscope2]{downloadFile_ValidateTypes}
+#' @seealso \link[periscope2]{downloadFile_AvailableTypes}
+#' @seealso \link[periscope2]{downloadableTable}
+#' @seealso \link[periscope2]{logViewer}
+#' @seealso \link[periscope2]{logViewerOutput}
 #'
 #' @examples
 #' # Inside server_local.R

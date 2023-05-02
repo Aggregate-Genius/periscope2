@@ -57,5 +57,7 @@ logViewerOutput('logViewerId')
 
 \link[periscope2]{downloadFileButton}
 
+\link[periscope2]{downloadableTableUI}
+
 \link[periscope2]{downloadableTable}
 }

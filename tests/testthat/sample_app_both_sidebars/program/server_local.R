@@ -152,7 +152,7 @@ observeEvent(input$headerAlertbtn, {
     periscope2::createAlert(id      = "headerAlert",
                             options = list(title    = "Header",
                                            status   = "primary",
-                                           closable = F,
+                                           closable = FALSE,
                                            content  = "Example Header Alert"))
 })
 

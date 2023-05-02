@@ -60,4 +60,14 @@ server.R using the same id provided in \code{downloadFileButton}:
 \link[periscope2]{downloadFile_ValidateTypes}
 
 \link[periscope2]{downloadFile_AvailableTypes}
+
+\link[periscope2]{logViewer}
+
+\link[periscope2]{logViewerOutput}
+
+\link[periscope2]{downloadablePlot}
+
+\link[periscope2]{downloadableTableUI}
+
+\link[periscope2]{downloadableTable}
 }

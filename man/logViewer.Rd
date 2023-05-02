@@ -45,6 +45,8 @@ server_local.R (or similar file) using the same id provided in \code{logViewerOu
 
 \link[periscope2]{downloadFileButton}
 
+\link[periscope2]{downloadableTableUI}
+
 \link[periscope2]{downloadableTable}
 
 \link[periscope2]{appResetButton}

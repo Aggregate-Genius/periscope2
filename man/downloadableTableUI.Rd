@@ -76,4 +76,16 @@ downloadableTableUI("object_id1",
 \link[periscope2]{downloadableTable}
 
 \link[periscope2]{downloadFileButton}
+
+\link[periscope2]{logViewer}
+
+\link[periscope2]{logViewerOutput}
+
+\link[periscope2]{downloadFile}
+
+\link[periscope2]{downloadFile_ValidateTypes}
+
+\link[periscope2]{downloadFile_AvailableTypes}
+
+\link[periscope2]{downloadablePlot}
 }

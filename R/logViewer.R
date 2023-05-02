@@ -42,6 +42,7 @@
 #' @seealso \link[periscope2]{downloadFile_AvailableTypes}
 #' @seealso \link[periscope2]{downloadablePlot}
 #' @seealso \link[periscope2]{downloadFileButton}
+#' @seealso \link[periscope2]{downloadableTableUI}
 #' @seealso \link[periscope2]{downloadableTable}
 logViewerOutput <- function(id) {
     ns <- shiny::NS(id)
@@ -78,6 +79,7 @@ logViewerOutput <- function(id) {
 #' @seealso \link[periscope2]{downloadFile_AvailableTypes}
 #' @seealso \link[periscope2]{downloadablePlot}
 #' @seealso \link[periscope2]{downloadFileButton}
+#' @seealso \link[periscope2]{downloadableTableUI}
 #' @seealso \link[periscope2]{downloadableTable}
 #' @seealso \link[periscope2]{appResetButton}
 #' @seealso \link[periscope2]{appReset}

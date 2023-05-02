@@ -24,4 +24,14 @@ Checks a given list of file types and warns if an invalid type is included
 \link[periscope2]{downloadFileButton}
 
 \link[periscope2]{downloadFile}
+
+\link[periscope2]{logViewer}
+
+\link[periscope2]{logViewerOutput}
+
+\link[periscope2]{downloadablePlot}
+
+\link[periscope2]{downloadableTableUI}
+
+\link[periscope2]{downloadableTable}
 }
