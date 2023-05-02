@@ -8,7 +8,7 @@
 #' Periscope2 is different than Periscope as follow:
 #' \itemize{
 #'  \item Periscope2 depends on bootstrap v4 while Periscope depends on bootstrap v3
-#'  \item Periscope2 has new user modules as \link[periscope2:load_announcements]{announcements} module
+#'  \item Periscope2 has new user modules as announcements module
 #'  \item Periscope2 also updated some of Periscope modules usage to give user more functionality and more control as
 #'    \link[periscope2:createAlert]{aler}t and \link[periscope2:appResetButton]{reset} modules
 #'  \item Periscope2 gives the user more control on customizing different application parts (header, footer, left sidebar, right sidebar and body)

@@ -17,16 +17,16 @@ shinyServer(function(input, output, session) {
     source(paste("program", "server_local.R", sep = .Platform$file.sep),
            local = TRUE)
 
-    periscope2:::fw_server_setup(input            = input, 
-                                output           = output, 
-                                session          = session, 
-                                logger           = ss_userAction.Log,
-                                logger_viewer_id = "logViewerId")
-    
-    announce_close_time <- load_announcements()
+    periscope2:::fw_server_setup(input            = input,
+                                 output           = output,
+                                 session          = session,
+                                 logger           = ss_userAction.Log,
+                                 logger_viewer_id = "logViewerId")
+
+    announce_close_time <- periscope2:::load_announcements()
     if (!is.null(announce_close_time)) {
         shinyjs::delay(announce_close_time,{
-            bs4Dash::closeAlert("announceAlert") 
+            bs4Dash::closeAlert("announceAlert")
         })
     }
 

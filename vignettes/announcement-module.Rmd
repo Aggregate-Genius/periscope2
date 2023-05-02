@@ -36,17 +36,17 @@ scope.  The function first arguments is string represents the module id (the sam
 The **announcements** Shiny Module is a part of the *periscope2* package and 
 consists of the following function:
 
-* **load_announcements** - parses announcements configuration file and load announcements if any
+* **load_announcements** - a private function that parses announcements configuration file and load announcements if any
 
 ## load_announcements
 
-* This function is configured in *server.R* and no need to modify it
+* This function is private and configured in *server.R* and no need to modify it
 * The function returns number of seconds in which an announcement should stay in application header (default is 30s)
 
 ```{r, eval=F}
 # Inside server.R
 
-    announce_close_time <- load_announcements()
+    announce_close_time <- periscope2:::load_announcements()
     if (!is.null(announce_close_time)) {
         shinyjs::delay(announce_close_time,{
             bs4Dash::closeAlert("announceAlert") 

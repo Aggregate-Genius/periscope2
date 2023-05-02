@@ -1,5 +1,6 @@
 AvailableTypes
 CMD
+DOM
 DT
 DropdownMenu
 LogViewer
@@ -7,6 +8,7 @@ Tooltip
 Tooltips
 UI
 ValidateTypes
+alertClass
 appReset
 appResetButton
 applicationReset
@@ -22,7 +24,6 @@ css
 csv
 customizable
 datatable
-dirs
 dismissible
 downloadFile
 downloadFileButton
@@ -37,7 +38,6 @@ downloadfxns
 downloadtypes
 dropdown
 filesystem
-fw
 fxn
 ggplot
 gitignore
@@ -62,12 +62,14 @@ msg
 mytestapp
 navbar
 periscopeapps
+prettyToggle
 rownumbers
 scalable
 shinyServer
 singleSelect
 sortable
 ss
+tableOutput
 templated
 textArea
 titleinfo
@@ -78,6 +80,7 @@ ui
 unitless
 userAction
 userlog
+vectore
 waiterShowOnLoad
 www
 xlsx
