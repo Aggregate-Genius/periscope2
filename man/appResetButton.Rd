@@ -32,11 +32,6 @@ User can either resume reloading application session or cancel reloading
 }
 }
 
-\section{Example}{
-
-\code{appResetButton(id = 'appResetId')}
-}
-
 \section{Shiny Usage}{
 
 Call this function at any place in UI section.
@@ -47,7 +42,6 @@ in server
 
 \examples{
 # Inside ui_body.R or ui_left_sidebar.R
-
 appResetButton(id = 'appResetId')
 
 

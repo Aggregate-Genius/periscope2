@@ -26,8 +26,6 @@
 #'           status
 #' }
 #'
-#' @section Example:
-#' \code{appResetButton(id = 'appResetId')}
 #'
 #' @section Shiny Usage:
 #' Call this function at any place in UI section.
@@ -38,7 +36,6 @@
 #'
 #' @examples
 #' # Inside ui_body.R or ui_left_sidebar.R
-#'
 #' appResetButton(id = 'appResetId')
 #'
 #'
@@ -79,11 +76,12 @@ appResetButton <- function(id) {
 #' high-functionality button for session reload. The server function is used to
 #'  provide module configurations.
 #'
-#' @param id             - the ID of the Module's UI element
-#' @param reset_wait     - period to wait before session reload (in milliseconds)
-#' @param alert_location - where to display module related messages
-#'       (default = "bodyAlert")
+#' @param id             - Character represents the ID of the Module's UI element (the same id used in \code{appResetButton}
+#' @param reset_wait     - Integer represents the period to wait before session reload in milliseconds (default = 5000)
+#' @param alert_location - Character represents div ID or selector to display module related messages (default = "bodyAlert")
 #' @param logger         - logger to use
+#'
+#' @return nothing, function will display a warning message in the app then reload the whole application
 #'
 #'
 #' @section Shiny Usage:
@@ -97,7 +95,6 @@ appResetButton <- function(id) {
 #'
 #' #appReset(id = "appResetId", logger = ss_userAction.Log)
 #'
-#' @export
 #' @export
 #'
 #' @seealso \link[periscope2]{appResetButton}
