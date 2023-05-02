@@ -58,7 +58,7 @@ test_that("downloadFileButton invalid type", {
 })
 
 # Server Testing
-test_that("downloadFile_ValidateTypes invalid", {
+test_that("downloadFile_ValidateTypes valid", {
     result <- downloadFile_ValidateTypes(types = "csv")
 
     expect_equal(result, "csv")
