@@ -5,12 +5,13 @@
 
 #' logViewerOutput
 #'
-#' Creates a box with table containing logged user actions. Table contents are auto updated whenever a user action is
-#' logged.
-#'
+#' Creates a shiny table with table containing logged user actions. Table contents are auto updated whenever a user action is
+#' logged
 #'
 #'
 #' @param id character id for the object
+#'
+#' @returns shiny tableOutput instance
 #'
 #' @section Table columns:
 #' \itemize{
@@ -24,7 +25,7 @@
 #' @section Shiny Usage:
 #' Add the log viewer box to your box list
 #'
-#' It is paired with a call to \code{logViewer(id, logdata)}
+#' It is paired with a call to \code{logViewer(id, logger)}
 #' in server
 #'
 #'
@@ -35,48 +36,59 @@
 #'
 #'
 #' @export
+#' @seealso \link[periscope2]{logViewer}
+#' @seealso \link[periscope2]{downloadFile}
+#' @seealso \link[periscope2]{downloadFile_ValidateTypes}
+#' @seealso \link[periscope2]{downloadFile_AvailableTypes}
+#' @seealso \link[periscope2]{downloadablePlot}
+#' @seealso \link[periscope2]{downloadFileButton}
+#' @seealso \link[periscope2]{downloadableTableUI}
+#' @seealso \link[periscope2]{downloadableTable}
 logViewerOutput <- function(id) {
     ns <- shiny::NS(id)
-
-    bs4Dash::box(
-        id          = ns("userlog"),
-        title       = "User Action Log",
-        width       = 12,
-        status      = NULL,
-        collapsible = TRUE,
-        collapsed   = TRUE,
-        shiny::tableOutput(ns("dt_userlog")) )
+    shiny::tableOutput(ns("dt_userlog"))
 }
 
 
 #' logViewer Module Server Function
 #'
-#' Server-side function for the appResetButton  This is box with table displaying application logs.
+#' Server-side function for the logViewerOutput  This is box with table displaying application logs.
 #' The server function is used to provide module configurations.
 #'
-#' @param id      - the ID of the Module's UI element
-#' @param logdata - action logs to be displayed
+#' @param id     - the ID of the Module's UI element
+#' @param logger - action logs to be displayed
+#'
+#' @return Shiny table render expression containing the currently logged lines
 #'
 #'
 #' @section Shiny Usage:
 #' This function is not called directly by consumers - it is accessed in
 #' server_local.R (or similar file) using the same id provided in \code{logViewerOutput}:
 #'
-#' \strong{\code{logViewer(id = "logViewerId", logdata = ss_userAction.Log)}}
+#' \strong{\code{logViewer(id = "logViewerId", logger = ss_userAction.Log)}}
 #'
 #' @examples
 #' # Inside server_local.R
 #'
-#' #logViewer(id = "logViewerId", logdata = ss_userAction.Log)
+#' #logViewer(id = "logViewerId", logger = ss_userAction.Log)
 #'
 #' @export
-logViewer <- function(id, logdata) {
+#' @seealso \link[periscope2]{logViewerOutput}
+#' @seealso \link[periscope2]{downloadFile}
+#' @seealso \link[periscope2]{downloadFile_ValidateTypes}
+#' @seealso \link[periscope2]{downloadFile_AvailableTypes}
+#' @seealso \link[periscope2]{downloadablePlot}
+#' @seealso \link[periscope2]{downloadFileButton}
+#' @seealso \link[periscope2]{downloadableTableUI}
+#' @seealso \link[periscope2]{downloadableTable}
+#' @seealso \link[periscope2]{appResetButton}
+#' @seealso \link[periscope2]{appReset}
+logViewer <- function(id, logger) {
     shiny::moduleServer(
         id,
         function(input, output, session) {
             output$dt_userlog <- shiny::renderTable({
-
-                lines <- logdata()
+                lines <- logger()
                 if (length(lines) > 0) {
                     out1 <- data.frame(orig = lines, stringsAsFactors = F)
                     loc1 <- regexpr("\\[", out1$orig)

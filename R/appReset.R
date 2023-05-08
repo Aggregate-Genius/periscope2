@@ -17,6 +17,8 @@
 #'
 #' @param id character id for the object
 #'
+#' @return an html div with prettyToggle button
+#'
 #' @section Button Features:
 #' \itemize{
 #'     \item Initial state label is "Application Reset" with warning status
@@ -24,23 +26,29 @@
 #'           status
 #' }
 #'
-#' @section Example:
-#' \code{appReset(id = 'appResetId', logger = logger)}
 #'
 #' @section Shiny Usage:
 #' Call this function at any place in UI section.
 #'
-#' It is paired with a call to \code{appResetButton(id, ...)}
+#' It is paired with a call to \code{appReset(id, ...)}
 #' in server
 #'
 #'
 #' @examples
 #' # Inside ui_body.R or ui_left_sidebar.R
-#'
-#' #appReset(id = 'appResetId', logger = logger)
+#' appResetButton(id = 'appResetId')
 #'
 #'
 #' @export
+#' @seealso \link[periscope2]{appReset}
+#' @seealso \link[periscope2]{downloadFile}
+#' @seealso \link[periscope2]{downloadFile_ValidateTypes}
+#' @seealso \link[periscope2]{downloadFile_AvailableTypes}
+#' @seealso \link[periscope2]{downloadablePlot}
+#' @seealso \link[periscope2]{downloadFileButton}
+#' @seealso \link[periscope2]{downloadableTable}
+#' @seealso \link[periscope2]{logViewer}
+#' @seealso \link[periscope2]{logViewerOutput}
 appResetButton <- function(id) {
     ns <- shiny::NS(id)
 
@@ -68,11 +76,12 @@ appResetButton <- function(id) {
 #' high-functionality button for session reload. The server function is used to
 #'  provide module configurations.
 #'
-#' @param id             - the ID of the Module's UI element
-#' @param reset_wait     - period to wait before session reload (in milliseconds)
-#' @param alert_location - where to display module related messages
-#'       (default = "bodyAlert")
+#' @param id             - Character represents the ID of the Module's UI element (the same id used in \code{appResetButton}
+#' @param reset_wait     - Integer represents the period to wait before session reload in milliseconds (default = 5000)
+#' @param alert_location - Character represents div ID or selector to display module related messages (default = "bodyAlert")
 #' @param logger         - logger to use
+#'
+#' @return nothing, function will display a warning message in the app then reload the whole application
 #'
 #'
 #' @section Shiny Usage:
@@ -87,6 +96,16 @@ appResetButton <- function(id) {
 #' #appReset(id = "appResetId", logger = ss_userAction.Log)
 #'
 #' @export
+#'
+#' @seealso \link[periscope2]{appResetButton}
+#' @seealso \link[periscope2]{downloadFile}
+#' @seealso \link[periscope2]{downloadFile_ValidateTypes}
+#' @seealso \link[periscope2]{downloadFile_AvailableTypes}
+#' @seealso \link[periscope2]{downloadablePlot}
+#' @seealso \link[periscope2]{downloadFileButton}
+#' @seealso \link[periscope2]{downloadableTable}
+#' @seealso \link[periscope2]{logViewer}
+#' @seealso \link[periscope2]{logViewerOutput}
 appReset <- function(id,
                      reset_wait     = 5000,
                      alert_location = "bodyAlert",

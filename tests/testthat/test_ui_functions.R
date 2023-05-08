@@ -23,7 +23,7 @@ create_announcements <- function(start_date        = NULL,
     yaml::read_yaml(announcements_file)
     periscope2::set_app_parameters(title              = "title",
                                    announcements_file = announcements_file)
-    announce_output <- load_announcements()
+    announce_output <- periscope2:::load_announcements()
     unlink(announcements_file, TRUE)
     announce_output
 }
@@ -34,24 +34,27 @@ test_that("add_ui_header", {
     # no header
     expect_null(shiny::isolate(periscope2:::.g_opts$header))
     # normal header
-    skin           <- "light"
-    status         <- "white"
-    border         <- TRUE
-    compact        <- FALSE
-    sidebarIcon    <- shiny::icon("bars")
-    controlbarIcon <- shiny::icon("th")
-    fixed          <- FALSE
-    left_ui        <- NULL
-    right_ui       <- NULL
-    periscope2::add_ui_header(skin           = skin,
-                              status         = status,
-                              border         = border,
-                              compact        = compact,
-                              sidebarIcon    = sidebarIcon,
-                              controlbarIcon = controlbarIcon,
-                              fixed          = fixed,
-                              left_ui        = left_ui,
-                              right_ui       = right_ui)
+    skin               <- "light"
+    status             <- "white"
+    border             <- TRUE
+    compact            <- FALSE
+    left_sidebar_icon  <- shiny::icon("bars")
+    right_sidebar_icon <- shiny::icon("th")
+    fixed              <- FALSE
+    left_menu          <- NULL
+    right_menu         <- NULL
+
+    periscope2::add_ui_header(left_menu          = left_menu,
+                              right_menu         = right_menu,
+                              skin               = skin,
+                              status             = status,
+                              border             = border,
+                              compact            = compact,
+                              left_sidebar_icon  = left_sidebar_icon,
+                              right_sidebar_icon = right_sidebar_icon,
+                              fixed              = fixed)
+
+
     header <- shiny::isolate(periscope2:::.g_opts$header)
     expect_equal(length(header), 2)
     expect_true(grepl('id="announceAlert"', header[[1]], fixed = TRUE))
@@ -149,14 +152,14 @@ test_that("add_ui_right_sidebar empty right sidebar", {
     skin             <- "light"
     pinned           <- FALSE
     sidebar_elements <- NULL
-    controlbar_menu  <- NULL
+    sidebar_menu     <- NULL
 
     add_ui_right_sidebar(sidebar_elements = sidebar_elements,
                          collapsed        = collapsed,
                          overlay          = overlay,
                          skin             = skin,
                          pinned           = pinned,
-                         controlbar_menu  = controlbar_menu)
+                         sidebar_menu     = sidebar_menu)
     righ_sidebar <- shiny::isolate(periscope2:::.g_opts$right_sidebar)
     expect_true(grepl('id="controlbarId"' , righ_sidebar, fixed = TRUE))
     expect_true(grepl('id="sidebarRightAlert"' , righ_sidebar, fixed = TRUE))
@@ -169,14 +172,14 @@ test_that("add_ui_right_sidebar example right sidebar", {
     skin             <- "light"
     pinned           <- FALSE
     sidebar_elements <-  list(div(checkboxInput("hideFileOrganization", "Show Files Organization"), style = "margin-left:20px"))
-    controlbar_menu  <- NULL
+    sidebar_menu     <- NULL
 
     add_ui_right_sidebar(sidebar_elements = sidebar_elements,
                          collapsed        = collapsed,
                          overlay          = overlay,
                          skin             = skin,
                          pinned           = pinned,
-                         controlbar_menu  = controlbar_menu)
+                         sidebar_menu     = sidebar_menu)
     righ_sidebar <- shiny::isolate(periscope2:::.g_opts$right_sidebar)
     expect_true(grepl('id="controlbarId"' , righ_sidebar, fixed = TRUE))
     expect_true(grepl('id="sidebarRightAlert"' , righ_sidebar, fixed = TRUE))
@@ -240,7 +243,7 @@ test_that("add_ui_body example body", {
 
     add_ui_body(list(div("more elements")), append = TRUE)
     expect_snapshot_output(shiny::isolate(periscope2:::.g_opts$body_elements))
-    dashboard_ui <- periscope2::create_application_dashboard()
+    dashboard_ui <- periscope2:::create_application_dashboard()
     expect_true(grepl('id="announceAlert"' , dashboard_ui, fixed = TRUE))
     expect_true(grepl('id="headerAlert"' , dashboard_ui, fixed = TRUE))
     expect_true(grepl('Periscope2 Features' , dashboard_ui, fixed = TRUE))
@@ -255,7 +258,7 @@ test_that("set_app_parameters default values", {
     expect_equal(shiny::isolate(periscope2:::.g_opts$app_version), "1.0.0")
     expect_null(shiny::isolate(periscope2:::.g_opts$loading_indicator))
     expect_null(shiny::isolate(periscope2:::.g_opts$announcements_file))
-    expect_null(load_announcements())
+    expect_null(periscope2:::load_announcements())
 })
 
 test_that("set_app_parameters update values", {
@@ -279,7 +282,7 @@ test_that("set_app_parameters update values", {
     expect_equal(shiny::isolate(periscope2:::.g_opts$app_version), app_version)
     expect_snapshot(shiny::isolate(periscope2:::.g_opts$loading_indicator))
     expect_equal(shiny::isolate(periscope2:::.g_opts$announcements_file), announcements_file)
-    expect_equal(load_announcements(), 30000)
+    expect_equal(periscope2:::load_announcements(), 30000)
     expect_equal( periscope2:::fw_get_loglevel(), log_level)
     expect_equal(periscope2:::fw_get_title(), title)
     expect_equal(periscope2:::fw_get_version(), app_version)
@@ -294,7 +297,7 @@ test_that("load_announcements empty file", {
 
     periscope2::set_app_parameters(title              = "title",
                                    announcements_file = announcements_file)
-    expect_null(load_announcements())
+    expect_null(periscope2:::load_announcements())
     unlink(announcements_file, TRUE)
 })
 

@@ -7,16 +7,47 @@
 ui_tooltip(id, label = "", text = "", placement = "top")
 }
 \arguments{
-\item{id}{character id for the tooltip object}
+\item{id}{- The id for the tooltip object}
 
-\item{label}{text label to appear to the left of the tooltip image}
+\item{label}{- Text label to appear to the left of the tooltip image}
 
-\item{text}{tooltip text shown when the user hovers over the image}
+\item{text}{- Tooltip text shown when the user hovers over the image}
 
-\item{placement}{where to display tooltip label.
-Available places are "top", "bottom", "left", "right" (default is "top")}
+\item{placement}{- Where to display tooltip label. Available places are "top", "bottom", "left", "right" (default is "top")}
 }
 \description{
 This function inserts a standardized tooltip image, label (optional),
 and hovertext into the application UI
+}
+\section{Shiny Usage}{
+
+Call this function from \code{program/ui_body.R} to set tooltip parameters
+}
+
+\examples{
+  library(shiny)
+  library(periscope2)
+
+  # Inside ui_body.R or similar ui file
+   ui_tooltip(id   = "top_tip",
+             label = "Top Tooltips",
+             text  = "Top tooltip")
+
+}
+\seealso{
+\link[periscope2:add_ui_footer]{periscope2:add_ui_footer()}
+
+\link[periscope2:add_ui_left_sidebar]{periscope2:add_ui_left_sidebar()}
+
+\link[periscope2:add_ui_header]{periscope2:add_ui_header()}
+
+\link[periscope2:add_ui_body]{periscope2:add_ui_body()}
+
+\link[periscope2:add_ui_right_sidebar]{periscope2:add_ui_right_sidebar()}
+
+\link[periscope2:set_app_parameters]{periscope2:set_app_parameters()}
+
+\link[periscope2:ui_tooltip]{periscope2:ui_tooltip()}
+
+\link[periscope2:get_url_parameters]{periscope2:get_url_parameters()}
 }

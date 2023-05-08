@@ -6,39 +6,74 @@
 \usage{
 add_ui_left_sidebar(
   sidebar_elements = NULL,
-  skin = "light",
-  status,
-  elevation,
-  collapsed,
-  minified,
-  expand_on_hover,
-  fixed,
-  sidebar_menu,
-  custom_area
+  sidebar_menu = NULL,
+  collapsed = FALSE,
+  custom_area = NULL,
+  elevation = 4,
+  expand_on_hover = TRUE,
+  fixed = TRUE,
+  minified = FALSE,
+  status = "primary",
+  skin = "light"
 )
 }
 \arguments{
-\item{sidebar_elements}{list of shiny ui elements}
+\item{sidebar_elements}{- List of regular shiny ui elements (inputText, textArea, etc..)}
 
-\item{skin}{Sidebar skin. "dark" or "light".}
+\item{sidebar_menu}{- \code{?bs4Dash::bs4SidebarMenu()} object to created a menu inside left sidebar}
 
-\item{status}{Sidebar status. Check \code{?bs4Dash::dashboardSidebar()} for list of valid values}
+\item{collapsed}{- If TRUE, the sidebar will be collapsed on app start up}
 
-\item{elevation}{Sidebar elevation. 4 by default (until 5)}
+\item{custom_area}{- List of regular shiny ui elements but for sidebar bottom space area only.
+Only works if sidebar is fixed}
 
-\item{collapsed}{If TRUE, the sidebar will be collapsed on app startup.}
+\item{elevation}{- A number between 0 and 5, which applies a shadow to the sidebar to add a shadow effect.}
 
-\item{minified}{Whether to slightly close the sidebar but still show item icons. Default to TRUE}
+\item{expand_on_hover}{- When \code{minified} is TRUE, if this property is TRUE, the sidebar opens when hovering but re-collapses as soon as the focus is lost (default = TRUE)}
 
-\item{expand_on_hover}{Whether to expand the sidebar om hover. TRUE by default.}
+\item{fixed}{- Whether to see all menus at once without scrolling up and down.(default = TRUE)}
 
-\item{fixed}{character Whether to fix the sidebar. Default to TRUE.}
+\item{minified}{- Whether to slightly close the sidebar but still show item icons (default = FALSE)}
 
-\item{sidebar_menu}{sidebar menu items}
+\item{status}{- Determines which color menu items (if exist) will have Check \code{?bs4Dash::dashboardSidebar()} for list of valid values}
 
-\item{custom_area}{Sidebar bottom space area. Only works if sidebar is fixed}
+\item{skin}{- Sidebar skin. "dark" or "light" (default = "light")}
 }
 \description{
-This function adds left sidebar configurations and elements. It is called within "ui_left_sidebar.R".
+This function adds left sidebar configurations and UI elements. It is called within "ui_left_sidebar.R".
 Check example application for detailed example
+}
+\section{Shiny Usage}{
+
+Call this function from \code{program/ui_left_sidebar.R} to set left sidebar parameters
+}
+
+\examples{
+  library(shiny)
+  library(bs4Dash)
+  # Inside ui_left_sidebar.R
+  # sidebar menu items
+  sidebar_elements <- textInput("text_id", "Test", "Test Data")
+  sidebar_menu     <- sidebarMenu(sidebarHeader("Main Menu"),
+                                  menuItem("menu item 1",
+                                           tabName = "item_1 page"),
+                                  menuItem("menu item 2",
+                                           tabName = "item_2 page"))
+  add_ui_left_sidebar(sidebar_elements = sidebar_elements,
+                      sidebar_menu     = sidebar_menu)
+}
+\seealso{
+\link[bs4Dash:bs4DashSidebar]{bs4Dash:bs4DashSidebar()}
+
+\link[periscope2:add_ui_footer]{periscope2:add_ui_footer()}
+
+\link[periscope2:add_ui_header]{periscope2:add_ui_header()}
+
+\link[periscope2:add_ui_body]{periscope2:add_ui_body()}
+
+\link[periscope2:add_ui_right_sidebar]{periscope2:add_ui_right_sidebar()}
+
+\link[periscope2:ui_tooltip]{periscope2:ui_tooltip()}
+
+\link[periscope2:get_url_parameters]{periscope2:get_url_parameters()}
 }

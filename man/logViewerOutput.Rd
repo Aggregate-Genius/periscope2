@@ -9,9 +9,12 @@ logViewerOutput(id)
 \arguments{
 \item{id}{character id for the object}
 }
+\value{
+shiny tableOutput instance
+}
 \description{
-Creates a box with table containing logged user actions. Table contents are auto updated whenever a user action is
-logged.
+Creates a shiny table with table containing logged user actions. Table contents are auto updated whenever a user action is
+logged
 }
 \section{Table columns}{
 
@@ -30,7 +33,7 @@ logged.
 
 Add the log viewer box to your box list
 
-It is paired with a call to \code{logViewer(id, logdata)}
+It is paired with a call to \code{logViewer(id, logger)}
 in server
 }
 
@@ -40,4 +43,21 @@ in server
 logViewerOutput('logViewerId')
 
 
+}
+\seealso{
+\link[periscope2]{logViewer}
+
+\link[periscope2]{downloadFile}
+
+\link[periscope2]{downloadFile_ValidateTypes}
+
+\link[periscope2]{downloadFile_AvailableTypes}
+
+\link[periscope2]{downloadablePlot}
+
+\link[periscope2]{downloadFileButton}
+
+\link[periscope2]{downloadableTableUI}
+
+\link[periscope2]{downloadableTable}
 }

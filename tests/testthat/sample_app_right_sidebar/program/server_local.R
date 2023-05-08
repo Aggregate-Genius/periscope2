@@ -34,8 +34,8 @@ source(paste("program", "fxn", "plots.R", sep = .Platform$file.sep))
 appReset(id     = "appResetId",
          logger = ss_userAction.Log)
 
-logViewer(id      = "logViewerId",
-          logdata = ss_userAction.Log)
+logViewer(id     = "logViewerId",
+          logger = ss_userAction.Log)
 
 downloadFile("exampleDownload1",
              ss_userAction.Log,
@@ -94,21 +94,21 @@ downloadablePlot("examplePlot3",
 # ----------------------------------------
 # --          SHINY SERVER CODE         --
 # ----------------------------------------
-# Dsiplay application info
+# Display application info
 observeEvent(input$app_info, {
     shinyalert(html                = TRUE,
                showConfirmButton   = FALSE,
                animation           = "slide-from-top",
                closeOnClickOutside = TRUE,
-               text                = get_app_info(),
-               title               = get_app_title())
+               text                = "app_info",
+               title               = "app_title")
 })
 
 # -- Observe UI Changes
 observeEvent(input$rightAlert, {
     loginfo("Right Sidebar Alert Button Pushed",
             logger = ss_userAction.Log)
-    periscope2::createAlert(id = "sidebarRightAlert",
+    periscope2::createAlert(id     = "sidebarRightAlert",
                            options = list(title   = "Right Side",
                                           status   = "success",
                                           closable = TRUE,
@@ -118,42 +118,42 @@ observeEvent(input$rightAlert, {
 observeEvent(input$leftAlert, {
     logwarn("Left Sidebar Alert Example Button Pushed",
             logger = ss_userAction.Log)
-    periscope2::createAlert("sidebarBasicAlert",
-                           options = list(title    = "Left Side",
-                                          status   = "warning",
-                                          closable = TRUE,
-                                          content  = "Example Advanced Sidebar Alert"))
+    periscope2::createAlert(id      = "sidebarBasicAlert",
+                            options = list(title    = "Left Side",
+                                           status   = "warning",
+                                           closable = TRUE,
+                                           content  = "Example Advanced Sidebar Alert"))
 
 })
 
 observeEvent(input$bodyAlertBtn, {
     logdebug("Body Alert Example Button Pushed",
             logger = ss_userAction.Log)
-    periscope2::createAlert("bodyAlert",
-                           options = list(title    = "Body",
-                                          status   = "info",
-                                          closable = TRUE,
-                                          content  = paste("Example Body Alert")))
+    periscope2::createAlert(id      = "bodyAlert",
+                            options = list(title    = "Body",
+                                           status   = "info",
+                                           closable = TRUE,
+                                           content  = paste("Example Body Alert")))
 })
 
 observeEvent(input$footerAlertbtn, {
     logerror("Footer Alert Example Button Pushed",
              logger = ss_userAction.Log)
-    periscope2::createAlert("footerAlert",
-                           options = list(title    = "Footer",
-                                          status   = "danger",
-                                          closable = TRUE,
-                                          content  = paste("Example Footer Alert")))
+    periscope2::createAlert(id      = "footerAlert",
+                            options = list(title    = "Footer",
+                                           status   = "danger",
+                                           closable = TRUE,
+                                           content  = paste("Example Footer Alert")))
 })
 
 observeEvent(input$headerAlertbtn, {
     loginfo("Header Alert Example Button Pushed",
              logger = ss_userAction.Log)
-    periscope2::createAlert("headerAlert",
-                           options = list(title    = "Header",
-                                          status   = "primary",
-                                          closable = F,
-                                          content  = "Example Header Alert"))
+    periscope2::createAlert(id = "headerAlert",
+                            options = list(title    = "Header",
+                                           status   = "primary",
+                                           closable = FALSE,
+                                           content  = "Example Header Alert"))
 })
 
 observeEvent(input$showWorking, {

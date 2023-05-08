@@ -34,6 +34,11 @@
 #' @seealso \link[periscope2]{downloadFile}
 #' @seealso \link[periscope2]{downloadFile_ValidateTypes}
 #' @seealso \link[periscope2]{downloadFile_AvailableTypes}
+#' @seealso \link[periscope2]{logViewer}
+#' @seealso \link[periscope2]{logViewerOutput}
+#' @seealso \link[periscope2]{downloadablePlot}
+#' @seealso \link[periscope2]{downloadableTableUI}
+#' @seealso \link[periscope2]{downloadableTable}
 #'
 #' @examples
 #' # Inside ui_body.R or ui_sidebar.R
@@ -123,6 +128,11 @@ downloadFileButton <- function(id,
 #' @seealso \link[periscope2]{downloadFileButton}
 #' @seealso \link[periscope2]{downloadFile_ValidateTypes}
 #' @seealso \link[periscope2]{downloadFile_AvailableTypes}
+#' @seealso \link[periscope2]{logViewer}
+#' @seealso \link[periscope2]{logViewerOutput}
+#' @seealso \link[periscope2]{downloadablePlot}
+#' @seealso \link[periscope2]{downloadableTableUI}
+#' @seealso \link[periscope2]{downloadableTable}
 #'
 #' @examples
 #' # Inside server_local.R
@@ -320,19 +330,32 @@ downloadFile <- function(id,
 }
 
 
-#' downloadFile Helper
+#' downloadFile_ValidateTypes
 #'
-#' Checks a given list of file types and warns if an invalid type is included
+#' It is a downloadFile module helper to return periscope2 defined file types list and warns user if an invalid type is included
 #'
 #' @param types list of types to test
 #'
 #' @return the list input given in types
 #'
-#' @section Example:
-#' \code{downloadFile_ValidateTypes(c("csv", "tsv"))}
+#' @examples
+#'   #inside console
+#'   ## Check valid types
+#'   result <- periscope2::downloadFile_AvailableTypes()
+#'   identical(result, c("csv", "xlsx", "tsv", "txt", "png", "jpeg", "tiff", "bmp"))
+#'
+#'   ## check invalid type
+#'   testthat::expect_warning(downloadFile_ValidateTypes(types = "csv_invalid"),
+#'                            "file download list contains an invalid type <csv_invalid>")
+#'
 #'
 #' @seealso \link[periscope2]{downloadFileButton}
 #' @seealso \link[periscope2]{downloadFile}
+#' @seealso \link[periscope2]{logViewer}
+#' @seealso \link[periscope2]{logViewerOutput}
+#' @seealso \link[periscope2]{downloadablePlot}
+#' @seealso \link[periscope2]{downloadableTableUI}
+#' @seealso \link[periscope2]{downloadableTable}
 #'
 #' @export
 downloadFile_ValidateTypes <- function(types) {

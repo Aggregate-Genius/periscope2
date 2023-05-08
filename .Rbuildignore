@@ -9,5 +9,6 @@
 ^\.circleci$
 ^CRAN-SUBMISSION$
 ^doc$
+^docs$
 ^Meta$
 ^cran-comments\.md$

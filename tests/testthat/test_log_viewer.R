@@ -17,17 +17,15 @@ empty_log <- function(){
 
 # UI unit tests
 test_that("logViewerOutput", {
-    log_ui <- logViewerOutput("myid")
-    expect_true(grepl('id="myid-userlog"', log_ui, fixed = TRUE))
-    expect_true(grepl('id="myid-dt_userlog"', log_ui, fixed = TRUE))
-    expect_true(grepl('"title":"User Action Log"', log_ui, fixed = TRUE))
+    local_edition(3)
+    expect_snapshot_output(logViewerOutput("myid"))
 })
 
 
 # Server unit tests
 test_that("logViewer - valid sample log", {
     testServer(logViewer,
-               args = list(logdata = sample_log),
+               args = list(logger = sample_log),
                expr = {
                    expect_snapshot_output(output$dt_userlog)
                })
@@ -35,7 +33,7 @@ test_that("logViewer - valid sample log", {
 
 test_that("logViewer - null sample log", {
     testServer(logViewer,
-               args = list(logdata = null_log),
+               args = list(logger = null_log),
                expr = {
                    expect_null(output$dt_userlog)
                })
@@ -43,7 +41,7 @@ test_that("logViewer - null sample log", {
 
 test_that("logViewer - empty sample log", {
     testServer(logViewer,
-               args = list(logdata = empty_log),
+               args = list(logger = empty_log),
                expr = {
                    expect_null(output$dt_userlog)
                })

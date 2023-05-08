@@ -7,11 +7,44 @@
 add_ui_body(body_elements = NULL, append = FALSE)
 }
 \arguments{
-\item{body_elements}{list of ui elements to be displayed in application body}
+\item{body_elements}{- List of ui elements to be displayed in application body}
 
-\item{append}{add elements to current body elements or remove previous body elements (default = FALSE)}
+\item{append}{- Add elements to current body elements or remove previous body elements (default = FALSE)}
 }
 \description{
 Builds application body with given configurations and elements. It is called within "ui_body.R".
 Check example application for detailed example
+}
+\section{Shiny Usage}{
+
+Call this function from \code{program/ui_body.R} to set body parameters
+}
+
+\examples{
+  library(shiny)
+  library(bs4Dash)
+  # Inside ui_body.R
+  about_box <- jumbotron(title  = "periscope2: Test Example",
+                         lead   = p("periscope2 is a scalable and UI-standardized 'shiny' framework
+                         	       including a variety of developer convenience functions"),
+                         status = "info",
+                         href   = "https://periscopeapps.org/")
+  # -- Register Elements in the ORDER SHOWN in the UI
+  add_ui_body(list(about_box))
+
+}
+\seealso{
+\link[bs4Dash:bs4DashBody]{bs4Dash:bs4DashBody()}
+
+\link[periscope2:add_ui_footer]{periscope2:add_ui_footer()}
+
+\link[periscope2:add_ui_left_sidebar]{periscope2:add_ui_left_sidebar()}
+
+\link[periscope2:add_ui_header]{periscope2:add_ui_header()}
+
+\link[periscope2:add_ui_right_sidebar]{periscope2:add_ui_right_sidebar()}
+
+\link[periscope2:ui_tooltip]{periscope2:ui_tooltip()}
+
+\link[periscope2:get_url_parameters]{periscope2:get_url_parameters()}
 }

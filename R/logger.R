@@ -22,7 +22,7 @@ logging.options <- new.env()
 ##
 ## This list associates names to values and vice versa.\cr
 ## Names and values are the same as in the python standard logging module.
-## 
+##
 loglevels <- c(NOTSET = 0,
                FINEST = 1,
                FINER = 4,
@@ -73,7 +73,7 @@ Logger <- setRefClass(
             parent_name <- paste(removed, collapse = ".")
             return(getLogger(parent_name))
         },
-        
+
         getMsgComposer = function() {
             if (!is.null(msg_composer) && !is.null(functionBody(msg_composer))) {
                 return(msg_composer)
@@ -84,7 +84,7 @@ Logger <- setRefClass(
             }
             return(defaultMsgCompose)
         },
-        
+
         setMsgComposer = function(composer_f) {
             if (!is.function(composer_f)
                 || paste(formalArgs(composer_f), collapse = ", ") != "msg, ...") {
@@ -93,27 +93,27 @@ Logger <- setRefClass(
             }
             msg_composer <<- composer_f
         },
-        
+
         .deducelevel = function(initial_level = loglevels[["NOTSET"]]) {
             if (initial_level != loglevels[["NOTSET"]]) {
                 # it's proper level (set: Not for inheritance)
                 return(initial_level)
             }
-            
+
             if (level != loglevels[["NOTSET"]]) {
                 return(level)
             }
-            
+
             if (name == "") {
                 # assume it's FINEST, as root logger cannot inherit
                 return(loglevels[["FINEST"]])
             }
-            
+
             # ask parent for level
             parent_logger <- getParent()
             return(parent_logger$.deducelevel())
         },
-        
+
         .logrecord = function(record) {
             logger_level <- .deducelevel(level)
             if (record$level >= logger_level) {
@@ -126,14 +126,14 @@ Logger <- setRefClass(
                     }
                 }
             }
-            
+
             if (name != "") {
                 parent_logger <- getParent()
                 parent_logger$.logrecord(record)
             }
             invisible(TRUE)
         },
-        
+
         log = function(msglevel, msg, ...) {
             msglevel <- namedLevel(msglevel)
             if (msglevel < level) {
@@ -142,37 +142,37 @@ Logger <- setRefClass(
             ## fine, we create the record and pass it to all handlers attached to the
             ## loggers from here up to the root.
             record <- list()
-            
+
             composer_f <- getMsgComposer()
             record$msg <- composer_f(msg, ...)
             record$timestamp <- sprintf("%s", Sys.time())
             record$logger <- name
             record$level <- msglevel
             record$levelname <- names(which(loglevels == record$level)[1])
-            
+
             ## cascade action in private method.
             .logrecord(record)
         },
-        
+
         setLevel = function(new_level) {
             new_level <- namedLevel(new_level)
             level <<- new_level
         },
-        
+
         getLevel = function() level,
-        
+
         getHandler = function(handler) {
             if (!is.character(handler))
                 handler <- deparse(substitute(handler))
             handlers[[handler]]
         },
-        
+
         removeHandler = function(handler) {
             if (!is.character(handler))  # handler was passed as its action
                 handler <- deparse(substitute(handler))
             handlers <<- handlers[!(names(handlers) == handler)]
         },
-        
+
         addHandler = function(handler, ..., level = 0, formatter = defaultFormat) {
             handler_env <- new.env()
             if (is.character(handler)) {
@@ -187,7 +187,7 @@ Logger <- setRefClass(
                 } else {
                     stop("No action for the handler provided")
                 }
-                
+
                 assign("action", the_action, handler_env)
             } else {
                 ## first parameter is handler action, from which we extract the name
@@ -198,12 +198,12 @@ Logger <- setRefClass(
             assign("level", namedLevel(level), handler_env)
             assign("formatter", formatter, handler_env)
             removeHandler(handler_name)
-            
+
             if (with(handler_env, action)(NA, handler_env, dry = TRUE) == TRUE) {
                 handlers[[handler_name]] <<- handler_env
             }
         },
-        
+
         finest = function(...) log(loglevels["FINEST"], ...),
         finer = function(...) log(loglevels["FINER"], ...),
         fine = function(...) log(loglevels["FINE"], ...),
@@ -232,6 +232,11 @@ Logger <- setRefClass(
 #' @param logger the name of the logger to which we pass the record
 #'
 #' @name logging-entrypoints
+#' @aliases logdebug
+#' @aliases loginfo
+#' @aliases logwarn
+#' @aliases logerror
+#'
 #' @importFrom methods new
 #'
 NULL
@@ -312,14 +317,14 @@ getLogger <- function(name = "", ...) {
     } else {
         fullname <- paste("logging.ROOT", name, sep = ".")
     }
-    
+
     if (!exists(fullname, envir = logging.options)) {
         logger <- Logger$new(name = name,
                              handlers = list(),
                              level = namedLevel("NOTSET"))
         updateOptions.environment(logger, ...)
         logging.options[[fullname]] <- logger
-        
+
         if (fullname == "logging.ROOT") {
             .basic_config(logger)
         }
@@ -355,10 +360,10 @@ getLogger <- function(name = "", ...) {
 ##
 basicConfig <- function(level = 20) {
     root_logger <- getLogger()
-    
+
     updateOptions(root_logger, level = namedLevel(level))
     .basic_config(root_logger)
-    
+
     invisible()
 }
 
@@ -377,17 +382,17 @@ basicConfig <- function(level = 20) {
 ## loaded except it also removes all default handlers. Typically, you would want to call
 ## \code{basicConfig} immediately after a call to \code{logReset}.
 ##
-## 
+##
 ##
 logReset <- function() {
     ## reinizialize the whole logging system
-    
+
     ## remove all content from the logging environment
     rm(list = ls(logging.options), envir = logging.options)
-    
+
     root_logger <- getLogger(level = "NOTSET")
     root_logger$removeHandler("basic.stdout")
-    
+
     invisible()
 }
 
@@ -433,13 +438,13 @@ logReset <- function() {
 ## \dots may contain extra parameters that will be passed to the handler
 ## action. Some elements in the \dots will be interpreted here.
 ##
-## 
+##
 ##
 addHandler <- function(handler, ..., logger = "") {
     if (is.character(logger)) {
         logger <- getLogger(logger)
     }
-    
+
     ## this part has to be repeated here otherwise the called function
     ## will deparse the argument to 'handler', the formal name given
     ## here to the parameter
@@ -452,7 +457,7 @@ addHandler <- function(handler, ..., logger = "") {
 }
 
 ## @rdname handlers-management
-## 
+##
 ##
 removeHandler <- function(handler, logger = "") {
     if (is.character(logger)) {
@@ -507,7 +512,7 @@ setLevel <- function(level, container = "") {
     if (is.null(container)) {
         stop("NULL container provided: cannot set level for NULL container")
     }
-    
+
     if (is.character(container)) {
         container <- getLogger(container)
     }
@@ -531,7 +536,7 @@ setMsgComposer <- function(composer_f, container = "") {
     if (is.null(container)) {
         stop("NULL container provided: cannot set message composer for NULL container")
     }
-    
+
     if (is.character(container)) {
         container <- getLogger(container)
     }
@@ -543,12 +548,12 @@ setMsgComposer <- function(composer_f, container = "") {
 ## Resets previously set message composer.
 ##
 ## @param container name of logger to reset message composer for (type: character)
-## 
+##
 resetMsgComposer <- function(container = "") {
     if (is.null(container)) {
         stop("NULL container provided: cannot resset message composer for NULL container")
     }
-    
+
     if (is.character(container)) {
         container <- getLogger(container)
     }
@@ -565,14 +570,14 @@ updateOptions <- function(container, ...)
     UseMethod("updateOptions")
 
 ## @describeIn updateOptions Update options for logger identified by name.
-## 
+##
 updateOptions.character <- function(container, ...) {
     ## container is really just the name of the container
     updateOptions(getLogger(container), ...)
 }
 
 ## @describeIn updateOptions Update options of logger or handler passed by reference.
-## 
+##
 updateOptions.environment <- function(container, ...) {
     ## the container is a logger
     config <- list(...)
@@ -584,7 +589,7 @@ updateOptions.environment <- function(container, ...) {
     } else {
         config$level <- loglevels["NOTSET"]
     }
-    
+
     for (key in names(config)) {
         if (key != "") {
             assign(key, config[[key]], container)
@@ -594,7 +599,7 @@ updateOptions.environment <- function(container, ...) {
 }
 
 ## @describeIn updateOptions Update options of logger or handler passed by reference.
-##   
+##
 updateOptions.Logger <- function(container, ...) {
     updateOptions.environment(container, ...)
 }
@@ -643,7 +648,7 @@ updateOptions.Logger <- function(container, ...) {
 ## \code{writeToConsole} detects if crayon package is available and uses it
 ## to color messages. The coloring can be switched off by means of configuring
 ## the handler with \var{color_output} option set to FALSE.
-## 
+##
 writeToConsole <- function(msg, handler, ...) {
     if (length(list(...)) && "dry" %in% names(list(...))) {
         if (!is.null(handler$color_output) && handler$color_output == FALSE) {
@@ -653,9 +658,9 @@ writeToConsole <- function(msg, handler, ...) {
         }
         return(TRUE)
     }
-    
+
     stopifnot(length(list(...)) > 0)
-    
+
     level_name <- list(...)[[1]]$levelname
     msg <- handler$color_msg(msg, level_name)
     cat(paste0(msg, "\n"))
@@ -664,18 +669,18 @@ writeToConsole <- function(msg, handler, ...) {
 .build_msg_coloring <- function() {
     crayon_env <- tryCatch(asNamespace("crayon"),
                            error = function(e) NULL)
-    
+
     default_color_msg <- function(msg, level_name) msg
     if (is.null(crayon_env)) {
         return(default_color_msg)
     }
-    
+
     if (is.null(crayon_env$make_style) ||
         is.null(crayon_env$combine_styles) ||
         is.null(crayon_env$reset)) {
         return(default_color_msg)
     }
-    
+
     color_msg <- function(msg, level_name) {
         style <- switch(level_name,
                         "FINEST" = crayon_env$make_style("gray80"),
@@ -700,7 +705,7 @@ writeToConsole <- function(msg, handler, ...) {
 ##
 ## @details \code{writeToFile} action expects file path to write to under
 ##  \var{file} key in handler options.
-##  
+##
 writeToFile <- function(msg, handler, ...) {
     if (length(list(...)) && "dry" %in% names(list(...)))
         return(exists("file", envir = handler))
@@ -729,13 +734,13 @@ defaultMsgCompose <- function(msg, ...) {
                                   x
                               })
         }
-        
+
         # 8192 is limitation on fmt in sprintf
         if (any(nchar(msg) > 8192)) {
             if (length(optargs) > 0) {
                 stop("'msg' length exceeds maximal format length 8192")
             }
-            
+
             # else msg must not change in any way
             return(msg)
         }
@@ -744,7 +749,7 @@ defaultMsgCompose <- function(msg, ...) {
         }
         return(msg)
     }
-    
+
     ## invoked as list of expressions
     ## this assumes that the function the user calls is two levels up, e.g.:
     ## loginfo -> .levellog -> logger$log -> .default_msg_composer
@@ -754,7 +759,7 @@ defaultMsgCompose <- function(msg, ...) {
     matched_call <- match.call(external_fn, external_call)
     matched_call <- matched_call[-1]
     matched_call_names <- names(matched_call)
-    
+
     ## We are interested only in the msg and ... parameters,
     ## i.e. in msg and all parameters not explicitly declared
     ## with the function
@@ -762,7 +767,7 @@ defaultMsgCompose <- function(msg, ...) {
     is_output_param <-
         matched_call_names == "msg" |
         !(matched_call_names %in% c(setdiff(formal_names, "...")))
-    
+
     label <- lapply(matched_call[is_output_param], deparse)
     msg <- sprintf("%s: %s", label, c(msg, optargs))
     return(msg)

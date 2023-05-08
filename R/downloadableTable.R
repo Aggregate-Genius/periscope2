@@ -44,6 +44,12 @@
 #'
 #' @seealso \link[periscope2]{downloadableTable}
 #' @seealso \link[periscope2]{downloadFileButton}
+#' @seealso \link[periscope2]{logViewer}
+#' @seealso \link[periscope2]{logViewerOutput}
+#' @seealso \link[periscope2]{downloadFile}
+#' @seealso \link[periscope2]{downloadFile_ValidateTypes}
+#' @seealso \link[periscope2]{downloadFile_AvailableTypes}
+#' @seealso \link[periscope2]{downloadablePlot}
 #'
 #' @examples
 #' # Inside ui_body.R or ui_sidebar.R
@@ -141,6 +147,13 @@ downloadableTableUI <- function(id,
 #' currently selected rows in the display table.
 #'
 #' @seealso \link[periscope2]{downloadableTableUI}
+#' @seealso \link[periscope2]{downloadFileButton}
+#' @seealso \link[periscope2]{logViewer}
+#' @seealso \link[periscope2]{logViewerOutput}
+#' @seealso \link[periscope2]{downloadFile}
+#' @seealso \link[periscope2]{downloadFile_ValidateTypes}
+#' @seealso \link[periscope2]{downloadFile_AvailableTypes}
+#' @seealso \link[periscope2]{downloadablePlot}
 #'
 #' @examples
 #' # Inside server_local.R

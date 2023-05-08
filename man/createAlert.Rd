@@ -5,29 +5,60 @@
 \title{createAlert}
 \usage{
 createAlert(
+  session = shiny::getDefaultReactiveDomain(),
   id = NULL,
   selector = NULL,
-  options,
-  session = shiny::getDefaultReactiveDomain()
+  options
 )
 }
 \arguments{
-\item{id}{Anchor id}
+\item{session}{- Shiny session object}
 
-\item{selector}{jQuery selector. Allow more customization for the anchor (nested tags).}
+\item{id}{- Anchor id (either id or selector only should be set)}
 
-\item{options}{List of options to pass to the alert}
+\item{selector}{- Character vectore represents jQuery selector to add the alert to is
+(i.e ".alertClass", div.badge-danger.navbar-badge). If 'id' is specified, this parameter will be neglected}
 
-\item{session}{Shiny session object.}
+\item{options}{- List of options to pass to the alert}
+}
+\value{
+creates an alert html div and inserts it in the app DOM
 }
 \description{
-Created an alert panel in server to be displayed the given ui anchor
+Create an alert panel in server code to be displayed in the specified UI selector location
 }
-\examples{
-         #createAlert(id       = "sidebarRightAlert",
-         #            options  = list(title    = "Right Side",
-         #                            status   = "success",
-         #                            closable = TRUE,
-         #                            content  = "Example Basic Sidebar Alert"))
+\section{Shiny Usage}{
 
+Call this function from \code{program/server_local.R} or any other server file to setup the needed alert
+}
+
+\examples{
+  library(shiny)
+  library(bs4Dash)
+
+  # Inside server_local.R
+  periscope2::createAlert(id       = "sidebarRightAlert",
+                          options  = list(title    = "Right Side",
+                                          status   = "success",
+                                          closable = TRUE,
+                                          content  = "Example Basic Sidebar Alert"))
+  # Test selector
+  ## a div with class "badge-danger.navbar-badge" must be exist in UI to display alert
+  selector <- "div.badge-danger.navbar-badge"
+  periscope2::createAlert(selector = selector,
+                          options  = list(title    = "Selector Title",
+                                          status   = "danger",
+                                          closable = TRUE,
+                                          content  = "Selector Alert"))
+
+
+}
+\seealso{
+\link[bs4Dash:closeAlert]{bs4Dash:closeAlert()}
+
+\link[periscope2:set_app_parameters]{periscope2:set_app_parameters()}
+
+\link[periscope2:ui_tooltip]{periscope2:ui_tooltip()}
+
+\link[periscope2:get_url_parameters]{periscope2:get_url_parameters()}
 }

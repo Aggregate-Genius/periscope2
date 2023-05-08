@@ -3,15 +3,14 @@
 #' Create a new templated framework application
 #'
 #' Creates ready-to-use templated application files using the periscope2
-#' framework.  The application can be created either empty (default) or with a
+#' framework. The application can be created either empty (default) or with a
 #' sample/documented example application.\cr \cr
 #'
 #' @param name          - name for the new application and directory
 #' @param location      - base path for creation of \code{name}
 #' @param sample_app    - whether to create a sample shiny application
-#' @param right_sidebar - parameter to set the right sidebar. It can be TRUE/FALSE
 #' @param left_sidebar  - whether the left sidebar should be enabled. It can be TRUE/FALSE
-#' @param footer        - whether the footer sidebar should be enabled. It can be TRUE/FALSE
+#' @param right_sidebar - parameter to set the right sidebar. It can be TRUE/FALSE
 #'
 #' @section Name:
 #' The \code{name} directory must not exist in \code{location}.  If the code
@@ -24,17 +23,16 @@
 #'
 #' \preformatted{
 #' name
-#'  -- www (supporting shiny files)
-#'  -- -- css  (application css files)
-#'  -- -- js   (application js files)
-#'  -- -- img  (application image files)
+#'  -- log (log files)
 #'  -- program (user application)
+#'  -- -- config   (application configuration files)
 #'  -- -- data     (user application data)
 #'  -- -- fxn      (user application function)
-#'  -- -- config   (application configuration files)
-#'  -- -- data     (application data files)
 #'  -- -- modules  (application modules files)
-#'  -- log (log files)
+#'  -- www (supporting shiny files)
+#'  -- -- css  (application css files)
+#'  -- -- img  (application image files)
+#'  -- -- js   (application js files)
 #' }
 #'
 #' @section File Information:
@@ -44,35 +42,18 @@
 #' of the framework-provided .R files should not be changed or the framework
 #' will fail to work as expected. \cr
 #' \cr
-#' \strong{\emph{name/program}/ui_body.R} :\cr
-#' Create body UI elements in this file and register them with the
-#' framework using a call to \link[periscope2]{add_ui_body} \cr
-#' \cr
-#' \strong{\emph{name/program}/ui_left_sidebar.R} :\cr
-#' Create sidebar UI elements in this file and register them with the
-#' framework using a call to \link[periscope2]{add_ui_left_sidebar} \cr
-#' \cr
-#' \strong{\emph{name/program}/ui_right_sidebar.R} :\cr
-#' Create right sidebar UI elements in this file and register them with the
-#' framework using a call to \link[periscope2]{add_ui_right_sidebar} \cr
-#' \cr
-#' \strong{\emph{name/program}/ui_footer.R} :\cr
-#' Create footer UI elements in this file and register them with the
-#' framework using a call to \link[periscope2]{add_ui_footer} \cr
-#' \cr
-#' \strong{\emph{name/program}/ui_header.R} :\cr
-#' Create footer UI elements in this file and register them with the
-#' framework using a call to \link[periscope2]{add_ui_header} \cr
+#' \strong{\emph{name/program/config}} directory :\cr
+#' Use this location for configuration files.\cr
 #' \cr
 #' \strong{\emph{name/program/data}} directory :\cr
 #' Use this location for data files.  There is a \strong{.gitignore} file
 #' included in this directory to prevent accidental versioning of data\cr
 #' \cr
-#' \strong{\emph{name/program/config}} directory :\cr
-#' Use this location for configuration files.
+#' \strong{\emph{name/program/fxn}} directory :\cr
+#' Use this location for supporting and helper R files.\cr
 #' \cr
-#' #' \strong{\emph{name/program/modules}} directory :\cr
-#' Use this location for application new modules files.
+#' \strong{\emph{name/program/modules}} directory :\cr
+#' Use this location for application new modules files.\cr
 #' \cr
 #' \strong{\emph{name/program}/global.R} :\cr
 #' Use this location for code that would have previously resided in global.R
@@ -90,9 +71,25 @@
 #' inside of the call to \code{shinyServer(...)}.  Anything placed in this
 #' file will be accessible only within a single user session.\cr
 #' \cr
-#' \strong{\emph{name}/www/periscope_style.yaml} :\cr
-#' This is the application custom styling yaml file. User can update
-#' application different parts style using this file.\cr
+#' \strong{\emph{name/program}/ui_body.R} :\cr
+#' Create body UI elements in this file and register them with the
+#' framework using a call to \link[periscope2]{add_ui_body} \cr
+#' \cr
+#' \strong{\emph{name/program}/ui_footer.R} :\cr
+#' Create footer UI elements in this file and register them with the
+#' framework using a call to \link[periscope2]{add_ui_footer} \cr
+#' \cr
+#' \strong{\emph{name/program}/ui_header.R} :\cr
+#' Create header UI elements in this file and register them with the
+#' framework using a call to \link[periscope2]{add_ui_header} \cr
+#' \cr
+#' \strong{\emph{name/program}/ui_left_sidebar.R} :\cr
+#' Create sidebar UI elements in this file and register them with the
+#' framework using a call to \link[periscope2]{add_ui_left_sidebar} \cr
+#' \cr
+#' \strong{\emph{name/program}/ui_right_sidebar.R} :\cr
+#' Create right sidebar UI elements in this file and register them with the
+#' framework using a call to \link[periscope2]{add_ui_right_sidebar} \cr
 #' \cr
 #' \strong{\emph{name}/www/css/custom.css} :\cr
 #' This is the application custom styling css file. User can update
@@ -100,6 +97,10 @@
 #' \cr
 #' \strong{\emph{name}/www/js/custom.js} :\cr
 #' This is the application custom javascript file.\cr
+#' \cr
+#' \strong{\emph{name}/www/periscope_style.yaml} :\cr
+#' This is the application custom styling yaml file. User can update
+#' application different parts style using this file.\cr
 #' \cr
 #' \cr
 #' \strong{Do not modify the following files}: \cr
@@ -111,27 +112,36 @@
 #' name\\www\\img\\tooltip.png
 #' }
 #'
+#' @seealso \link[bs4Dash:dashboardPage]{bs4Dash:dashboardPage()}
+#' @seealso \link[waiter:waiter]{waiter:waiter_show()}
 #'
 #'@examples
 #' # sample app named 'mytestapp' created in a temp dir
-#' #create_application(name = 'mytestapp', location = tempdir(), sample_app = TRUE)
+#' location <- tempdir()
+#' create_application(name = 'mytestapp', location = location, sample_app = TRUE)
+#' unlink(paste0(location,'/mytestapp'), TRUE)
 #'
 #' # sample app named 'mytestapp' with a right sidebar using a custom icon created in a temp dir
-#' #create_application(name = 'mytestapp', location = tempdir(), sample_app = TRUE,
-#' #right_sidebar = TRUE)
+#' location <- tempdir()
+#' create_application(name = 'mytestapp', location = location, sample_app = TRUE, right_sidebar = TRUE)
+#' unlink(paste0(location,'/mytestapp'), TRUE)
 #'
 #' # blank app named 'myblankapp' created in a temp dir
-#' #create_application(name = 'myblankapp', location = tempdir())
+#' location <- tempdir()
+#' create_application(name = 'myblankapp', location = location)
+#' unlink(paste0(location,'/myblankapp'), TRUE)
+#'
 #' # blank app named 'myblankapp' without a left sidebar created in a temp dir
-#' #create_application(name = 'myblankapp', location = tempdir(), left_sidebar = FALSE)
+#' location <- tempdir()
+#' create_application(name = 'myblankapp', location = location, left_sidebar = FALSE)
+#' unlink(paste0(location,'/myblankapp'), TRUE)
 #'
 #' @export
 create_application <- function(name,
                                location,
                                sample_app    = FALSE,
-                               right_sidebar = FALSE,
                                left_sidebar  = TRUE,
-                               footer        = FALSE) {
+                               right_sidebar = FALSE) {
     assertthat::assert_that(!missing(name),
                             length(name) > 0,
                             !is.na(name),
@@ -164,11 +174,6 @@ create_application <- function(name,
         left_sidebar <- TRUE
     }
 
-    if (is.na(footer) || !is.logical(footer)) {
-        warning("'left_sidebar' must have valid boolean value. Setting 'footer' to default value 'FALSE'")
-        footer <- FALSE
-    }
-
     usersep <- .Platform$file.sep
     newloc  <- paste(location, name, sep = usersep)
 
@@ -180,18 +185,16 @@ create_application <- function(name,
     tryCatch({
         .create_dirs(newloc  = newloc,
                      usersep = usersep)
-        .copy_fw_files(newloc            = newloc,
-                       usersep           = usersep,
-                       left_sidebar      = left_sidebar,
-                       right_sidebar     = right_sidebar,
-                       footer            = footer,
-                       sample_app        = sample_app)
+        .copy_fw_files(newloc        = newloc,
+                       usersep       = usersep,
+                       left_sidebar  = left_sidebar,
+                       right_sidebar = right_sidebar,
+                       sample_app    = sample_app)
         .copy_program_files(newloc        = newloc,
                             usersep       = usersep,
                             sample_app    = sample_app,
                             left_sidebar  = left_sidebar,
-                            right_sidebar = right_sidebar,
-                            footer        = footer)
+                            right_sidebar = right_sidebar)
         application_created <- TRUE
     },
     error = function(e) {
@@ -211,6 +214,8 @@ create_application <- function(name,
 #' @param usersep - string represents path separator based on running OS
 #'
 #' @return nothing
+#' @keywords internal
+#' @noRd
 .create_dirs <- function(newloc, usersep) {
     dir.create(newloc)
     dir.create(paste(newloc, "www", sep = usersep))
@@ -240,15 +245,15 @@ create_application <- function(name,
 #' @param usersep       - string represents path separator based on running OS
 #' @param left_sidebar  - boolean to control copying left ui sidebar (default = TRUE)
 #' @param right_sidebar - boolean to control copying right ui sidebar (default = FALSE)
-#' @param footer        - boolean to control copying footer ui (default = FALSE)
 #' @param sample_app    - boolean to control copying sample app files (default = FALSE)
 #'
 #' @return nothing
+#' @keywords internal
+#' @noRd
 .copy_fw_files <- function(newloc,
                            usersep,
                            left_sidebar  = TRUE,
                            right_sidebar = FALSE,
-                           footer        = FALSE,
                            sample_app    = FALSE) {
     files <- c("global.R", "server.R", "ui.R")
 
@@ -267,13 +272,8 @@ create_application <- function(name,
 
             }
 
-            if (footer) {
-                file_contents <- append(file_contents,
-                                        "source(paste(\"program\", \"ui_footer.R\", sep = .Platform$file.sep), local = TRUE)")
 
-            }
-
-            file_contents <- append(file_contents, "create_application_dashboard()")
+            file_contents <- append(file_contents, "periscope2:::create_application_dashboard()")
         }
 
         ui_file <- file(paste(newloc, file, sep = usersep), open = "w+")
@@ -317,15 +317,15 @@ create_application <- function(name,
 #' @param sample_app    - boolean to control copying sample app files (default = FALSE)
 #' @param left_sidebar  - boolean to control copying left ui sidebar (default = TRUE)
 #' @param right_sidebar - boolean to control copying right ui sidebar (default = FALSE)
-#' @param footer        - boolean to control copying footer ui (default = FALSE)
 #'
 #' @return nothing
+#' @keywords internal
+#' @noRd
 .copy_program_files <- function(newloc,
                                 usersep,
                                 sample_app,
                                 left_sidebar  = TRUE,
-                                right_sidebar = FALSE,
-                                footer        = FALSE) {
+                                right_sidebar = FALSE) {
     file.copy(system.file("fw_templ", "announce.yaml", package = "periscope2"),
               paste(newloc, "program", "config", "announce.yaml", sep = usersep))
 
@@ -333,17 +333,15 @@ create_application <- function(name,
                   "server_global.R" = "server_global.R",
                   "server_local.R"  = "server_local.R",
                   "ui_body.R"       = "ui_body.R",
-                  "ui_header.R"     = "ui_header.R")
+                  "ui_header.R"     = "ui_header.R",
+                  "ui_footer.R"     = "ui_footer.R")
 
     if (left_sidebar) {
         files["ui_left_sidebar.R"] <- "ui_left_sidebar.R"
     }
+
     if (right_sidebar) {
         files["ui_right_sidebar.R"] <- "ui_right_sidebar.R"
-    }
-
-    if (footer) {
-        files["ui_footer.R"] <- "ui_footer.R"
     }
 
     targetdir <- paste(newloc, "program", sep = usersep)

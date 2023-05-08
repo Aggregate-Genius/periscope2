@@ -7,14 +7,16 @@
 appReset(id, reset_wait = 5000, alert_location = "bodyAlert", logger)
 }
 \arguments{
-\item{id}{- the ID of the Module's UI element}
+\item{id}{- Character represents the ID of the Module's UI element (the same id used in \code{appResetButton}}
 
-\item{reset_wait}{- period to wait before session reload (in milliseconds)}
+\item{reset_wait}{- Integer represents the period to wait before session reload in milliseconds (default = 5000)}
 
-\item{alert_location}{- where to display module related messages
-(default = "bodyAlert")}
+\item{alert_location}{- Character represents div ID or selector to display module related messages (default = "bodyAlert")}
 
 \item{logger}{- logger to use}
+}
+\value{
+nothing, function will display a warning message in the app then reload the whole application
 }
 \description{
 Server-side function for the appResetButton  This is a custom
@@ -34,4 +36,23 @@ server_local.R (or similar file) using the same id provided in \code{appResetBut
 
 #appReset(id = "appResetId", logger = ss_userAction.Log)
 
+}
+\seealso{
+\link[periscope2]{appResetButton}
+
+\link[periscope2]{downloadFile}
+
+\link[periscope2]{downloadFile_ValidateTypes}
+
+\link[periscope2]{downloadFile_AvailableTypes}
+
+\link[periscope2]{downloadablePlot}
+
+\link[periscope2]{downloadFileButton}
+
+\link[periscope2]{downloadableTable}
+
+\link[periscope2]{logViewer}
+
+\link[periscope2]{logViewerOutput}
 }

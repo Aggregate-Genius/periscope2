@@ -2,7 +2,7 @@
 % Please edit documentation in R/downloadFile.R
 \name{downloadFile_ValidateTypes}
 \alias{downloadFile_ValidateTypes}
-\title{downloadFile Helper}
+\title{downloadFile_ValidateTypes}
 \usage{
 downloadFile_ValidateTypes(types)
 }
@@ -13,15 +13,32 @@ downloadFile_ValidateTypes(types)
 the list input given in types
 }
 \description{
-Checks a given list of file types and warns if an invalid type is included
+It is a downloadFile module helper to return periscope2 defined file types list and warns user if an invalid type is included
 }
-\section{Example}{
+\examples{
+  #inside console
+  ## Check valid types
+  result <- periscope2::downloadFile_AvailableTypes()
+  identical(result, c("csv", "xlsx", "tsv", "txt", "png", "jpeg", "tiff", "bmp"))
 
-\code{downloadFile_ValidateTypes(c("csv", "tsv"))}
+  ## check invalid type
+  testthat::expect_warning(downloadFile_ValidateTypes(types = "csv_invalid"),
+                           "file download list contains an invalid type <csv_invalid>")
+
+
 }
-
 \seealso{
 \link[periscope2]{downloadFileButton}
 
 \link[periscope2]{downloadFile}
+
+\link[periscope2]{logViewer}
+
+\link[periscope2]{logViewerOutput}
+
+\link[periscope2]{downloadablePlot}
+
+\link[periscope2]{downloadableTableUI}
+
+\link[periscope2]{downloadableTable}
 }

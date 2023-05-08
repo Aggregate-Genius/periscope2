@@ -35,7 +35,8 @@ fw_get_user_log <- function() {
 #' Creates application final dashboard from application different settings and configurations.
 #' It is called once in the application in "ui.R". It should not be modified or updated by user
 #'
-#' @export
+#' @keywords internal
+#' @noRd
 create_application_dashboard <- function() {
     bs4Dash::bs4DashPage(header     = shiny::isolate(.g_opts$header),
                          body       = bs4Dash::bs4DashBody(shiny::isolate(.g_opts$body_elements)),
@@ -232,13 +233,14 @@ is_valid_color <- function(color) {
 #'
 #' @return number of seconds an announcement should be staying in caller application
 #'
-#'@examples
-#' # announce_close_time <- load_announcements()
-#' # if (!is.null(announce_close_time)) {
-#' #     shinyjs::delay(announce_close_time,{bs4Dash::closeAlert("announceAlert")})
-#' # }
+#' @examples
+#'   # announce_close_time <- periscope2:::load_announcements()
+#'   # if (!is.null(announce_close_time)) {
+#'   #     shinyjs::delay(announce_close_time,{bs4Dash::closeAlert("announceAlert")})
+#'   # }
 #'
-#' @export
+#' @keywords internal
+#' @noRd
 load_announcements <- function() {
     announce_setup     <- NULL
     auto_close         <- NULL
@@ -324,7 +326,7 @@ load_announcements <- function() {
             }
 
             if (valid) {
-                createAlert("announceAlert",
+                createAlert(id      = "announceAlert",
                             options = list(title    = title,
                                            status   = style,
                                            closable = TRUE,

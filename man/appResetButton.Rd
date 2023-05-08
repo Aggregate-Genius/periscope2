@@ -9,6 +9,9 @@ appResetButton(id)
 \arguments{
 \item{id}{character id for the object}
 }
+\value{
+an html div with prettyToggle button
+}
 \description{
 Creates a toggle button to reset application session. Upon pressing on the
  button, its state is flipped to cancel application reload with application
@@ -29,23 +32,36 @@ User can either resume reloading application session or cancel reloading
 }
 }
 
-\section{Example}{
-
-\code{appReset(id = 'appResetId', logger = logger)}
-}
-
 \section{Shiny Usage}{
 
 Call this function at any place in UI section.
 
-It is paired with a call to \code{appResetButton(id, ...)}
+It is paired with a call to \code{appReset(id, ...)}
 in server
 }
 
 \examples{
 # Inside ui_body.R or ui_left_sidebar.R
+appResetButton(id = 'appResetId')
 
-#appReset(id = 'appResetId', logger = logger)
 
+}
+\seealso{
+\link[periscope2]{appReset}
 
+\link[periscope2]{downloadFile}
+
+\link[periscope2]{downloadFile_ValidateTypes}
+
+\link[periscope2]{downloadFile_AvailableTypes}
+
+\link[periscope2]{downloadablePlot}
+
+\link[periscope2]{downloadFileButton}
+
+\link[periscope2]{downloadableTable}
+
+\link[periscope2]{logViewer}
+
+\link[periscope2]{logViewerOutput}
 }

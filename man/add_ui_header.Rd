@@ -5,37 +5,89 @@
 \title{add_ui_header}
 \usage{
 add_ui_header(
-  skin,
-  status,
-  border,
-  compact,
-  sidebarIcon,
-  controlbarIcon,
-  fixed,
-  left_ui,
-  right_ui
+  left_menu = NULL,
+  right_menu = NULL,
+  border = TRUE,
+  compact = FALSE,
+  right_sidebar_icon = shiny::icon("bars"),
+  fixed = FALSE,
+  left_sidebar_icon = shiny::icon("th"),
+  skin = "light",
+  status = "white"
 )
 }
 \arguments{
-\item{skin}{Sidebar skin. "dark" or "light".}
+\item{left_menu}{- Left menu. bs4DropdownMenu object (or similar dropdown menu).
+Check \code{?bs4Dash::bs4DropdownMenu()}}
 
-\item{status}{Sidebar status. Check \code{?bs4Dash::bs4DashNavbar()} for list of valid values}
+\item{right_menu}{- Right menu. bs4DropdownMenu object (or similar dropdown menu).
+Check \code{?bs4Dash::bs4DropdownMenu()}}
 
-\item{border}{Whether to separate the navbar and body by a border. TRUE by default.}
+\item{border}{- Whether to separate the navbar and body by a border. TRUE by default}
 
-\item{compact}{Whether items should be compacted. FALSE by default.}
+\item{compact}{- Whether items should be compacted. FALSE by default}
 
-\item{sidebarIcon}{Icon of the main sidebar toggle}
+\item{right_sidebar_icon}{- Right sidebar toggle icon}
 
-\item{controlbarIcon}{Icon to toggle the controlbar (left)}
+\item{fixed}{- Whether to fix the navbar to the top. FALSE by default}
 
-\item{fixed}{Whether to fix the navbar to the top. FALSE by default.}
+\item{left_sidebar_icon}{- Left sidebar toggle icon}
 
-\item{left_ui}{Custom left UI content. Any element like dropdownMenu.}
+\item{skin}{- Sidebar skin. "dark" or "light"}
 
-\item{right_ui}{Custom right UI content. Any element like dropdownMenu.}
+\item{status}{- Sidebar status. Check \code{?bs4Dash::bs4DashNavbar()} for list of valid values}
 }
 \description{
 Builds application header with given configurations and elements. It is called within "ui_header.R".
 Check example application for detailed example
+}
+\section{Shiny Usage}{
+
+Call this function from \code{program/ui_header.R} to set header parameters
+}
+
+\examples{
+  library(shiny)
+  library(bs4Dash)
+
+  # Inside ui_header.R
+  # Custom left UI menu
+  left_menu <- tagList(dropdownMenu(badgeStatus = "info",
+                                  type        = "notifications",
+                                   notificationItem(inputId = "triggerAction2",
+                                                    text    = "Error!",
+                                                    status  = "danger")),
+                      dropdownMenu(badgeStatus = "info",
+                                   type        = "tasks",
+                                   taskItem(inputId = "triggerAction3",
+                                            text    = "My progress",
+                                            color   = "orange",
+                                            value   = 10)))
+
+  # Custom right UI menu
+  right_menu <- dropdownMenu(badgeStatus = "danger",
+                          type        = "messages",
+                          messageItem(inputId = "triggerAction1",
+                                      message = "message 1",
+                                      from    = "Divad Nojnarg",
+                                      time    = "today",
+                                      color   = "lime"))
+  # -- Register Header Elements in the ORDER SHOWN in the UI
+  add_ui_header(left_menu = left_menu, right_menu = right_menu)
+
+}
+\seealso{
+\link[bs4Dash:bs4DashNavbar]{bs4Dash:bs4DashNavbar()}
+
+\link[periscope2:add_ui_footer]{periscope2:add_ui_footer()}
+
+\link[periscope2:add_ui_left_sidebar]{periscope2:add_ui_left_sidebar()}
+
+\link[periscope2:add_ui_body]{periscope2:add_ui_body()}
+
+\link[periscope2:add_ui_right_sidebar]{periscope2:add_ui_right_sidebar()}
+
+\link[periscope2:ui_tooltip]{periscope2:ui_tooltip()}
+
+\link[periscope2:get_url_parameters]{periscope2:get_url_parameters()}
 }

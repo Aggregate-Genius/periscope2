@@ -92,4 +92,20 @@ downloadablePlotUI("object_id1",
 \link[shiny]{hoverOpts}
 
 \link[shiny]{brushOpts}
+
+\link[periscope2]{appResetButton}
+
+\link[periscope2]{appReset}
+
+\link[periscope2]{downloadFile}
+
+\link[periscope2]{downloadFile_ValidateTypes}
+
+\link[periscope2]{downloadFile_AvailableTypes}
+
+\link[periscope2]{downloadableTable}
+
+\link[periscope2]{logViewer}
+
+\link[periscope2]{logViewerOutput}
 }
