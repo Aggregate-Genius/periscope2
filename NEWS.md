@@ -1,2 +1,6 @@
-# 0.1.0.9000
+# Revisions and Change Log
+
+
+### 0.1.0
 * Initial CRAN release
+
