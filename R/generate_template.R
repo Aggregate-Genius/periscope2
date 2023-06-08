@@ -202,7 +202,7 @@ create_application <- function(name,
     })
 
     if (application_created) {
-        message(paste("Periscope2 application", name, "is created successfully at location", location))
+        message(paste("periscope2 application", name, "was created successfully at ", location))
     }
 }
 
@@ -243,8 +243,8 @@ create_application <- function(name,
 #'
 #' @param newloc        - string represents new application location
 #' @param usersep       - string represents path separator based on running OS
-#' @param left_sidebar  - boolean to control copying left ui sidebar (default = TRUE)
-#' @param right_sidebar - boolean to control copying right ui sidebar (default = FALSE)
+#' @param left_sidebar  - boolean to control copying left UI sidebar (default = TRUE)
+#' @param right_sidebar - boolean to control copying right UI sidebar (default = FALSE)
 #' @param sample_app    - boolean to control copying sample app files (default = FALSE)
 #'
 #' @return nothing
@@ -315,8 +315,8 @@ create_application <- function(name,
 #' @param newloc        - string represents new application location
 #' @param usersep       - string represents path separator based on running OS
 #' @param sample_app    - boolean to control copying sample app files (default = FALSE)
-#' @param left_sidebar  - boolean to control copying left ui sidebar (default = TRUE)
-#' @param right_sidebar - boolean to control copying right ui sidebar (default = FALSE)
+#' @param left_sidebar  - boolean to control copying left UI sidebar (default = TRUE)
+#' @param right_sidebar - boolean to control copying right UI sidebar (default = FALSE)
 #'
 #' @return nothing
 #' @keywords internal

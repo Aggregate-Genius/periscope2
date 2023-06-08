@@ -74,7 +74,7 @@ and the reset is delayed (default = 5s) to allow the user to cancel the reset.
 
 
 ```{r, eval=F}
-# Inside ui_body.R or similar ui file
+# Inside ui_body.R or similar UI file
 
 appResetButton('appResetId')
 ```

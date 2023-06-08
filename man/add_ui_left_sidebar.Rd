@@ -18,13 +18,13 @@ add_ui_left_sidebar(
 )
 }
 \arguments{
-\item{sidebar_elements}{- List of regular shiny ui elements (inputText, textArea, etc..)}
+\item{sidebar_elements}{- List of regular shiny UI elements (inputText, textArea, etc..)}
 
 \item{sidebar_menu}{- \code{?bs4Dash::bs4SidebarMenu()} object to created a menu inside left sidebar}
 
 \item{collapsed}{- If TRUE, the sidebar will be collapsed on app start up}
 
-\item{custom_area}{- List of regular shiny ui elements but for sidebar bottom space area only.
+\item{custom_area}{- List of regular shiny UI elements but for sidebar bottom space area only.
 Only works if sidebar is fixed}
 
 \item{elevation}{- A number between 0 and 5, which applies a shadow to the sidebar to add a shadow effect.}

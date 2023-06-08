@@ -14,7 +14,7 @@ add_ui_right_sidebar(
 )
 }
 \arguments{
-\item{sidebar_elements}{- List of regular shiny ui elements (inputText, textArea, etc..)}
+\item{sidebar_elements}{- List of regular shiny UI elements (inputText, textArea, etc..)}
 
 \item{sidebar_menu}{- \code{?bs4Dash::controlbarMenu()} object to created a menu inside right sidebar}
 

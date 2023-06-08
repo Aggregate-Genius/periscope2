@@ -7,7 +7,7 @@
 add_ui_body(body_elements = NULL, append = FALSE)
 }
 \arguments{
-\item{body_elements}{- List of ui elements to be displayed in application body}
+\item{body_elements}{- List of UI elements to be displayed in application body}
 
 \item{append}{- Add elements to current body elements or remove previous body elements (default = FALSE)}
 }

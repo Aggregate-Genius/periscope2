@@ -36,7 +36,7 @@ This *Shiny Module* displays recorded session logs in tabular format
 
 Shiny modules consist of a pair of functions that modularize, or package, a small piece of reusable functionality.  The UI function is called directly by the user to place the UI in the correct location (as with other shiny UI objects). The module server function that is called only once to set it up using the module name as a function inside the server function (i.e. user-local session scope.  The first function argument is a string that represents the module id (the same id used in module UI function). Additional arguments can be supplied by the user based on the specific shiny module that is called.  There can be additional helper functions that are a part of a shiny module.
 
-The **LogViewer** Shiny Module is a part of the *periscope2* package and consists of the following functions:
+The **logViewer** Shiny Module is a part of the *periscope2* package and consists of the following functions:
 
 * **logViewerOutput** - the UI function to place the button in the 
 

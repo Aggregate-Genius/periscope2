@@ -16,7 +16,7 @@ createAlert(
 
 \item{id}{- Anchor id (either id or selector only should be set)}
 
-\item{selector}{- Character vectore represents jQuery selector to add the alert to is
+\item{selector}{- Character vector represents jQuery selector to add the alert to is
 (i.e ".alertClass", div.badge-danger.navbar-badge). If 'id' is specified, this parameter will be neglected}
 
 \item{options}{- List of options to pass to the alert}

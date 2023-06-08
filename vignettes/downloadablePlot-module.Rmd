@@ -112,7 +112,7 @@ or different from the ones provided to any of the download functions.  This allo
 
 ** Plot/Download Function or Reactive Expression Requirements**
 
-* If a function is provided it must be parameterless (require NO parameters).  No parameters will be provided when a function is called to retrieve the plot or data.  Reactive expressions cannot take parameters by definition.
+* If a function is provided it must be parameter-less (require NO parameters).  No parameters will be provided when a function is called to retrieve the plot or data.  Reactive expressions cannot take parameters by definition.
 * The function or reactive expression must return an appropriate data format for the file type.  For
 instance: csv/tsv/xlsx types require data that is convertible to a tabular type,
 tiff formats require a tiff class object, etc.  For more information on conversion of data 

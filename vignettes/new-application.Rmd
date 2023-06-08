@@ -293,7 +293,7 @@ All user customization is done in the files in the **program** subdirectory.  We
 
 ### program/global.R
 
-Set your application title, application version, titleinfo, loading_indicator, announcements_file, change the loglevel and optionally turn off the userlog using *set_app_parameters()*.
+Set your application title, version, information, loading_indicator, announcements_file and change the logging level using *set_app_parameters()*.
 
 The *app_version* parameter in this function has a default value of "1.0.0". It is recommended to follow the best practice in R's packaging versioning. This means that a version consists of 3 numbers, *&lt;major&gt;.&lt;minor&gt;.&lt;patch&gt;*.
 
@@ -305,7 +305,7 @@ The *titleinfo* parameter in this function can be:
 
 The *announcements_file* parameter points to the announcements module configuration file. Set this parameter to NULL to disable this feature
 
-***Important:*** Any variables or functions placed into this file are globally scoped and will be available to ui and server functions across all user sessions.
+***Important:*** Any variables or functions placed into this file are globally scoped and will be available across all user sessions.
 
 ```{r, eval=F}
 # Plain text title

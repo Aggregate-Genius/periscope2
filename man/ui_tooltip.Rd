@@ -28,7 +28,7 @@ Call this function from \code{program/ui_body.R} to set tooltip parameters
   library(shiny)
   library(periscope2)
 
-  # Inside ui_body.R or similar ui file
+  # Inside ui_body.R or similar UI file
    ui_tooltip(id   = "top_tip",
              label = "Top Tooltips",
              text  = "Top tooltip")

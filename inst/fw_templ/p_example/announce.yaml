@@ -50,4 +50,4 @@ title: "Welcome to Periscope2"
 
 ### text
 # The announcement text. Text can contain html tags and is a mandatory value
-text: "This is messaged will be closed automatically in 30s"
+text: "This message will be closed automatically in 30s"

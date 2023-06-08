@@ -132,10 +132,10 @@ plot_downloader_box <- box(
     collapsible = TRUE,
     width       = 12,
     tags$dl(tags$dt("Features"),
-            tags$ul(tags$li("Periscope2 offers this module to download plots that have no internal download ability like ggplot2 & lattice."),
-                    tags$li("User can download both data and plot itself in different format"),),
+            tags$ul(tags$li("Periscope2 offers this module to easily add download capability that have no internal download ability like ggplot2 & lattice."),
+                    tags$li("User can download both the data and plot itself in different formats"),),
             tags$dt("Setup"),
-            tags$ul(tags$li("Module should be configured in both UI and Server code",
+            tags$ul(tags$li("Module should be configured in both the UI and Server code",
                     blockQuote("Run '?periscope2::downloadablePlot' for more info", color = "info"))),
             tags$dt("Example")),
     fluidRow(

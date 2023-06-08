@@ -7,9 +7,9 @@
 add_ui_footer(left = NULL, right = NULL, fixed = FALSE)
 }
 \arguments{
-\item{left}{- Left side ui elements}
+\item{left}{- Left side UI elements}
 
-\item{right}{- Right side ui elements}
+\item{right}{- Right side UI elements}
 
 \item{fixed}{- Always show footer at page bottom regardless page scroll location (default = FALSE).}
 }
