@@ -9,7 +9,7 @@ fw_server_setup <- function(input, output, session, logger, logger_viewer_id) {
 }
 
 
-# Get LogLevel
+# Get Logging Level
 fw_get_loglevel <- function() {
     shiny::isolate(.g_opts$loglevel)
 }

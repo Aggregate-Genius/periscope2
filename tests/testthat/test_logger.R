@@ -188,7 +188,7 @@ test_that("Msgcomposer - setMsgComposer(), resetMsgComposer()", {
 
     expect_equal(env$logged, "INFO::test")
     expect_error(periscope2:::resetMsgComposer(NULL),
-                 regexp = "NULL container provided: cannot resset message composer for NULL container")
+                 regexp = "NULL container provided: cannot reset message composer for NULL container")
 
     # set_sublogger_composer
     env <- env_setup()

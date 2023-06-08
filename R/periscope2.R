@@ -11,7 +11,7 @@
 #'  \item Upgraded dependency on bootstrap v4 instead of bootstrap v3
 #'  \item New user modules (i.e. announcements)
 #'  \item More functionality and finer control over existing modules such as
-#'  \link[periscope2:createAlert]{aler}t and \link[periscope2:appResetButton]{reset}
+#'  \link[periscope2:createAlert]{alert} and \link[periscope2:appResetButton]{reset}
 #'  \item More control over customizing different application parts (header, footer, left sidebar, right sidebar and body)
 #'  \item Enhanced file structure to organize application UI, shiny modules, app configuration, .. etc
 #' }
