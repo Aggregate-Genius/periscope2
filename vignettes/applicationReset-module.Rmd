@@ -16,23 +16,18 @@ vignette: >
 
 ## Purpose 
 
-This *Shiny Module* was created in order to reset application session and logs
+This *Shiny Module* allows the user to easily reset application session and logs
 
 ## Features
 
 * Resets a user's session
-* Rolls over their log
+* Resets the session log
 
 # Usage
 
 ## Shiny Module Overview
 
-Shiny modules consist of a pair of functions that modularize, or package, a 
-small piece of reusable functionality.  The UI function is called directly by
-the user to place the UI in the correct location (as with other shiny UI
-objects). The module server function that is called only once to set it up using the
-module name as a function inside the server function (i.e. user-local session
-scope.  The function first arguments is string represents the module id (the same id used in module UI function). Additional arguments can be supplied by the user based on the specific shiny module that is called.  There can be additional helper functions that are a part of a shiny module.
+Shiny modules consist of a pair of functions that modularize, or package, a small piece of reusable functionality.  The UI function is called directly by the user to place the UI in the correct location (as with other shiny UI objects). The module server function that is called only once to set it up using the module name as a function inside the server function (i.e. user-local session scope.  The function first arguments is string represents the module id (the same id used in module UI function). Additional arguments can be supplied by the user based on the specific shiny module that is called.  There can be additional helper functions that are a part of a shiny module.
 
 The **appReset** Shiny Module is a part of the *periscope2* package and 
 consists of the following functions:
@@ -42,38 +37,38 @@ consists of the following functions:
 
 ## appResetButton
 
-* It is a toggle button can be placed at any place in ui like any other ui element. 
-
 <figure>
   <center><img src="figures/appReset-UI-1.jpg"></center>
   <figcaption>App Reset Toggle Button</figcaption>
 </figure>
 
+* This is a toggle button can be placed in the UI like any other element
+
 * This button is automatically wired to reset the application to the initial
-session state. 
+session state
 * The user is given a warning (as an alert on the Advanced tab)
 and the reset is delayed (default = 5s) to allow the user to cancel the reset.
 
 <figure>
   <center><img src="figures/appReset-UI-2.jpg" width="600px"></center>
-  <figcaption>Reset application warning</figcaption>
+  <figcaption>Reset Warning</figcaption>
 </figure>
 
 
 <figure>
   <center><img src="figures/appReset-UI-3.jpg" width="600px"></center>
-  <figcaption>Cancel reset application</figcaption>
+  <figcaption>Cancel Reset</figcaption>
 </figure>
 
 * Reset requests and cancellations are logged automatically.
 <figure>
   <center><img src="figures/appReset_logs.jpg"></center>
-  <figcaption>Successful reset application</figcaption>
+  <figcaption>Successful reset request</figcaption>
 </figure>
 
 <figure>
   <center><img src="figures/appReset_logs-2.jpg"></center>
-  <figcaption>Canceled reset application</figcaption>
+  <figcaption>Canceled reset request</figcaption>
 </figure>
 
 
@@ -100,8 +95,7 @@ appReset(id = 'appResetId', logger = logger)
 
 ## Sample Application
 
-For a complete running shiny example application using the appReset
-module you can create and run a *periscope2* sample application using:
+For a complete running shiny example application using the appReset module you can create and run a *periscope2* sample application using:
 
 ```{r, eval=F}
 library(periscope2)

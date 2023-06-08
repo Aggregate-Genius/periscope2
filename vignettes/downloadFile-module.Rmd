@@ -16,15 +16,14 @@ vignette: >
 
 ## Purpose 
 
-This *Shiny Module* was created in order to provide a consistent-looking and
-easy-to-use button that facilitates one or multiple types of file downloads.
+This *Shiny Module* provides a consistent-looking and easy-to-use button that facilitates single or multiple types of file downloads.
 
 ## Features
 
 * Auto-adjusts the button image and styling for single or multiple downloads
 * Ability to link different data sets to different file types if desired
 * Incorporates tooltips and drop-downs automatically
-* Converts data to various download types.
+* Converts data to various download types
 * Requires minimal code (see the Usage section for details)
 
 <br>
@@ -33,36 +32,29 @@ easy-to-use button that facilitates one or multiple types of file downloads.
 
 ## Shiny Module Overview
 
-Shiny modules consist of a pair of functions that modularize, or package, a 
-small piece of reusable functionality.  The UI function is called directly by
-the user to place the UI in the correct location (as with other shiny UI
-objects). The module server function that is called only once to set it up using the
-module name as a function inside the server function (i.e. user-local session
-scope.  The function first arguments is string represents the module id (the same id used in module UI function). Additional arguments can be supplied by the user based on the specific shiny module that is called.  There can be additional helper functions that are a part of a shiny module.
+Shiny modules consist of a pair of functions that modularize, or package, a small piece of reusable functionality.  The UI function is called directly by the user to place the UI in the correct location (as with other shiny UI objects). The module server function that is called only once to set it up using the module name as a function inside the server function (i.e. user-local session scope.  The first function argument is a string that represents the module id (the same id used in module UI function). Additional arguments can be supplied by the user based on the specific shiny module that is called.  There can be additional helper functions that are a part of a shiny module.
 
-The **downloadFile** Shiny Module is a part of the *periscope2* package and 
+The **downloadableTable** Shiny Module is a part of the *periscope2* package and 
 consists of the following functions:
+
+The **downloadFile** Shiny Module is a part of the *periscope2* package and  consists of the following functions:
 
 * **downloadFileButton** - the UI function to place the button in the 
 application.
 * **downloadFile** - the server function to be called inside server_local.R.
-* **downloadFile_ValidateTypes** - a helper function that will check a given 
-list of file types and warn the caller if the list contains an invalid or 
-unsupported type.
-* **downloadFile_AvailableTypes** - a helper function that will return a vector 
-of supported file types.
+* Helper Functions:
+  * **downloadFile_ValidateTypes** - will check a given list of file types and warn the caller if the list contains an invalid or unsupported type.
+  * **downloadFile_AvailableTypes** - will return a vector of supported file types.
 
 ## downloadFileButton
 
-The **downloadFileButton** function is called from the ui.R (or equivalent) file 
-in the location where the button should be placed.  This is similar to other UI
-element placement in shiny.
+The **downloadFileButton** function is called from the ui.R (or equivalent) file in the location where the button should be placed.  This is similar to other UI element placement in shiny.
 
-The downloadFileButton function takes the unique object ID for the UI object
-as well as a list of file types the button will allow the user to request and
-the tooltip text.
+The downloadFileButton function takes the unique object ID for the UI object.
 
-If only one type is given the button will be a single-download type of button
+The next two arguments (downloadtypes and hovertext) set the file types the button will allow the user to request and the tooltip text.  
+
+If only one download type is given the button will be a single-download type of button
 that starts the specified download when the button is pressed.  The button will 
 look like:
 
@@ -84,12 +76,12 @@ function.  The button and dropdown will look like:
 # Inside ui_body.R or ui_sidebar.R
 
 #single download type
-downloadFileButton("object_id1", 
+downloadFileButton(id            = "object_id1", 
                    downloadtypes = c("csv"), 
                    hovertext     = "Button 1 Tooltip")
 
 #multiple download types
-downloadFileButton("object_id2", 
+downloadFileButton(id            = "object_id2", 
                    downloadtypes = c("csv", "tsv"), 
                    hovertext     = "Button 2 Tooltip")
 ```
@@ -101,45 +93,33 @@ The **downloadFile** function is called directly. The call consists of the follo
 * the unique object ID that was provided to downloadFileButton when creating 
 the UI object
 * the logging logger to be used
-* the root of the downloaded file name to be used in the browser as a character
+* the root (prefix) of the downloaded file name to be used in the browser as a character
 string or reactive expression that returns a character string
-* a **named list** of functions that provide the data (see below).  It is 
-important that the types of files to be downloaded are matched to the correct
-data function in the list.  The data functions are unquoted function names.  The
-functions will be called at the time the user initiates a download 
-*(see requirements below)*.
-* the aspect ratio is an optional, numeric argument that only applies to supported image types.  
-The values are width:height (width/height which is unitless) for example for a 
-1:1 ratio (square) the value would be 1/1 = 1, for a 2:1 ratio (wide rectangle)
-the value would be 2/1 = 2, for 4:3 ratio (landscape photo) the value would be
-4/3 = 1.33, etc.  This value ensures an exported reasonable shape for a plot 
-regardless of the size or shape of the application browser window.
+* a **named list** of functions or reactive expressions that provide the data (see below).  
+  * It is important that the types of files to be downloaded are matched to the correct data function in the list.  
+  * The function/reactive expression names are unquoted - they will be called at the time the user initiates a download *(see requirements below)*.
 
+**Data Function or Reactive Expression Requirements**
 
-**Data Function Requirements**
-
-* The function must require NO parameters.  No parameters will be provided
-when the function is called to retrieve the data.
-* The function must return an appropriate data format for the file type.  For
-instance, for csv/tsv/xlsx types the data returned should be convertible to
-a tabular type.
-* Since the function is called at the time the user requests the data it is 
-acceptable and recommended to use reactive expressions providing dynamic data 
-to the user from the application.
+* If a function is provided it must be parameterless (require NO parameters).  No parameters will be provided when a function is called to retrieve the plot or data.  Reactive expressions cannot take parameters by definition.
+* The function or reactive expression must return an appropriate data format for the file type.  For
+instance: csv/tsv/xlsx types require data that is convertible to a tabular type.
+* Since the function or reactive expression is called at the time the user requests the data it is 
+recommended that reactive expressions are used to provide dynamic values from the application to create the plot.
 
 
 ```{r, eval = F}
 # Inside server_local.R
 
 #single download type
-downloadFile("object_id1", 
+downloadFile(id           = "object_id1", 
              logger       = ss_userAction.Log,
              filenameroot = "mydownload1",
              datafxns     = list(csv = mydatafxn1),
              aspectratio  = 1)
 
 #multiple download types
-downloadFile("object_id2",
+downloadFile(id           = "object_id2",
              logger       = ss_userAction.Log,
              filenameroot = "mytype2",
              datafxns     = list(csv = mydatafxn1, xlsx = mydatafxn2),
@@ -149,8 +129,7 @@ downloadFile("object_id2",
 
 ## Sample Application
 
-For a complete running shiny example application using the downloadableTable
-module you can create and run a *periscope2* sample application using:
+For a complete running shiny example application using the downloadFile module you can create and run a *periscope2* sample application using:
 
 ```{r, eval=F}
 library(periscope2)
