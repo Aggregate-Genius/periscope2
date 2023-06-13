@@ -2,7 +2,7 @@
 % Please edit documentation in R/ui_helpers.R
 \name{add_ui_footer}
 \alias{add_ui_footer}
-\title{add_ui_footer}
+\title{Add UI elements to dashboard footer section}
 \usage{
 add_ui_footer(left = NULL, right = NULL, fixed = FALSE)
 }

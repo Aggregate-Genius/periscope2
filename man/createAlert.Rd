@@ -2,7 +2,7 @@
 % Please edit documentation in R/ui_helpers.R
 \name{createAlert}
 \alias{createAlert}
-\title{createAlert}
+\title{Display alert panel at specified location}
 \usage{
 createAlert(
   session = shiny::getDefaultReactiveDomain(),
