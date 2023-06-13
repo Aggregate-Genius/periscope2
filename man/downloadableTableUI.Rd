@@ -2,7 +2,7 @@
 % Please edit documentation in R/downloadableTable.R
 \name{downloadableTableUI}
 \alias{downloadableTableUI}
-\title{downloadableTable UI}
+\title{downloadableTable module UI function}
 \usage{
 downloadableTableUI(
   id,

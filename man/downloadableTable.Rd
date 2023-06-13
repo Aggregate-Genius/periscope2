@@ -2,7 +2,7 @@
 % Please edit documentation in R/downloadableTable.R
 \name{downloadableTable}
 \alias{downloadableTable}
-\title{downloadableTable Module}
+\title{downloadableTable module server function}
 \usage{
 downloadableTable(
   id,
