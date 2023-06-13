@@ -3,7 +3,7 @@
 # -------------------------------------------
 
 
-#' downloadFileButton UI
+#' downloadFileButton module UI function
 #'
 #' Creates a custom high-functionality button for file downloads with two
 #' states - single download type or multiple-download types.  The button image
@@ -102,7 +102,7 @@ downloadFileButton <- function(id,
 }
 
 
-#' downloadFile Module
+#' downloadFile module server function
 #'
 #' Server-side function for the downloadFileButton.  This is a custom
 #' high-functionality button for file downloads supporting single or multiple
