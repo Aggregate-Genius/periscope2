@@ -330,7 +330,7 @@ downloadFile <- function(id,
 }
 
 
-#' downloadFile_ValidateTypes
+#' Check passed file types against downloadFile module allowed file types list
 #'
 #' It is a downloadFile module helper to return periscope2 defined file types list and warns user if an invalid type is included
 #'
@@ -360,8 +360,8 @@ downloadFile <- function(id,
 #' @export
 downloadFile_ValidateTypes <- function(types) {
     for (type in types) {
-        if ( !(type %in% shiny::isolate(.g_opts$data_download_types)) &&
-             !(type %in% shiny::isolate(.g_opts$plot_download_types)) ) {
+        if (!(type %in% shiny::isolate(.g_opts$data_download_types)) &&
+            !(type %in% shiny::isolate(.g_opts$plot_download_types)) ) {
             warning(paste0("file download list contains an invalid type <",
                            type, ">"))
         }
@@ -370,7 +370,7 @@ downloadFile_ValidateTypes <- function(types) {
 }
 
 
-#' downloadFile Helper
+#' downloadFile module list of allowed file types
 #'
 #' Returns a list of all supported types
 #'
