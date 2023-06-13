@@ -3,7 +3,7 @@
 # -------------------------------------------
 
 
-#' downloadablePlot UI
+#' downloadablePlot module UI function
 #'
 #' Creates a custom plot output that is paired with a linked downloadFile
 #' button.  This module is compatible with ggplot2, grob and lattice
@@ -129,7 +129,7 @@ downloadablePlotUI <- function(id,
     module_output
 }
 
-#' downloadablePlot Module
+#' downloadablePlot module UI function
 #'
 #' Server-side function for the downloadablePlotUI.  This is a custom
 #' plot output paired with a linked downloadFile button.
