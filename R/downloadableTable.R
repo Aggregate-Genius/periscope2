@@ -3,7 +3,7 @@
 # -------------------------------------------
 
 
-#' downloadableTable UI
+#' downloadableTable module UI function
 #'
 #' Creates a custom high-functionality table paired with a linked downloadFile
 #' button.  The table has search and highlight functionality, infinite scrolling,
@@ -90,7 +90,7 @@ downloadableTableUI <- function(id,
 }
 
 
-#' downloadableTable Module
+#' downloadableTable module server function
 #'
 #' Server-side function for the downloadableTableUI.  This is a custom
 #' high-functionality table paired with a linked downloadFile
@@ -302,6 +302,7 @@ downloadableTable <- function(id,
                         })
 }
 
+
 build_datatable_arguments <- function(table_options) {
     dt_args <- list()
     formal_dt_args <- methods::formalArgs(DT::datatable)
@@ -352,6 +353,7 @@ build_datatable_arguments <- function(table_options) {
     dt_args[["options"]] <- options
     dt_args
 }
+
 
 format_columns <- function(dt, format_options) {
     for (format_idx in 1:length(format_options)) {

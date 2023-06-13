@@ -2,7 +2,7 @@
 % Please edit documentation in R/logViewer.R
 \name{logViewerOutput}
 \alias{logViewerOutput}
-\title{logViewerOutput}
+\title{logViewer module UI function}
 \usage{
 logViewerOutput(id)
 }

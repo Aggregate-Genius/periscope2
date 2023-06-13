@@ -2,7 +2,7 @@
 % Please edit documentation in R/ui_helpers.R
 \name{add_ui_body}
 \alias{add_ui_body}
-\title{add_ui_body}
+\title{Add UI elements to dashboard body section}
 \usage{
 add_ui_body(body_elements = NULL, append = FALSE)
 }

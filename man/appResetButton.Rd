@@ -2,7 +2,7 @@
 % Please edit documentation in R/appReset.R
 \name{appResetButton}
 \alias{appResetButton}
-\title{appResetButton}
+\title{appResetButton module UI function}
 \usage{
 appResetButton(id)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/downloadFile.R
 \name{downloadFile}
 \alias{downloadFile}
-\title{downloadFile Module}
+\title{downloadFile module server function}
 \usage{
 downloadFile(id, logger, filenameroot, datafxns = list(), aspectratio = 1)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/ui_helpers.R
 \name{add_ui_left_sidebar}
 \alias{add_ui_left_sidebar}
-\title{add_ui_left_sidebar}
+\title{Add UI elements to dashboard left sidebar section}
 \usage{
 add_ui_left_sidebar(
   sidebar_elements = NULL,

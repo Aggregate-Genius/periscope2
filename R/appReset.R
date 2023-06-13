@@ -3,7 +3,7 @@
 # -- Reload Application Session      --
 # -------------------------------------
 
-#' appResetButton
+#' appResetButton module UI function
 #'
 #' Creates a toggle button to reset application session. Upon pressing on the
 #'  button, its state is flipped to cancel application reload with application
@@ -70,7 +70,7 @@ appResetButton <- function(id) {
 }
 
 
-#' appReset Module Server Function
+#' appReset module server function
 #'
 #' Server-side function for the appResetButton  This is a custom
 #' high-functionality button for session reload. The server function is used to

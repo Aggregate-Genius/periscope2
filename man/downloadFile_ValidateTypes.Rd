@@ -2,7 +2,7 @@
 % Please edit documentation in R/downloadFile.R
 \name{downloadFile_ValidateTypes}
 \alias{downloadFile_ValidateTypes}
-\title{downloadFile_ValidateTypes}
+\title{Check passed file types against downloadFile module allowed file types list}
 \usage{
 downloadFile_ValidateTypes(types)
 }
