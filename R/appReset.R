@@ -70,7 +70,7 @@ appResetButton <- function(id) {
 }
 
 
-#' appReset module Server Function
+#' appReset module server function
 #'
 #' Server-side function for the appResetButton  This is a custom
 #' high-functionality button for session reload. The server function is used to

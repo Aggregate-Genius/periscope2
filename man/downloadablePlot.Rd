@@ -2,7 +2,7 @@
 % Please edit documentation in R/downloadablePlot.R
 \name{downloadablePlot}
 \alias{downloadablePlot}
-\title{downloadablePlot module UI function}
+\title{downloadablePlot module server function}
 \usage{
 downloadablePlot(
   id,

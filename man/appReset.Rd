@@ -2,7 +2,7 @@
 % Please edit documentation in R/appReset.R
 \name{appReset}
 \alias{appReset}
-\title{appReset module Server Function}
+\title{appReset module server function}
 \usage{
 appReset(id, reset_wait = 5000, alert_location = "bodyAlert", logger)
 }

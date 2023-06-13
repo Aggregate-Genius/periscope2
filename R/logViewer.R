@@ -3,7 +3,7 @@
 # -- Display application log   --
 # -------------------------------------
 
-#' logViewerOutput
+#' logViewer module UI function
 #'
 #' Creates a shiny table with table containing logged user actions. Table contents are auto updated whenever a user action is
 #' logged
@@ -50,7 +50,7 @@ logViewerOutput <- function(id) {
 }
 
 
-#' logViewer Module Server Function
+#' logViewer module server function
 #'
 #' Server-side function for the logViewerOutput  This is box with table displaying application logs.
 #' The server function is used to provide module configurations.

@@ -2,7 +2,7 @@
 % Please edit documentation in R/logViewer.R
 \name{logViewer}
 \alias{logViewer}
-\title{logViewer Module Server Function}
+\title{logViewer module server function}
 \usage{
 logViewer(id, logger)
 }

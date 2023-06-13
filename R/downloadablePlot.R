@@ -129,7 +129,7 @@ downloadablePlotUI <- function(id,
     module_output
 }
 
-#' downloadablePlot module UI function
+#' downloadablePlot module server function
 #'
 #' Server-side function for the downloadablePlotUI.  This is a custom
 #' plot output paired with a linked downloadFile button.
