@@ -7,7 +7,7 @@
 logViewerOutput(id)
 }
 \arguments{
-\item{id}{character id for the object}
+\item{id}{- character id for the object}
 }
 \value{
 shiny tableOutput instance

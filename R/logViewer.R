@@ -9,7 +9,7 @@
 #' logged
 #'
 #'
-#' @param id character id for the object
+#' @param id - character id for the object
 #'
 #' @returns shiny tableOutput instance
 #'
@@ -46,7 +46,7 @@
 #' @seealso \link[periscope2]{downloadableTable}
 logViewerOutput <- function(id) {
     ns <- shiny::NS(id)
-    shiny::tableOutput(ns("dt_userlog"))
+    shiny::tableOutput(ns(id))
 }
 
 
@@ -87,7 +87,7 @@ logViewer <- function(id, logger) {
     shiny::moduleServer(
         id,
         function(input, output, session) {
-            output$dt_userlog <- shiny::renderTable({
+            output[[id]] <- shiny::renderTable({
                 lines <- logger()
                 if (length(lines) > 0) {
                     out1 <- data.frame(orig = lines, stringsAsFactors = F)
