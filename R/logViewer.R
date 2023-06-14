@@ -72,7 +72,6 @@ logViewerOutput <- function(id) {
 #'
 #' #logViewer(id = "logViewerId", logger = ss_userAction.Log)
 #'
-#' @export
 #' @seealso \link[periscope2]{logViewerOutput}
 #' @seealso \link[periscope2]{downloadFile}
 #' @seealso \link[periscope2]{downloadFile_ValidateTypes}
