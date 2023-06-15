@@ -35,7 +35,6 @@
 #'
 #'
 #' @export
-#' @seealso \link[periscope2]{logViewer}
 #' @seealso \link[periscope2]{downloadFile}
 #' @seealso \link[periscope2]{downloadFile_ValidateTypes}
 #' @seealso \link[periscope2]{downloadFile_AvailableTypes}
@@ -62,28 +61,10 @@ logViewerOutput <- function(id = "logViewerer") {
 #'
 #'
 #' @section Shiny Usage:
-#' This function is not called directly by consumers - it is accessed in
-#' server_local.R (or similar file) using the same id provided in \code{logViewerOutput}:
+#' This function is private and called by \code{fw_server_setup} method only
 #'
-#' \strong{\code{logViewer(id = "logViewerId", logger = ss_userAction.Log)}}
-#'
-#' @examples
-#' # Inside server_local.R
-#'
-#' #logViewer(id = "logViewerId", logger = ss_userAction.Log)
-#'
-#' @seealso \link[periscope2]{logViewerOutput}
-#' @seealso \link[periscope2]{downloadFile}
-#' @seealso \link[periscope2]{downloadFile_ValidateTypes}
-#' @seealso \link[periscope2]{downloadFile_AvailableTypes}
-#' @seealso \link[periscope2]{downloadablePlot}
-#' @seealso \link[periscope2]{downloadFileButton}
-#' @seealso \link[periscope2]{downloadableTableUI}
-#' @seealso \link[periscope2]{downloadableTable}
-#' @seealso \link[periscope2]{appResetButton}
-#' @seealso \link[periscope2]{appReset}
 #' @noRd
-logViewer <- function(id, logger) {
+logViewer <- function(id = "logViewerer", logger) {
     shiny::moduleServer(
         id,
         function(input, output, session) {

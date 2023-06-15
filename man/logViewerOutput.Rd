@@ -44,8 +44,6 @@ logViewerOutput('logViewerId')
 
 }
 \seealso{
-\link[periscope2]{logViewer}
-
 \link[periscope2]{downloadFile}
 
 \link[periscope2]{downloadFile_ValidateTypes}
