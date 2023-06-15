@@ -4,10 +4,10 @@
 \alias{logViewerOutput}
 \title{Display app logs}
 \usage{
-logViewerOutput(id = "logViewerer")
+logViewerOutput(id = "logViewer")
 }
 \arguments{
-\item{id}{- character id for the object(default = "logViewerer")}
+\item{id}{- character id for the object(default = "logViewer")}
 }
 \value{
 shiny tableOutput instance
@@ -26,7 +26,7 @@ logged. The id must match the same id configured in \bold{server.R} file upon ca
 
 \section{Example}{
 
-\code{logViewerOutput('logViewerer')}
+\code{logViewerOutput('logViewer')}
 }
 
 \section{Shiny Usage}{

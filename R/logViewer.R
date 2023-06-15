@@ -9,7 +9,7 @@
 #' logged. The id must match the same id configured in \bold{server.R} file upon calling \code{fw_server_setup} method
 #'
 #'
-#' @param id - character id for the object(default = "logViewerer")
+#' @param id - character id for the object(default = "logViewer")
 #'
 #' @returns shiny tableOutput instance
 #'
@@ -20,7 +20,7 @@
 #' }
 #'
 #' @section Example:
-#' \code{logViewerOutput('logViewerer')}
+#' \code{logViewerOutput('logViewer')}
 #'
 #' @section Shiny Usage:
 #' Add the log viewer box to your box list
@@ -42,7 +42,7 @@
 #' @seealso \link[periscope2]{downloadFileButton}
 #' @seealso \link[periscope2]{downloadableTableUI}
 #' @seealso \link[periscope2]{downloadableTable}
-logViewerOutput <- function(id = "logViewerer") {
+logViewerOutput <- function(id = "logViewer") {
     ns <- shiny::NS(id)
     shiny::tableOutput(ns(id))
 }
@@ -64,7 +64,7 @@ logViewerOutput <- function(id = "logViewerer") {
 #' This function is private and called by \code{fw_server_setup} method only
 #'
 #' @noRd
-logViewer <- function(id = "logViewerer", logger) {
+logViewer <- function(id = "logViewer", logger) {
     shiny::moduleServer(
         id,
         function(input, output, session) {
