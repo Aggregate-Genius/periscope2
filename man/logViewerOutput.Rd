@@ -2,19 +2,19 @@
 % Please edit documentation in R/logViewer.R
 \name{logViewerOutput}
 \alias{logViewerOutput}
-\title{logViewer module UI function}
+\title{Display app logs}
 \usage{
-logViewerOutput(id)
+logViewerOutput(id = "logViewerer")
 }
 \arguments{
-\item{id}{- character id for the object}
+\item{id}{- character id for the object(default = "logViewerer")}
 }
 \value{
 shiny tableOutput instance
 }
 \description{
 Creates a shiny table with table containing logged user actions. Table contents are auto updated whenever a user action is
-logged
+logged. The id must match the same id configured in \bold{server.R} file upon calling \code{fw_server_setup} method
 }
 \section{Table columns}{
 
@@ -26,15 +26,14 @@ logged
 
 \section{Example}{
 
-\code{logViewerOutput('logViewerId')}
+\code{logViewerOutput('logViewerer')}
 }
 
 \section{Shiny Usage}{
 
 Add the log viewer box to your box list
 
-It is paired with a call to \code{logViewer(id, logger)}
-in server
+It is paired with a call to \code{fw_server_setup} method in \bold{server.R} file
 }
 
 \examples{

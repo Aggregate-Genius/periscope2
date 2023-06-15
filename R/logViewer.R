@@ -3,13 +3,13 @@
 # -- Display application log   --
 # -------------------------------------
 
-#' logViewer module UI function
+#' Display app logs
 #'
 #' Creates a shiny table with table containing logged user actions. Table contents are auto updated whenever a user action is
-#' logged
+#' logged. The id must match the same id configured in \bold{server.R} file upon calling \code{fw_server_setup} method
 #'
 #'
-#' @param id - character id for the object
+#' @param id - character id for the object(default = "logViewerer")
 #'
 #' @returns shiny tableOutput instance
 #'
@@ -20,13 +20,12 @@
 #' }
 #'
 #' @section Example:
-#' \code{logViewerOutput('logViewerId')}
+#' \code{logViewerOutput('logViewerer')}
 #'
 #' @section Shiny Usage:
 #' Add the log viewer box to your box list
 #'
-#' It is paired with a call to \code{logViewer(id, logger)}
-#' in server
+#' It is paired with a call to \code{fw_server_setup} method in \bold{server.R} file
 #'
 #'
 #' @examples
@@ -44,7 +43,7 @@
 #' @seealso \link[periscope2]{downloadFileButton}
 #' @seealso \link[periscope2]{downloadableTableUI}
 #' @seealso \link[periscope2]{downloadableTable}
-logViewerOutput <- function(id) {
+logViewerOutput <- function(id = "logViewerer") {
     ns <- shiny::NS(id)
     shiny::tableOutput(ns(id))
 }
@@ -54,6 +53,7 @@ logViewerOutput <- function(id) {
 #'
 #' Server-side function for the logViewerOutput  This is box with table displaying application logs.
 #' The server function is used to provide module configurations.
+#' The function is used internally only by \code{fw_server_setup} method
 #'
 #' @param id     - the ID of the Module's UI element
 #' @param logger - action logs to be displayed
@@ -82,6 +82,7 @@ logViewerOutput <- function(id) {
 #' @seealso \link[periscope2]{downloadableTable}
 #' @seealso \link[periscope2]{appResetButton}
 #' @seealso \link[periscope2]{appReset}
+#' @noRd
 logViewer <- function(id, logger) {
     shiny::moduleServer(
         id,
