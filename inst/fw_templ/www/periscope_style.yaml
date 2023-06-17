@@ -4,10 +4,10 @@
 ## Valid values are names of the color or hex-decimal value of the color (i.e,: "blue", "#086A87").
 ## Blank/empty values will use the default values
 
-primary:
-secondary:
+primary: #"#CBE7DF"
+secondary: #"#BE2BBB"
 success:
-info:
+info: "#CBE7DF"
 warning:
 danger:
 light:
@@ -26,7 +26,7 @@ sidebar_vertical_padding:
 right_sidebar_width:
 main_content_horizontal_padding:
 main_content_vertical_padding:
-main_background_color:
+main_background_color: "#FFFFFF"
 
 ### Width for the sidebar when it is minimized
 sidebar_mini_width:
@@ -37,10 +37,10 @@ sidebar_mini_width:
 ## Valid values are names of the color or hex-decimal value of the color (i.e,: "blue", "#086A87").
 ## Blank/empty values will use default values
 
-sidebar_background_color:
-sidebar_background_hover_color:
+sidebar_background_color: #"#595454"
+sidebar_background_hover_color: #"#EEE7E7"
 sidebar_hover_color:
-sidebar_color:
+sidebar_color: #"#FFFFFF"
 sidebar_active_color:
 submenu_background_color:
 submenu_color:
@@ -49,6 +49,6 @@ submenu_background_hover_color:
 submenu_active_color:
 submenu_active_background_color:
 header_color:
-button_background_color:
-button_color:
-button_border_color:
+button_background_color: #"#BE2BBB"
+button_color: #"#FFFFFF"
+button_border_color: #"#BE2BBB"
