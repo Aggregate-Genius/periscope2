@@ -24,18 +24,20 @@
 # -- Create Elements
 
 ### Application Setup Elements
-about_box <- jumbotron(
-    title = "periscope2: Enterprise Streamlined 'Shiny' Application Framework",
-    lead  = p("periscope2 is a scalable and UI-standardized 'shiny' framework including a variety of developer convenience",
-              "functions with the goal of both streamlining robust application development and assisting in creating a consistent",
-              " user experience regardless of application or developer."),
-    tags$dl(tags$dt("Features"),
+about_box <- box(
+    id     = "about_box",
+    width  = 12,
+    status = "info",
+    solidHeader = TRUE,
+    title  = "About periscope2",
+    tags$dl(tags$p("periscope2 is a scalable and UI-standardized 'shiny' framework including a variety of developer convenience",
+                   "functions with the goal of both streamlining robust application development and assisting in creating a consistent",
+                   " user experience regardless of application or developer."),
+            tags$dt("Features"),
             tags$ul(tags$li("A predefined but flexible template for new Shiny applications with a default dashboard layout"),
                     tags$li("Separation by file of functionality that exists in one of the three shiny scopes: global, server-global, and server-local."),
                     tags$li("Six off shelf and ready to be used modules ('Announcements', 'Table Downloader', 'Plot Downloader', 'File Downloader', 'Application Logger' and 'Reset Application'"),
-                    tags$li("Different methods to notify user and add useful information about application UI and server operations"))),
-    status = "info",
-    href   = "https://periscopeapps.org/"
+                    tags$li("Different methods to notify user and add useful information about application UI and server operations")))
 )
 
 files_organization_box <- box(
