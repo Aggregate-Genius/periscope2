@@ -4,7 +4,7 @@
 ## Valid values are names of the color or hex-decimal value of the color (i.e,: "blue", "#086A87").
 ## Blank/empty values will use the default values
 
-primary: "#EBCDFC" #"#7BDFF2"
+primary: "#EBCDFC"
 secondary: "#CD9489"
 success: "#2ED610"
 info: "#7BDFF2"
