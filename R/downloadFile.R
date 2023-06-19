@@ -34,7 +34,6 @@
 #' @seealso \link[periscope2]{downloadFile}
 #' @seealso \link[periscope2]{downloadFile_ValidateTypes}
 #' @seealso \link[periscope2]{downloadFile_AvailableTypes}
-#' @seealso \link[periscope2]{logViewer}
 #' @seealso \link[periscope2]{logViewerOutput}
 #' @seealso \link[periscope2]{downloadablePlot}
 #' @seealso \link[periscope2]{downloadableTableUI}
@@ -128,7 +127,6 @@ downloadFileButton <- function(id,
 #' @seealso \link[periscope2]{downloadFileButton}
 #' @seealso \link[periscope2]{downloadFile_ValidateTypes}
 #' @seealso \link[periscope2]{downloadFile_AvailableTypes}
-#' @seealso \link[periscope2]{logViewer}
 #' @seealso \link[periscope2]{logViewerOutput}
 #' @seealso \link[periscope2]{downloadablePlot}
 #' @seealso \link[periscope2]{downloadableTableUI}
@@ -351,7 +349,6 @@ downloadFile <- function(id,
 #'
 #' @seealso \link[periscope2]{downloadFileButton}
 #' @seealso \link[periscope2]{downloadFile}
-#' @seealso \link[periscope2]{logViewer}
 #' @seealso \link[periscope2]{logViewerOutput}
 #' @seealso \link[periscope2]{downloadablePlot}
 #' @seealso \link[periscope2]{downloadableTableUI}

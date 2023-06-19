@@ -173,6 +173,7 @@ reset_application_box <- box(
             appResetButton("appResetId"))
 )
 
+
 logger_box <- box(
     id          = "logger",
     title       = "Logging Information",
@@ -181,15 +182,15 @@ logger_box <- box(
     collapsible = TRUE,
     width       = 12,
     tags$dl(tags$dt("Features"),
-            tags$ul(tags$li(p("The collapsed ",
-                              strong("User Action Log"), em("below"),
-                              "is the standardized footer added by the framework.")),
+            tags$ul(tags$li(p("The table ", em("below"),
+                              " displays the recorded application action logs.")),
                     tags$li(p("It is important to note that the log ",
                               "rolls over for each session.  The log files are kept in the ",
                               "/log directory and named 'actions.log'.  ONE old copy of ",
                               "the log is kept as 'actions.log.last")))),
     tags$dl(tags$dt("Setup"),
-            tags$ul(tags$li("To create actions to the framework call one of the logging ",
+            tags$ul(tags$li("periscope2 setup application logger for created application in ", em("server.R")),
+                    tags$li("Developer need only to create actions to the framework by calling one of the logging ",
                             "functions like: "),
                     blockQuote(p(pre("S: logXXXX('Your Log Message with %s, %s parameters', parm1, parm2, logger = ss_userAction.Log)")),
                                color = "info"),

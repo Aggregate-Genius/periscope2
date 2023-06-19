@@ -3,7 +3,7 @@
 
 
 # Framework Server Setup
-fw_server_setup <- function(input, output, session, logger, logger_viewer_id) {
+fw_server_setup <- function(input, output, session, logger, logger_viewer_id = "logViewer") {
     logfile <- shiny::isolate(.setup_logging(session, logger))
     logViewer(logger_viewer_id, logfile)
 }
