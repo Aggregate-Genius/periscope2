@@ -92,14 +92,6 @@ downloadablePlot("examplePlot3",
 # --          SHINY SERVER CODE         --
 # ----------------------------------------
 # Display application info
-observeEvent(input$app_info, {
-    shinyalert(html                = TRUE,
-               showConfirmButton   = FALSE,
-               animation           = "slide-from-top",
-               closeOnClickOutside = TRUE,
-               text                = "app_info",
-               title               = "app_title")
-})
 
 # -- Observe UI Changes
 observeEvent(input$rightAlert, {
