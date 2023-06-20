@@ -33,7 +33,8 @@ a#app_info {
 .periscope-download-btn { }
 .periscope-download-choice {
     display        : flex;
-    justify-content: center;
+    justify-content: left;
+    margin-left    : 10%;
 }
 
 /*downloadfile multi dropdown file*/
