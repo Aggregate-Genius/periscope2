@@ -3,7 +3,7 @@
 
 
 # Framework Server Setup
-fw_server_setup <- function(input, output, session, logger, logger_viewer_id) {
+fw_server_setup <- function(input, output, session, logger, logger_viewer_id = "logViewer") {
     logfile <- shiny::isolate(.setup_logging(session, logger))
     logViewer(logger_viewer_id, logfile)
 }
@@ -38,7 +38,8 @@ fw_get_user_log <- function() {
 #' @keywords internal
 #' @noRd
 create_application_dashboard <- function() {
-    bs4Dash::bs4DashPage(header     = shiny::isolate(.g_opts$header),
+    bs4Dash::bs4DashPage(title      = shiny::isolate(.g_opts$app_title),
+                         header     = shiny::isolate(.g_opts$header),
                          body       = bs4Dash::bs4DashBody(shiny::isolate(.g_opts$body_elements)),
                          sidebar    = do.call(bs4Dash::bs4DashSidebar, shiny::isolate(.g_opts$left_sidebar)),
                          controlbar = shiny::isolate(.g_opts$right_sidebar),

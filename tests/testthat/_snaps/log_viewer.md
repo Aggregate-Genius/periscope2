@@ -1,6 +1,6 @@
 # logViewerOutput
 
-    <div id="myid-dt_userlog" class="shiny-html-output"></div>
+    <div id="myid-myid" class="shiny-html-output"></div>
 
 # logViewer - valid sample log
 

@@ -33,4 +33,14 @@ shinyServer(function(input, output, session) {
     loginfo("%s started with log level <%s>",
             periscope2:::fw_get_title(), periscope2:::fw_get_loglevel(),
             logger = ss_userAction.Log)
+
+    # Display application info
+    observeEvent(input$app_info, {
+        shinyalert(html                = TRUE,
+                   showConfirmButton   = FALSE,
+                   animation           = "slide-from-top",
+                   closeOnClickOutside = TRUE,
+                   text                = periscope2:::.g_opts$app_info,
+                   title               = periscope2:::.g_opts$app_title)
+    })
 })

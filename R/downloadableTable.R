@@ -44,7 +44,6 @@
 #'
 #' @seealso \link[periscope2]{downloadableTable}
 #' @seealso \link[periscope2]{downloadFileButton}
-#' @seealso \link[periscope2]{logViewer}
 #' @seealso \link[periscope2]{logViewerOutput}
 #' @seealso \link[periscope2]{downloadFile}
 #' @seealso \link[periscope2]{downloadFile_ValidateTypes}
@@ -148,7 +147,6 @@ downloadableTableUI <- function(id,
 #'
 #' @seealso \link[periscope2]{downloadableTableUI}
 #' @seealso \link[periscope2]{downloadFileButton}
-#' @seealso \link[periscope2]{logViewer}
 #' @seealso \link[periscope2]{logViewerOutput}
 #' @seealso \link[periscope2]{downloadFile}
 #' @seealso \link[periscope2]{downloadFile_ValidateTypes}

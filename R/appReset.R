@@ -47,7 +47,6 @@
 #' @seealso \link[periscope2]{downloadablePlot}
 #' @seealso \link[periscope2]{downloadFileButton}
 #' @seealso \link[periscope2]{downloadableTable}
-#' @seealso \link[periscope2]{logViewer}
 #' @seealso \link[periscope2]{logViewerOutput}
 appResetButton <- function(id) {
     ns <- shiny::NS(id)
@@ -104,7 +103,6 @@ appResetButton <- function(id) {
 #' @seealso \link[periscope2]{downloadablePlot}
 #' @seealso \link[periscope2]{downloadFileButton}
 #' @seealso \link[periscope2]{downloadableTable}
-#' @seealso \link[periscope2]{logViewer}
 #' @seealso \link[periscope2]{logViewerOutput}
 appReset <- function(id,
                      reset_wait     = 5000,
