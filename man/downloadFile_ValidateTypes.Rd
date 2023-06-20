@@ -32,8 +32,6 @@ It is a downloadFile module helper to return periscope2 defined file types list 
 
 \link[periscope2]{downloadFile}
 
-\link[periscope2]{logViewer}
-
 \link[periscope2]{logViewerOutput}
 
 \link[periscope2]{downloadablePlot}

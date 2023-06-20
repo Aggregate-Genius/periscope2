@@ -31,8 +31,15 @@ a#app_info {
 
 /* Download Button */
 .periscope-download-btn { }
-.periscope-download-choice { }
+.periscope-download-choice {
+    display        : flex;
+    justify-content: center;
+}
 
+/*downloadfile multi dropdown file*/
+.dropdown-menu.show {
+    min-width: 100%;
+}
 /* Downloadable Table */
 .periscope-downloadable-table { }
 .periscope-downloadable-table-header > div {

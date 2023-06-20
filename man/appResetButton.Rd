@@ -61,7 +61,5 @@ appResetButton(id = 'appResetId')
 
 \link[periscope2]{downloadableTable}
 
-\link[periscope2]{logViewer}
-
 \link[periscope2]{logViewerOutput}
 }
