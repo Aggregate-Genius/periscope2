@@ -115,8 +115,6 @@ currently selected rows in the display table.
 
 \link[periscope2]{downloadFileButton}
 
-\link[periscope2]{logViewer}
-
 \link[periscope2]{logViewerOutput}
 
 \link[periscope2]{downloadFile}

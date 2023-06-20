@@ -34,9 +34,6 @@ source(paste("program", "fxn", "plots.R", sep = .Platform$file.sep))
 appReset(id     = "appResetId",
          logger = ss_userAction.Log)
 
-logViewer(id     = "logViewerId",
-          logger = ss_userAction.Log)
-
 downloadFile("exampleDownload1",
              ss_userAction.Log,
              "examplesingle",
@@ -94,15 +91,6 @@ downloadablePlot("examplePlot3",
 # ----------------------------------------
 # --          SHINY SERVER CODE         --
 # ----------------------------------------
-# Display application info
-observeEvent(input$app_info, {
-    shinyalert(html                = TRUE,
-               showConfirmButton   = FALSE,
-               animation           = "slide-from-top",
-               closeOnClickOutside = TRUE,
-               text                = "app_info",
-               title               = "app_title")
-})
 
 # -- Observe UI Changes
 observeEvent(input$rightAlert, {

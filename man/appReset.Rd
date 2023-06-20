@@ -52,7 +52,5 @@ server_local.R (or similar file) using the same id provided in \code{appResetBut
 
 \link[periscope2]{downloadableTable}
 
-\link[periscope2]{logViewer}
-
 \link[periscope2]{logViewerOutput}
 }

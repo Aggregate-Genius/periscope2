@@ -17,7 +17,6 @@ empty_log <- function(){
 
 # UI unit tests
 test_that("logViewerOutput", {
-    local_edition(3)
     expect_snapshot_output(logViewerOutput("myid"))
 })
 
@@ -25,24 +24,26 @@ test_that("logViewerOutput", {
 # Server unit tests
 test_that("logViewer - valid sample log", {
     testServer(logViewer,
-               args = list(logger = sample_log),
+               args = list(id = "myid", logger = sample_log),
                expr = {
-                   expect_snapshot_output(output$dt_userlog)
+                   expect_snapshot_output(output$myid)
                })
 })
+
 
 test_that("logViewer - null sample log", {
     testServer(logViewer,
-               args = list(logger = null_log),
+               args = list(id = "nullLogger", logger = null_log),
                expr = {
-                   expect_null(output$dt_userlog)
+                   expect_null(output$nullLogger)
                })
 })
 
+
 test_that("logViewer - empty sample log", {
     testServer(logViewer,
-               args = list(logger = empty_log),
+               args = list(id = "emptyLogger", logger = empty_log),
                expr = {
-                   expect_null(output$dt_userlog)
+                   expect_null(output$emptyLogger)
                })
 })
