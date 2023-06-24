@@ -25,11 +25,11 @@
 
 ### Application Setup Elements
 about_box <- box(
-    id     = "about_box",
-    width  = 12,
-    status = "info",
+    id          = "about_box",
+    width       = 12,
+    status      = "info",
     solidHeader = TRUE,
-    title  = "About periscope2",
+    title       = "About periscope2",
     tags$dl(tags$p("periscope2 is a scalable and UI-standardized 'shiny' framework including a variety of developer convenience",
                    "functions with the goal of both streamlining robust application development and assisting in creating a consistent",
                    " user experience regardless of application or developer."),
