@@ -37,9 +37,9 @@ sidebar_mini_width:
 ## Blank/empty values will use default values
 
 sidebar_background_color: "#FFFFE6"
-sidebar_background_hover_color: #"#EEE7E7"
+sidebar_background_hover_color:
 sidebar_hover_color:
-sidebar_color: #"#FFFFFF"
+sidebar_color:
 sidebar_active_color:
 submenu_background_color:
 submenu_color:
@@ -48,6 +48,6 @@ submenu_background_hover_color:
 submenu_active_color:
 submenu_active_background_color:
 header_color:
-button_background_color: #"#BE2BBB"
-button_color: #"#FFFFFF"
-button_border_color: #"#BE2BBB"
+button_background_color:
+button_color:
+button_border_color:
