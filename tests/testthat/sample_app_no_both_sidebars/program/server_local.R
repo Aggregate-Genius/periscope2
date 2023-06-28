@@ -61,15 +61,15 @@ downloadableTable("exampleDT1",
                   "exampletable",
                   list(csv = load_data3, tsv = load_data3),
                   load_data3,
-                  table_options = list(colnames = c("Area", "Delta", "Increase"),
-                  filter = "bottom",
-                  callback = htmlwidgets::JS("table.order([1, 'asc']).draw();"),
-                  container = sketch,
-                  formatStyle = list(columns = c("Total.Population.Change"),
-                                     color = DT::styleInterval(0, c("red", "green"))),
-                  formatStyle = list(columns = c("Natural.Increase"),
-                                     backgroundColor = DT::styleInterval(c(7614, 15914, 34152),
-                                                                         c("lightgray", "gray", "cadetblue", "#808000")))))
+                  table_options = list(colnames    = c("Area", "Delta", "Increase"),
+                                       filter      = "bottom",
+                                       callback    = htmlwidgets::JS("table.order([1, 'asc']).draw();"),
+                                       container   = sketch,
+                                       formatStyle = list(columns = c("Total.Population.Change"),
+                                                          color   = DT::styleInterval(0, c("red", "green"))),
+                                       formatStyle = list(columns         = c("Natural.Increase"),
+                                                          backgroundColor = DT::styleInterval(c(7614, 15914, 34152),
+                                                                                              c("lightgray", "gray", "cadetblue", "#808000")))))
 downloadablePlot("examplePlot2",
                  ss_userAction.Log,
                  filenameroot = "plot2_ggplot",
@@ -91,14 +91,13 @@ downloadablePlot("examplePlot3",
 # ----------------------------------------
 # --          SHINY SERVER CODE         --
 # ----------------------------------------
-# Display application info
 
 # -- Observe UI Changes
 observeEvent(input$rightAlert, {
     loginfo("Right Sidebar Alert Button Pushed",
             logger = ss_userAction.Log)
     periscope2::createAlert(id      = "sidebarRightAlert",
-                            options = list(title   = "Right Side",
+                            options = list(title    = "Right Side",
                                            status   = "success",
                                            closable = TRUE,
                                            content  = "Example Basic Sidebar Alert"))
@@ -117,7 +116,7 @@ observeEvent(input$leftAlert, {
 
 observeEvent(input$bodyAlertBtn, {
     logdebug("Body Alert Example Button Pushed",
-            logger = ss_userAction.Log)
+             logger = ss_userAction.Log)
     periscope2::createAlert(id      = "bodyAlert",
                             options = list(title    = "Body",
                                            status   = "info",
@@ -137,11 +136,11 @@ observeEvent(input$footerAlertbtn, {
 
 observeEvent(input$headerAlertbtn, {
     loginfo("Header Alert Example Button Pushed",
-             logger = ss_userAction.Log)
+            logger = ss_userAction.Log)
     periscope2::createAlert(id      = "headerAlert",
                             options = list(title    = "Header",
                                            status   = "primary",
-                                           closable = FALSE,
+                                           closable = TRUE,
                                            content  = "Example Header Alert"))
 })
 
