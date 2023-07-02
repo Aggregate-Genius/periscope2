@@ -72,3 +72,10 @@ NULL
         }
     }
 }
+
+
+.onLoad <- function(libname, pkgname) {
+    if ("package:periscope" %in% search()) {
+        detach(name = package:periscope, unload = TRUE)
+    }
+}
