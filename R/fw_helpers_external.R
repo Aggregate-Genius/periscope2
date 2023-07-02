@@ -46,6 +46,7 @@ create_application_dashboard <- function() {
                          footer     = shiny::isolate(.g_opts$footer),
                          freshTheme = create_theme(),
                          dark       = NULL,
+                         help       = NULL,
                          preloader  = shiny::isolate(.g_opts$loading_indicator))
 }
 
