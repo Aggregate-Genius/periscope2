@@ -15,14 +15,17 @@ library(shinyalert)
 library(waiter)
 library(shinyjs)
 library(canvasXpress)
+library(glue)
+library(colourpicker)
+library(yaml)
 
 
 # -- Setup your Application --
-set_app_parameters(title              = "periscope Example Application",
+set_app_parameters(title              = "periscope2 Example Application",
                    app_info           = HTML("Demonstrat periscope features and generated application layout"),
                    log_level          = "DEBUG",
                    app_version        = "1.0.0",
-                   loading_indicator  = list(html = spin_1(), color = 'rgba(22, 65, 124, 0.3)'),
+                   loading_indicator  = list(html = tagList(spin_1(), "Loading ..."), color = 'rgba(22, 65, 124, 0.3)'),
                    announcements_file = "./program/config/announce.yaml")
 
 # -- PROGRAM --
