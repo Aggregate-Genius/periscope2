@@ -66,8 +66,14 @@ This is the main body area for applications where charts and figures, tables, et
 
 ### New Application Template Generation
 
-* **Empty application** - ready for the user to drop in their code!
-* **Sample application** - demonstrates framework features in a working application
+* User can generate two main types of applications:
+  * **Empty application** - ready for the user to drop in their code!
+  * **Sample application** - demonstrates framework features in a working application
+* To generate a sample application, set `sample_app` parameter in `create_application` to `TRUE`
+  * Default value is `FALSE`
+* Other sub-types will be based on enabling/disabling left and right sidebars
+  * Default is to enable left sidebar and disable right sidebar
+* Review `?create_application` for more details
 
 
 ### Built-in Conveniences
