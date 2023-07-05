@@ -1,7 +1,7 @@
 /***********************/
 /* periscope2 basic CSS */
 /***********************/
-/*Application2 title*/
+/*Application title*/
 a#app_info {
     color: #212529;
 }
@@ -52,4 +52,4 @@ a#app_info {
     top: -39px;
     float: right;
 }
-/* END of periscope basic CSS*/
+/* END of periscope2 basic CSS*/
