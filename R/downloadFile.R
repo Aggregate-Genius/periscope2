@@ -3,7 +3,7 @@
 # -------------------------------------------
 
 
-#' downloadFileButton UI
+#' downloadFileButton module UI function
 #'
 #' Creates a custom high-functionality button for file downloads with two
 #' states - single download type or multiple-download types.  The button image
@@ -34,7 +34,6 @@
 #' @seealso \link[periscope2]{downloadFile}
 #' @seealso \link[periscope2]{downloadFile_ValidateTypes}
 #' @seealso \link[periscope2]{downloadFile_AvailableTypes}
-#' @seealso \link[periscope2]{logViewer}
 #' @seealso \link[periscope2]{logViewerOutput}
 #' @seealso \link[periscope2]{downloadablePlot}
 #' @seealso \link[periscope2]{downloadableTableUI}
@@ -102,7 +101,7 @@ downloadFileButton <- function(id,
 }
 
 
-#' downloadFile Module
+#' downloadFile module server function
 #'
 #' Server-side function for the downloadFileButton.  This is a custom
 #' high-functionality button for file downloads supporting single or multiple
@@ -128,7 +127,6 @@ downloadFileButton <- function(id,
 #' @seealso \link[periscope2]{downloadFileButton}
 #' @seealso \link[periscope2]{downloadFile_ValidateTypes}
 #' @seealso \link[periscope2]{downloadFile_AvailableTypes}
-#' @seealso \link[periscope2]{logViewer}
 #' @seealso \link[periscope2]{logViewerOutput}
 #' @seealso \link[periscope2]{downloadablePlot}
 #' @seealso \link[periscope2]{downloadableTableUI}
@@ -330,7 +328,7 @@ downloadFile <- function(id,
 }
 
 
-#' downloadFile_ValidateTypes
+#' Check passed file types against downloadFile module allowed file types list
 #'
 #' It is a downloadFile module helper to return periscope2 defined file types list and warns user if an invalid type is included
 #'
@@ -351,7 +349,6 @@ downloadFile <- function(id,
 #'
 #' @seealso \link[periscope2]{downloadFileButton}
 #' @seealso \link[periscope2]{downloadFile}
-#' @seealso \link[periscope2]{logViewer}
 #' @seealso \link[periscope2]{logViewerOutput}
 #' @seealso \link[periscope2]{downloadablePlot}
 #' @seealso \link[periscope2]{downloadableTableUI}
@@ -360,8 +357,8 @@ downloadFile <- function(id,
 #' @export
 downloadFile_ValidateTypes <- function(types) {
     for (type in types) {
-        if ( !(type %in% shiny::isolate(.g_opts$data_download_types)) &&
-             !(type %in% shiny::isolate(.g_opts$plot_download_types)) ) {
+        if (!(type %in% shiny::isolate(.g_opts$data_download_types)) &&
+            !(type %in% shiny::isolate(.g_opts$plot_download_types)) ) {
             warning(paste0("file download list contains an invalid type <",
                            type, ">"))
         }
@@ -370,7 +367,7 @@ downloadFile_ValidateTypes <- function(types) {
 }
 
 
-#' downloadFile Helper
+#' downloadFile module list of allowed file types
 #'
 #' Returns a list of all supported types
 #'

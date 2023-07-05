@@ -72,3 +72,18 @@ NULL
         }
     }
 }
+
+
+.onLoad <- function(libname, pkgname) {
+    tryCatch({
+        if ("package:periscope" %in% search()) {
+            detach(name = package:periscope, unload = TRUE)
+        }
+    },
+    warning = function(w) {
+        logwarn(paste("Unable to cleanly unload the periscope package, due to:", w$message))
+    },
+    error = function(e) {
+        logwarn(paste("Unable to cleanly unload the periscope package, due to:", e$message))
+    })
+}

@@ -2,7 +2,7 @@
 % Please edit documentation in R/ui_helpers.R
 \name{get_url_parameters}
 \alias{get_url_parameters}
-\title{get_url_parameters}
+\title{Parse application passed URL parameters}
 \usage{
 get_url_parameters(session)
 }

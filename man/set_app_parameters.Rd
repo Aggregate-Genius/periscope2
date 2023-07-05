@@ -29,7 +29,7 @@ set_app_parameters(
          \item{Supplying \strong{NULL} will disable the title link functionality.}
 }}
 
-\item{log_level}{- Designating the log level to use for the user log (default = 'DEBUG')}
+\item{log_level}{- Designating the log level to use for the user log as 'DEBUG','INFO', 'WARN' or 'ERROR' (default = 'DEBUG')}
 
 \item{app_version}{- Character string designating the application version (default = '1.0.0')}
 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/downloadFile.R
 \name{downloadFileButton}
 \alias{downloadFileButton}
-\title{downloadFileButton UI}
+\title{downloadFileButton module UI function}
 \usage{
 downloadFileButton(id, downloadtypes = c("csv"), hovertext = NULL)
 }
@@ -62,8 +62,6 @@ downloadFileButton("object_id2",
 \link[periscope2]{downloadFile_ValidateTypes}
 
 \link[periscope2]{downloadFile_AvailableTypes}
-
-\link[periscope2]{logViewer}
 
 \link[periscope2]{logViewerOutput}
 

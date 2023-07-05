@@ -1,4 +1,4 @@
-#' add_ui_left_sidebar
+#' Add UI elements to dashboard left sidebar section
 #'
 #' This function adds left sidebar configurations and UI elements. It is called within "ui_left_sidebar.R".
 #' Check example application for detailed example
@@ -64,7 +64,7 @@ add_ui_left_sidebar <- function(sidebar_elements = NULL,
 }
 
 
-#' add_ui_header
+#' Add UI elements to dashboard header section
 #'
 #' Builds application header with given configurations and elements. It is called within "ui_header.R".
 #' Check example application for detailed example
@@ -165,7 +165,7 @@ add_ui_header <- function(left_menu          = NULL,
 }
 
 
-#' add_ui_body
+#' Add UI elements to dashboard body section
 #'
 #' Builds application body with given configurations and elements. It is called within "ui_body.R".
 #' Check example application for detailed example
@@ -216,7 +216,7 @@ add_ui_body <- function(body_elements = NULL, append = FALSE) {
 }
 
 
-#' createAlert
+#' Display alert panel at specified location
 #'
 #' Create an alert panel in server code to be displayed in the specified UI selector location
 #'
@@ -286,7 +286,7 @@ closeResetAlert <- function(id, session = shiny::getDefaultReactiveDomain()) {
 }
 
 
-#' add_ui_right_sidebar
+#' Add UI elements to dashboard right sidebar section
 #'
 #' Builds application right sidebar with given configurations and elements. It is called within "ui_right_sidebar.R".
 #' Check example application for detailed example
@@ -340,7 +340,7 @@ add_ui_right_sidebar <- function(sidebar_elements = NULL,
 }
 
 
-#' add_ui_footer
+#' Add UI elements to dashboard footer section
 #'
 #' Builds application footer with given configurations and elements. It is called within "ui_footer.R".
 #' Check example application for detailed example
@@ -387,7 +387,7 @@ add_ui_footer <- function(left  = NULL,
 }
 
 
-#' ui_tooltip
+#' Add tooltip icon and text to UI elements labels
 #'
 #' This function inserts a standardized tooltip image, label (optional),
 #' and hovertext into the application UI
@@ -455,7 +455,7 @@ ui_tooltip <- function(id,
 #'                                            application title.}
 #'                                      \item{Supplying \strong{NULL} will disable the title link functionality.}
 #'                             }
-#' @param log_level          - Designating the log level to use for the user log (default = 'DEBUG')
+#' @param log_level          - Designating the log level to use for the user log as 'DEBUG','INFO', 'WARN' or 'ERROR' (default = 'DEBUG')
 #' @param app_version        - Character string designating the application version (default = '1.0.0')
 #' @param loading_indicator  - It uses waiter (see https://waiter.john-coene.com/#/).\cr
 #'                             Pass a list like list(html = spin_1(), color = "#333e48") to \cr configure
@@ -504,7 +504,7 @@ set_app_parameters <- function(title,
 }
 
 
-#' get_url_parameters
+#' Parse application passed URL parameters
 #'
 #' This function returns any url parameters passed to the application as
 #' a named list.  Keep in mind url parameters are always user-session scoped

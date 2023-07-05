@@ -1,12 +1,13 @@
-/***********************/
+/************************/
 /* periscope2 basic CSS */
-/***********************/
-/*Application title*/
+/************************/
+
+/* Application Title */
 a#app_info {
     color: #212529;
 }
 
-/*periscope busy indcator */
+/* Busy Indicator */
 .periscope-busy-ind {
 
 }
@@ -31,7 +32,21 @@ a#app_info {
 
 /* Download Button */
 .periscope-download-btn { }
-.periscope-download-choice { }
+.periscope-download-choice {
+    display        : flex;
+    justify-content: left;
+    margin-left    : 10%;
+}
+
+/* downloadfile multi dropdown file */
+.dropdown-menu.show {
+    min-width: 100%;
+}
+
+/* LogViewer table */
+table.shiny-table {
+    min-width: 100%;
+}
 
 /* Downloadable Table */
 .periscope-downloadable-table { }
@@ -52,207 +67,55 @@ a#app_info {
     top: -39px;
     float: right;
 }
-/* END of periscope2 basic CSS*/
 
-a.btn.btn-secondary.btn-lg {
-    color: #FFFFFF!important;
-}
-
-
-a.btn.btn-secondary.btn-lg:hover {
-    background-color: #D02FCD !important;
-    border-color    : #A69F9F !important;
-}
-
-
-a.btn.btn-secondary.btn-lg:focus {
-    background-color: #D02FCD !important;
-    border-color    : #FFFFFE !important;
-    outline         : #BE2BBB solid 1px !important;
-    outline-offset  : 1px !important;
-}
-
-/* Styling for bsButtons with the style "primary" */
-.btn-primary {
-    color           : #FFF !important;
-    background-color: #BE2BBB !important;
-    border-color    : #A69F9F !important;
-}
-.btn-primary:hover {
-    background-color: #D02FCD !important;
-    border-color    : #A69F9F !important;
-}
-.btn-primary:focus {
-    background-color: #D02FCD !important;
-    border-color    : #FFFFFE !important;
-    outline         : #BE2BBB solid 1px !important;
-    outline-offset  : 1px !important;
-}
-/* End of primary button styling */
-
-.periscope-download-btn i.fa.fa-download {
-    color: black;
-}
-
-.periscope-download-btn,
-.btn-default {
-    border-color: #A69F9F !important;
-}
-
-.periscope-download-btn:focus,
-.btn-default:focus {
-    border-color: #BE2BBB !important;
-}
-
-.sidebar .periscope-download-btn:focus,
-.sidebar .btn-default:focus {
-    border-color: #A69F9F !important;
-    outline     : #BE2BBB double 1.5px !important;
-}
-
-i.fa-circle-info,
-i.fa-circle-question {
-    color: #BE2BBB;
-}
-
-/* Make sure help button (action link) has a focus ring. To use this style,
-   create the button with actionLink and set the class to "help-action-link" */
-a.help-action-link:focus {
-    border-style : double;
-    border-radius: 0.15em;
-    border-color : #BE2BBB;
-}
-
-.selectize-input,
-input[type="text"],
-input[type="number"] {
-    border-color: #A69F9F;
-}
-
-.selectize-input.focus {
-    border-color: #BE2BBB;
-    box-shadow  : none;
-}
-
-.sidebar .selectize-input.focus,
-.sidebar input[type="text"]:focus,
-.sidebar textarea:focus,
-.sidebar input[type="number"]:focus {
-    border-style: double;
-    border-color: #BE2BBB;
-    border-width: 2px;
-    box-shadow  : none;
-}
-
-/* Checkbox and radio buttons */
-input[type="checkbox"] {
-    -webkit-appearance: none;
-    appearance        : none;
-    background-color  : #FFF;
-    font              : inherit;
-    width             : 1.1em;
-    height            : 1.1em;
-    border            : 1px solid #595454;
-    border-radius     : 0.15em;
-    transform         : translateY(-0.075em);
-    display           : inline-grid;
-    place-content     : center;
-}
-input[type="checkbox"]::before {
-    content         : "";
-    width           : 0.7em;
-    height          : 0.7em;
-    transform       : scale(0);
-    transition      : 120ms transform ease-in-out;
-    background-color: #BE2BBB;
-    transform-origin: bottom left;
-    clip-path       : polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
-}
-@media (forced-colors: active) {
-    input[type="checkbox"]::before {
-        /* make sure checkmark is visible in Windows High Contrast Mode */
-        background-color: CanvasText;
-    }
-}
-input[type="checkbox"]:checked::before {
-  transform: scale(1);
-}
-input[type="checkbox"]:focus {
-    outline: none !important;
-    border : #BE2BBB double !important;
-}
-input[type="radio"] {
-    -webkit-appearance: none;
-    appearance        : none;
-    background-color  : #FFF;
-    margin            : 0;
-    font              : inherit;
-    color             : currentColor;
-    width             : 1.15em;
-    height            : 1.15em;
-    border            : 1px solid #595454;
-    border-radius     : 50%;
-    transform         : translateY(-0.075em);
-    display           : grid;
-    place-content     : center;
-}
-input[type="radio"]::before {
-    content      : "";
-    width        : 0.65em;
-    height       : 0.65em;
-    border-radius: 50%;
-    transform    : scale(0);
-    transition   : 120ms transform ease-in-out;
-    box-shadow   : inset 1em 1em #BE2BBB;
-    /* for compatibility with Windows High Contrast Mode: */
-    background-color: CanvasText;
-}
-input[type="radio"]:checked::before {
-    transform: scale(1);
-}
-input[type="radio"]:focus {
-    outline: none !important;
-    border : #BE2BBB double !important;
-}
-.shiny-input-container.disabled div.radio label,
-.shiny-input-container.disabled div.checkbox label {
-    opacity: 0.5;
-    cursor : not-allowed;
-}
-/* End of checkbox and radio buttons */
 
 /* Links styling */
 /* If we want to use the custom peach (sidebar) or purple (body) link colors we
    need add the class "text-link" to a UI element containing the link */
-.sidebar .text-link a {
-    color          : #FEDCCA !important;
-    text-decoration: underline;
+a:not(.nav-link) {
+    color: #007bff!important;
 }
-.text-link a,
-table.periscope-downloadable-table a {
-    color          : #BE2BBB !important;
-    text-decoration: underline;
+
+a:hover:not(.nav-link) {
+    color          : #0056B3 !important;
+    text-decoration: underline!important;
 }
-.text-link a:hover,
-table.periscope-downloadable-table a:hover {
-    text-decoration: underline !important;
-}
-.text-link a:focus,
-table.periscope-downloadable-table a:focus {
-    border-style : double;
-    border-radius: 0.15em;
+
+a:focus:not(.nav-link) {
+    color: #003875!important;
 }
 /* End of links styling */
 
-.dataTables_filter input {
-    background-color: #FFFFFF !important;
+/* -------Buttons Styles-------- */
+/* btn-primary button */
+.btn-primary {
+    color: #1F2D3D!important;
 }
 
-/* Prevent CX toolbar from displaying in front of modals or blocking dropdown inputs */
-.CanvasXpressToolbar {
-    z-index: 900 !important;
+.btn-primary:hover {
+    background-color: #D6BBE6 !important;
+    color           : #1F2D3D!important;
+}
+.btn-primary:focus {
+    background-color: #D6BBE6 !important;
+    color           : #1F2D3D!important;
 }
 
+/* btn-info button */
+.btn-info {
+    color: #1F2D3D!important;
+}
+
+.btn-info:hover {
+    background-color: #6EC8D9 !important;
+    color: #1F2D3D!important;
+}
+.btn-info:focus {
+    background-color: #6EC8D9 !important;
+    color: #1F2D3D!important;
+}
+
+/* END of periscope2 basic CSS*/
 
 /* ========================================================================== */
 

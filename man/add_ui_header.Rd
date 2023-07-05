@@ -2,7 +2,7 @@
 % Please edit documentation in R/ui_helpers.R
 \name{add_ui_header}
 \alias{add_ui_header}
-\title{add_ui_header}
+\title{Add UI elements to dashboard header section}
 \usage{
 add_ui_header(
   left_menu = NULL,

@@ -3,13 +3,13 @@
 # -- Display application log   --
 # -------------------------------------
 
-#' logViewerOutput
+#' Display app logs
 #'
 #' Creates a shiny table with table containing logged user actions. Table contents are auto updated whenever a user action is
-#' logged
+#' logged. The id must match the same id configured in \bold{server.R} file upon calling \code{fw_server_setup} method
 #'
 #'
-#' @param id character id for the object
+#' @param id - character id for the object(default = "logViewer")
 #'
 #' @returns shiny tableOutput instance
 #'
@@ -20,13 +20,12 @@
 #' }
 #'
 #' @section Example:
-#' \code{logViewerOutput('logViewerId')}
+#' \code{logViewerOutput('logViewer')}
 #'
 #' @section Shiny Usage:
 #' Add the log viewer box to your box list
 #'
-#' It is paired with a call to \code{logViewer(id, logger)}
-#' in server
+#' It is paired with a call to \code{fw_server_setup} method in \bold{server.R} file
 #'
 #'
 #' @examples
@@ -36,7 +35,6 @@
 #'
 #'
 #' @export
-#' @seealso \link[periscope2]{logViewer}
 #' @seealso \link[periscope2]{downloadFile}
 #' @seealso \link[periscope2]{downloadFile_ValidateTypes}
 #' @seealso \link[periscope2]{downloadFile_AvailableTypes}
@@ -44,16 +42,17 @@
 #' @seealso \link[periscope2]{downloadFileButton}
 #' @seealso \link[periscope2]{downloadableTableUI}
 #' @seealso \link[periscope2]{downloadableTable}
-logViewerOutput <- function(id) {
+logViewerOutput <- function(id = "logViewer") {
     ns <- shiny::NS(id)
-    shiny::tableOutput(ns("dt_userlog"))
+    shiny::tableOutput(ns(id))
 }
 
 
-#' logViewer Module Server Function
+#' logViewer module server function
 #'
 #' Server-side function for the logViewerOutput  This is box with table displaying application logs.
 #' The server function is used to provide module configurations.
+#' The function is used internally only by \code{fw_server_setup} method
 #'
 #' @param id     - the ID of the Module's UI element
 #' @param logger - action logs to be displayed
@@ -62,32 +61,14 @@ logViewerOutput <- function(id) {
 #'
 #'
 #' @section Shiny Usage:
-#' This function is not called directly by consumers - it is accessed in
-#' server_local.R (or similar file) using the same id provided in \code{logViewerOutput}:
+#' This function is private and called by \code{fw_server_setup} method only
 #'
-#' \strong{\code{logViewer(id = "logViewerId", logger = ss_userAction.Log)}}
-#'
-#' @examples
-#' # Inside server_local.R
-#'
-#' #logViewer(id = "logViewerId", logger = ss_userAction.Log)
-#'
-#' @export
-#' @seealso \link[periscope2]{logViewerOutput}
-#' @seealso \link[periscope2]{downloadFile}
-#' @seealso \link[periscope2]{downloadFile_ValidateTypes}
-#' @seealso \link[periscope2]{downloadFile_AvailableTypes}
-#' @seealso \link[periscope2]{downloadablePlot}
-#' @seealso \link[periscope2]{downloadFileButton}
-#' @seealso \link[periscope2]{downloadableTableUI}
-#' @seealso \link[periscope2]{downloadableTable}
-#' @seealso \link[periscope2]{appResetButton}
-#' @seealso \link[periscope2]{appReset}
-logViewer <- function(id, logger) {
+#' @noRd
+logViewer <- function(id = "logViewer", logger) {
     shiny::moduleServer(
         id,
         function(input, output, session) {
-            output$dt_userlog <- shiny::renderTable({
+            output[[id]] <- shiny::renderTable({
                 lines <- logger()
                 if (length(lines) > 0) {
                     out1 <- data.frame(orig = lines, stringsAsFactors = F)

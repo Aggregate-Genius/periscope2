@@ -2,7 +2,7 @@
 % Please edit documentation in R/downloadablePlot.R
 \name{downloadablePlot}
 \alias{downloadablePlot}
-\title{downloadablePlot Module}
+\title{downloadablePlot module server function}
 \usage{
 downloadablePlot(
   id,
@@ -77,8 +77,6 @@ downloadfxns, visibleplot)}}
 \link[periscope2]{downloadFile_AvailableTypes}
 
 \link[periscope2]{downloadableTable}
-
-\link[periscope2]{logViewer}
 
 \link[periscope2]{logViewerOutput}
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/appReset.R
 \name{appReset}
 \alias{appReset}
-\title{appReset Module Server Function}
+\title{appReset module server function}
 \usage{
 appReset(id, reset_wait = 5000, alert_location = "bodyAlert", logger)
 }
@@ -51,8 +51,6 @@ server_local.R (or similar file) using the same id provided in \code{appResetBut
 \link[periscope2]{downloadFileButton}
 
 \link[periscope2]{downloadableTable}
-
-\link[periscope2]{logViewer}
 
 \link[periscope2]{logViewerOutput}
 }
