@@ -1,12 +1,13 @@
-/***********************/
+/************************/
 /* periscope2 basic CSS */
-/***********************/
-/*Application2 title*/
+/************************/
+
+/* Application Title */
 a#app_info {
     color: #212529;
 }
 
-/*periscope busy indcator */
+/* Busy Indicator */
 .periscope-busy-ind {
 
 }
@@ -61,4 +62,4 @@ a#app_info {
     top: -39px;
     float: right;
 }
-/* END of periscope basic CSS*/
+/* END of periscope2 basic CSS*/

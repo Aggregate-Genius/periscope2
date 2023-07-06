@@ -3,7 +3,6 @@ CMD
 DOM
 DT
 DropdownMenu
-LogViewer
 Tooltip
 Tooltips
 UI
@@ -24,7 +23,6 @@ css
 csv
 customizable
 datatable
-dismissible
 downloadFile
 downloadFileButton
 downloadFileButton's
@@ -54,7 +52,6 @@ javascript
 js
 logViewer
 logViewerOutput
-loglevel
 mailto
 mis
 modularize
@@ -67,7 +64,6 @@ rownumbers
 scalable
 shinyServer
 singleSelect
-sortable
 ss
 tableOutput
 templated

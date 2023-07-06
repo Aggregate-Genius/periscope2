@@ -1,6 +1,7 @@
-/***********************/
+/************************/
 /* periscope2 basic JS  */
-/***********************/
+/************************/
+
 // Control busy indicator div in the header
 setInterval(function() {
     if ($('html').attr('class')=='shiny-busy') {

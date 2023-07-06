@@ -1,12 +1,13 @@
-/***********************/
+/************************/
 /* periscope2 basic CSS */
-/***********************/
-/*Application2 title*/
+/************************/
+
+/* Application Title */
 a#app_info {
     color: #212529;
 }
 
-/*periscope busy indcator */
+/* Busy Indicator */
 .periscope-busy-ind {
 
 }
@@ -67,6 +68,7 @@ table.shiny-table {
     float: right;
 }
 
+
 /* Links styling */
 /* If we want to use the custom peach (sidebar) or purple (body) link colors we
    need add the class "text-link" to a UI element containing the link */
@@ -112,8 +114,8 @@ a:focus:not(.nav-link) {
     background-color: #6EC8D9 !important;
     color: #1F2D3D!important;
 }
-/* rest of buttons styles and rest app button*/
-/* END of periscope basic CSS*/
+
+/* END of periscope2 basic CSS*/
 
 /* ========================================================================== */
 

@@ -35,7 +35,7 @@ jobs:
           name: Install R dependencies
           command: |
             R -e 'install.packages(c("bs4Dash", "shinyWidgets", "yaml", "DT", "writexl", "fresh"))'
-            R -e 'install.packages(c("canvasXpress", "waiter", "shinyjs", "openxlsx"))'
+            R -e 'install.packages(c("canvasXpress", "waiter", "shinyjs", "openxlsx", "spelling", "shinyalert"))'
 
       - run:
           name: Session information and installed package versions
@@ -78,7 +78,7 @@ jobs:
           name: Install R dependencies
           command: |
             R -e 'install.packages(c("bs4Dash", "shinyWidgets", "yaml", "DT", "writexl", "fresh"))'
-            R -e 'install.packages(c(canvasXpress", "waiter", "shinyjs", "openxlsx"))'
+            R -e 'install.packages(c("canvasXpress", "waiter", "shinyjs", "openxlsx", "spelling", "shinyalert"))'
             R -e 'install.packages("covr")'
 
       - run:
