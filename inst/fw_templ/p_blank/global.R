@@ -21,7 +21,7 @@ set_app_parameters(title              = "Set title in global.R using set_app_par
                    app_info           = NULL,
                    log_level          = "DEBUG",
                    app_version        = "1.0.0",
-                   loading_indicator  = list(html = spin_1(), color = 'rgba(22, 65, 124, 0.3)'),
+                   loading_indicator  = list(html = tagList(spin_1(), "Loading ..."), color = "rgba(22, 65, 124, 0.3)"),
                    announcements_file = "./program/config/announce.yaml")
 
 # -- PROGRAM --
