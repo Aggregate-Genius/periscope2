@@ -116,7 +116,7 @@ logger_box <- box(
                             tags$p("Click different button in the example application and compare console with below output"),
                             br(),
                             br(),
-                            div(logViewerOutput("logViewerId2"), style = "min-width: 'auto';"))))
+                            div(logViewerOutput("logViewerId"), style = "min-width: 'auto';"))))
 )
 
 
