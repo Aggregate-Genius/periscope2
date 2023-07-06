@@ -30,13 +30,13 @@ source(paste("program", "fxn", "plots.R", sep = .Platform$file.sep))
 # -- VARIABLES --
 
 orignal_theme_settings <- list()
-orignal_theme_settings[["primary"]]               <- "#EBCDFC"
-orignal_theme_settings[["secondary"]]             <- "#CD9489"
-orignal_theme_settings[["success"]]               <- "#2ED610"
-orignal_theme_settings[["info"]]                  <- "#7BDFF2"
-orignal_theme_settings[["warning"]]               <- "#FFF200"
-orignal_theme_settings[["danger"]]                <- "#CE0900"
-orignal_theme_settings[["main_background_color"]] <- "#FFFFE6"
+orignal_theme_settings[["primary"]]                  <- "#EBCDFC"
+orignal_theme_settings[["secondary"]]                <- "#CD9489"
+orignal_theme_settings[["success"]]                  <- "#2ED610"
+orignal_theme_settings[["info"]]                     <- "#7BDFF2"
+orignal_theme_settings[["warning"]]                  <- "#FFF200"
+orignal_theme_settings[["danger"]]                   <- "#CE0900"
+orignal_theme_settings[["sidebar_background_color"]] <- "#FFFFE6"
 
 # -- FUNCTIONS --
 appReset(id     = "appResetId",
@@ -299,12 +299,38 @@ observeEvent(input$update_app_theme, {
         theme_settings[["right_sidebar_width"]] <- right_width
     }
 
-    theme_settings[["main_background_color"]]          <- input$background_color_picker
+    background_color_picker               <- NULL
+    sidebar_background_hover_color_picker <- NULL
+    sidebar_hover_color_picker            <- NULL
+    sidebar_color_picker                  <- NULL
+    sidebar_active_color_picker           <- NULL
+
+    if (input$background_color_picker != "#FFFFFF") {
+        background_color_picker <- input$background_color_picker
+    }
+
+    if (input$sidebar_background_hover_color_picker != "#FFFFFF") {
+        sidebar_background_hover_color_picker <- input$sidebar_background_hover_color_picker
+    }
+
+    if (input$sidebar_hover_color_picker != "#FFFFFF") {
+        sidebar_hover_color_picker <- input$sidebar_hover_color_picker
+    }
+
+    if (input$sidebar_color_picker != "#FFFFFF") {
+        sidebar_color_picker <- input$sidebar_color_picker
+    }
+
+    if (input$sidebar_active_color_picker != "#FFFFFF") {
+        sidebar_active_color_picker <- input$sidebar_active_color_picker
+    }
+
+    theme_settings[["main_background_color"]]          <- background_color_picker
     theme_settings[["sidebar_background_color"]]       <- input$sidebar_background_color_picker
-    theme_settings[["sidebar_background_hover_color"]] <- input$sidebar_background_hover_color_picker
-    theme_settings[["sidebar_hover_color"]]            <- input$sidebar_hover_color_picker
-    theme_settings[["sidebar_color"]]                  <- input$sidebar_color_picker
-    theme_settings[["sidebar_active_color"]]           <- input$sidebar_active_color_picker
+    theme_settings[["sidebar_background_hover_color"]] <- sidebar_background_hover_color_picker
+    theme_settings[["sidebar_hover_color"]]            <- sidebar_hover_color_picker
+    theme_settings[["sidebar_color"]]                  <- sidebar_color_picker
+    theme_settings[["sidebar_active_color"]]           <- sidebar_active_color_picker
 
     write_yaml(theme_settings, "www/periscope_style.yaml")
     session$reload()
