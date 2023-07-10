@@ -18,7 +18,7 @@ License: GPL-3
 Encoding: UTF-8
 Language: en-US
 Depends:
-    R (>= 4.0.5)
+    R (>= 4.0)
 Imports:
     shiny (>= 1.7),
     bs4Dash (>= 2.3),
