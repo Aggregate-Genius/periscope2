@@ -304,8 +304,8 @@ test_that("load_announcements empty file", {
 test_that("load_announcements function parameters", {
     expect_null(create_announcements(start_date = "11-26-2022",
                                      end_data   = "12-26-2022"))
-    expect_null(create_announcements(start_date        = "11-26-2022",
-                                     end_data          = "12-26-2022",
+    expect_null(create_announcements(start_date        = "11-26-2222",
+                                     end_data          = "12-26-2222",
                                      start_date_format = "%m-%d-%y",
                                      end_date_format   = "%m-%d-%y"))
     expect_null(create_announcements(start_date        = "11-26-2022",
