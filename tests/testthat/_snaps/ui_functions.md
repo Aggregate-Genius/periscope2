@@ -258,3 +258,13 @@
     Output
       [1] 669361
 
+# theme - invalid theme settings
+
+    Code
+      nchar(create_theme())
+    Warning <simpleWarning>
+      primary has invalid color value. Setting default color.
+      -300 must be positive value. Setting default value.
+    Output
+      [1] 669423
+

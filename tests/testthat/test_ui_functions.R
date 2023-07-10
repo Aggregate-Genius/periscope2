@@ -398,3 +398,17 @@ test_that("theme - parsing error", {
     unlink("www/periscope_style.yaml")
     unlink("www", recursive = TRUE)
 })
+
+
+test_that("theme - invalid theme settings", {
+    theme_settings <- yaml::read_yaml(system.file("fw_templ", "p_example", "periscope_style.yaml", package = "periscope2"))
+    dir.create("www")
+    theme_settings[["primary"]]             <- "not color"
+    theme_settings[["sidebar_width"]]       <- "300"
+    theme_settings[["right_sidebar_width"]] <- "-300"
+
+    yaml::write_yaml(theme_settings, "www/periscope_style.yaml")
+    expect_snapshot(nchar(create_theme()))
+    unlink("www/periscope_style.yaml")
+    unlink("www", recursive = TRUE)
+})
