@@ -316,20 +316,20 @@ test_that("load_announcements - parsing error", {
 })
 
 test_that("load_announcements function parameters", {
-    expect_null(create_announcements(start_date = "11-26-2022",
-                                     end_data   = "12-26-2022"))
+    expect_null(create_announcements(start_date = "2222-11-26",
+                                     end_data   = "2222-12-26"))
     expect_null(create_announcements(start_date        = "11-26-2222",
                                      end_data          = "12-26-2222",
-                                     start_date_format = "%m-%d-%y",
-                                     end_date_format   = "%m-%d-%y"))
-    expect_null(create_announcements(start_date        = "11-26-2022",
-                                     end_data          = "12-26-2022",
-                                     end_date_format   = "%m-%d-%y"))
-    expect_null(create_announcements(start_date        = "11-26-2022",
-                                     end_data          = "12-26-2022",
-                                     start_date_format = "%m-%d-%y"))
-    expect_null(create_announcements(start_date        = "11-26-2022",
-                                     start_date_format = "%m-%d-%y"))
+                                     start_date_format = "%m-%d-%Y",
+                                     end_date_format   = "%m-%d-%Y"))
+    expect_null(create_announcements(start_date        = "11-26-2222",
+                                     end_data          = "12-26-2222",
+                                     end_date_format   = "%m-%d-%Y"))
+    expect_null(create_announcements(start_date        = "11-26-2222",
+                                     end_data          = "12-26-2222",
+                                     start_date_format = "%m-%d-%Y"))
+    expect_null(create_announcements(start_date        = "11-26-2222",
+                                     start_date_format = "%m-%d-%Y"))
     expect_null(create_announcements(style = "info"))
     expect_null(create_announcements(style      = "info",
                                      text       = "text",
