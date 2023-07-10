@@ -34,7 +34,7 @@ jobs:
       - run:
           name: Install R dependencies
           command: |
-            R -e 'install.packages("bs4Dash", type = "source")'
+            R -e 'install.packages("bs4Dash", "2.3.0")'
             R -e 'install.packages(c("bs4Dash", "shinyWidgets", "yaml", "DT", "writexl", "fresh"))'
             R -e 'install.packages(c("canvasXpress", "waiter", "shinyjs", "openxlsx", "spelling", "shinyalert"))'
 
