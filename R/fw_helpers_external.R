@@ -153,7 +153,7 @@ create_theme <- function() {
             measure <- theme_settings[[measure_key]]
 
             if (!is.null(measure)) {
-                if (any(!is.numeric(measure), measure <= 0)) {
+                if (is.na(as.numeric(measure)) || measure <= 0) {
                     warning(measure, " must be positive value. Setting default value.")
                     theme_settings[[measure_key]] <- NULL
                 } else {
