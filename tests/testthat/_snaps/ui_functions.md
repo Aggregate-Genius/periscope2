@@ -251,3 +251,10 @@
     Output
       [1] 669399
 
+# theme - parsing error
+
+    Code
+      nchar(suppressWarnings(periscope2:::create_theme()))
+    Output
+      [1] 669361
+

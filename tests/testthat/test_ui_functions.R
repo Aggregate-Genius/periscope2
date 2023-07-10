@@ -378,11 +378,23 @@ test_that("ui_tooltip no text", {
     expect_warning(ui_tooltip(id = "id", label = "mylabel", text = ""), "ui_tooltip\\() called without tooltip text.")
 })
 
+
 test_that("theme - valid theme", {
     theme_settings <- yaml::read_yaml(system.file("fw_templ", "p_example", "periscope_style.yaml", package = "periscope2"))
     dir.create("www")
     yaml::write_yaml(theme_settings, "www/periscope_style.yaml")
     expect_snapshot(nchar(create_theme()))
+    unlink("www/periscope_style.yaml")
+    unlink("www", recursive = TRUE)
+})
+
+
+test_that("theme - parsing error", {
+    dir.create("www")
+    theme_file           <- "www/periscope_style.yaml"
+    cat(":", file = (con <- file(theme_file, "w", encoding = "UTF-8")))
+    close(con)
+    expect_snapshot(nchar(suppressWarnings(periscope2:::create_theme())))
     unlink("www/periscope_style.yaml")
     unlink("www", recursive = TRUE)
 })
