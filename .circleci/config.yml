@@ -1,6 +1,6 @@
 # Notes:
 # - Docker containers with R, etc. provided by rocker.  See <https://hub.docker.com/r/rocker/verse>.
-# - Builds attempted for 4.1.3, and the *latest* R edition supported by rocker.
+# - Builds attempted for 4.0.5, and the *latest* R edition supported by rocker.
 
 version: 2.1
 
@@ -9,14 +9,14 @@ workflows:
   version: 2
   Prepare-All-R-Editions:
     jobs:
-      - Build-for-r4_1_3
+      - Build-for-r4_0_5
       - Build-for-rLATEST
 
 jobs:
 
-  Build-for-r4_1_3:
+  Build-for-r4_0_5:
     docker:
-      - image: rocker/verse:4.1.3
+      - image: rocker/verse:4.0.5
 
     steps:
       - checkout
