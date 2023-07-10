@@ -244,3 +244,10 @@
 
     'arg' should be one of "top", "bottom", "left", "right"
 
+# theme - valid theme
+
+    Code
+      nchar(create_theme())
+    Output
+      [1] 669399
+
