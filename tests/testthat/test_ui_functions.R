@@ -301,6 +301,20 @@ test_that("load_announcements empty file", {
     unlink(announcements_file, TRUE)
 })
 
+test_that("load_announcements - parsing error", {
+    # test empty announcement
+    appTemp_dir        <- tempdir()
+    appTemp            <- tempfile(pattern = "TestThatApp", tmpdir = appTemp_dir)
+    announcements_file <- paste0(gsub('\\\\|/', '', (gsub(appTemp_dir, "", appTemp, fixed = TRUE))), ".yaml")
+    cat(":", file = (con <- file(announcements_file, "w", encoding = "UTF-8")))
+    close(con)
+
+    periscope2::set_app_parameters(title              = "title",
+                                   announcements_file = announcements_file)
+    expect_warning(periscope2:::load_announcements(), regexp = "[(Could not parse TestThatApp)]")
+    unlink(announcements_file, TRUE)
+})
+
 test_that("load_announcements function parameters", {
     expect_null(create_announcements(start_date = "11-26-2022",
                                      end_data   = "12-26-2022"))
