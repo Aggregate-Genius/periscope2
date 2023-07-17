@@ -17,9 +17,20 @@ vignette: >
 
 ## Purpose
 
-As an extension of [periscope](https://cran.rstudio.com/web/packages/periscope/index.html) package, periscope2 was created for the express purpose of making it easy for shiny developers to create consistent-looking and functioning applications with more advanced UI functionality and a modern look while still utilizing the enterprise-focused framework. This is important because it reduces the time a user must spend to learn the interface for new applications (this reducing application support time and increasing the user's satisfaction across applications).
+***periscope2*** is a scalable and UI-standardized 'shiny' framework including a variety of developer convenience functions with the goal of both streamlining robust application development and assisting in creating a consistent user experience regardless of application or developer.
 
-In addition to creating a consistent UI experience this framework reduces development time for new applications by removing some of the boilerplate aspects of new applications such as alerting, logging, etc.
+
+***periscope2*** is rich of developer-friendly features as:
+
+* A predefined but flexible templates for new Shiny applications with a default [bs4Dash](https://bs4dash.rinterface.com/) layout
+* Separation by file of functionality that exists in one of the three shiny scopes: global, server-global, and server-local
+* Generated applications are organised in an easy to follow and maintain folder structure based on files functionality
+* Off shelf and ready to be used modules ('Table Downloader', 'Plot Downloader', 'File Downloader' and 'Reset Application'
+  * More modules are introduced in each new version
+* Different methods and tools to alert users and add useful information about application UI and server operations
+* Application logger with different levels and a UI tool to display and review recorded application logs
+* Application look and feel can be customized easily via 'www/periscope_style.yaml' or more advanced via 'www/css/custom.css'
+* Application can make use of JS power by customizing 'www/js/custom.js'
 
 <br>
 
@@ -319,7 +330,7 @@ set_app_parameters(title = "My Application Title")
 
 # Application Title links to an external url
 set_app_parameters(title     = "My Application Title",
-                   titleinfo = "http://www.somelocation.com")
+                   titleinfo = "Application Valid Website")
 
 # Application Title links to a modal window with HTML content
 set_app_parameters(title     = "My Application Title",

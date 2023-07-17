@@ -8,8 +8,8 @@ output:
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/periscope2)](https://CRAN.R-project.org/package=periscope2)
 [![Downloads Total](http://cranlogs.r-pkg.org/badges/grand-total/periscope2)](https://cran.r-project.org/package=periscope2)
-[![CircleCI build status](https://circleci.com/gh/Aggregate-Genius/periscope2.svg?style=svg)](https://circleci.com/gh/Aggregate-Genius/periscope2)
-[![](https://codecov.io/gh/Aggregate-Genius/periscope2/branch/master/graph/badge.svg)](https://codecov.io/gh/Aggregate-Genius/periscope2)
+[![CircleCI build status](https://circleci.com/gh/Aggregate-Genius/periscope2.svg?style=svg)](https://app.circleci.com/pipelines/github/Aggregate-Genius/periscope2?branch=master)
+[![](https://app.codecov.io/gh/Aggregate-Genius/periscope2/branch/master/graph/badge.svg)](https://app.codecov.io/gh/Aggregate-Genius/periscope2)
 <!-- badges: end -->
 
 ***periscope2*** is a scalable and UI-standardized 'shiny' framework including a variety of developer convenience functions with the goal of both streamlining robust application development and assisting in creating a consistent user experience regardless of application or developer.
