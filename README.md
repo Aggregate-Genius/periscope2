@@ -8,10 +8,28 @@ output:
 <!-- badges: start -->
   [![R-CMD-check](https://github.com/Aggregate-Genius/periscope2/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Aggregate-Genius/periscope2/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
-  
-***periscope2*** is an extension of [periscope](https://cran.rstudio.com/web/packages/periscope/index.html) package. It provides a predefined but flexible template for new Shiny applications with a default dashboard layout, three locations for user alerts, a nice busy indicator and logging features. 
 
-One of the most important features of the shiny applications created with this framework is the separation by file of functionality that exists in one of the three shiny scopes: global, server-global, and server-local. The framework forces application developers to consciously consider scoping in Shiny applications by making scoping distinctions very clear without interfering with normal application development. Scoping consideration is important for performance and scaling, which is critical when working with large datasets and/or across many users.  In addition to creating a consistent UI experience this framework reduces development time for new applications by removing some of the boilerplate aspects of new applications such as alerting, logging, etc.
+***periscope2*** is a scalable and UI-standardized 'shiny' framework including a variety of developer convenience functions with the goal of both streamlining robust application development and assisting in creating a consistent user experience regardless of application or developer.
+
+
+***periscope2*** is rich of developer-friendly features as:
+
+* A predefined but flexible templates for new Shiny applications with a default [bs4Dash](https://bs4dash.rinterface.com/) layout
+* Separation by file of functionality that exists in one of the three shiny scopes: global, server-global, and server-local
+* Generated applications are organised in an easy to follow and maintain folder structure based on files functionality
+* Off shelf and ready to be used modules ('Table Downloader', 'Plot Downloader', 'File Downloader' and 'Reset Application'
+  * More modules are introduced in each new version
+* Different methods and tools to alert users and add useful information about application UI and server operations
+* Application logger with different levels and a UI tool to display and review recorded application logs
+* Application look and feel can be customized easily via 'www/periscope_style.yaml' or more advanced via 'www/css/custom.css'
+* Application can make use of JS power by customizing 'www/js/custom.js'
+
+Create and run sample app for full features demo
+
+```{r}
+periscope2::create_application(name = "demo_app", location = ".", sample_app = T, right_sidebar = T)
+shiny::runApp("./demo_app/", launch.browser = T)
+```
 
 ### Installation
 
