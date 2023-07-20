@@ -53,60 +53,62 @@ expect_cleanup_create_new_application <- function(full_name,
 }
 
 test_that("create_application empty full app", {
-    appTemp_dir  <- tempdir()
-    appTemp      <- tempfile(pattern = "TestThatApp", tmpdir = appTemp_dir)
-    appTemp_name <- gsub('\\\\|/', '', (gsub(appTemp_dir, "", appTemp, fixed = TRUE)))
+    appTemp_dir    <- tempdir()
+    appTemp        <- tempfile(pattern = "TestThatApp", tmpdir = appTemp_dir)
+    appTemp_name   <- gsub('\\\\|/', '', (gsub(appTemp_dir, "", appTemp, fixed = TRUE)))
+    create_app_msg <- capture_message(create_application(name          = appTemp_name,
+                                                        location      = appTemp_dir,
+                                                        sample_app    = FALSE,
+                                                        right_sidebar = TRUE))$message
 
-    expect_message(create_application(name          = appTemp_name,
-                                      location      = appTemp_dir,
-                                      sample_app    = FALSE,
-                                      right_sidebar = TRUE),
-                   paste("periscope2 application", appTemp_name, "was created successfully at ", appTemp_dir))
+    expect_equal(create_app_msg,
+                 paste0("periscope2 application ", appTemp_name, " was created successfully at ", appTemp_dir, "\n"))
     expect_cleanup_create_new_application(full_name     = appTemp,
                                           right_sidebar = TRUE)
 })
 
 test_that("create_application sample", {
-    local_edition(3)
-    appTemp_dir  <- tempdir()
-    appTemp      <- tempfile(pattern = "TestThatApp", tmpdir = appTemp_dir)
-    appTemp_name <- gsub('\\\\|/', '', (gsub(appTemp_dir, "", appTemp, fixed = TRUE)))
+    appTemp_dir    <- tempdir()
+    appTemp        <- tempfile(pattern = "TestThatApp", tmpdir = appTemp_dir)
+    appTemp_name   <- gsub('\\\\|/', '', (gsub(appTemp_dir, "", appTemp, fixed = TRUE)))
+    create_app_msg <- capture_message(create_application(name       = appTemp_name,
+                                                         location   = appTemp_dir,
+                                                         sample_app = TRUE))$message
 
-    expect_message(create_application(name       = appTemp_name,
-                                      location   = appTemp_dir,
-                                      sample_app = TRUE),
-                   paste("periscope2 application", appTemp_name, "was created successfully at ", appTemp_dir))
+    expect_equal(create_app_msg,
+                 paste0("periscope2 application ", appTemp_name, " was created successfully at ", appTemp_dir, "\n"))
     expect_cleanup_create_new_application(full_name  = appTemp,
                                           sample_app = TRUE)
 })
 
 test_that("create_application sample full app", {
-    local_edition(3)
-    appTemp_dir  <- tempdir()
-    appTemp      <- tempfile(pattern = "TestThatApp", tmpdir = appTemp_dir)
-    appTemp_name <- gsub('\\\\|/', '', (gsub(appTemp_dir, "", appTemp, fixed = TRUE)))
+    appTemp_dir    <- tempdir()
+    appTemp        <- tempfile(pattern = "TestThatApp", tmpdir = appTemp_dir)
+    appTemp_name   <- gsub('\\\\|/', '', (gsub(appTemp_dir, "", appTemp, fixed = TRUE)))
+    create_app_msg <- capture_message(create_application(name          = appTemp_name,
+                                                         location      = appTemp_dir,
+                                                         sample_app    = TRUE,
+                                                         right_sidebar = TRUE))$message
 
-    expect_message(create_application(name          = appTemp_name,
-                                      location      = appTemp_dir,
-                                      sample_app    = TRUE,
-                                      right_sidebar = TRUE),
-                   paste("periscope2 application", appTemp_name, "was created successfully at ", appTemp_dir))
+    expect_equal(create_app_msg,
+                   paste0("periscope2 application ", appTemp_name, " was created successfully at ", appTemp_dir, "\n"))
     expect_cleanup_create_new_application(full_name     = appTemp,
                                           sample_app    = TRUE,
                                           right_sidebar = TRUE)
 })
 
 test_that("create_application sample right_sidebar without left_sidebar", {
-    appTemp_dir  <- tempdir()
-    appTemp      <- tempfile(pattern = "TestThatApp", tmpdir = appTemp_dir)
-    appTemp_name <- gsub('\\\\|/', '', (gsub(appTemp_dir, "", appTemp, fixed = TRUE)))
+    appTemp_dir    <- tempdir()
+    appTemp        <- tempfile(pattern = "TestThatApp", tmpdir = appTemp_dir)
+    appTemp_name   <- gsub('\\\\|/', '', (gsub(appTemp_dir, "", appTemp, fixed = TRUE)))
+    create_app_msg <- capture_message(create_application(name          = appTemp_name,
+                                                         location      = appTemp_dir,
+                                                         sample_app    = TRUE,
+                                                         right_sidebar = TRUE,
+                                                         left_sidebar  = FALSE))$message
 
-    expect_message(create_application(name          = appTemp_name,
-                                      location      = appTemp_dir,
-                                      sample_app    = TRUE,
-                                      right_sidebar = TRUE,
-                                      left_sidebar  = FALSE),
-                   paste("periscope2 application", appTemp_name, "was created successfully at ", appTemp_dir))
+    expect_equal(create_app_msg,
+                 paste0("periscope2 application ", appTemp_name, " was created successfully at ", appTemp_dir, "\n"))
     expect_cleanup_create_new_application(full_name     = appTemp,
                                           sample_app    = TRUE,
                                           right_sidebar = TRUE,
@@ -114,30 +116,32 @@ test_that("create_application sample right_sidebar without left_sidebar", {
 })
 
 test_that("create_application sample without bars", {
-    appTemp_dir  <- tempdir()
-    appTemp      <- tempfile(pattern = "TestThatApp", tmpdir = appTemp_dir)
-    appTemp_name <- gsub('\\\\|/', '', (gsub(appTemp_dir, "", appTemp, fixed = TRUE)))
+    appTemp_dir    <- tempdir()
+    appTemp        <- tempfile(pattern = "TestThatApp", tmpdir = appTemp_dir)
+    appTemp_name   <- gsub('\\\\|/', '', (gsub(appTemp_dir, "", appTemp, fixed = TRUE)))
+    create_app_msg <- capture_message(create_application(name          = appTemp_name,
+                                                         location      = appTemp_dir,
+                                                         sample_app    = TRUE,
+                                                         left_sidebar  = FALSE))$message
 
-    expect_message(create_application(name          = appTemp_name,
-                                      location      = appTemp_dir,
-                                      sample_app    = TRUE,
-                                      left_sidebar  = FALSE),
-                   paste("periscope2 application", appTemp_name, "was created successfully at ", appTemp_dir))
+    expect_equal(create_app_msg,
+                 paste0("periscope2 application ", appTemp_name, " was created successfully at ", appTemp_dir, "\n"))
     expect_cleanup_create_new_application(full_name     = appTemp,
                                           sample_app    = TRUE,
                                           left_sidebar  = FALSE)
 })
 
 test_that("create_application empty app without bars", {
-    appTemp_dir  <- tempdir()
-    appTemp      <- tempfile(pattern = "TestThatApp", tmpdir = appTemp_dir)
-    appTemp_name <- gsub('\\\\|/', '', (gsub(appTemp_dir, "", appTemp, fixed = TRUE)))
+    appTemp_dir    <- tempdir()
+    appTemp        <- tempfile(pattern = "TestThatApp", tmpdir = appTemp_dir)
+    appTemp_name   <- gsub('\\\\|/', '', (gsub(appTemp_dir, "", appTemp, fixed = TRUE)))
+    create_app_msg <- capture_message(create_application(name          = appTemp_name,
+                                                         location      = appTemp_dir,
+                                                         sample_app    = FALSE,
+                                                         left_sidebar  = FALSE))$message
 
-    expect_message(create_application(name          = appTemp_name,
-                                      location      = appTemp_dir,
-                                      sample_app    = FALSE,
-                                      left_sidebar  = FALSE),
-                   paste("periscope2 application", appTemp_name, "was created successfully at ", appTemp_dir))
+    expect_equal(create_app_msg,
+                 paste0("periscope2 application ", appTemp_name, " was created successfully at ", appTemp_dir, "\n"))
     expect_cleanup_create_new_application(full_name     = appTemp,
                                           sample_app    = FALSE,
                                           left_sidebar  = FALSE)

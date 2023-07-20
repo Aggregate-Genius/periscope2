@@ -202,7 +202,7 @@ create_application <- function(name,
     })
 
     if (application_created) {
-        message(paste("periscope2 application", name, "was created successfully at ", location))
+        message(paste("periscope2 application", name, "was created successfully at", location))
     }
 }
 
