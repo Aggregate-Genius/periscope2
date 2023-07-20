@@ -185,8 +185,9 @@ test_that("create_application existing location", {
     appTemp_name <- gsub('\\\\|/', '', (gsub(appTemp_dir, "", appTemp, fixed = TRUE)))
 
     create_application(name = appTemp_name, location = appTemp_dir, sample_app = FALSE)
+    create_error_msg <- capture_message(create_application(name = appTemp_name, location = appTemp_dir, sample_app = FALSE))$message
 
-    expect_error(create_application(name = appTemp_name, location = appTemp_dir, sample_app = FALSE),
+    expect_equal(create_error_msg,
                  paste0("Framework creation could not proceed, path=<", appTemp_dir, .Platform$file.sep, appTemp_name,"> already exists!"))
 
     expect_cleanup_create_new_application(appTemp)
