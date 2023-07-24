@@ -202,7 +202,7 @@ create_application <- function(name,
     })
 
     if (application_created) {
-        message(paste("Periscope2 application", name, "is created successfully at location", location))
+        message(paste("periscope2 application", name, "was created successfully at ", location))
     }
 }
 
@@ -243,8 +243,8 @@ create_application <- function(name,
 #'
 #' @param newloc        - string represents new application location
 #' @param usersep       - string represents path separator based on running OS
-#' @param left_sidebar  - boolean to control copying left ui sidebar (default = TRUE)
-#' @param right_sidebar - boolean to control copying right ui sidebar (default = FALSE)
+#' @param left_sidebar  - boolean to control copying left UI sidebar (default = TRUE)
+#' @param right_sidebar - boolean to control copying right UI sidebar (default = FALSE)
 #' @param sample_app    - boolean to control copying sample app files (default = FALSE)
 #'
 #' @return nothing
@@ -272,8 +272,11 @@ create_application <- function(name,
 
             }
 
-
-            file_contents <- append(file_contents, "periscope2:::create_application_dashboard()")
+            if (sample_app) {
+                file_contents <- append(file_contents, "uiOutput(\"page\")")
+            } else {
+                file_contents <- append(file_contents, "periscope2:::create_application_dashboard()")
+            }
         }
 
         ui_file <- file(paste(newloc, file, sep = usersep), open = "w+")
@@ -292,19 +295,20 @@ create_application <- function(name,
             con = paste(newloc, "www", "img", file, sep = usersep))
     }
 
-    file.copy(system.file("fw_templ", "www", "custom.js", package = "periscope2"),
-              paste(newloc, "www", "js", "custom.js", sep = usersep))
-
     if (sample_app) {
         file.copy(system.file("fw_templ", "p_example", "periscope_style.yaml", package = "periscope2"),
                   paste(newloc, "www", "periscope_style.yaml", sep = usersep))
         file.copy(system.file("fw_templ", "p_example", "custom.css", package = "periscope2"),
                   paste(newloc, "www", "css", "custom.css", sep = usersep))
+        file.copy(system.file("fw_templ", "p_example", "custom.js", package = "periscope2"),
+                  paste(newloc, "www", "js", "custom.js", sep = usersep))
     } else {
         file.copy(system.file("fw_templ", "www", "periscope_style.yaml", package = "periscope2"),
                   paste(newloc, "www", "periscope_style.yaml", sep = usersep))
         file.copy(system.file("fw_templ", "www", "custom.css", package = "periscope2"),
                   paste(newloc, "www", "css", "custom.css", sep = usersep))
+        file.copy(system.file("fw_templ", "www", "custom.js", package = "periscope2"),
+                  paste(newloc, "www", "js", "custom.js", sep = usersep))
     }
 }
 
@@ -315,8 +319,8 @@ create_application <- function(name,
 #' @param newloc        - string represents new application location
 #' @param usersep       - string represents path separator based on running OS
 #' @param sample_app    - boolean to control copying sample app files (default = FALSE)
-#' @param left_sidebar  - boolean to control copying left ui sidebar (default = TRUE)
-#' @param right_sidebar - boolean to control copying right ui sidebar (default = FALSE)
+#' @param left_sidebar  - boolean to control copying left UI sidebar (default = TRUE)
+#' @param right_sidebar - boolean to control copying right UI sidebar (default = FALSE)
 #'
 #' @return nothing
 #' @keywords internal

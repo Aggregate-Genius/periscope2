@@ -2,12 +2,12 @@
 % Please edit documentation in R/ui_helpers.R
 \name{add_ui_body}
 \alias{add_ui_body}
-\title{add_ui_body}
+\title{Add UI elements to dashboard body section}
 \usage{
 add_ui_body(body_elements = NULL, append = FALSE)
 }
 \arguments{
-\item{body_elements}{- List of ui elements to be displayed in application body}
+\item{body_elements}{- List of UI elements to be displayed in application body}
 
 \item{append}{- Add elements to current body elements or remove previous body elements (default = FALSE)}
 }

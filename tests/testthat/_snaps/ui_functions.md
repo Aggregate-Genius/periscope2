@@ -244,3 +244,27 @@
 
     'arg' should be one of "top", "bottom", "left", "right"
 
+# theme - valid theme
+
+    Code
+      nchar(create_theme())
+    Output
+      [1] 669399
+
+# theme - parsing error
+
+    Code
+      nchar(suppressWarnings(periscope2:::create_theme()))
+    Output
+      [1] 669361
+
+# theme - invalid theme settings
+
+    Code
+      nchar(create_theme())
+    Warning <simpleWarning>
+      primary has invalid color value. Setting default color.
+      -300 must be positive value. Setting default value.
+    Output
+      [1] 669423
+

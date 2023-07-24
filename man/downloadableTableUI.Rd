@@ -2,7 +2,7 @@
 % Please edit documentation in R/downloadableTable.R
 \name{downloadableTableUI}
 \alias{downloadableTableUI}
-\title{downloadableTable UI}
+\title{downloadableTable module UI function}
 \usage{
 downloadableTableUI(
   id,
@@ -76,8 +76,6 @@ downloadableTableUI("object_id1",
 \link[periscope2]{downloadableTable}
 
 \link[periscope2]{downloadFileButton}
-
-\link[periscope2]{logViewer}
 
 \link[periscope2]{logViewerOutput}
 

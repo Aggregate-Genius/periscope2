@@ -3,13 +3,13 @@
 
 
 # Framework Server Setup
-fw_server_setup <- function(input, output, session, logger, logger_viewer_id) {
+fw_server_setup <- function(input, output, session, logger, logger_viewer_id = "logViewer") {
     logfile <- shiny::isolate(.setup_logging(session, logger))
     logViewer(logger_viewer_id, logfile)
 }
 
 
-# Get LogLevel
+# Get Logging Level
 fw_get_loglevel <- function() {
     shiny::isolate(.g_opts$loglevel)
 }
@@ -38,13 +38,15 @@ fw_get_user_log <- function() {
 #' @keywords internal
 #' @noRd
 create_application_dashboard <- function() {
-    bs4Dash::bs4DashPage(header     = shiny::isolate(.g_opts$header),
+    bs4Dash::bs4DashPage(title      = shiny::isolate(.g_opts$app_title),
+                         header     = shiny::isolate(.g_opts$header),
                          body       = bs4Dash::bs4DashBody(shiny::isolate(.g_opts$body_elements)),
                          sidebar    = do.call(bs4Dash::bs4DashSidebar, shiny::isolate(.g_opts$left_sidebar)),
                          controlbar = shiny::isolate(.g_opts$right_sidebar),
                          footer     = shiny::isolate(.g_opts$footer),
                          freshTheme = create_theme(),
                          dark       = NULL,
+                         help       = NULL,
                          preloader  = shiny::isolate(.g_opts$loading_indicator))
 }
 
@@ -151,7 +153,7 @@ create_theme <- function() {
             measure <- theme_settings[[measure_key]]
 
             if (!is.null(measure)) {
-                if (any(!is.numeric(measure), measure <= 0)) {
+                if (is.na(as.numeric(measure)) || measure <= 0) {
                     warning(measure, " must be positive value. Setting default value.")
                     theme_settings[[measure_key]] <- NULL
                 } else {

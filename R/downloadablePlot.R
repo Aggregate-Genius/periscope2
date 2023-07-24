@@ -3,7 +3,7 @@
 # -------------------------------------------
 
 
-#' downloadablePlot UI
+#' downloadablePlot module UI function
 #'
 #' Creates a custom plot output that is paired with a linked downloadFile
 #' button.  This module is compatible with ggplot2, grob and lattice
@@ -53,7 +53,6 @@
 #' @seealso \link[periscope2]{downloadFile_ValidateTypes}
 #' @seealso \link[periscope2]{downloadFile_AvailableTypes}
 #' @seealso \link[periscope2]{downloadableTable}
-#' @seealso \link[periscope2]{logViewer}
 #' @seealso \link[periscope2]{logViewerOutput}
 #' @examples
 #' # Inside ui_body.R or ui_sidebar.R
@@ -129,7 +128,7 @@ downloadablePlotUI <- function(id,
     module_output
 }
 
-#' downloadablePlot Module
+#' downloadablePlot module server function
 #'
 #' Server-side function for the downloadablePlotUI.  This is a custom
 #' plot output paired with a linked downloadFile button.
@@ -166,7 +165,6 @@ downloadablePlotUI <- function(id,
 #' @seealso \link[periscope2]{downloadFile_ValidateTypes}
 #' @seealso \link[periscope2]{downloadFile_AvailableTypes}
 #' @seealso \link[periscope2]{downloadableTable}
-#' @seealso \link[periscope2]{logViewer}
 #' @seealso \link[periscope2]{logViewerOutput}
 #'
 #' @examples

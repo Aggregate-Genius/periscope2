@@ -2,7 +2,7 @@
 % Please edit documentation in R/appReset.R
 \name{appResetButton}
 \alias{appResetButton}
-\title{appResetButton}
+\title{appResetButton module UI function}
 \usage{
 appResetButton(id)
 }
@@ -60,8 +60,6 @@ appResetButton(id = 'appResetId')
 \link[periscope2]{downloadFileButton}
 
 \link[periscope2]{downloadableTable}
-
-\link[periscope2]{logViewer}
 
 \link[periscope2]{logViewerOutput}
 }

@@ -285,7 +285,7 @@ logerror <- function(msg, ..., logger = "") {
 ## @param level The logging level
 levellog <- function(level, msg, ..., logger = "") {
     # just calling .levellog
-    # do not simplify it as call sequence sould be same
+    # do not simplify it as call sequence should be same
     #   as for other logX functions
     .levellog(level, msg, ..., logger = logger)
 }
@@ -385,7 +385,7 @@ basicConfig <- function(level = 20) {
 ##
 ##
 logReset <- function() {
-    ## reinizialize the whole logging system
+    ## reinitialize the whole logging system
 
     ## remove all content from the logging environment
     rm(list = ls(logging.options), envir = logging.options)
@@ -551,7 +551,7 @@ setMsgComposer <- function(composer_f, container = "") {
 ##
 resetMsgComposer <- function(container = "") {
     if (is.null(container)) {
-        stop("NULL container provided: cannot resset message composer for NULL container")
+        stop("NULL container provided: cannot reset message composer for NULL container")
     }
 
     if (is.character(container)) {

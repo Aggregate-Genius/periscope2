@@ -3,7 +3,7 @@
 # -- Reload Application Session      --
 # -------------------------------------
 
-#' appResetButton
+#' appResetButton module UI function
 #'
 #' Creates a toggle button to reset application session. Upon pressing on the
 #'  button, its state is flipped to cancel application reload with application
@@ -47,7 +47,6 @@
 #' @seealso \link[periscope2]{downloadablePlot}
 #' @seealso \link[periscope2]{downloadFileButton}
 #' @seealso \link[periscope2]{downloadableTable}
-#' @seealso \link[periscope2]{logViewer}
 #' @seealso \link[periscope2]{logViewerOutput}
 appResetButton <- function(id) {
     ns <- shiny::NS(id)
@@ -70,7 +69,7 @@ appResetButton <- function(id) {
 }
 
 
-#' appReset Module Server Function
+#' appReset module server function
 #'
 #' Server-side function for the appResetButton  This is a custom
 #' high-functionality button for session reload. The server function is used to
@@ -104,7 +103,6 @@ appResetButton <- function(id) {
 #' @seealso \link[periscope2]{downloadablePlot}
 #' @seealso \link[periscope2]{downloadFileButton}
 #' @seealso \link[periscope2]{downloadableTable}
-#' @seealso \link[periscope2]{logViewer}
 #' @seealso \link[periscope2]{logViewerOutput}
 appReset <- function(id,
                      reset_wait     = 5000,

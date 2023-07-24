@@ -1,12 +1,12 @@
-#' add_ui_left_sidebar
+#' Add UI elements to dashboard left sidebar section
 #'
 #' This function adds left sidebar configurations and UI elements. It is called within "ui_left_sidebar.R".
 #' Check example application for detailed example
 #'
-#' @param sidebar_elements - List of regular shiny ui elements (inputText, textArea, etc..)
+#' @param sidebar_elements - List of regular shiny UI elements (inputText, textArea, etc..)
 #' @param sidebar_menu     - \code{?bs4Dash::bs4SidebarMenu()} object to created a menu inside left sidebar
 #' @param collapsed        - If TRUE, the sidebar will be collapsed on app start up
-#' @param custom_area      - List of regular shiny ui elements but for sidebar bottom space area only.
+#' @param custom_area      - List of regular shiny UI elements but for sidebar bottom space area only.
 #'                           Only works if sidebar is fixed
 #' @param elevation        - A number between 0 and 5, which applies a shadow to the sidebar to add a shadow effect.
 #' @param expand_on_hover  - When \code{minified} is TRUE, if this property is TRUE, the sidebar opens when hovering but re-collapses as soon as the focus is lost (default = TRUE)
@@ -64,7 +64,7 @@ add_ui_left_sidebar <- function(sidebar_elements = NULL,
 }
 
 
-#' add_ui_header
+#' Add UI elements to dashboard header section
 #'
 #' Builds application header with given configurations and elements. It is called within "ui_header.R".
 #' Check example application for detailed example
@@ -165,12 +165,12 @@ add_ui_header <- function(left_menu          = NULL,
 }
 
 
-#' add_ui_body
+#' Add UI elements to dashboard body section
 #'
 #' Builds application body with given configurations and elements. It is called within "ui_body.R".
 #' Check example application for detailed example
 #'
-#' @param body_elements - List of ui elements to be displayed in application body
+#' @param body_elements - List of UI elements to be displayed in application body
 #' @param append        - Add elements to current body elements or remove previous body elements (default = FALSE)
 #'
 #' @section Shiny Usage:
@@ -216,13 +216,13 @@ add_ui_body <- function(body_elements = NULL, append = FALSE) {
 }
 
 
-#' createAlert
+#' Display alert panel at specified location
 #'
 #' Create an alert panel in server code to be displayed in the specified UI selector location
 #'
 #' @param session  - Shiny session object
 #' @param id       - Anchor id (either id or selector only should be set)
-#' @param selector - Character vectore represents jQuery selector to add the alert to is
+#' @param selector - Character vector represents jQuery selector to add the alert to is
 #'                   (i.e ".alertClass", div.badge-danger.navbar-badge). If 'id' is specified, this parameter will be neglected
 #' @param options  - List of options to pass to the alert
 #'
@@ -286,12 +286,12 @@ closeResetAlert <- function(id, session = shiny::getDefaultReactiveDomain()) {
 }
 
 
-#' add_ui_right_sidebar
+#' Add UI elements to dashboard right sidebar section
 #'
 #' Builds application right sidebar with given configurations and elements. It is called within "ui_right_sidebar.R".
 #' Check example application for detailed example
 #'
-#' @param sidebar_elements - List of regular shiny ui elements (inputText, textArea, etc..)
+#' @param sidebar_elements - List of regular shiny UI elements (inputText, textArea, etc..)
 #' @param sidebar_menu     - \code{?bs4Dash::controlbarMenu()} object to created a menu inside right sidebar
 #' @param collapsed        - If TRUE, the sidebar will be collapsed on app startup (default = TRUE)
 #' @param overlay          - Whether the sidebar covers the content when expanded (default = TRUE)
@@ -340,13 +340,13 @@ add_ui_right_sidebar <- function(sidebar_elements = NULL,
 }
 
 
-#' add_ui_footer
+#' Add UI elements to dashboard footer section
 #'
 #' Builds application footer with given configurations and elements. It is called within "ui_footer.R".
 #' Check example application for detailed example
 #'
-#' @param left  - Left side ui elements
-#' @param right - Right side ui elements
+#' @param left  - Left side UI elements
+#' @param right - Right side UI elements
 #' @param fixed - Always show footer at page bottom regardless page scroll location (default = FALSE).
 #'
 #' @section Shiny Usage:
@@ -387,7 +387,7 @@ add_ui_footer <- function(left  = NULL,
 }
 
 
-#' ui_tooltip
+#' Add tooltip icon and text to UI elements labels
 #'
 #' This function inserts a standardized tooltip image, label (optional),
 #' and hovertext into the application UI
@@ -404,7 +404,7 @@ add_ui_footer <- function(left  = NULL,
 #'   library(shiny)
 #'   library(periscope2)
 #'
-#'   # Inside ui_body.R or similar ui file
+#'   # Inside ui_body.R or similar UI file
 #'    ui_tooltip(id   = "top_tip",
 #'              label = "Top Tooltips",
 #'              text  = "Top tooltip")
@@ -455,7 +455,7 @@ ui_tooltip <- function(id,
 #'                                            application title.}
 #'                                      \item{Supplying \strong{NULL} will disable the title link functionality.}
 #'                             }
-#' @param log_level          - Designating the log level to use for the user log (default = 'DEBUG')
+#' @param log_level          - Designating the log level to use for the user log as 'DEBUG','INFO', 'WARN' or 'ERROR' (default = 'DEBUG')
 #' @param app_version        - Character string designating the application version (default = '1.0.0')
 #' @param loading_indicator  - It uses waiter (see https://waiter.john-coene.com/#/).\cr
 #'                             Pass a list like list(html = spin_1(), color = "#333e48") to \cr configure
@@ -504,7 +504,7 @@ set_app_parameters <- function(title,
 }
 
 
-#' get_url_parameters
+#' Parse application passed URL parameters
 #'
 #' This function returns any url parameters passed to the application as
 #' a named list.  Keep in mind url parameters are always user-session scoped

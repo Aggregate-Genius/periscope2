@@ -61,7 +61,7 @@ test_that("create_application empty full app", {
                                       location      = appTemp_dir,
                                       sample_app    = FALSE,
                                       right_sidebar = TRUE),
-                   paste("Periscope2 application", appTemp_name, "is created successfully at location", appTemp_dir))
+                   paste("periscope2 application", appTemp_name, "was created successfully at ", appTemp_dir))
     expect_cleanup_create_new_application(full_name     = appTemp,
                                           right_sidebar = TRUE)
 })
@@ -75,7 +75,7 @@ test_that("create_application sample", {
     expect_message(create_application(name       = appTemp_name,
                                       location   = appTemp_dir,
                                       sample_app = TRUE),
-                   paste("Periscope2 application", appTemp_name, "is created successfully at location", appTemp_dir))
+                   paste("periscope2 application", appTemp_name, "was created successfully at ", appTemp_dir))
     expect_cleanup_create_new_application(full_name  = appTemp,
                                           sample_app = TRUE)
 })
@@ -90,7 +90,7 @@ test_that("create_application sample full app", {
                                       location      = appTemp_dir,
                                       sample_app    = TRUE,
                                       right_sidebar = TRUE),
-                   paste("Periscope2 application", appTemp_name, "is created successfully at location", appTemp_dir))
+                   paste("periscope2 application", appTemp_name, "was created successfully at ", appTemp_dir))
     expect_cleanup_create_new_application(full_name     = appTemp,
                                           sample_app    = TRUE,
                                           right_sidebar = TRUE)
@@ -106,7 +106,7 @@ test_that("create_application sample right_sidebar without left_sidebar", {
                                       sample_app    = TRUE,
                                       right_sidebar = TRUE,
                                       left_sidebar  = FALSE),
-                   paste("Periscope2 application", appTemp_name, "is created successfully at location", appTemp_dir))
+                   paste("periscope2 application", appTemp_name, "was created successfully at ", appTemp_dir))
     expect_cleanup_create_new_application(full_name     = appTemp,
                                           sample_app    = TRUE,
                                           right_sidebar = TRUE,
@@ -122,7 +122,7 @@ test_that("create_application sample without bars", {
                                       location      = appTemp_dir,
                                       sample_app    = TRUE,
                                       left_sidebar  = FALSE),
-                   paste("Periscope2 application", appTemp_name, "is created successfully at location", appTemp_dir))
+                   paste("periscope2 application", appTemp_name, "was created successfully at ", appTemp_dir))
     expect_cleanup_create_new_application(full_name     = appTemp,
                                           sample_app    = TRUE,
                                           left_sidebar  = FALSE)
@@ -137,7 +137,7 @@ test_that("create_application empty app without bars", {
                                       location      = appTemp_dir,
                                       sample_app    = FALSE,
                                       left_sidebar  = FALSE),
-                   paste("Periscope2 application", appTemp_name, "is created successfully at location", appTemp_dir))
+                   paste("periscope2 application", appTemp_name, "was created successfully at ", appTemp_dir))
     expect_cleanup_create_new_application(full_name     = appTemp,
                                           sample_app    = FALSE,
                                           left_sidebar  = FALSE)
@@ -167,10 +167,12 @@ test_that("create_application invalid location", {
                  "Framework creation could not proceed, please provide valid character application location")
     expect_error(create_application(name = "Invalid", location = 123, sample_app = FALSE),
                  "Framework creation could not proceed, please provide valid character application location")
-    expect_error(create_application(name = "Invalid", location = "/sd", sample_app = FALSE),
-                 "Framework creation could not proceed, path=</sd> does not exists!")
-    expect_error(create_application(name = "Invalid", location = "/", sample_app = FALSE),
-                 "Framework creation could not proceed, path=</> is not writeable!")
+    expect_error(create_application(name = "Invalid", location = "invalid", sample_app = FALSE),
+                 "Framework creation could not proceed, path=<invalid> does not exists!")
+    # NOTE: most servers this is true but not all, such as in CI systems, etc.  will require more setup
+    #       to create a temp directory and a non-writeable subdirectory and then try to create the app there
+    # expect_error(create_application(name = "Invalid", location = "/", sample_app = FALSE),
+    #              "Framework creation could not proceed, path=</> is not writeable!")
 })
 
 test_that("create_application existing location", {

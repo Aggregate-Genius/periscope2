@@ -2,7 +2,7 @@
 % Please edit documentation in R/downloadFile.R
 \name{downloadFile}
 \alias{downloadFile}
-\title{downloadFile Module}
+\title{downloadFile module server function}
 \usage{
 downloadFile(id, logger, filenameroot, datafxns = list(), aspectratio = 1)
 }
@@ -60,8 +60,6 @@ server.R using the same id provided in \code{downloadFileButton}:
 \link[periscope2]{downloadFile_ValidateTypes}
 
 \link[periscope2]{downloadFile_AvailableTypes}
-
-\link[periscope2]{logViewer}
 
 \link[periscope2]{logViewerOutput}
 

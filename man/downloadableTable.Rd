@@ -2,7 +2,7 @@
 % Please edit documentation in R/downloadableTable.R
 \name{downloadableTable}
 \alias{downloadableTable}
-\title{downloadableTable Module}
+\title{downloadableTable module server function}
 \usage{
 downloadableTable(
   id,
@@ -114,8 +114,6 @@ currently selected rows in the display table.
 \link[periscope2]{downloadableTableUI}
 
 \link[periscope2]{downloadFileButton}
-
-\link[periscope2]{logViewer}
 
 \link[periscope2]{logViewerOutput}
 

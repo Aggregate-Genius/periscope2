@@ -2,7 +2,7 @@
 % Please edit documentation in R/downloadablePlot.R
 \name{downloadablePlotUI}
 \alias{downloadablePlotUI}
-\title{downloadablePlot UI}
+\title{downloadablePlot module UI function}
 \usage{
 downloadablePlotUI(
   id,
@@ -104,8 +104,6 @@ downloadablePlotUI("object_id1",
 \link[periscope2]{downloadFile_AvailableTypes}
 
 \link[periscope2]{downloadableTable}
-
-\link[periscope2]{logViewer}
 
 \link[periscope2]{logViewerOutput}
 }

@@ -64,6 +64,11 @@ sidebar_menu <-  sidebarMenu(
         "User Notifications",
         tabName = "user_notifications",
         icon = icon("comments")
+    ),
+    menuItem(
+        "Style Guide",
+        tabName = "style_guide",
+        icon = icon("file-code")
     )
 )
 

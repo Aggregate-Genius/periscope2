@@ -30,16 +30,30 @@ load_data2 <- function() {
     as.data.frame(ldf)
 }
 
+
 load_data3 <- function() {
     ldf <- df %>%
-        select(1:3) %>% 
+        select(1:3) %>%
         mutate(Total.Population.Change = as.numeric(gsub(",", "", Total.Population.Change)),
                Natural.Increase = as.numeric(gsub(",", "", Natural.Increase)))
-    
+
     as.data.frame(ldf)
 }
 
+
 read_themes <- function() {
-    yaml::read_yaml("www/periscope_style.yaml")
+    theme_settings <- NULL
+
+    if (file.exists("www/periscope_style.yaml")) {
+        tryCatch({
+            theme_settings <- yaml::read_yaml("www/periscope_style.yaml")
+        },
+        error = function(e){
+            warning("Could not parse 'periscope_style.yaml' due to: ", e$message)
+        })
+    }
+    theme_settings[sapply(theme_settings, is.null)] <- NA
+
+    theme_settings
 }
 

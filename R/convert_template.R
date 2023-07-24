@@ -45,7 +45,7 @@ create_left_sidebar <- function(location) {
         files_updated     <- c()
         ui_content        <- readLines(con = paste(location, ui_filename, sep = usersep))
 
-        # update ui if needed
+        # update UI if needed
         if (!any(grepl("ui_left_sidebar.R", ui_content))) {
             ui_content <- gsub(pattern     = "periscope2:::create_application_dashboard",
                                replacement = paste("source(paste(\"program\", \"ui_left_sidebar.R\", sep = .Platform$file.sep), local = TRUE)",
@@ -107,7 +107,7 @@ create_right_sidebar <- function(location) {
         usersep            <- .Platform$file.sep
         files_updated      <- c()
         ui_content         <- readLines(con = paste(location, ui_filename, sep = usersep))
-        # update ui if needed
+        # update UI if needed
         if (!any(grepl("ui_right_sidebar.R", ui_content))) {
             ui_content <- gsub(pattern     = "periscope2:::create_application_dashboard",
                                replacement = paste("source(paste(\"program\", \"ui_right_sidebar.R\", sep = .Platform$file.sep), local = TRUE)",
