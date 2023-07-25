@@ -56,16 +56,14 @@ While periscope2 is dependent only on bootstrap 4 supported shiny package to bri
 ----
 
 #### Generated applications layout
-[periscope](https://cran.r-project.org/web/packages/periscope/index.html) full generated app layout is simple as follow:
+[periscope](https://cran.r-project.org/web/packages/periscope/index.html) full generated app layouts:
 
 - Left sidebar
 - Right sidebar
-- Header
+- Header (only can update title)
 - Body
 
-All above parts are customizable except for header, user can only update title part in it
-
-However, periscope2 full generated app layout has the following structure:
+However, periscope2 full generated app layouts:
 
 - Left sidebar
 - Right sidebar
@@ -73,7 +71,7 @@ However, periscope2 full generated app layout has the following structure:
 - Footer
 - Body
 
-For periscope2, each part has it own UI R file that can customized and updated alone. Aslo, each part has its own dedicated alert panel except for header that has an additional alert panel for announcements framework.
+For periscope2, each part has it own UI R file that can be customized and updated. Each part also has its own dedicated alert panel, including an announcements framework as part of the header.
 
 User can adapt layout for both packages generated apps easily via related functions (refer to `r ?periscope` and `r ?periscope2` for more info)
 
