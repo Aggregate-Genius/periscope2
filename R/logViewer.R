@@ -13,6 +13,8 @@
 #'
 #' @returns shiny tableOutput instance
 #'
+#' @returns shiny tableOutput instance
+#'
 #' @section Table columns:
 #' \itemize{
 #'     \item action - the action that id logged in any place in app
