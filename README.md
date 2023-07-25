@@ -113,7 +113,7 @@ User can adapt layout for both packages generated apps easily via related functi
 
 #### Old Shiny module style support
 
-While [periscope](https://cran.r-project.org/web/packages/periscope/index.html) modules can be called via shiny module old style (via `callModule` method) or using new shiny module style.  periscope2 modules can only be called using new shiny module style. Check [migrating to module server](https://shiny.posit.co/r/articles/improve/modules/#migrating-from-callmodule-to-moduleserver) article for more related technical info
+While [periscope](https://cran.r-project.org/web/packages/periscope/index.html) modules can be called either via the old style (`callModule`) or new style (`moduleServer1`),  periscope2 only supports the new module style. Check [migrating to module server](https://shiny.posit.co/r/articles/improve/modules/#migrating-from-callmodule-to-moduleserver) article for more related technical info.
 
 ----
 
