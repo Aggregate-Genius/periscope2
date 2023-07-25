@@ -30,10 +30,12 @@ output:
 
 Create and run sample app for full features demo
 
-```{r}
+```
 periscope2::create_application(name = "demo_app", location = ".", sample_app = T, right_sidebar = T)
 shiny::runApp("./demo_app/", launch.browser = T)
 ```
+
+-----
 
 ### periscope vs periscope2
 [periscope](https://cran.r-project.org/web/packages/periscope/index.html) is widely regarded and used an enterprise application development aid framework for providing the user with the ability to build a robust shiny applications and dashboards.
@@ -63,7 +65,7 @@ While periscope2 is dependent only on bootstrap 4 supported shiny package to bri
 - Header (only can update title)
 - Body
 
-However, periscope2 full generated app layouts:
+periscope2 full generated app layouts:
 
 - Left sidebar
 - Right sidebar
