@@ -19,10 +19,10 @@ output:
 
 ***periscope2*** is full of developer-friendly features such as:
 
-* A predefined but flexible templates for new Shiny applications with a default [bs4Dash](https://bs4dash.rinterface.com/) layout
+* Predefined but flexible templates for new Shiny applications with a default [bs4Dash](https://bs4dash.rinterface.com/) layout
 * Separation by file of functionality that exists in one of the three shiny scopes: global, server-global, and server-local
 * Generated applications are organized in an easy to follow and maintain folder structure based on files functionality
-* Off shelf and ready to be used modules ('Table Downloader', 'Plot Downloader', 'File Downloader' and 'Reset Application'
+* Off-the-shelf and ready to be used modules ('Table Downloader', 'Plot Downloader', 'File Downloader' and 'Reset Application'
   * More modules are introduced in each new version
 * Different methods and tools to alert users and add useful information about application UI and server operations
 * Application logger with different levels and a UI tool to display and review recorded application logs
