@@ -83,25 +83,31 @@ User can adapt layout for both packages generated apps easily via related functi
 
 <center><img src="./vignettes/figures/App_Structure.png"></center>
 
-- After that, there are differences in next level structure as follow:
-  - **program** folder, that contains application main logic, periscope2 has:
-    - a dedicated UI R script for each layout part to control it
-    - **config**  - folder for storing application different configuration files (it will evolve more in next versions)
+- Differences in the next level of structure are:
+  - periscope2 **program** folder has:
+    - a dedicated UI R script for each layout part
+    - **config**  - folder for storing application different configuration files
       - Initially contains announcements module configuration file
-    - **modules**  - folder for application shiny modules R scripts (it will evolve more in next versions)
+    - **modules**  - folder for application shiny modules R scripts
     <center><img src="./vignettes/figures/Program_Folder.png"></center>
   - ***www*** folder that contains the application JS, CSS and theme customization files
-    - Although generated applications by both frameworks will have the same folder structure, periscope2 generated applications will have two additional files **css/custom.css** and **js/custom.js** to have application custom JS and CSS code
-      - Note that both files are already linked to generated app and ready to be used immediately by user
+    - Although generated applications by both frameworks will have the same folder structure, periscope2 generated applications will have two additional files **css/custom.css** and **js/custom.js** to hold custom application JS and CSS code
+      - Both of these files are already linked into the generated app and ready to be used
 
 ----
 
 #### Packages modules
 
-- Both packages share some modules (for now) as downloadable file, downloadable plot and downloadable table
-- However, periscope2 has more modules (more to come with each new version) as Announcement module
-- Also, there are modules that exist in both packages but behave a little differently than each other (i.e logger and Reset Application) modules
-- Check both packages for each package modules details
+- Both packages share the following modules:
+  - downloadable file
+  - downloadable plot 
+  - downloadable table
+- However, periscope2 has more modules (more to come with each new version) as Announcements module
+- The following modules behave differently between the two packages:
+  - Reset Application
+  - Logger
+
+*NOTE*: Check package documentation and vignettes for module details
 
 ----
 
