@@ -9,7 +9,7 @@ output:
 [![CRAN status](https://www.r-pkg.org/badges/version/periscope2)](https://CRAN.R-project.org/package=periscope2)
 [![Downloads Total](http://cranlogs.r-pkg.org/badges/grand-total/periscope2)](https://cran.r-project.org/package=periscope2)
 [![CircleCI build status](https://circleci.com/gh/Aggregate-Genius/periscope2/tree/cran.svg?style=svg)](https://app.circleci.com/pipelines/github/Aggregate-Genius/periscope2?branch=cran)
-[![codecov](https://codecov.io/gh/Aggregate-Genius/periscope2/branch/cran/graph/badge.svg?token=5LOU2JCTP6)](https://codecov.io/gh/Aggregate-Genius/periscope2)
+[![codecov](https://codecov.io/gh/Aggregate-Genius/periscope2/branch/cran/graph/badge.svg?token=5LOU2JCTP6)](https://app.codecov.io/gh/Aggregate-Genius/periscope2)
 <!-- badges: end -->
 
 ### Overview
@@ -38,27 +38,27 @@ shiny::runApp("./demo_app/", launch.browser = T)
 -----
 
 ### periscope vs periscope2
-[periscope](https://cran.r-project.org/web/packages/periscope/index.html) is widely regarded and used an enterprise application development aid framework for providing the user with the ability to build a robust shiny applications and dashboards.
+[periscope](https://cran.r-project.org/package=periscope) is widely regarded and used an enterprise application development aid framework for providing the user with the ability to build a robust shiny applications and dashboards.
 
-[periscope](https://cran.r-project.org/web/packages/periscope/index.html) is the direct ancestor of periscope2 in which periscope2 took most of its basic philosophy and generated applications structure.
+[periscope](https://cran.r-project.org/package=periscope) is the direct ancestor of periscope2 in which periscope2 took most of its basic philosophy and generated applications structure.
 
-However; as periscope2 is the next generation (iteration) of [periscope](https://cran.r-project.org/web/packages/periscope/index.html) package, they differ in many aspects as follow:
+However; as periscope2 is the next generation (iteration) of [periscope](https://cran.r-project.org/package=periscope) package, they differ in many aspects as follow:
 
 #### Underlying frameworks
-[periscope](https://cran.r-project.org/web/packages/periscope/index.html) is dependent on bootstrap 3 supported shiny packages:
+[periscope](https://cran.r-project.org/package=periscope) is dependent on bootstrap 3 supported shiny packages:
 
-- [shinydashboard](https://cran.r-project.org/web/packages/shinydashboard/index.html)
-- [shinydashboard Plus](https://cran.r-project.org/web/packages/shinydashboardPlus/index.html)
-- [shinyBS](https://cran.r-project.org/web/packages/shinyBS/index.html)
+- [shinydashboard](https://cran.r-project.org/package=shinydashboard)
+- [shinydashboard Plus](https://cran.r-project.org/package=shinydashboardPlus)
+- [shinyBS](https://cran.r-project.org/package=shinyBS)
 
 While periscope2 is dependent only on bootstrap 4 supported shiny package to bring in more functionality (i.e dashboard functionality, alerts, tool-tips, etc..) and a modernized look and feel:
 
-- [bs4Dash](https://cran.r-project.org/web/packages/bs4Dash/index.html)
+- [bs4Dash](https://cran.r-project.org/package=bs4Dash)
 
 ----
 
 #### Generated applications layout
-[periscope](https://cran.r-project.org/web/packages/periscope/index.html) full generated app layouts:
+[periscope](https://cran.r-project.org/package=periscope) full generated app layouts:
 
 - Left sidebar
 - Right sidebar
@@ -115,7 +115,7 @@ User can adapt layout for both packages generated apps easily via related functi
 
 #### Old Shiny module style support
 
-While [periscope](https://cran.r-project.org/web/packages/periscope/index.html) modules can be called either via the old style (`callModule`) or new style (`moduleServer1`),  periscope2 only supports the new module style. Check [migrating to module server](https://shiny.posit.co/r/articles/improve/modules/#migrating-from-callmodule-to-moduleserver) article for more related technical info.
+While [periscope](https://cran.r-project.org/package=periscope) modules can be called either via the old style (`callModule`) or new style (`moduleServer1`),  periscope2 only supports the new module style. Check [migrating to module server](https://shiny.posit.co/r/articles/improve/modules/#migrating-from-callmodule-to-moduleserver) article for more related technical info.
 
 ----
 
