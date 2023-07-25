@@ -118,9 +118,9 @@ While [periscope](https://cran.r-project.org/web/packages/periscope/index.html) 
 ----
 
 #### fresh package Styling Support
-[fresh](https://dreamrs.github.io/fresh/) package is used in both packages to style generated applications different parts via configurations rather than code via **'www/periscope_style.yaml'** file.
+[fresh](https://dreamrs.github.io/fresh/) package is used in both packages to style generated applications different parts via configurations rather than code using the **'www/periscope_style.yaml'** file.
 
-However, [shiny dashboard variables](https://dreamrs.github.io/fresh/articles/vars-shinydashboard.html) are used for styling [periscope](https://cran.r-project.org/web/packages/periscope/index.html) generated applications. While [bs4Dash related variables](https://dreamrs.github.io/fresh/articles/vars-bs4dash.html) are used for styling periscope2 generated applications but not via code only via **'www/periscope_style.yaml'** configuration file (hence the file key names are user friendly in both packages)
+While periscope uses shiny dashboard variables for styling in code and via the **'www/periscope_style.yaml'** configuration file, periscope2 uses bs4dash related variables . The file key names use related shiny dashboard or bs4dash variables for user friendly styling in both packages.
 
 -----
 
