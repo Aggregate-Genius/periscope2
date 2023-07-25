@@ -9,7 +9,7 @@ output:
 [![CRAN status](https://www.r-pkg.org/badges/version/periscope2)](https://CRAN.R-project.org/package=periscope2)
 [![Downloads Total](http://cranlogs.r-pkg.org/badges/grand-total/periscope2)](https://cran.r-project.org/package=periscope2)
 [![CircleCI build status](https://circleci.com/gh/Aggregate-Genius/periscope2.svg?style=svg)](https://app.circleci.com/pipelines/github/Aggregate-Genius/periscope2?branch=master)
-[![Code Coverage](https://app.codecov.io/gh/Aggregate-Genius/periscope2/branch/master/graph/badge.svg)](https://app.codecov.io/gh/Aggregate-Genius/periscope2)
+[![codecov](https://codecov.io/gh/Aggregate-Genius/periscope2/branch/cran/graph/badge.svg?token=5LOU2JCTP6)](https://codecov.io/gh/Aggregate-Genius/periscope2)
 <!-- badges: end -->
 
 ### Overview
