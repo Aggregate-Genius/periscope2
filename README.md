@@ -43,13 +43,15 @@ shiny::runApp("./demo_app/", launch.browser = T)
 However; as periscope2 is the next generation (iteration) of [periscope](https://cran.r-project.org/web/packages/periscope/index.html) package, they differ in many aspects as follow:
 
 #### Underlying frameworks
-[periscope](https://cran.r-project.org/web/packages/periscope/index.html) is depending on bootstrap 3 supported shiny packages:
+[periscope](https://cran.r-project.org/web/packages/periscope/index.html) is dependent on bootstrap 3 supported shiny packages:
 
 - [shinydashboard](https://cran.r-project.org/web/packages/shinydashboard/index.html)
 - [shinydashboard Plus](https://cran.r-project.org/web/packages/shinydashboardPlus/index.html)
 - [shinyBS](https://cran.r-project.org/web/packages/shinyBS/index.html)
 
-While periscope2 is depending only on bootstrap 4 supported package [bs4Dash](https://cran.r-project.org/web/packages/bs4Dash/index.html) to cover the same functions that are presented by [periscope](https://cran.r-project.org/web/packages/periscope/index.html) dependencies and more (i.e dashboard functionality, alerts, tool-tips, etc..) in more modernized look and feel
+While periscope2 is dependent only on bootstrap 4 supported shiny package to bring in more functionality (i.e dashboard functionality, alerts, tool-tips, etc..) and a modernized look and feel:
+
+- [bs4Dash](https://cran.r-project.org/web/packages/bs4Dash/index.html)
 
 ----
 
