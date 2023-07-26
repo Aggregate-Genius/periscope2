@@ -11,6 +11,8 @@ logViewerOutput(id = "logViewer")
 }
 \value{
 shiny tableOutput instance
+
+shiny tableOutput instance
 }
 \description{
 Creates a shiny table with table containing logged user actions. Table contents are auto updated whenever a user action is

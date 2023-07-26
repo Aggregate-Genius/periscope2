@@ -17,6 +17,7 @@ bodyAlert
 brushOpts
 bs
 clickOpts
+codecov
 coene
 config
 contentHeight
@@ -63,7 +64,9 @@ periscopeapps
 prettyToggle
 rownumbers
 scalable
+shinyBS
 shinyServer
+shinydashboard
 singleSelect
 ss
 tableOutput
