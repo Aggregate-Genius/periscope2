@@ -132,7 +132,7 @@ periscope2 is available for installation from the
 latest version of ***periscope2*** from GitHub as follows:
 
 ```r
-devtools::install_github('cb4ds/periscope2')
+devtools::install_github('Aggregate-Genius/periscope2')
 ```
 
 <br/>
