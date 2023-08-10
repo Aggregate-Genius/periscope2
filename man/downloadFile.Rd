@@ -23,6 +23,9 @@ when the button UI was created.}
 1 = square, 1.3 = 4:3, 0.5 = 1:2). Where not applicable for a download type
 it is ignored (e.g. data downloads).}
 }
+\value{
+no return value, called for downloading selected file type
+}
 \description{
 Server-side function for the downloadFileButton.  This is a custom
 high-functionality button for file downloads supporting single or multiple

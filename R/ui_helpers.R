@@ -15,6 +15,8 @@
 #' @param skin             - Sidebar skin. "dark" or "light" (default = "light")
 #' @param status           - Determines which color menu items (if exist) will have Check \code{?bs4Dash::dashboardSidebar()} for list of valid values
 #'
+#' @return list of both shiny UI elements and named left sidebar properties
+#'
 #' @section Shiny Usage:
 #' Call this function from \code{program/ui_left_sidebar.R} to set left sidebar parameters
 #'
@@ -80,6 +82,8 @@ add_ui_left_sidebar <- function(sidebar_elements = NULL,
 #' @param right_sidebar_icon - Right sidebar toggle icon
 #' @param skin               - Sidebar skin. "dark" or "light"
 #' @param status             - Sidebar status. Check \code{?bs4Dash::bs4DashNavbar()} for list of valid values
+#'
+#' @return list of both shiny UI elements and named header properties
 #'
 #' @section Shiny Usage:
 #' Call this function from \code{program/ui_header.R} to set header parameters
@@ -173,6 +177,8 @@ add_ui_header <- function(left_menu          = NULL,
 #' @param body_elements - List of UI elements to be displayed in application body
 #' @param append        - Add elements to current body elements or remove previous body elements (default = FALSE)
 #'
+#' @return list of both shiny UI elements and html divs for alert and linking app JS and CSS files
+#'
 #' @section Shiny Usage:
 #' Call this function from \code{program/ui_body.R} to set body parameters
 #'
@@ -226,7 +232,7 @@ add_ui_body <- function(body_elements = NULL, append = FALSE) {
 #'                   (i.e ".alertClass", div.badge-danger.navbar-badge). If 'id' is specified, this parameter will be neglected
 #' @param options  - List of options to pass to the alert
 #'
-#' @return creates an alert html div and inserts it in the app DOM
+#' @return html div and inserts it in the app DOM
 #'
 #' @section Shiny Usage:
 #' Call this function from \code{program/server_local.R} or any other server file to setup the needed alert
@@ -298,6 +304,7 @@ closeResetAlert <- function(id, session = shiny::getDefaultReactiveDomain()) {
 #' @param pinned           - If TRUE, allows right sidebar to remain open even after a click outside (default = FALSE)
 #' @param skin             - Sidebar skin. "dark" or "light" (default = "light")
 #'
+#' @return list of both shiny UI elements and named right sidebar properties
 #'
 #' @section Shiny Usage:
 #' Call this function from \code{program/ui_right_sidebar.R} to set right sidebar parameters
@@ -349,6 +356,8 @@ add_ui_right_sidebar <- function(sidebar_elements = NULL,
 #' @param right - Right side UI elements
 #' @param fixed - Always show footer at page bottom regardless page scroll location (default = FALSE).
 #'
+#' @return list of both shiny UI elements and named footer properties
+#'
 #' @section Shiny Usage:
 #' Call this function from \code{program/ui_footer.R} to set footer parameters
 #'
@@ -396,6 +405,8 @@ add_ui_footer <- function(left  = NULL,
 #' @param label     - Text label to appear to the left of the tooltip image
 #' @param text      - Tooltip text shown when the user hovers over the image
 #' @param placement - Where to display tooltip label. Available places are "top", "bottom", "left", "right" (default is "top")
+#'
+#' @return html span with the label, tooltip image and tooltip text
 #'
 #' @section Shiny Usage:
 #' Call this function from \code{program/ui_body.R} to set tooltip parameters
@@ -461,6 +472,8 @@ ui_tooltip <- function(id,
 #'                             Pass a list like list(html = spin_1(), color = "#333e48") to \cr configure
 #'                             waiterShowOnLoad (refer to the package help for all styles).
 #' @param announcements_file - The path to announcements configuration file
+#'
+#' @return no return value, called for setting new application global properties
 #'
 #' @section Shiny Usage:
 #' Call this function from \code{program/global.R} to set the application

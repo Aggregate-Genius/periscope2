@@ -15,6 +15,9 @@ ui_tooltip(id, label = "", text = "", placement = "top")
 
 \item{placement}{- Where to display tooltip label. Available places are "top", "bottom", "left", "right" (default is "top")}
 }
+\value{
+html span with the label, tooltip image and tooltip text
+}
 \description{
 This function inserts a standardized tooltip image, label (optional),
 and hovertext into the application UI

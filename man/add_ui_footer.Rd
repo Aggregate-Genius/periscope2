@@ -13,6 +13,9 @@ add_ui_footer(left = NULL, right = NULL, fixed = FALSE)
 
 \item{fixed}{- Always show footer at page bottom regardless page scroll location (default = FALSE).}
 }
+\value{
+list of both shiny UI elements and named footer properties
+}
 \description{
 Builds application footer with given configurations and elements. It is called within "ui_footer.R".
 Check example application for detailed example

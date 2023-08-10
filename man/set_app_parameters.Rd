@@ -39,6 +39,9 @@ waiterShowOnLoad (refer to the package help for all styles).}
 
 \item{announcements_file}{- The path to announcements configuration file}
 }
+\value{
+no return value, called for setting new application global properties
+}
 \description{
 This function sets global parameters customizing the shiny application.
 }

@@ -16,6 +16,8 @@
 #' @param singleSelect whether the table should only allow a single row to be
 #' selected at a time (FALSE by default allows multi-select).
 #'
+#' @return list of downloadFileButton UI and DT datatable
+#'
 #' @section Table Features:
 #' \itemize{
 #'     \item Consistent styling of the table

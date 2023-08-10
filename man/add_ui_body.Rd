@@ -11,6 +11,9 @@ add_ui_body(body_elements = NULL, append = FALSE)
 
 \item{append}{- Add elements to current body elements or remove previous body elements (default = FALSE)}
 }
+\value{
+list of both shiny UI elements and html divs for alert and linking app JS and CSS files
+}
 \description{
 Builds application body with given configurations and elements. It is called within "ui_body.R".
 Check example application for detailed example

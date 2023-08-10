@@ -24,6 +24,9 @@ downloadableTableUI(
 \item{singleSelect}{whether the table should only allow a single row to be
 selected at a time (FALSE by default allows multi-select).}
 }
+\value{
+list of downloadFileButton UI and DT datatable
+}
 \description{
 Creates a custom high-functionality table paired with a linked downloadFile
 button.  The table has search and highlight functionality, infinite scrolling,

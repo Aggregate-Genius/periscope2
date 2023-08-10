@@ -24,6 +24,8 @@
 #' @param hoverOpts NULL or an object created by the \link[shiny]{hoverOpts} function
 #' @param brushOpts NULL or an object created by the \link[shiny]{brushOpts} function
 #'
+#' @return list of downloadFileButton UI and plot object
+#'
 #' @section Example:
 #' \code{downloadablePlotUI("myplotID", c("png", "csv"),
 #' "Download Plot or Data", "300px")}
@@ -146,6 +148,8 @@ downloadablePlotUI <- function(id,
 #' the same names that were used when the plot UI was created.
 #' @param visibleplot function or reactive expression providing the plot to
 #' display as a return value.  This function should require no input parameters.
+#'
+#' @return Reactive expression containing the currently selected plot to be available for display and download
 #'
 #' @section Notes:
 #' When there are no values to download in any of the linked downloadfxns the

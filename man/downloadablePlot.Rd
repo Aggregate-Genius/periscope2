@@ -33,6 +33,9 @@ the same names that were used when the plot UI was created.}
 \item{visibleplot}{function or reactive expression providing the plot to
 display as a return value.  This function should require no input parameters.}
 }
+\value{
+Reactive expression containing the currently selected plot to be available for display and download
+}
 \description{
 Server-side function for the downloadablePlotUI.  This is a custom
 plot output paired with a linked downloadFile button.

@@ -37,6 +37,9 @@ Check \code{?bs4Dash::bs4DropdownMenu()}}
 
 \item{status}{- Sidebar status. Check \code{?bs4Dash::bs4DashNavbar()} for list of valid values}
 }
+\value{
+list of both shiny UI elements and named header properties
+}
 \description{
 Builds application header with given configurations and elements. It is called within "ui_header.R".
 Check example application for detailed example
