@@ -23,6 +23,9 @@ create_application(
 
 \item{right_sidebar}{- parameter to set the right sidebar. It can be TRUE/FALSE}
 }
+\value{
+no return value, creates application folder structure and files
+}
 \description{
 Creates ready-to-use templated application files using the periscope2
 framework. The application can be created either empty (default) or with a

@@ -11,9 +11,7 @@
 #'
 #' @param id - character id for the object(default = "logViewer")
 #'
-#' @returns shiny tableOutput instance
-#'
-#' @returns shiny tableOutput instance
+#' @return shiny tableOutput instance
 #'
 #' @section Table columns:
 #' \itemize{

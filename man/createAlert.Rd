@@ -22,7 +22,7 @@ createAlert(
 \item{options}{- List of options to pass to the alert}
 }
 \value{
-creates an alert html div and inserts it in the app DOM
+html div and inserts it in the app DOM
 }
 \description{
 Create an alert panel in server code to be displayed in the specified UI selector location

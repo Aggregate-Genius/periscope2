@@ -14,6 +14,8 @@
 #' @param downloadtypes vector of values for data download types
 #' @param hovertext tooltip hover text
 #'
+#' @return html span with tooltip and either shiny downloadButton in case of single download or shiny actionButton otheriwse
+#'
 #' @section Button Features:
 #' \itemize{
 #'     \item Consistent styling of the button, including a hover tooltip
@@ -106,6 +108,7 @@ downloadFileButton <- function(id,
 #' Server-side function for the downloadFileButton.  This is a custom
 #' high-functionality button for file downloads supporting single or multiple
 #' download types.  The server function is used to provide the data for download.
+#'
 #' @param id ID of the Module's UI element
 #' @param logger logger to use
 #' @param filenameroot the base text used for user-downloaded file - can be
@@ -117,6 +120,8 @@ downloadFileButton <- function(id,
 #' @param aspectratio the downloaded chart image width:height ratio (ex:
 #' 1 = square, 1.3 = 4:3, 0.5 = 1:2). Where not applicable for a download type
 #' it is ignored (e.g. data downloads).
+#'
+#' @return no return value, called for downloading selected file type
 #'
 #' @section Shiny Usage:
 #' This function is not called directly by consumers - it is accessed in

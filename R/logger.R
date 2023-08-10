@@ -231,6 +231,7 @@ Logger <- setRefClass(
 #'  are passed to it to form the actual message.
 #' @param logger the name of the logger to which we pass the record
 #'
+#'
 #' @name logging-entrypoints
 #' @aliases logdebug
 #' @aliases loginfo
@@ -243,6 +244,9 @@ NULL
 
 
 #' @rdname logging-entrypoints
+#'
+#' @return no return value, prints log into console and save it log file
+#'
 #' @export
 logdebug <- function(msg, ..., logger = "") {
     .levellog(loglevels["DEBUG"], msg, ..., logger = logger)
@@ -264,18 +268,27 @@ logfine <- function(msg, ..., logger = "") {
 }
 
 #' @rdname logging-entrypoints
+#'
+#' @return no return value, prints log into console and save it log file
+#'
 #' @export
 loginfo <- function(msg, ..., logger = "") {
     .levellog(loglevels["INFO"], msg, ..., logger = logger)
 }
 
 #' @rdname logging-entrypoints
+#'
+#' @return no return value, prints log into console and save it log file
+#'
 #' @export
 logwarn <- function(msg, ..., logger = "") {
     .levellog(loglevels["WARN"], msg, ..., logger = logger)
 }
 
 #' @rdname logging-entrypoints
+#'
+#' @return no return value, prints log into console and save it log file
+#'
 #' @export
 logerror <- function(msg, ..., logger = "") {
     .levellog(loglevels["ERROR"], msg, ..., logger = logger)

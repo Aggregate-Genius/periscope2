@@ -44,6 +44,9 @@ row for the button below the plot area)}}
 
 \item{brushOpts}{NULL or an object created by the \link[shiny]{brushOpts} function}
 }
+\value{
+list of downloadFileButton UI and plot object
+}
 \description{
 Creates a custom plot output that is paired with a linked downloadFile
 button.  This module is compatible with ggplot2, grob and lattice
