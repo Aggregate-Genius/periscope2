@@ -7,11 +7,11 @@ Authors@R: c(
     person("Constance", "Brett",   role = c("ctb")),
     person("Aggregate Genius Inc", role = c("spn"))
     )
-Description: The 'periscope2' package, like 'periscope', is a targeted framework for building enterprise, 
-    scalable and UI-standardized 'shiny' applications.  It brings enhanced features such as 'bootstrap' v4, 
-    additional and enhanced 'shiny' modules more customizable UI features, as well as an enhanced application 
-    file organization paradigm.  This update allows developers to harness the ability to build 
-    powerful applications and enriches the 'shiny' developers' experience when building and maintaining applications.  
+Description: A framework for building enterprise, scalable and UI-standardized 'shiny' applications.  
+    It brings enhanced features such as 'bootstrap' v4, additional and enhanced 'shiny' modules, customizable UI 
+    features, as well as an enhanced application file organization paradigm. This update allows developers to harness
+    the ability to build powerful applications and enriches the 'shiny' developers' experience when building and 
+    maintaining applications.  
 URL: https://github.com/Aggregate-Genius/periscope2, http://periscopeapps.org:3838
 BugReports: https://github.com/Aggregate-Genius/periscope2/issues
 License: GPL-3
