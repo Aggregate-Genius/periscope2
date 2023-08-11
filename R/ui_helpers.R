@@ -177,7 +177,7 @@ add_ui_header <- function(left_menu          = NULL,
 #' @param body_elements - List of UI elements to be displayed in application body
 #' @param append        - Add elements to current body elements or remove previous body elements (default = FALSE)
 #'
-#' @return list of both shiny UI elements and html divs for alert and linking app JS and CSS files
+#' @return list of both shiny UI elements and html div tags for alert and linking app JS and CSS files
 #'
 #' @section Shiny Usage:
 #' Call this function from \code{program/ui_body.R} to set body parameters
