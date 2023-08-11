@@ -14,7 +14,7 @@ downloadFileButton(id, downloadtypes = c("csv"), hovertext = NULL)
 \item{hovertext}{tooltip hover text}
 }
 \value{
-html span with tooltip and either shiny downloadButton in case of single download or shiny actionButton otheriwse
+html span with tooltip and either shiny downloadButton in case of single download or shiny actionButton otherwise
 }
 \description{
 Creates a custom high-functionality button for file downloads with two

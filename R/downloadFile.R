@@ -14,7 +14,7 @@
 #' @param downloadtypes vector of values for data download types
 #' @param hovertext tooltip hover text
 #'
-#' @return html span with tooltip and either shiny downloadButton in case of single download or shiny actionButton otheriwse
+#' @return html span with tooltip and either shiny downloadButton in case of single download or shiny actionButton otherwise
 #'
 #' @section Button Features:
 #' \itemize{
@@ -139,20 +139,21 @@ downloadFileButton <- function(id,
 #'
 #' @examples
 #' # Inside server_local.R
+#'\dontrun{
+#'    # single download type
+#'    downloadFile(id           = "object_id1",
+#'                 logger       = ss_userAction.Log,
+#'                 filenameroot = "mydownload1",
+#'                 datafxns     = list(csv = mydatafxn1),
+#'                 aspectratio  = 1)
 #'
-#' #single download type
-#' # downloadFile(id           = "object_id1",
-#' #              logger       = ss_userAction.Log,
-#' #              filenameroot = "mydownload1",
-#' #              datafxns     = list(csv = mydatafxn1),
-#' #              aspectratio  = 1)
-#'
-#' #multiple download types
-#' # downloadFile("object_id2",
-#' #              logger       = ss_userAction.Log,
-#' #              filenameroot = "mytype2",
-#' #              datafxns     = list(csv = mydatafxn1, xlsx = mydatafxn2),
-#' #              aspectratio  = 1)
+#'    # multiple download types
+#'    downloadFile("object_id2",
+#'                 logger       = ss_userAction.Log,
+#'                 filenameroot = "mytype2",
+#'                 datafxns     = list(csv = mydatafxn1, xlsx = mydatafxn2),
+#'                 aspectratio  = 1)
+#' }
 #'
 #' @export
 downloadFile <- function(id,

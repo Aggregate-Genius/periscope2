@@ -33,8 +33,9 @@ server_local.R (or similar file) using the same id provided in \code{appResetBut
 
 \examples{
 # Inside server_local.R
-
-#appReset(id = "appResetId", logger = ss_userAction.Log)
+\dontrun{
+   appReset(id = "appResetId", logger = ss_userAction.Log)
+}
 
 }
 \seealso{

@@ -56,14 +56,16 @@ downloadfxns, visibleplot)}}
 }
 
 \examples{
-# Inside server_local.R
+\dontrun{
+   # Inside server_local.R
 
-# downloadablePlot("object_id1",
-#                  logger       = ss_userAction.Log,
-#                  filenameroot = "mydownload1",
-#                  aspectratio  = 1.33,
-#                  downloadfxns = list(png = myplotfxn, tsv = mydatafxn),
-#                  visibleplot  = myplotfxn)
+   downloadablePlot("object_id1",
+                    logger       = ss_userAction.Log,
+                    filenameroot = "mydownload1",
+                    aspectratio  = 1.33,
+                    downloadfxns = list(png = myplotfxn, tsv = mydatafxn),
+                    visibleplot  = myplotfxn)
+}
 
 }
 \seealso{
