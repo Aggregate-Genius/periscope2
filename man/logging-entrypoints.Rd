@@ -26,7 +26,7 @@ are passed to it to form the actual message.}
 \item{logger}{the name of the logger to which we pass the record}
 }
 \value{
-no return value, prints log contents into R console and save it log file
+no return value, prints log contents into R console and app log file
 }
 \description{
 Generate a log record and pass it to the logging system.\cr

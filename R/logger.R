@@ -284,7 +284,7 @@ logwarn <- function(msg, ..., logger = "") {
 
 #' @rdname logging-entrypoints
 #'
-#' @return no return value, prints log contents into R console and save it log file
+#' @return no return value, prints log contents into R console and app log file
 #'
 #' @export
 logerror <- function(msg, ..., logger = "") {
