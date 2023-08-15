@@ -91,7 +91,7 @@ Logger <- setRefClass(
                 stop(paste("message composer(passed as composer_f) must be function",
                            " with signature function(msg, ...)"))
             }
-            assign("msg_composer", composer_f, envir = .self)
+            assign("msg_composer", composer_f, inherits = TRUE)
         },
 
         .deducelevel = function(initial_level = loglevels[["NOTSET"]]) {
@@ -155,7 +155,7 @@ Logger <- setRefClass(
         },
 
         setLevel = function(new_level) {
-            assign("level", namedLevel(new_level), envir = .self)
+            assign("level", namedLevel(new_level), inherits = TRUE)
         },
 
         getLevel = function() level,
@@ -171,9 +171,9 @@ Logger <- setRefClass(
                 handler <- deparse(substitute(handler))
             }
 
-            logger_handlers <- get("handlers", envir = .self)
+            logger_handlers <- get("handlers", inherits = TRUE)
             logger_handlers <- handlers[!(names(logger_handlers) == handler)]
-            assign("handlers", logger_handlers, envir = .self)
+            assign("handlers", logger_handlers, inherits = TRUE)
         },
 
         addHandler = function(handler, ..., level = 0, formatter = defaultFormat) {
@@ -203,10 +203,9 @@ Logger <- setRefClass(
             removeHandler(handler_name)
 
             if (with(handler_env, action)(NA, handler_env, dry = TRUE) == TRUE) {
-                logger_handlers                 <- get("handlers", envir = .self)
+                logger_handlers                 <- get("handlers", inherits = TRUE)
                 logger_handlers[[handler_name]] <- handler_env
-
-                assign("handlers", logger_handlers, envir = .self)
+                assign("handlers", logger_handlers, inherits = TRUE)
             }
         },
 
