@@ -9,6 +9,7 @@ Tooltip
 Tooltips
 UI
 ValidateTypes
+actionButton
 alertClass
 appReset
 appResetButton
@@ -25,6 +26,7 @@ css
 csv
 customizable
 datatable
+downloadButton
 downloadFile
 downloadFileButton
 downloadFileButton's

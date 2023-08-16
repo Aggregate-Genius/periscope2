@@ -23,6 +23,9 @@ when the button UI was created.}
 1 = square, 1.3 = 4:3, 0.5 = 1:2). Where not applicable for a download type
 it is ignored (e.g. data downloads).}
 }
+\value{
+no return value, called for downloading selected file type
+}
 \description{
 Server-side function for the downloadFileButton.  This is a custom
 high-functionality button for file downloads supporting single or multiple
@@ -38,20 +41,21 @@ server.R using the same id provided in \code{downloadFileButton}:
 
 \examples{
 # Inside server_local.R
+\dontrun{
+   # single download type
+   downloadFile(id           = "object_id1",
+                logger       = ss_userAction.Log,
+                filenameroot = "mydownload1",
+                datafxns     = list(csv = mydatafxn1),
+                aspectratio  = 1)
 
-#single download type
-# downloadFile(id           = "object_id1",
-#              logger       = ss_userAction.Log,
-#              filenameroot = "mydownload1",
-#              datafxns     = list(csv = mydatafxn1),
-#              aspectratio  = 1)
-
-#multiple download types
-# downloadFile("object_id2",
-#              logger       = ss_userAction.Log,
-#              filenameroot = "mytype2",
-#              datafxns     = list(csv = mydatafxn1, xlsx = mydatafxn2),
-#              aspectratio  = 1)
+   # multiple download types
+   downloadFile("object_id2",
+                logger       = ss_userAction.Log,
+                filenameroot = "mytype2",
+                datafxns     = list(csv = mydatafxn1, xlsx = mydatafxn2),
+                aspectratio  = 1)
+}
 
 }
 \seealso{

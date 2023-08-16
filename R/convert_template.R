@@ -25,7 +25,9 @@ ui_filename <- "ui.R"
 #' and a related error message will be printed in console
 #'
 #'
-#' @param location path of the existing periscope2 application.
+#' @param location path of the existing periscope2 application
+#'
+#' @return no return value, creates left sidebar related UI R file and updates related source call in ui.R
 #'
 #' @export
 #' @seealso \link[periscope2]{create_right_sidebar}
@@ -90,6 +92,9 @@ create_left_sidebar <- function(location) {
 #'
 #'
 #' @param location path of the existing periscope2 application.
+#'
+#' @return no return value, creates right sidebar related UI R file and updates related source call in ui.R
+#'
 #' @export
 #' @seealso \link[periscope2]{create_left_sidebar}
 create_right_sidebar <- function(location) {

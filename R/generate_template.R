@@ -12,6 +12,8 @@
 #' @param left_sidebar  - whether the left sidebar should be enabled. It can be TRUE/FALSE
 #' @param right_sidebar - parameter to set the right sidebar. It can be TRUE/FALSE
 #'
+#' @return no return value, creates application folder structure and files
+#'
 #' @section Name:
 #' The \code{name} directory must not exist in \code{location}.  If the code
 #' detects that this directory exists it will abort the creation process with

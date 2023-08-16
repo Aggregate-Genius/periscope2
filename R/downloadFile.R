@@ -14,6 +14,8 @@
 #' @param downloadtypes vector of values for data download types
 #' @param hovertext tooltip hover text
 #'
+#' @return html span with tooltip and either shiny downloadButton in case of single download or shiny actionButton otherwise
+#'
 #' @section Button Features:
 #' \itemize{
 #'     \item Consistent styling of the button, including a hover tooltip
@@ -106,6 +108,7 @@ downloadFileButton <- function(id,
 #' Server-side function for the downloadFileButton.  This is a custom
 #' high-functionality button for file downloads supporting single or multiple
 #' download types.  The server function is used to provide the data for download.
+#'
 #' @param id ID of the Module's UI element
 #' @param logger logger to use
 #' @param filenameroot the base text used for user-downloaded file - can be
@@ -117,6 +120,8 @@ downloadFileButton <- function(id,
 #' @param aspectratio the downloaded chart image width:height ratio (ex:
 #' 1 = square, 1.3 = 4:3, 0.5 = 1:2). Where not applicable for a download type
 #' it is ignored (e.g. data downloads).
+#'
+#' @return no return value, called for downloading selected file type
 #'
 #' @section Shiny Usage:
 #' This function is not called directly by consumers - it is accessed in
@@ -134,20 +139,21 @@ downloadFileButton <- function(id,
 #'
 #' @examples
 #' # Inside server_local.R
+#'\dontrun{
+#'    # single download type
+#'    downloadFile(id           = "object_id1",
+#'                 logger       = ss_userAction.Log,
+#'                 filenameroot = "mydownload1",
+#'                 datafxns     = list(csv = mydatafxn1),
+#'                 aspectratio  = 1)
 #'
-#' #single download type
-#' # downloadFile(id           = "object_id1",
-#' #              logger       = ss_userAction.Log,
-#' #              filenameroot = "mydownload1",
-#' #              datafxns     = list(csv = mydatafxn1),
-#' #              aspectratio  = 1)
-#'
-#' #multiple download types
-#' # downloadFile("object_id2",
-#' #              logger       = ss_userAction.Log,
-#' #              filenameroot = "mytype2",
-#' #              datafxns     = list(csv = mydatafxn1, xlsx = mydatafxn2),
-#' #              aspectratio  = 1)
+#'    # multiple download types
+#'    downloadFile("object_id2",
+#'                 logger       = ss_userAction.Log,
+#'                 filenameroot = "mytype2",
+#'                 datafxns     = list(csv = mydatafxn1, xlsx = mydatafxn2),
+#'                 aspectratio  = 1)
+#' }
 #'
 #' @export
 downloadFile <- function(id,
@@ -213,7 +219,7 @@ downloadFile <- function(id,
                 }
                 # excel file
                 else if (type == "xlsx") {
-                    if ("openxlsx" %in% utils::installed.packages()) {
+                    if (length(find.package("openxlsx", quiet = TRUE) > 0)) {
                         if ((inherits(data, "Workbook")) && ("openxlsx" %in% attributes(class(data)))) {
                             openxlsx::saveWorkbook(data, file)
                         } else {

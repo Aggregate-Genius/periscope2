@@ -39,6 +39,9 @@ Only works if sidebar is fixed}
 
 \item{skin}{- Sidebar skin. "dark" or "light" (default = "light")}
 }
+\value{
+list of both shiny UI elements and named left sidebar properties
+}
 \description{
 This function adds left sidebar configurations and UI elements. It is called within "ui_left_sidebar.R".
 Check example application for detailed example

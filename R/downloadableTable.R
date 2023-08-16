@@ -16,6 +16,8 @@
 #' @param singleSelect whether the table should only allow a single row to be
 #' selected at a time (FALSE by default allows multi-select).
 #'
+#' @return list of downloadFileButton UI and DT datatable
+#'
 #' @section Table Features:
 #' \itemize{
 #'     \item Consistent styling of the table
@@ -154,32 +156,33 @@ downloadableTableUI <- function(id,
 #' @seealso \link[periscope2]{downloadablePlot}
 #'
 #' @examples
-#' # Inside server_local.R
-#'
-#' # selectedrows <- downloadableTable(
-#' #     id               = "object_id1",
-#' #     logger           = ss_userAction.Log,
-#' #     filenameroot     = "mydownload1",
-#' #     downloaddatafxns = list(csv = mydatafxn1, tsv = mydatafxn2),
-#' #     tabledata        = mydatafxn3,
-#' #     rownames         = FALSE,
-#' #     caption          = "This is a great table!  By: Me",
-#' #     selection        = mydataRowIds,
-#' #     colnames         = c("Area", "Delta", "Increase"),
-#' #     filter           = "bottom",
-#' #     width            = "150px",
-#' #     height           = "50px",
-#' #     extensions       = 'Buttons',
-#' #     plugins          = 'natural',
-#' #     editable         = TRUE,
-#' #     dom              = 'Bfrtip',
-#' #     buttons          = c('copy', 'csv', 'excel', 'pdf', 'print'),
-#' #     formatStyle      = list(columns = c('Area'),  color = 'red'),
-#' #     formatStyle      = list(columns = c('Increase'),
-#' #                             color = DT::styleInterval(0, c('red', 'green'))),
-#' #     formatCurrency   = list(columns = c('Delta')))
+#' \dontrun{
+#'    # Inside server_local.R
+#'    selectedrows <- downloadableTable(
+#'    id               = "object_id1",
+#'    logger           = ss_userAction.Log,
+#'    filenameroot     = "mydownload1",
+#'    downloaddatafxns = list(csv = mydatafxn1, tsv = mydatafxn2),
+#'    tabledata        = mydatafxn3,
+#'    rownames         = FALSE,
+#'    caption          = "This is a great table!  By: Me",
+#'    selection        = mydataRowIds,
+#'    colnames         = c("Area", "Delta", "Increase"),
+#'    filter           = "bottom",
+#'    width            = "150px",
+#'    height           = "50px",
+#'    extensions       = 'Buttons',
+#'    plugins          = 'natural',
+#'    editable         = TRUE,
+#'    dom              = 'Bfrtip',
+#'    buttons          = c('copy', 'csv', 'excel', 'pdf', 'print'),
+#'    formatStyle      = list(columns = c('Area'),  color = 'red'),
+#'    formatStyle      = list(columns = c('Increase'),
+#'                            color = DT::styleInterval(0, c('red', 'green'))),
+#'    formatCurrency   = list(columns = c('Delta')))
 #'
 #' # selectedrows is the reactive return value, captured for later use
+#' }
 #'
 #' @export
 downloadableTable <- function(id,

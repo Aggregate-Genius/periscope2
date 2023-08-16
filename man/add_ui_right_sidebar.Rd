@@ -26,6 +26,9 @@ add_ui_right_sidebar(
 
 \item{skin}{- Sidebar skin. "dark" or "light" (default = "light")}
 }
+\value{
+list of both shiny UI elements and named right sidebar properties
+}
 \description{
 Builds application right sidebar with given configurations and elements. It is called within "ui_right_sidebar.R".
 Check example application for detailed example

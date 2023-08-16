@@ -91,8 +91,9 @@ appResetButton <- function(id) {
 #'
 #' @examples
 #' # Inside server_local.R
-#'
-#' #appReset(id = "appResetId", logger = ss_userAction.Log)
+#' \dontrun{
+#'    appReset(id = "appResetId", logger = ss_userAction.Log)
+#' }
 #'
 #' @export
 #'

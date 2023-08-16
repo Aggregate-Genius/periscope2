@@ -24,6 +24,8 @@
 #' @param hoverOpts NULL or an object created by the \link[shiny]{hoverOpts} function
 #' @param brushOpts NULL or an object created by the \link[shiny]{brushOpts} function
 #'
+#' @return list of downloadFileButton UI and plot object
+#'
 #' @section Example:
 #' \code{downloadablePlotUI("myplotID", c("png", "csv"),
 #' "Download Plot or Data", "300px")}
@@ -147,6 +149,8 @@ downloadablePlotUI <- function(id,
 #' @param visibleplot function or reactive expression providing the plot to
 #' display as a return value.  This function should require no input parameters.
 #'
+#' @return Reactive expression containing the currently selected plot to be available for display and download
+#'
 #' @section Notes:
 #' When there are no values to download in any of the linked downloadfxns the
 #' button will be hidden as there is nothing to download.
@@ -168,14 +172,16 @@ downloadablePlotUI <- function(id,
 #' @seealso \link[periscope2]{logViewerOutput}
 #'
 #' @examples
-#' # Inside server_local.R
+#' \dontrun{
+#'    # Inside server_local.R
 #'
-#' # downloadablePlot("object_id1",
-#' #                  logger       = ss_userAction.Log,
-#' #                  filenameroot = "mydownload1",
-#' #                  aspectratio  = 1.33,
-#' #                  downloadfxns = list(png = myplotfxn, tsv = mydatafxn),
-#' #                  visibleplot  = myplotfxn)
+#'    downloadablePlot("object_id1",
+#'                     logger       = ss_userAction.Log,
+#'                     filenameroot = "mydownload1",
+#'                     aspectratio  = 1.33,
+#'                     downloadfxns = list(png = myplotfxn, tsv = mydatafxn),
+#'                     visibleplot  = myplotfxn)
+#' }
 #'
 #' @export
 downloadablePlot <- function(id,
