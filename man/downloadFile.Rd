@@ -40,7 +40,6 @@ server.R using the same id provided in \code{downloadFileButton}:
 }
 
 \examples{
-# Inside server_local.R
 if (interactive()) {
    library(shiny)
    library(periscope2)

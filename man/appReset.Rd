@@ -32,7 +32,6 @@ server_local.R (or similar file) using the same id provided in \code{appResetBut
 }
 
 \examples{
-# Inside server_local.R
 if (interactive()) {
    library(shiny)
    library(periscope2)
