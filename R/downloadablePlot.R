@@ -57,12 +57,41 @@
 #' @seealso \link[periscope2]{downloadableTable}
 #' @seealso \link[periscope2]{logViewerOutput}
 #' @examples
-#' # Inside ui_body.R or ui_sidebar.R
-#' downloadablePlotUI("object_id1",
-#'                    downloadtypes      = c("png", "csv"),
-#'                    download_hovertext = "Download the plot and data here!",
-#'                    height             = "500px",
-#'                    btn_halign         = "left")
+#' if (interactive()) {
+#'   library(shiny)
+#'   library(ggplot2)
+#'   library(periscope2)
+#'   shinyApp(
+#'     ui = fluidPage(
+#'            fluidRow(
+#'              column(width = 12,
+#'                     downloadablePlotUI("object_id1",
+#'                                        downloadtypes      = c("png", "csv"),
+#'                                        download_hovertext = "Download plot and data",
+#'                                        height             = "500px",
+#'                                        btn_halign         = "left")))),
+#'     server = function(input, output) {
+#'       download_plot <- function() {
+#'         ggplot(data = mtcars, aes(x = wt, y = mpg)) +
+#'         geom_point(aes(color = cyl)) +
+#'         theme(legend.justification = c(1, 1),
+#'               legend.position      = c(1, 1),
+#'               legend.title         = element_blank()) +
+#'         ggtitle("GGPlot Example w/Hover") +
+#'         xlab("wt") +
+#'         ylab("mpg")
+#'             }
+#'
+#'       downloadablePlot(id           = "object_id1",
+#'                        logger       = periscope2:::getLogger("testLogger"),
+#'                        filenameroot = "mydownload1",
+#'                        downloadfxns = list(png = download_plot, csv = reactiveVal(mtcars)),
+#'                        aspectratio  = 1.33,
+#'                        visibleplot  = download_plot)
+#'       }
+#'    )
+#'}
+#'
 #'
 #' @export
 downloadablePlotUI <- function(id,
@@ -172,16 +201,40 @@ downloadablePlotUI <- function(id,
 #' @seealso \link[periscope2]{logViewerOutput}
 #'
 #' @examples
-#' \dontrun{
-#'    # Inside server_local.R
+#' if (interactive()) {
+#'   library(shiny)
+#'   library(ggplot2)
+#'   library(periscope2)
+#'   shinyApp(
+#'     ui = fluidPage(
+#'            fluidRow(
+#'              column(width = 12,
+#'                     downloadablePlotUI("object_id1",
+#'                                        downloadtypes      = c("png", "csv"),
+#'                                        download_hovertext = "Download plot and data",
+#'                                        height             = "500px",
+#'                                        btn_halign         = "left")))),
+#'     server = function(input, output) {
+#'       download_plot <- function() {
+#'         ggplot(data = mtcars, aes(x = wt, y = mpg)) +
+#'         geom_point(aes(color = cyl)) +
+#'         theme(legend.justification = c(1, 1),
+#'               legend.position      = c(1, 1),
+#'               legend.title         = element_blank()) +
+#'         ggtitle("GGPlot Example w/Hover") +
+#'         xlab("wt") +
+#'         ylab("mpg")
+#'             }
 #'
-#'    downloadablePlot("object_id1",
-#'                     logger       = ss_userAction.Log,
-#'                     filenameroot = "mydownload1",
-#'                     aspectratio  = 1.33,
-#'                     downloadfxns = list(png = myplotfxn, tsv = mydatafxn),
-#'                     visibleplot  = myplotfxn)
-#' }
+#'       downloadablePlot(id           = "object_id1",
+#'                        logger       = periscope2:::getLogger("testLogger"),
+#'                        filenameroot = "mydownload1",
+#'                        downloadfxns = list(png = download_plot, csv = reactiveVal(mtcars)),
+#'                        aspectratio  = 1.33,
+#'                        visibleplot  = download_plot)
+#'       }
+#'    )
+#'}
 #'
 #' @export
 downloadablePlot <- function(id,

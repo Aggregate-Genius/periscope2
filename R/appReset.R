@@ -35,8 +35,16 @@
 #'
 #'
 #' @examples
-#' # Inside ui_body.R or ui_left_sidebar.R
-#' appResetButton(id = 'appResetId')
+#' if (interactive()) {
+#'    library(shiny)
+#'    library(periscope2)
+#'    shinyApp(
+#'        ui = fluidPage(fluidRow(column(12, appResetButton(id = 'appResetId')))),
+#'        server = function(input, output) {
+#'          appReset(id = "appResetId", logger = periscope2:::getLogger("testLogger"))
+#'        }
+#'    )
+#' }
 #'
 #'
 #' @export
@@ -90,9 +98,15 @@ appResetButton <- function(id) {
 #' \strong{\code{appReset(id = "appResetId", logger = ss_userAction.Log)}}
 #'
 #' @examples
-#' # Inside server_local.R
-#' \dontrun{
-#'    appReset(id = "appResetId", logger = ss_userAction.Log)
+#' if (interactive()) {
+#'    library(shiny)
+#'    library(periscope2)
+#'    shinyApp(
+#'        ui = fluidPage(fluidRow(column(12, appResetButton(id = 'appResetId')))),
+#'        server = function(input, output) {
+#'          appReset(id = "appResetId", logger = periscope2:::getLogger("testLogger"))
+#'        }
+#'    )
 #' }
 #'
 #' @export

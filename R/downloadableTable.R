@@ -53,12 +53,38 @@
 #' @seealso \link[periscope2]{downloadablePlot}
 #'
 #' @examples
-#' # Inside ui_body.R or ui_sidebar.R
-#' downloadableTableUI("object_id1",
-#'                     downloadtypes = c("csv", "tsv"),
-#'                     hovertext     = "Download the data here!",
-#'                     contentHeight = "300px",
-#'                     singleSelect  = FALSE)
+#' if (interactive()) {
+#'  library(shiny)
+#'  library(periscope2)
+#'  shinyApp(
+#'      ui = fluidPage(
+#'             fluidRow(
+#'                column(width = 12,
+#'                       downloadableTableUI("object_id1",
+#'                                           downloadtypes = c("csv", "tsv"),
+#'                                           hovertext     = "Download the data here!",
+#'                                           contentHeight = "300px",
+#'                                           singleSelect  = FALSE)
+#'                                           ))),
+#'      server = function(input, output) {
+#'        mydataRowIds <- function(){
+#'           rownames(head(mtcars))[c(2, 5)]
+#'        }
+#'        selectedrows <- downloadableTable(
+#'           id               = "object_id1",
+#'           logger           = periscope2:::getLogger("testLogger"),
+#'           filenameroot     = "mydownload1",
+#'           downloaddatafxns = list(csv = reactiveVal(mtcars), tsv = reactiveVal(mtcars)),
+#'           tabledata        = reactiveVal(mtcars),
+#'           selection        = mydataRowIds,
+#'           table_options = list(rownames = TRUE,
+#'                                caption  = "This is a great table!"))
+#'        observeEvent(selectedrows(), {
+#'           print(selectedrows())
+#'        })
+#'      }
+#'  )
+#'}
 #'
 #' @export
 downloadableTableUI <- function(id,
@@ -156,33 +182,38 @@ downloadableTableUI <- function(id,
 #' @seealso \link[periscope2]{downloadablePlot}
 #'
 #' @examples
-#' \dontrun{
-#'    # Inside server_local.R
-#'    selectedrows <- downloadableTable(
-#'    id               = "object_id1",
-#'    logger           = ss_userAction.Log,
-#'    filenameroot     = "mydownload1",
-#'    downloaddatafxns = list(csv = mydatafxn1, tsv = mydatafxn2),
-#'    tabledata        = mydatafxn3,
-#'    rownames         = FALSE,
-#'    caption          = "This is a great table!  By: Me",
-#'    selection        = mydataRowIds,
-#'    colnames         = c("Area", "Delta", "Increase"),
-#'    filter           = "bottom",
-#'    width            = "150px",
-#'    height           = "50px",
-#'    extensions       = 'Buttons',
-#'    plugins          = 'natural',
-#'    editable         = TRUE,
-#'    dom              = 'Bfrtip',
-#'    buttons          = c('copy', 'csv', 'excel', 'pdf', 'print'),
-#'    formatStyle      = list(columns = c('Area'),  color = 'red'),
-#'    formatStyle      = list(columns = c('Increase'),
-#'                            color = DT::styleInterval(0, c('red', 'green'))),
-#'    formatCurrency   = list(columns = c('Delta')))
-#'
-#' # selectedrows is the reactive return value, captured for later use
-#' }
+#' if (interactive()) {
+#'  library(shiny)
+#'  library(periscope2)
+#'  shinyApp(
+#'      ui = fluidPage(
+#'             fluidRow(
+#'                column(width = 12,
+#'                       downloadableTableUI("object_id1",
+#'                                           downloadtypes = c("csv", "tsv"),
+#'                                           hovertext     = "Download the data here!",
+#'                                           contentHeight = "300px",
+#'                                           singleSelect  = FALSE)
+#'                                           ))),
+#'      server = function(input, output) {
+#'        mydataRowIds <- function(){
+#'           rownames(head(mtcars))[c(2, 5)]
+#'        }
+#'        selectedrows <- downloadableTable(
+#'           id               = "object_id1",
+#'           logger           = periscope2:::getLogger("testLogger"),
+#'           filenameroot     = "mydownload1",
+#'           downloaddatafxns = list(csv = reactiveVal(mtcars), tsv = reactiveVal(mtcars)),
+#'           tabledata        = reactiveVal(mtcars),
+#'           selection        = mydataRowIds,
+#'           table_options = list(rownames = TRUE,
+#'                                caption  = "This is a great table!"))
+#'        observeEvent(selectedrows(), {
+#'           print(selectedrows())
+#'        })
+#'      }
+#'  )
+#'}
 #'
 #' @export
 downloadableTable <- function(id,
