@@ -235,14 +235,6 @@ is_valid_color <- function(color) {
 #'
 #' @return number of seconds an announcement should be staying in caller application
 #'
-#' @examples
-#' \dontrun{
-#'    announce_close_time <- periscope2:::load_announcements()
-#'    if (!is.null(announce_close_time)) {
-#'         shinyjs::delay(announce_close_time,{bs4Dash::closeAlert("announceAlert")})
-#'    }
-#' }
-#'
 #' @keywords internal
 #' @noRd
 load_announcements <- function() {
