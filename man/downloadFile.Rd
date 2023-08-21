@@ -41,20 +41,35 @@ server.R using the same id provided in \code{downloadFileButton}:
 
 \examples{
 # Inside server_local.R
-\dontrun{
-   # single download type
-   downloadFile(id           = "object_id1",
-                logger       = ss_userAction.Log,
-                filenameroot = "mydownload1",
-                datafxns     = list(csv = mydatafxn1),
-                aspectratio  = 1)
-
-   # multiple download types
-   downloadFile("object_id2",
-                logger       = ss_userAction.Log,
-                filenameroot = "mytype2",
-                datafxns     = list(csv = mydatafxn1, xlsx = mydatafxn2),
-                aspectratio  = 1)
+if (interactive()) {
+   library(shiny)
+   library(periscope2)
+   shinyApp(
+       ui = fluidPage(fluidRow(column(width = 6,
+                                     # single download type
+                                     downloadFileButton("object_id1",
+                                                        downloadtypes = c("csv"),
+                                                        hovertext     = "Button 1 Tooltip")),
+                               column(width = 6,
+                                      # multiple download types
+                                      downloadFileButton("object_id2",
+                                                         downloadtypes = c("csv", "tsv"),
+                                                         hovertext     = "Button 2 Tooltip")))),
+       server = function(input, output) {
+           # single download type
+           downloadFile(id           = "object_id1",
+                        logger       = periscope2:::getLogger("testLogger"),
+                        filenameroot = "mydownload1",
+                        datafxns     = list(csv = reactiveVal(iris)),
+                        aspectratio  = 1)
+           # multiple download types
+           downloadFile(id           = "object_id2",
+                        logger       = periscope2:::getLogger("testLogger"),
+                        filenameroot = "mydownload2",
+                        datafxns     = list(csv = reactiveVal(mtcars),
+                        tsv = reactiveVal(mtcars)))
+     }
+   )
 }
 
 }
