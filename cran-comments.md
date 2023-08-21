@@ -1,3 +1,66 @@
+# Round 3
+
+## Reviewer comments
+
+-  `\dontrun{}` should only be used if the example really cannot be executed
+(e.g. because of missing additional software, missing API keys, ...) by
+the user. That's why wrapping examples in `\dontrun{}` adds the comment
+("# Not run:") as a warning for the user.
+Does not seem necessary.
+Please unwrap the examples if they are executable in < 5 sec, or replace
+\dontrun{} with \donttest{}.
+Functions which are supposed to only run interactively (e.g. shiny)
+should be wrapped in if(interactive()).
+
+## Comments from Maintainer
+
+- Package documentation changes:
+  - Updated shiny modules examples to be executable in an interactive environment
+
+## Test Environments
+    
+
+RStudio Server Pro (Ubuntu 20.04.6 LTS)  
+
+* R 4.2.3
+* R 4.3.1
+
+RStudio 2023.06.1+524 (Windows 11 x64 (build 22621))
+
+* R 4.3.0
+
+CircleCI
+
+* R 4.0.5
+* R 4.3.1
+
+devtools
+
+* devtools::check(remote = TRUE, manual = TRUE)
+
+WinBuilder
+
+* devtools::check_win_devel()  
+* devtools::check_win_release()
+
+RHub
+
+* devtools::check_rhub(interactive = F, env_vars = c("R_CHECK_FORCE_SUGGESTS" = "false"))
+* rhub::check_for_cran()
+
+---  
+    
+## R CMD check results
+    
+    
+```
+devtools::check()  
+
+0 errors ✔ | 0 warnings ✔ | 0 notes ✔
+```
+
+----
+
 # Round 2
 12.08.2023
 
