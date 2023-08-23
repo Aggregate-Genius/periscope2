@@ -43,7 +43,7 @@ too. Please fix this.
 
 - Package documentation changes:
   - Removed ":::" usage
-  - Formated documentation examples to have less blank spaces and be human readable at the same time as much as possible
+  - Formatted documentation examples to have less blank spaces and be human readable at the same time as much as possible
 
 ## Test Environments
     
