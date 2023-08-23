@@ -1,3 +1,94 @@
+# Round 4
+
+## Reviewer comments
+- Using `foo:::f` instead of `foo::f` allows access to unexported objects.
+This is generally not recommended, as the semantics of unexported
+objects may be changed by the package author in routine maintenance."
+Please omit one colon.
+Used ::: in documentation:
+`      man/appReset.Rd:`<br/>
+`         if (interactive()) {`<br/>
+`  library(shiny)`<br/>
+`  library(periscope2)`<br/>
+`  shinyApp(ui = fluidPage(fluidRow(column(12, appResetButton(id =`<br/>
+`"appResetId")))), server = function(input, output) {`<br/>
+`  appReset(id = "appResetId", logger = periscope2:::getLogger("testLogger"))`<br/>
+`  })`<br/>
+`}`<br/>
+`      man/appResetButton.Rd:`<br/>
+`         if (interactive()) {`<br/>
+`  library(shiny)`<br/>
+`  library(periscope2)`<br/>
+`  shinyApp(ui = fluidPage(fluidRow(column(12, appResetButton(id =`<br/>
+`"appResetId")))), server = function(input, output) {`<br/>
+`  appReset(id = "appResetId", logger = periscope2:::getLogger("testLogger"))`<br/>
+`  })`<br/>
+`}`<br/>
+      `man/downloadablePlot.Rd:`<br/>
+         `if (interactive()) {`<br/>
+  `library(shiny)`<br/>
+  `library(ggplot2)`<br/>
+  `library(periscope2)`<br/>
+  `shinyApp(ui = fluidPage(fluidRow(column(width = 12,`<br/>
+`downloadablePlotUI("object_id1", downloadtypes = c("png", "csv"),`<br/>
+`download_hovertext = "Downloadplotanddata", height = "500px", btn_halign`<br/>
+`= "left")))), server = function(input, output) {`<br/>
+`download_plot <- function() {`<br/>
+`ggpl [... truncated`<br/>
+- In addition, it seems as there are too many blank spaces in your
+description text, probably because line breaks count as blank spaces
+too. Please fix this.
+
+## Comments from Maintainer
+
+- Package documentation changes:
+  - Removed ":::" usage
+  - Formatted documentation examples to have less blank spaces and be human readable at the same time as much as possible
+
+## Test Environments
+    
+
+RStudio Server Pro (Ubuntu 20.04.6 LTS)  
+
+* R 4.2.3
+* R 4.3.1
+
+RStudio 2023.06.1+524 (Windows 11 x64 (build 22621))
+
+* R 4.3.0
+
+CircleCI
+
+* R 4.0.5
+* R 4.3.1
+
+devtools
+
+* devtools::check(remote = TRUE, manual = TRUE)
+
+WinBuilder
+
+* devtools::check_win_devel()  
+* devtools::check_win_release()
+
+RHub
+
+* devtools::check_rhub(interactive = F, env_vars = c("R_CHECK_FORCE_SUGGESTS" = "false"))
+* rhub::check_for_cran()
+
+---  
+    
+## R CMD check results
+    
+    
+```
+devtools::check()  
+
+0 errors ✔ | 0 warnings ✔ | 0 notes ✔
+```
+
+-----
+
 # Round 3
 
 ## Reviewer comments

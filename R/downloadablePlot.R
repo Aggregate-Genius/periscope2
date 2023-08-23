@@ -61,15 +61,12 @@
 #'   library(shiny)
 #'   library(ggplot2)
 #'   library(periscope2)
-#'   shinyApp(
-#'     ui = fluidPage(
-#'            fluidRow(
-#'              column(width = 12,
-#'                     downloadablePlotUI("object_id1",
-#'                                        downloadtypes      = c("png", "csv"),
-#'                                        download_hovertext = "Download plot and data",
-#'                                        height             = "500px",
-#'                                        btn_halign         = "left")))),
+#'   shinyApp(ui = fluidPage(fluidRow(column(width = 12,
+#'      downloadablePlotUI("object_id1",
+#'                         downloadtypes      = c("png", "csv"),
+#'                         download_hovertext = "Download plot and data",
+#'                         height             = "500px",
+#'                         btn_halign         = "left")))),
 #'     server = function(input, output) {
 #'       download_plot <- function() {
 #'         ggplot(data = mtcars, aes(x = wt, y = mpg)) +
@@ -77,21 +74,18 @@
 #'         theme(legend.justification = c(1, 1),
 #'               legend.position      = c(1, 1),
 #'               legend.title         = element_blank()) +
-#'         ggtitle("GGPlot Example w/Hover") +
+#'         ggtitle("GGPlot Example ") +
 #'         xlab("wt") +
 #'         ylab("mpg")
-#'             }
-#'
+#'       }
 #'       downloadablePlot(id           = "object_id1",
-#'                        logger       = periscope2:::getLogger("testLogger"),
+#'                        logger       = "",
 #'                        filenameroot = "mydownload1",
 #'                        downloadfxns = list(png = download_plot, csv = reactiveVal(mtcars)),
 #'                        aspectratio  = 1.33,
 #'                        visibleplot  = download_plot)
-#'       }
-#'    )
+#'   })
 #'}
-#'
 #'
 #' @export
 downloadablePlotUI <- function(id,
@@ -199,21 +193,17 @@ downloadablePlotUI <- function(id,
 #' @seealso \link[periscope2]{downloadFile_AvailableTypes}
 #' @seealso \link[periscope2]{downloadableTable}
 #' @seealso \link[periscope2]{logViewerOutput}
-#'
 #' @examples
 #' if (interactive()) {
 #'   library(shiny)
 #'   library(ggplot2)
 #'   library(periscope2)
-#'   shinyApp(
-#'     ui = fluidPage(
-#'            fluidRow(
-#'              column(width = 12,
-#'                     downloadablePlotUI("object_id1",
-#'                                        downloadtypes      = c("png", "csv"),
-#'                                        download_hovertext = "Download plot and data",
-#'                                        height             = "500px",
-#'                                        btn_halign         = "left")))),
+#'   shinyApp(ui = fluidPage(fluidRow(column(width = 12,
+#'      downloadablePlotUI("object_id1",
+#'                         downloadtypes      = c("png", "csv"),
+#'                         download_hovertext = "Download plot and data",
+#'                         height             = "500px",
+#'                         btn_halign         = "left")))),
 #'     server = function(input, output) {
 #'       download_plot <- function() {
 #'         ggplot(data = mtcars, aes(x = wt, y = mpg)) +
@@ -221,19 +211,17 @@ downloadablePlotUI <- function(id,
 #'         theme(legend.justification = c(1, 1),
 #'               legend.position      = c(1, 1),
 #'               legend.title         = element_blank()) +
-#'         ggtitle("GGPlot Example w/Hover") +
+#'         ggtitle("GGPlot Example ") +
 #'         xlab("wt") +
 #'         ylab("mpg")
-#'             }
-#'
+#'       }
 #'       downloadablePlot(id           = "object_id1",
-#'                        logger       = periscope2:::getLogger("testLogger"),
+#'                        logger       = "",
 #'                        filenameroot = "mydownload1",
 #'                        downloadfxns = list(png = download_plot, csv = reactiveVal(mtcars)),
 #'                        aspectratio  = 1.33,
 #'                        visibleplot  = download_plot)
-#'       }
-#'    )
+#'   })
 #'}
 #'
 #' @export
