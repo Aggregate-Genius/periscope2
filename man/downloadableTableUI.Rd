@@ -70,34 +70,28 @@ in server.R
 if (interactive()) {
  library(shiny)
  library(periscope2)
- shinyApp(
-     ui = fluidPage(
-            fluidRow(
-               column(width = 12,
-                      downloadableTableUI("object_id1",
-                                          downloadtypes = c("csv", "tsv"),
-                                          hovertext     = "Download the data here!",
-                                          contentHeight = "300px",
-                                          singleSelect  = FALSE)
-                                          ))),
-     server = function(input, output) {
-       mydataRowIds <- function(){
-          rownames(head(mtcars))[c(2, 5)]
-       }
-       selectedrows <- downloadableTable(
-          id               = "object_id1",
-          logger           = periscope2:::getLogger("testLogger"),
-          filenameroot     = "mydownload1",
-          downloaddatafxns = list(csv = reactiveVal(mtcars), tsv = reactiveVal(mtcars)),
-          tabledata        = reactiveVal(mtcars),
-          selection        = mydataRowIds,
-          table_options = list(rownames = TRUE,
-                               caption  = "This is a great table!"))
-       observeEvent(selectedrows(), {
-          print(selectedrows())
-       })
+ shinyApp(ui = fluidPage(fluidRow(column(width = 12,
+   downloadableTableUI("object_id1",
+                       downloadtypes = c("csv", "tsv"),
+                       hovertext     = "Download the data here!",
+                       contentHeight = "300px",
+                       singleSelect  = FALSE)))),
+   server = function(input, output) {
+     mydataRowIds <- function(){
+       rownames(head(mtcars))[c(2, 5)]
      }
- )
+     selectedrows <- downloadableTable(
+       id               = "object_id1",
+       logger           = "",
+       filenameroot     = "mydownload1",
+       downloaddatafxns = list(csv = reactiveVal(mtcars), tsv = reactiveVal(mtcars)),
+       tabledata        = reactiveVal(mtcars),
+       selection        = mydataRowIds,
+       table_options    = list(rownames = TRUE,
+                            caption  = "This is a great table!"))
+     observeEvent(selectedrows(), {
+       print(selectedrows())
+     })})
 }
 
 }

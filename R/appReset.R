@@ -39,11 +39,10 @@
 #'    library(shiny)
 #'    library(periscope2)
 #'    shinyApp(
-#'        ui = fluidPage(fluidRow(column(12, appResetButton(id = 'appResetId')))),
-#'        server = function(input, output) {
-#'          appReset(id = "appResetId", logger = periscope2:::getLogger("testLogger"))
-#'        }
-#'    )
+#'      ui = fluidPage(fluidRow(column(12, appResetButton(id = "appResetId")))),
+#'      server = function(input, output) {
+#'        appReset(id = "appResetId", logger = "")
+#'    })
 #' }
 #'
 #'
@@ -102,11 +101,10 @@ appResetButton <- function(id) {
 #'    library(shiny)
 #'    library(periscope2)
 #'    shinyApp(
-#'        ui = fluidPage(fluidRow(column(12, appResetButton(id = 'appResetId')))),
-#'        server = function(input, output) {
-#'          appReset(id = "appResetId", logger = periscope2:::getLogger("testLogger"))
-#'        }
-#'    )
+#'      ui = fluidPage(fluidRow(column(12, appResetButton(id = "appResetId")))),
+#'      server = function(input, output) {
+#'        appReset(id = "appResetId", logger = "")
+#'    })
 #' }
 #'
 #' @export
