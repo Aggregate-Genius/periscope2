@@ -25,7 +25,9 @@ ui_filename <- "ui.R"
 #' and a related error message will be printed in console
 #'
 #'
-#' @param location path of the existing periscope2 application.
+#' @param location path of the existing periscope2 application
+#'
+#' @return no return value, creates left sidebar related UI R file and updates related source call in ui.R
 #'
 #' @export
 #' @seealso \link[periscope2]{create_right_sidebar}
@@ -45,7 +47,7 @@ create_left_sidebar <- function(location) {
         files_updated     <- c()
         ui_content        <- readLines(con = paste(location, ui_filename, sep = usersep))
 
-        # update ui if needed
+        # update UI if needed
         if (!any(grepl("ui_left_sidebar.R", ui_content))) {
             ui_content <- gsub(pattern     = "periscope2:::create_application_dashboard",
                                replacement = paste("source(paste(\"program\", \"ui_left_sidebar.R\", sep = .Platform$file.sep), local = TRUE)",
@@ -90,6 +92,9 @@ create_left_sidebar <- function(location) {
 #'
 #'
 #' @param location path of the existing periscope2 application.
+#'
+#' @return no return value, creates right sidebar related UI R file and updates related source call in ui.R
+#'
 #' @export
 #' @seealso \link[periscope2]{create_left_sidebar}
 create_right_sidebar <- function(location) {
@@ -107,7 +112,7 @@ create_right_sidebar <- function(location) {
         usersep            <- .Platform$file.sep
         files_updated      <- c()
         ui_content         <- readLines(con = paste(location, ui_filename, sep = usersep))
-        # update ui if needed
+        # update UI if needed
         if (!any(grepl("ui_right_sidebar.R", ui_content))) {
             ui_content <- gsub(pattern     = "periscope2:::create_application_dashboard",
                                replacement = paste("source(paste(\"program\", \"ui_right_sidebar.R\", sep = .Platform$file.sep), local = TRUE)",

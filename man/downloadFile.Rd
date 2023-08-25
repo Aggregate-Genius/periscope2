@@ -2,7 +2,7 @@
 % Please edit documentation in R/downloadFile.R
 \name{downloadFile}
 \alias{downloadFile}
-\title{downloadFile Module}
+\title{downloadFile module server function}
 \usage{
 downloadFile(id, logger, filenameroot, datafxns = list(), aspectratio = 1)
 }
@@ -23,6 +23,9 @@ when the button UI was created.}
 1 = square, 1.3 = 4:3, 0.5 = 1:2). Where not applicable for a download type
 it is ignored (e.g. data downloads).}
 }
+\value{
+no return value, called for downloading selected file type
+}
 \description{
 Server-side function for the downloadFileButton.  This is a custom
 high-functionality button for file downloads supporting single or multiple
@@ -37,21 +40,34 @@ server.R using the same id provided in \code{downloadFileButton}:
 }
 
 \examples{
-# Inside server_local.R
-
-#single download type
-# downloadFile(id           = "object_id1",
-#              logger       = ss_userAction.Log,
-#              filenameroot = "mydownload1",
-#              datafxns     = list(csv = mydatafxn1),
-#              aspectratio  = 1)
-
-#multiple download types
-# downloadFile("object_id2",
-#              logger       = ss_userAction.Log,
-#              filenameroot = "mytype2",
-#              datafxns     = list(csv = mydatafxn1, xlsx = mydatafxn2),
-#              aspectratio  = 1)
+if (interactive()) {
+   library(shiny)
+   library(periscope2)
+   shinyApp(ui = fluidPage(fluidRow(column(width = 6,
+     # single download type
+     downloadFileButton("object_id1",
+                        downloadtypes = c("csv"),
+                        hovertext     = "Button 1 Tooltip")),
+      column(width = 6,
+      # multiple download types
+      downloadFileButton("object_id2",
+                         downloadtypes = c("csv", "tsv"),
+                         hovertext     = "Button 2 Tooltip")))),
+     server = function(input, output) {
+       # single download type
+       downloadFile(id           = "object_id1",
+                    logger       = "",
+                    filenameroot = "mydownload1",
+                    datafxns     = list(csv = reactiveVal(iris)),
+                    aspectratio  = 1)
+       # multiple download types
+       downloadFile(id           = "object_id2",
+                    logger       = "",
+                    filenameroot = "mydownload2",
+                    datafxns     = list(csv = reactiveVal(mtcars),
+                    tsv = reactiveVal(mtcars)))
+   })
+}
 
 }
 \seealso{
@@ -60,8 +76,6 @@ server.R using the same id provided in \code{downloadFileButton}:
 \link[periscope2]{downloadFile_ValidateTypes}
 
 \link[periscope2]{downloadFile_AvailableTypes}
-
-\link[periscope2]{logViewer}
 
 \link[periscope2]{logViewerOutput}
 

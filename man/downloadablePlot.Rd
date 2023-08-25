@@ -2,7 +2,7 @@
 % Please edit documentation in R/downloadablePlot.R
 \name{downloadablePlot}
 \alias{downloadablePlot}
-\title{downloadablePlot Module}
+\title{downloadablePlot module server function}
 \usage{
 downloadablePlot(
   id,
@@ -33,6 +33,9 @@ the same names that were used when the plot UI was created.}
 \item{visibleplot}{function or reactive expression providing the plot to
 display as a return value.  This function should require no input parameters.}
 }
+\value{
+Reactive expression containing the currently selected plot to be available for display and download
+}
 \description{
 Server-side function for the downloadablePlotUI.  This is a custom
 plot output paired with a linked downloadFile button.
@@ -53,14 +56,35 @@ downloadfxns, visibleplot)}}
 }
 
 \examples{
-# Inside server_local.R
-
-# downloadablePlot("object_id1",
-#                  logger       = ss_userAction.Log,
-#                  filenameroot = "mydownload1",
-#                  aspectratio  = 1.33,
-#                  downloadfxns = list(png = myplotfxn, tsv = mydatafxn),
-#                  visibleplot  = myplotfxn)
+if (interactive()) {
+  library(shiny)
+  library(ggplot2)
+  library(periscope2)
+  shinyApp(ui = fluidPage(fluidRow(column(width = 12,
+     downloadablePlotUI("object_id1",
+                        downloadtypes      = c("png", "csv"),
+                        download_hovertext = "Download plot and data",
+                        height             = "500px",
+                        btn_halign         = "left")))),
+    server = function(input, output) {
+      download_plot <- function() {
+        ggplot(data = mtcars, aes(x = wt, y = mpg)) +
+        geom_point(aes(color = cyl)) +
+        theme(legend.justification = c(1, 1),
+              legend.position      = c(1, 1),
+              legend.title         = element_blank()) +
+        ggtitle("GGPlot Example ") +
+        xlab("wt") +
+        ylab("mpg")
+      }
+      downloadablePlot(id           = "object_id1",
+                       logger       = "",
+                       filenameroot = "mydownload1",
+                       downloadfxns = list(png = download_plot, csv = reactiveVal(mtcars)),
+                       aspectratio  = 1.33,
+                       visibleplot  = download_plot)
+  })
+}
 
 }
 \seealso{
@@ -77,8 +101,6 @@ downloadfxns, visibleplot)}}
 \link[periscope2]{downloadFile_AvailableTypes}
 
 \link[periscope2]{downloadableTable}
-
-\link[periscope2]{logViewer}
 
 \link[periscope2]{logViewerOutput}
 }

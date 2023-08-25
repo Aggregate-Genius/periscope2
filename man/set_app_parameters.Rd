@@ -29,7 +29,7 @@ set_app_parameters(
          \item{Supplying \strong{NULL} will disable the title link functionality.}
 }}
 
-\item{log_level}{- Designating the log level to use for the user log (default = 'DEBUG')}
+\item{log_level}{- Designating the log level to use for the user log as 'DEBUG','INFO', 'WARN' or 'ERROR' (default = 'DEBUG')}
 
 \item{app_version}{- Character string designating the application version (default = '1.0.0')}
 
@@ -38,6 +38,9 @@ Pass a list like list(html = spin_1(), color = "#333e48") to \cr configure
 waiterShowOnLoad (refer to the package help for all styles).}
 
 \item{announcements_file}{- The path to announcements configuration file}
+}
+\value{
+no return value, called for setting new application global properties
 }
 \description{
 This function sets global parameters customizing the shiny application.

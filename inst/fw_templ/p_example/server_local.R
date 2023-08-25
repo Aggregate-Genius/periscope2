@@ -29,13 +29,18 @@ source(paste("program", "fxn", "plots.R", sep = .Platform$file.sep))
 
 # -- VARIABLES --
 
+orignal_theme_settings <- list()
+orignal_theme_settings[["primary"]]                  <- "#EBCDFC"
+orignal_theme_settings[["secondary"]]                <- "#CD9489"
+orignal_theme_settings[["success"]]                  <- "#2ED610"
+orignal_theme_settings[["info"]]                     <- "#7BDFF2"
+orignal_theme_settings[["warning"]]                  <- "#FFF200"
+orignal_theme_settings[["danger"]]                   <- "#CE0900"
+orignal_theme_settings[["sidebar_background_color"]] <- "#FFFFE6"
 
 # -- FUNCTIONS --
 appReset(id     = "appResetId",
          logger = ss_userAction.Log)
-
-logViewer(id     = "logViewerId",
-          logger = ss_userAction.Log)
 
 downloadFile("exampleDownload1",
              ss_userAction.Log,
@@ -64,15 +69,15 @@ downloadableTable("exampleDT1",
                   "exampletable",
                   list(csv = load_data3, tsv = load_data3),
                   load_data3,
-                  table_options = list(colnames = c("Area", "Delta", "Increase"),
-                  filter = "bottom",
-                  callback = htmlwidgets::JS("table.order([1, 'asc']).draw();"),
-                  container = sketch,
-                  formatStyle = list(columns = c("Total.Population.Change"),
-                                     color = DT::styleInterval(0, c("red", "green"))),
-                  formatStyle = list(columns = c("Natural.Increase"),
-                                     backgroundColor = DT::styleInterval(c(7614, 15914, 34152),
-                                                                         c("lightgray", "gray", "cadetblue", "#808000")))))
+                  table_options = list(colnames    = c("Area", "Delta", "Increase"),
+                                       filter      = "bottom",
+                                       callback    = htmlwidgets::JS("table.order([1, 'asc']).draw();"),
+                                       container   = sketch,
+                                       formatStyle = list(columns = c("Total.Population.Change"),
+                                                          color   = DT::styleInterval(0, c("red", "green"))),
+                                       formatStyle = list(columns         = c("Natural.Increase"),
+                                                          backgroundColor = DT::styleInterval(c(7614, 15914, 34152),
+                                                                                              c("lightgray", "gray", "cadetblue", "#808000")))))
 downloadablePlot("examplePlot2",
                  ss_userAction.Log,
                  filenameroot = "plot2_ggplot",
@@ -94,25 +99,16 @@ downloadablePlot("examplePlot3",
 # ----------------------------------------
 # --          SHINY SERVER CODE         --
 # ----------------------------------------
-# Display application info
-observeEvent(input$app_info, {
-    shinyalert(html                = TRUE,
-               showConfirmButton   = FALSE,
-               animation           = "slide-from-top",
-               closeOnClickOutside = TRUE,
-               text                = "app_info",
-               title               = "app_title")
-})
 
 # -- Observe UI Changes
 observeEvent(input$rightAlert, {
     loginfo("Right Sidebar Alert Button Pushed",
             logger = ss_userAction.Log)
-    periscope2::createAlert(id     = "sidebarRightAlert",
-                           options = list(title   = "Right Side",
-                                          status   = "success",
-                                          closable = TRUE,
-                                          content  = "Example Basic Sidebar Alert"))
+    periscope2::createAlert(id      = "sidebarRightAlert",
+                            options = list(title    = "Right Side",
+                                           status   = "success",
+                                           closable = TRUE,
+                                           content  = "Example Basic Sidebar Alert"))
 })
 
 observeEvent(input$leftAlert, {
@@ -128,7 +124,7 @@ observeEvent(input$leftAlert, {
 
 observeEvent(input$bodyAlertBtn, {
     logdebug("Body Alert Example Button Pushed",
-            logger = ss_userAction.Log)
+             logger = ss_userAction.Log)
     periscope2::createAlert(id      = "bodyAlert",
                             options = list(title    = "Body",
                                            status   = "info",
@@ -148,12 +144,12 @@ observeEvent(input$footerAlertbtn, {
 
 observeEvent(input$headerAlertbtn, {
     loginfo("Header Alert Example Button Pushed",
-             logger = ss_userAction.Log)
-    periscope2::createAlert(id     = "headerAlert",
-                           options = list(title    = "Header",
-                                          status   = "primary",
-                                          closable = FALSE,
-                                          content  = "Example Header Alert"))
+            logger = ss_userAction.Log)
+    periscope2::createAlert(id      = "headerAlert",
+                            options = list(title    = "Header",
+                                           status   = "primary",
+                                           closable = TRUE,
+                                           content  = "Example Header Alert"))
 })
 
 observeEvent(input$showWorking, {
@@ -223,4 +219,125 @@ observeEvent(input$node_name, {
 
 observeEvent(input$hideFileOrganization, {
     updateBox("files_organization", action = "toggle")
+})
+
+
+observeEvent(TRUE,{
+    output$page    <- renderUI(periscope2:::create_application_dashboard())
+    theme_settings <- read_themes()
+
+    updateColourInput(session,
+                      inputId = "primary_picker",
+                      value   = theme_settings[["primary"]])
+    updateColourInput(session,
+                      inputId = "secondary_picker",
+                      value   = theme_settings[["secondary"]])
+    updateColourInput(session,
+                      inputId = "success_picker",
+                      value   = theme_settings[["success"]])
+    updateColourInput(session,
+                      inputId = "info_picker",
+                      value   = theme_settings[["info"]])
+    updateColourInput(session,
+                      inputId = "warning_picker",
+                      value   = theme_settings[["warning"]])
+    updateColourInput(session,
+                      inputId = "danger_picker",
+                      value   = theme_settings[["danger"]])
+    updateNumericInput(session,
+                       inputId = "left_width",
+                       value   = ifelse(is.null(theme_settings[["sidebar_width"]]), NA, theme_settings[["sidebar_width"]]))
+    updateNumericInput(session,
+                       inputId = "right_width",
+                       value   = ifelse(is.null(theme_settings[["right_sidebar_width"]]), NA, theme_settings[["right_sidebar_width"]]))
+    updateColourInput(session,
+                      inputId = "background_color_picker",
+                      value   = theme_settings[["main_background_color"]])
+    updateColourInput(session,
+                      inputId = "sidebar_background_color_picker",
+                      value   = theme_settings[["sidebar_background_color"]])
+    updateColourInput(session,
+                      inputId = "sidebar_background_hover_color_picker",
+                      value   = theme_settings[["sidebar_background_hover_color"]])
+    updateColourInput(session,
+                      inputId = "sidebar_hover_color_picker",
+                      value   = theme_settings[["sidebar_hover_color"]])
+    updateColourInput(session,
+                      inputId = "sidebar_color_picker",
+                      value   = theme_settings[["sidebar_color"]])
+    updateColourInput(session,
+                      inputId = "sidebar_active_color_picker",
+                      value   = theme_settings[["sidebar_active_color"]])
+}, once = TRUE)
+
+
+observeEvent(input$update_app_theme, {
+    theme_settings <- list()
+    theme_settings[["primary"]]   <- input$primary_picker
+    theme_settings[["secondary"]] <- input$secondary_picker
+    theme_settings[["success"]]   <- input$success_picker
+    theme_settings[["info"]]      <- input$info_picker
+    theme_settings[["warning"]]   <- input$warning_picker
+    theme_settings[["danger"]]    <- input$danger_picker
+
+    left_width  <- input$left_width
+    right_width <- input$right_width
+
+    if (is.na(left_width) ||
+        is.null(left_width) ||
+        (left_width <= 0)) {
+        theme_settings[["sidebar_width"]] <- NULL
+    } else {
+        theme_settings[["sidebar_width"]] <- left_width
+    }
+
+    if (is.na(right_width) ||
+        is.null(right_width) ||
+        (right_width <= 0)) {
+        theme_settings[["right_sidebar_width"]] <- NULL
+    } else {
+        theme_settings[["right_sidebar_width"]] <- right_width
+    }
+
+    background_color_picker               <- NULL
+    sidebar_background_hover_color_picker <- NULL
+    sidebar_hover_color_picker            <- NULL
+    sidebar_color_picker                  <- NULL
+    sidebar_active_color_picker           <- NULL
+
+    if (input$background_color_picker != "#FFFFFF") {
+        background_color_picker <- input$background_color_picker
+    }
+
+    if (input$sidebar_background_hover_color_picker != "#FFFFFF") {
+        sidebar_background_hover_color_picker <- input$sidebar_background_hover_color_picker
+    }
+
+    if (input$sidebar_hover_color_picker != "#FFFFFF") {
+        sidebar_hover_color_picker <- input$sidebar_hover_color_picker
+    }
+
+    if (input$sidebar_color_picker != "#FFFFFF") {
+        sidebar_color_picker <- input$sidebar_color_picker
+    }
+
+    if (input$sidebar_active_color_picker != "#FFFFFF") {
+        sidebar_active_color_picker <- input$sidebar_active_color_picker
+    }
+
+    theme_settings[["main_background_color"]]          <- background_color_picker
+    theme_settings[["sidebar_background_color"]]       <- input$sidebar_background_color_picker
+    theme_settings[["sidebar_background_hover_color"]] <- sidebar_background_hover_color_picker
+    theme_settings[["sidebar_hover_color"]]            <- sidebar_hover_color_picker
+    theme_settings[["sidebar_color"]]                  <- sidebar_color_picker
+    theme_settings[["sidebar_active_color"]]           <- sidebar_active_color_picker
+
+    write_yaml(theme_settings, "www/periscope_style.yaml")
+    session$reload()
+})
+
+
+observeEvent(input$restore_app_theme, {
+    write_yaml(orignal_theme_settings, "www/periscope_style.yaml")
+    session$reload()
 })

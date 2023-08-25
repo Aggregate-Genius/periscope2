@@ -1,7 +1,6 @@
 /************************/
 /* periscope2 basic JS  */
 /************************/
-
 // Control busy indicator div in the header
 setInterval(function() {
     if ($('html').attr('class')=='shiny-busy') {
@@ -105,6 +104,12 @@ Shiny.addCustomMessageHandler('pcreate-alert', function (message) {
     } else {
       console.warn(`${alertTarget} already has an alert!`);
     }
+});
+
+jQuery(document).ready(function() {
+    setTimeout(function() {
+        $('.waiter-overlay').remove();
+    }, 3000);
 });
 
 /* END of periscope2 basic JS*/

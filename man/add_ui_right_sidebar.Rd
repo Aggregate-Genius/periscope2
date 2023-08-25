@@ -2,7 +2,7 @@
 % Please edit documentation in R/ui_helpers.R
 \name{add_ui_right_sidebar}
 \alias{add_ui_right_sidebar}
-\title{add_ui_right_sidebar}
+\title{Add UI elements to dashboard right sidebar section}
 \usage{
 add_ui_right_sidebar(
   sidebar_elements = NULL,
@@ -14,7 +14,7 @@ add_ui_right_sidebar(
 )
 }
 \arguments{
-\item{sidebar_elements}{- List of regular shiny ui elements (inputText, textArea, etc..)}
+\item{sidebar_elements}{- List of regular shiny UI elements (inputText, textArea, etc..)}
 
 \item{sidebar_menu}{- \code{?bs4Dash::controlbarMenu()} object to created a menu inside right sidebar}
 
@@ -25,6 +25,9 @@ add_ui_right_sidebar(
 \item{pinned}{- If TRUE, allows right sidebar to remain open even after a click outside (default = FALSE)}
 
 \item{skin}{- Sidebar skin. "dark" or "light" (default = "light")}
+}
+\value{
+list of both shiny UI elements and named right sidebar properties
 }
 \description{
 Builds application right sidebar with given configurations and elements. It is called within "ui_right_sidebar.R".

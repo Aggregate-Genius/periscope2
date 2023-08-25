@@ -3,7 +3,7 @@
 # -------------------------------------------
 
 
-#' downloadFileButton UI
+#' downloadFileButton module UI function
 #'
 #' Creates a custom high-functionality button for file downloads with two
 #' states - single download type or multiple-download types.  The button image
@@ -13,6 +13,8 @@
 #' @param id character id for the object
 #' @param downloadtypes vector of values for data download types
 #' @param hovertext tooltip hover text
+#'
+#' @return html span with tooltip and either shiny downloadButton in case of single download or shiny actionButton otherwise
 #'
 #' @section Button Features:
 #' \itemize{
@@ -34,24 +36,40 @@
 #' @seealso \link[periscope2]{downloadFile}
 #' @seealso \link[periscope2]{downloadFile_ValidateTypes}
 #' @seealso \link[periscope2]{downloadFile_AvailableTypes}
-#' @seealso \link[periscope2]{logViewer}
 #' @seealso \link[periscope2]{logViewerOutput}
 #' @seealso \link[periscope2]{downloadablePlot}
 #' @seealso \link[periscope2]{downloadableTableUI}
 #' @seealso \link[periscope2]{downloadableTable}
 #'
 #' @examples
-#' # Inside ui_body.R or ui_sidebar.R
-#'
-#' #single download type
-#' downloadFileButton("object_id1",
-#'                    downloadtypes = c("csv"),
-#'                    hovertext     = "Button 1 Tooltip")
-#'
-#' #multiple download types
-#' downloadFileButton("object_id2",
-#'                    downloadtypes = c("csv", "tsv"),
-#'                    hovertext     = "Button 2 Tooltip")
+#' if (interactive()) {
+#'    library(shiny)
+#'    library(periscope2)
+#'    shinyApp(ui = fluidPage(fluidRow(column(width = 6,
+#'      # single download type
+#'      downloadFileButton("object_id1",
+#'                         downloadtypes = c("csv"),
+#'                         hovertext     = "Button 1 Tooltip")),
+#'       column(width = 6,
+#'       # multiple download types
+#'       downloadFileButton("object_id2",
+#'                          downloadtypes = c("csv", "tsv"),
+#'                          hovertext     = "Button 2 Tooltip")))),
+#'      server = function(input, output) {
+#'        # single download type
+#'        downloadFile(id           = "object_id1",
+#'                     logger       = "",
+#'                     filenameroot = "mydownload1",
+#'                     datafxns     = list(csv = reactiveVal(iris)),
+#'                     aspectratio  = 1)
+#'        # multiple download types
+#'        downloadFile(id           = "object_id2",
+#'                     logger       = "",
+#'                     filenameroot = "mydownload2",
+#'                     datafxns     = list(csv = reactiveVal(mtcars),
+#'                     tsv = reactiveVal(mtcars)))
+#'    })
+#'}
 #'
 #' @export
 downloadFileButton <- function(id,
@@ -102,11 +120,12 @@ downloadFileButton <- function(id,
 }
 
 
-#' downloadFile Module
+#' downloadFile module server function
 #'
 #' Server-side function for the downloadFileButton.  This is a custom
 #' high-functionality button for file downloads supporting single or multiple
 #' download types.  The server function is used to provide the data for download.
+#'
 #' @param id ID of the Module's UI element
 #' @param logger logger to use
 #' @param filenameroot the base text used for user-downloaded file - can be
@@ -119,6 +138,8 @@ downloadFileButton <- function(id,
 #' 1 = square, 1.3 = 4:3, 0.5 = 1:2). Where not applicable for a download type
 #' it is ignored (e.g. data downloads).
 #'
+#' @return no return value, called for downloading selected file type
+#'
 #' @section Shiny Usage:
 #' This function is not called directly by consumers - it is accessed in
 #' server.R using the same id provided in \code{downloadFileButton}:
@@ -128,28 +149,40 @@ downloadFileButton <- function(id,
 #' @seealso \link[periscope2]{downloadFileButton}
 #' @seealso \link[periscope2]{downloadFile_ValidateTypes}
 #' @seealso \link[periscope2]{downloadFile_AvailableTypes}
-#' @seealso \link[periscope2]{logViewer}
 #' @seealso \link[periscope2]{logViewerOutput}
 #' @seealso \link[periscope2]{downloadablePlot}
 #' @seealso \link[periscope2]{downloadableTableUI}
 #' @seealso \link[periscope2]{downloadableTable}
 #'
 #' @examples
-#' # Inside server_local.R
-#'
-#' #single download type
-#' # downloadFile(id           = "object_id1",
-#' #              logger       = ss_userAction.Log,
-#' #              filenameroot = "mydownload1",
-#' #              datafxns     = list(csv = mydatafxn1),
-#' #              aspectratio  = 1)
-#'
-#' #multiple download types
-#' # downloadFile("object_id2",
-#' #              logger       = ss_userAction.Log,
-#' #              filenameroot = "mytype2",
-#' #              datafxns     = list(csv = mydatafxn1, xlsx = mydatafxn2),
-#' #              aspectratio  = 1)
+#' if (interactive()) {
+#'    library(shiny)
+#'    library(periscope2)
+#'    shinyApp(ui = fluidPage(fluidRow(column(width = 6,
+#'      # single download type
+#'      downloadFileButton("object_id1",
+#'                         downloadtypes = c("csv"),
+#'                         hovertext     = "Button 1 Tooltip")),
+#'       column(width = 6,
+#'       # multiple download types
+#'       downloadFileButton("object_id2",
+#'                          downloadtypes = c("csv", "tsv"),
+#'                          hovertext     = "Button 2 Tooltip")))),
+#'      server = function(input, output) {
+#'        # single download type
+#'        downloadFile(id           = "object_id1",
+#'                     logger       = "",
+#'                     filenameroot = "mydownload1",
+#'                     datafxns     = list(csv = reactiveVal(iris)),
+#'                     aspectratio  = 1)
+#'        # multiple download types
+#'        downloadFile(id           = "object_id2",
+#'                     logger       = "",
+#'                     filenameroot = "mydownload2",
+#'                     datafxns     = list(csv = reactiveVal(mtcars),
+#'                     tsv = reactiveVal(mtcars)))
+#'    })
+#'}
 #'
 #' @export
 downloadFile <- function(id,
@@ -215,7 +248,7 @@ downloadFile <- function(id,
                 }
                 # excel file
                 else if (type == "xlsx") {
-                    if ("openxlsx" %in% utils::installed.packages()) {
+                    if (length(find.package("openxlsx", quiet = TRUE) > 0)) {
                         if ((inherits(data, "Workbook")) && ("openxlsx" %in% attributes(class(data)))) {
                             openxlsx::saveWorkbook(data, file)
                         } else {
@@ -330,7 +363,7 @@ downloadFile <- function(id,
 }
 
 
-#' downloadFile_ValidateTypes
+#' Check passed file types against downloadFile module allowed file types list
 #'
 #' It is a downloadFile module helper to return periscope2 defined file types list and warns user if an invalid type is included
 #'
@@ -351,7 +384,6 @@ downloadFile <- function(id,
 #'
 #' @seealso \link[periscope2]{downloadFileButton}
 #' @seealso \link[periscope2]{downloadFile}
-#' @seealso \link[periscope2]{logViewer}
 #' @seealso \link[periscope2]{logViewerOutput}
 #' @seealso \link[periscope2]{downloadablePlot}
 #' @seealso \link[periscope2]{downloadableTableUI}
@@ -360,8 +392,8 @@ downloadFile <- function(id,
 #' @export
 downloadFile_ValidateTypes <- function(types) {
     for (type in types) {
-        if ( !(type %in% shiny::isolate(.g_opts$data_download_types)) &&
-             !(type %in% shiny::isolate(.g_opts$plot_download_types)) ) {
+        if (!(type %in% shiny::isolate(.g_opts$data_download_types)) &&
+            !(type %in% shiny::isolate(.g_opts$plot_download_types)) ) {
             warning(paste0("file download list contains an invalid type <",
                            type, ">"))
         }
@@ -370,7 +402,7 @@ downloadFile_ValidateTypes <- function(types) {
 }
 
 
-#' downloadFile Helper
+#' downloadFile module list of allowed file types
 #'
 #' Returns a list of all supported types
 #'

@@ -9,6 +9,9 @@ create_right_sidebar(location)
 \arguments{
 \item{location}{path of the existing periscope2 application.}
 }
+\value{
+no return value, creates right sidebar related UI R file and updates related source call in ui.R
+}
 \description{
 User can update an existing application that does not have a right side bar and add a new empty one using this function.
 }

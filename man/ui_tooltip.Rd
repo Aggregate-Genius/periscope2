@@ -2,7 +2,7 @@
 % Please edit documentation in R/ui_helpers.R
 \name{ui_tooltip}
 \alias{ui_tooltip}
-\title{ui_tooltip}
+\title{Add tooltip icon and text to UI elements labels}
 \usage{
 ui_tooltip(id, label = "", text = "", placement = "top")
 }
@@ -14,6 +14,9 @@ ui_tooltip(id, label = "", text = "", placement = "top")
 \item{text}{- Tooltip text shown when the user hovers over the image}
 
 \item{placement}{- Where to display tooltip label. Available places are "top", "bottom", "left", "right" (default is "top")}
+}
+\value{
+html span with the label, tooltip image and tooltip text
 }
 \description{
 This function inserts a standardized tooltip image, label (optional),
@@ -28,7 +31,7 @@ Call this function from \code{program/ui_body.R} to set tooltip parameters
   library(shiny)
   library(periscope2)
 
-  # Inside ui_body.R or similar ui file
+  # Inside ui_body.R or similar UI file
    ui_tooltip(id   = "top_tip",
              label = "Top Tooltips",
              text  = "Top tooltip")

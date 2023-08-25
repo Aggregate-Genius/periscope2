@@ -3,7 +3,7 @@
 # -------------------------------------------
 
 
-#' downloadableTable UI
+#' downloadableTable module UI function
 #'
 #' Creates a custom high-functionality table paired with a linked downloadFile
 #' button.  The table has search and highlight functionality, infinite scrolling,
@@ -15,6 +15,8 @@
 #' @param contentHeight viewable height of the table (any valid css size value)
 #' @param singleSelect whether the table should only allow a single row to be
 #' selected at a time (FALSE by default allows multi-select).
+#'
+#' @return list of downloadFileButton UI and DT datatable
 #'
 #' @section Table Features:
 #' \itemize{
@@ -44,7 +46,6 @@
 #'
 #' @seealso \link[periscope2]{downloadableTable}
 #' @seealso \link[periscope2]{downloadFileButton}
-#' @seealso \link[periscope2]{logViewer}
 #' @seealso \link[periscope2]{logViewerOutput}
 #' @seealso \link[periscope2]{downloadFile}
 #' @seealso \link[periscope2]{downloadFile_ValidateTypes}
@@ -52,12 +53,32 @@
 #' @seealso \link[periscope2]{downloadablePlot}
 #'
 #' @examples
-#' # Inside ui_body.R or ui_sidebar.R
-#' downloadableTableUI("object_id1",
-#'                     downloadtypes = c("csv", "tsv"),
-#'                     hovertext     = "Download the data here!",
-#'                     contentHeight = "300px",
-#'                     singleSelect  = FALSE)
+#' if (interactive()) {
+#'  library(shiny)
+#'  library(periscope2)
+#'  shinyApp(ui = fluidPage(fluidRow(column(width = 12,
+#'    downloadableTableUI("object_id1",
+#'                        downloadtypes = c("csv", "tsv"),
+#'                        hovertext     = "Download the data here!",
+#'                        contentHeight = "300px",
+#'                        singleSelect  = FALSE)))),
+#'    server = function(input, output) {
+#'      mydataRowIds <- function(){
+#'        rownames(head(mtcars))[c(2, 5)]
+#'      }
+#'      selectedrows <- downloadableTable(
+#'        id               = "object_id1",
+#'        logger           = "",
+#'        filenameroot     = "mydownload1",
+#'        downloaddatafxns = list(csv = reactiveVal(mtcars), tsv = reactiveVal(mtcars)),
+#'        tabledata        = reactiveVal(mtcars),
+#'        selection        = mydataRowIds,
+#'        table_options    = list(rownames = TRUE,
+#'                             caption  = "This is a great table!"))
+#'      observeEvent(selectedrows(), {
+#'        print(selectedrows())
+#'      })})
+#'}
 #'
 #' @export
 downloadableTableUI <- function(id,
@@ -90,7 +111,7 @@ downloadableTableUI <- function(id,
 }
 
 
-#' downloadableTable Module
+#' downloadableTable module server function
 #'
 #' Server-side function for the downloadableTableUI.  This is a custom
 #' high-functionality table paired with a linked downloadFile
@@ -148,7 +169,6 @@ downloadableTableUI <- function(id,
 #'
 #' @seealso \link[periscope2]{downloadableTableUI}
 #' @seealso \link[periscope2]{downloadFileButton}
-#' @seealso \link[periscope2]{logViewer}
 #' @seealso \link[periscope2]{logViewerOutput}
 #' @seealso \link[periscope2]{downloadFile}
 #' @seealso \link[periscope2]{downloadFile_ValidateTypes}
@@ -156,32 +176,32 @@ downloadableTableUI <- function(id,
 #' @seealso \link[periscope2]{downloadablePlot}
 #'
 #' @examples
-#' # Inside server_local.R
-#'
-#' # selectedrows <- downloadableTable(
-#' #     id               = "object_id1",
-#' #     logger           = ss_userAction.Log,
-#' #     filenameroot     = "mydownload1",
-#' #     downloaddatafxns = list(csv = mydatafxn1, tsv = mydatafxn2),
-#' #     tabledata        = mydatafxn3,
-#' #     rownames         = FALSE,
-#' #     caption          = "This is a great table!  By: Me",
-#' #     selection        = mydataRowIds,
-#' #     colnames         = c("Area", "Delta", "Increase"),
-#' #     filter           = "bottom",
-#' #     width            = "150px",
-#' #     height           = "50px",
-#' #     extensions       = 'Buttons',
-#' #     plugins          = 'natural',
-#' #     editable         = TRUE,
-#' #     dom              = 'Bfrtip',
-#' #     buttons          = c('copy', 'csv', 'excel', 'pdf', 'print'),
-#' #     formatStyle      = list(columns = c('Area'),  color = 'red'),
-#' #     formatStyle      = list(columns = c('Increase'),
-#' #                             color = DT::styleInterval(0, c('red', 'green'))),
-#' #     formatCurrency   = list(columns = c('Delta')))
-#'
-#' # selectedrows is the reactive return value, captured for later use
+#' if (interactive()) {
+#'  library(shiny)
+#'  library(periscope2)
+#'  shinyApp(ui = fluidPage(fluidRow(column(width = 12,
+#'    downloadableTableUI("object_id1",
+#'                        downloadtypes = c("csv", "tsv"),
+#'                        hovertext     = "Download the data here!",
+#'                        contentHeight = "300px",
+#'                        singleSelect  = FALSE)))),
+#'    server = function(input, output) {
+#'      mydataRowIds <- function(){
+#'        rownames(head(mtcars))[c(2, 5)]
+#'      }
+#'      selectedrows <- downloadableTable(
+#'        id               = "object_id1",
+#'        logger           = "",
+#'        filenameroot     = "mydownload1",
+#'        downloaddatafxns = list(csv = reactiveVal(mtcars), tsv = reactiveVal(mtcars)),
+#'        tabledata        = reactiveVal(mtcars),
+#'        selection        = mydataRowIds,
+#'        table_options    = list(rownames = TRUE,
+#'                             caption  = "This is a great table!"))
+#'      observeEvent(selectedrows(), {
+#'        print(selectedrows())
+#'      })})
+#'}
 #'
 #' @export
 downloadableTable <- function(id,
@@ -302,6 +322,7 @@ downloadableTable <- function(id,
                         })
 }
 
+
 build_datatable_arguments <- function(table_options) {
     dt_args <- list()
     formal_dt_args <- methods::formalArgs(DT::datatable)
@@ -352,6 +373,7 @@ build_datatable_arguments <- function(table_options) {
     dt_args[["options"]] <- options
     dt_args
 }
+
 
 format_columns <- function(dt, format_options) {
     for (format_idx in 1:length(format_options)) {

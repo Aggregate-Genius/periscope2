@@ -1,12 +1,13 @@
-/***********************/
+/************************/
 /* periscope2 basic CSS */
-/***********************/
-/*Application2 title*/
+/************************/
+
+/* Application Title */
 a#app_info {
     color: #212529;
 }
 
-/*periscope busy indcator */
+/* Busy Indicator */
 .periscope-busy-ind {
 
 }
@@ -31,7 +32,16 @@ a#app_info {
 
 /* Download Button */
 .periscope-download-btn { }
-.periscope-download-choice { }
+.periscope-download-choice {
+    display        : flex;
+    justify-content: left;
+    margin-left    : 10%;
+}
+
+/*downloadfile multi dropdown file*/
+.dropdown-menu.show {
+    min-width: 100%;
+}
 
 /* Downloadable Table */
 .periscope-downloadable-table { }
@@ -52,4 +62,4 @@ a#app_info {
     top: -39px;
     float: right;
 }
-/* END of periscope basic CSS*/
+/* END of periscope2 basic CSS*/

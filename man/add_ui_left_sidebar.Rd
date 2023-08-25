@@ -2,7 +2,7 @@
 % Please edit documentation in R/ui_helpers.R
 \name{add_ui_left_sidebar}
 \alias{add_ui_left_sidebar}
-\title{add_ui_left_sidebar}
+\title{Add UI elements to dashboard left sidebar section}
 \usage{
 add_ui_left_sidebar(
   sidebar_elements = NULL,
@@ -18,13 +18,13 @@ add_ui_left_sidebar(
 )
 }
 \arguments{
-\item{sidebar_elements}{- List of regular shiny ui elements (inputText, textArea, etc..)}
+\item{sidebar_elements}{- List of regular shiny UI elements (inputText, textArea, etc..)}
 
 \item{sidebar_menu}{- \code{?bs4Dash::bs4SidebarMenu()} object to created a menu inside left sidebar}
 
 \item{collapsed}{- If TRUE, the sidebar will be collapsed on app start up}
 
-\item{custom_area}{- List of regular shiny ui elements but for sidebar bottom space area only.
+\item{custom_area}{- List of regular shiny UI elements but for sidebar bottom space area only.
 Only works if sidebar is fixed}
 
 \item{elevation}{- A number between 0 and 5, which applies a shadow to the sidebar to add a shadow effect.}
@@ -38,6 +38,9 @@ Only works if sidebar is fixed}
 \item{status}{- Determines which color menu items (if exist) will have Check \code{?bs4Dash::dashboardSidebar()} for list of valid values}
 
 \item{skin}{- Sidebar skin. "dark" or "light" (default = "light")}
+}
+\value{
+list of both shiny UI elements and named left sidebar properties
 }
 \description{
 This function adds left sidebar configurations and UI elements. It is called within "ui_left_sidebar.R".

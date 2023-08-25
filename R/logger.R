@@ -91,7 +91,7 @@ Logger <- setRefClass(
                 stop(paste("message composer(passed as composer_f) must be function",
                            " with signature function(msg, ...)"))
             }
-            msg_composer <<- composer_f
+            assign("msg_composer", composer_f, inherits = TRUE)
         },
 
         .deducelevel = function(initial_level = loglevels[["NOTSET"]]) {
@@ -155,8 +155,7 @@ Logger <- setRefClass(
         },
 
         setLevel = function(new_level) {
-            new_level <- namedLevel(new_level)
-            level <<- new_level
+            assign("level", namedLevel(new_level), inherits = TRUE)
         },
 
         getLevel = function() level,
@@ -168,9 +167,13 @@ Logger <- setRefClass(
         },
 
         removeHandler = function(handler) {
-            if (!is.character(handler))  # handler was passed as its action
+            if (!is.character(handler)) { # handler was passed as its action
                 handler <- deparse(substitute(handler))
-            handlers <<- handlers[!(names(handlers) == handler)]
+            }
+
+            logger_handlers <- get("handlers", inherits = TRUE)
+            logger_handlers <- handlers[!(names(logger_handlers) == handler)]
+            assign("handlers", logger_handlers, inherits = TRUE)
         },
 
         addHandler = function(handler, ..., level = 0, formatter = defaultFormat) {
@@ -200,7 +203,9 @@ Logger <- setRefClass(
             removeHandler(handler_name)
 
             if (with(handler_env, action)(NA, handler_env, dry = TRUE) == TRUE) {
-                handlers[[handler_name]] <<- handler_env
+                logger_handlers                 <- get("handlers", inherits = TRUE)
+                logger_handlers[[handler_name]] <- handler_env
+                assign("handlers", logger_handlers, inherits = TRUE)
             }
         },
 
@@ -230,6 +235,7 @@ Logger <- setRefClass(
 #' @param ... if present, msg is interpreted as a format and the \dots values
 #'  are passed to it to form the actual message.
 #' @param logger the name of the logger to which we pass the record
+#'
 #'
 #' @name logging-entrypoints
 #' @aliases logdebug
@@ -276,6 +282,9 @@ logwarn <- function(msg, ..., logger = "") {
 }
 
 #' @rdname logging-entrypoints
+#'
+#' @return no return value, prints log contents into R console and app log file
+#'
 #' @export
 logerror <- function(msg, ..., logger = "") {
     .levellog(loglevels["ERROR"], msg, ..., logger = logger)
@@ -285,7 +294,7 @@ logerror <- function(msg, ..., logger = "") {
 ## @param level The logging level
 levellog <- function(level, msg, ..., logger = "") {
     # just calling .levellog
-    # do not simplify it as call sequence sould be same
+    # do not simplify it as call sequence should be same
     #   as for other logX functions
     .levellog(level, msg, ..., logger = logger)
 }
@@ -385,7 +394,7 @@ basicConfig <- function(level = 20) {
 ##
 ##
 logReset <- function() {
-    ## reinizialize the whole logging system
+    ## reinitialize the whole logging system
 
     ## remove all content from the logging environment
     rm(list = ls(logging.options), envir = logging.options)
@@ -551,7 +560,7 @@ setMsgComposer <- function(composer_f, container = "") {
 ##
 resetMsgComposer <- function(container = "") {
     if (is.null(container)) {
-        stop("NULL container provided: cannot resset message composer for NULL container")
+        stop("NULL container provided: cannot reset message composer for NULL container")
     }
 
     if (is.character(container)) {

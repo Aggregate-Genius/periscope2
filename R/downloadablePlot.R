@@ -3,7 +3,7 @@
 # -------------------------------------------
 
 
-#' downloadablePlot UI
+#' downloadablePlot module UI function
 #'
 #' Creates a custom plot output that is paired with a linked downloadFile
 #' button.  This module is compatible with ggplot2, grob and lattice
@@ -23,6 +23,8 @@
 #' @param clickOpts NULL or an object created by the \link[shiny]{clickOpts} function
 #' @param hoverOpts NULL or an object created by the \link[shiny]{hoverOpts} function
 #' @param brushOpts NULL or an object created by the \link[shiny]{brushOpts} function
+#'
+#' @return list of downloadFileButton UI and plot object
 #'
 #' @section Example:
 #' \code{downloadablePlotUI("myplotID", c("png", "csv"),
@@ -53,15 +55,37 @@
 #' @seealso \link[periscope2]{downloadFile_ValidateTypes}
 #' @seealso \link[periscope2]{downloadFile_AvailableTypes}
 #' @seealso \link[periscope2]{downloadableTable}
-#' @seealso \link[periscope2]{logViewer}
 #' @seealso \link[periscope2]{logViewerOutput}
 #' @examples
-#' # Inside ui_body.R or ui_sidebar.R
-#' downloadablePlotUI("object_id1",
-#'                    downloadtypes      = c("png", "csv"),
-#'                    download_hovertext = "Download the plot and data here!",
-#'                    height             = "500px",
-#'                    btn_halign         = "left")
+#' if (interactive()) {
+#'   library(shiny)
+#'   library(ggplot2)
+#'   library(periscope2)
+#'   shinyApp(ui = fluidPage(fluidRow(column(width = 12,
+#'      downloadablePlotUI("object_id1",
+#'                         downloadtypes      = c("png", "csv"),
+#'                         download_hovertext = "Download plot and data",
+#'                         height             = "500px",
+#'                         btn_halign         = "left")))),
+#'     server = function(input, output) {
+#'       download_plot <- function() {
+#'         ggplot(data = mtcars, aes(x = wt, y = mpg)) +
+#'         geom_point(aes(color = cyl)) +
+#'         theme(legend.justification = c(1, 1),
+#'               legend.position      = c(1, 1),
+#'               legend.title         = element_blank()) +
+#'         ggtitle("GGPlot Example ") +
+#'         xlab("wt") +
+#'         ylab("mpg")
+#'       }
+#'       downloadablePlot(id           = "object_id1",
+#'                        logger       = "",
+#'                        filenameroot = "mydownload1",
+#'                        downloadfxns = list(png = download_plot, csv = reactiveVal(mtcars)),
+#'                        aspectratio  = 1.33,
+#'                        visibleplot  = download_plot)
+#'   })
+#'}
 #'
 #' @export
 downloadablePlotUI <- function(id,
@@ -129,7 +153,7 @@ downloadablePlotUI <- function(id,
     module_output
 }
 
-#' downloadablePlot Module
+#' downloadablePlot module server function
 #'
 #' Server-side function for the downloadablePlotUI.  This is a custom
 #' plot output paired with a linked downloadFile button.
@@ -147,6 +171,8 @@ downloadablePlotUI <- function(id,
 #' the same names that were used when the plot UI was created.
 #' @param visibleplot function or reactive expression providing the plot to
 #' display as a return value.  This function should require no input parameters.
+#'
+#' @return Reactive expression containing the currently selected plot to be available for display and download
 #'
 #' @section Notes:
 #' When there are no values to download in any of the linked downloadfxns the
@@ -166,18 +192,37 @@ downloadablePlotUI <- function(id,
 #' @seealso \link[periscope2]{downloadFile_ValidateTypes}
 #' @seealso \link[periscope2]{downloadFile_AvailableTypes}
 #' @seealso \link[periscope2]{downloadableTable}
-#' @seealso \link[periscope2]{logViewer}
 #' @seealso \link[periscope2]{logViewerOutput}
-#'
 #' @examples
-#' # Inside server_local.R
-#'
-#' # downloadablePlot("object_id1",
-#' #                  logger       = ss_userAction.Log,
-#' #                  filenameroot = "mydownload1",
-#' #                  aspectratio  = 1.33,
-#' #                  downloadfxns = list(png = myplotfxn, tsv = mydatafxn),
-#' #                  visibleplot  = myplotfxn)
+#' if (interactive()) {
+#'   library(shiny)
+#'   library(ggplot2)
+#'   library(periscope2)
+#'   shinyApp(ui = fluidPage(fluidRow(column(width = 12,
+#'      downloadablePlotUI("object_id1",
+#'                         downloadtypes      = c("png", "csv"),
+#'                         download_hovertext = "Download plot and data",
+#'                         height             = "500px",
+#'                         btn_halign         = "left")))),
+#'     server = function(input, output) {
+#'       download_plot <- function() {
+#'         ggplot(data = mtcars, aes(x = wt, y = mpg)) +
+#'         geom_point(aes(color = cyl)) +
+#'         theme(legend.justification = c(1, 1),
+#'               legend.position      = c(1, 1),
+#'               legend.title         = element_blank()) +
+#'         ggtitle("GGPlot Example ") +
+#'         xlab("wt") +
+#'         ylab("mpg")
+#'       }
+#'       downloadablePlot(id           = "object_id1",
+#'                        logger       = "",
+#'                        filenameroot = "mydownload1",
+#'                        downloadfxns = list(png = download_plot, csv = reactiveVal(mtcars)),
+#'                        aspectratio  = 1.33,
+#'                        visibleplot  = download_plot)
+#'   })
+#'}
 #'
 #' @export
 downloadablePlot <- function(id,

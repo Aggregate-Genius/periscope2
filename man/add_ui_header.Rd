@@ -2,7 +2,7 @@
 % Please edit documentation in R/ui_helpers.R
 \name{add_ui_header}
 \alias{add_ui_header}
-\title{add_ui_header}
+\title{Add UI elements to dashboard header section}
 \usage{
 add_ui_header(
   left_menu = NULL,
@@ -36,6 +36,9 @@ Check \code{?bs4Dash::bs4DropdownMenu()}}
 \item{skin}{- Sidebar skin. "dark" or "light"}
 
 \item{status}{- Sidebar status. Check \code{?bs4Dash::bs4DashNavbar()} for list of valid values}
+}
+\value{
+list of both shiny UI elements and named header properties
 }
 \description{
 Builds application header with given configurations and elements. It is called within "ui_header.R".

@@ -2,7 +2,7 @@
 % Please edit documentation in R/downloadableTable.R
 \name{downloadableTableUI}
 \alias{downloadableTableUI}
-\title{downloadableTable UI}
+\title{downloadableTable module UI function}
 \usage{
 downloadableTableUI(
   id,
@@ -23,6 +23,9 @@ downloadableTableUI(
 
 \item{singleSelect}{whether the table should only allow a single row to be
 selected at a time (FALSE by default allows multi-select).}
+}
+\value{
+list of downloadFileButton UI and DT datatable
 }
 \description{
 Creates a custom high-functionality table paired with a linked downloadFile
@@ -64,20 +67,38 @@ in server.R
 }
 
 \examples{
-# Inside ui_body.R or ui_sidebar.R
-downloadableTableUI("object_id1",
-                    downloadtypes = c("csv", "tsv"),
-                    hovertext     = "Download the data here!",
-                    contentHeight = "300px",
-                    singleSelect  = FALSE)
+if (interactive()) {
+ library(shiny)
+ library(periscope2)
+ shinyApp(ui = fluidPage(fluidRow(column(width = 12,
+   downloadableTableUI("object_id1",
+                       downloadtypes = c("csv", "tsv"),
+                       hovertext     = "Download the data here!",
+                       contentHeight = "300px",
+                       singleSelect  = FALSE)))),
+   server = function(input, output) {
+     mydataRowIds <- function(){
+       rownames(head(mtcars))[c(2, 5)]
+     }
+     selectedrows <- downloadableTable(
+       id               = "object_id1",
+       logger           = "",
+       filenameroot     = "mydownload1",
+       downloaddatafxns = list(csv = reactiveVal(mtcars), tsv = reactiveVal(mtcars)),
+       tabledata        = reactiveVal(mtcars),
+       selection        = mydataRowIds,
+       table_options    = list(rownames = TRUE,
+                            caption  = "This is a great table!"))
+     observeEvent(selectedrows(), {
+       print(selectedrows())
+     })})
+}
 
 }
 \seealso{
 \link[periscope2]{downloadableTable}
 
 \link[periscope2]{downloadFileButton}
-
-\link[periscope2]{logViewer}
 
 \link[periscope2]{logViewerOutput}
 

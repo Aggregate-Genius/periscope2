@@ -131,9 +131,9 @@
         <dl>
           <dt>Features</dt>
           <ul>
-            <li>A predefined but flexible template for new Shiny applications with a default dashboard layout</li>
+            <li>Predefined but flexible template for new Shiny applications with a default dashboard layout</li>
             <li>Separation by file of functionality that exists in one of the three shiny scopes: global, server-global, and server-local.</li>
-            <li>Six off shelf and ready to be used modules ('Announcements', 'Table Downloader', 'Plot Downloader', 'File Downloader', 'Application Logger' and 'Reset Application'</li>
+            <li>Off-the-shelf and ready to be used modules ('Announcements', 'Table Downloader', 'Plot Downloader', 'File Downloader', 'Application Logger' and 'Reset Application'</li>
             <li>Different methods to notify user and add useful information about application UI and server operations</li>
           </ul>
         </dl>
@@ -170,9 +170,9 @@
         <dl>
           <dt>Features</dt>
           <ul>
-            <li>A predefined but flexible template for new Shiny applications with a default dashboard layout</li>
+            <li>Predefined but flexible template for new Shiny applications with a default dashboard layout</li>
             <li>Separation by file of functionality that exists in one of the three shiny scopes: global, server-global, and server-local.</li>
-            <li>Six off shelf and ready to be used modules ('Announcements', 'Table Downloader', 'Plot Downloader', 'File Downloader', 'Application Logger' and 'Reset Application'</li>
+            <li>Off-the-shelf and ready to be used modules ('Announcements', 'Table Downloader', 'Plot Downloader', 'File Downloader', 'Application Logger' and 'Reset Application'</li>
             <li>Different methods to notify user and add useful information about application UI and server operations</li>
           </ul>
         </dl>
@@ -243,4 +243,28 @@
 ---
 
     'arg' should be one of "top", "bottom", "left", "right"
+
+# theme - valid theme
+
+    Code
+      nchar(create_theme())
+    Output
+      [1] 669399
+
+# theme - parsing error
+
+    Code
+      nchar(suppressWarnings(periscope2:::create_theme()))
+    Output
+      [1] 669361
+
+# theme - invalid theme settings
+
+    Code
+      nchar(create_theme())
+    Warning <simpleWarning>
+      primary has invalid color value. Setting default color.
+      -300 must be positive value. Setting default value.
+    Output
+      [1] 669423
 

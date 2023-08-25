@@ -2,7 +2,7 @@
 % Please edit documentation in R/ui_helpers.R
 \name{createAlert}
 \alias{createAlert}
-\title{createAlert}
+\title{Display alert panel at specified location}
 \usage{
 createAlert(
   session = shiny::getDefaultReactiveDomain(),
@@ -16,13 +16,13 @@ createAlert(
 
 \item{id}{- Anchor id (either id or selector only should be set)}
 
-\item{selector}{- Character vectore represents jQuery selector to add the alert to is
+\item{selector}{- Character vector represents jQuery selector to add the alert to is
 (i.e ".alertClass", div.badge-danger.navbar-badge). If 'id' is specified, this parameter will be neglected}
 
 \item{options}{- List of options to pass to the alert}
 }
 \value{
-creates an alert html div and inserts it in the app DOM
+html div and inserts it in the app DOM
 }
 \description{
 Create an alert panel in server code to be displayed in the specified UI selector location

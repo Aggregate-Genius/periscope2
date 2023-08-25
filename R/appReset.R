@@ -3,7 +3,7 @@
 # -- Reload Application Session      --
 # -------------------------------------
 
-#' appResetButton
+#' appResetButton module UI function
 #'
 #' Creates a toggle button to reset application session. Upon pressing on the
 #'  button, its state is flipped to cancel application reload with application
@@ -35,8 +35,15 @@
 #'
 #'
 #' @examples
-#' # Inside ui_body.R or ui_left_sidebar.R
-#' appResetButton(id = 'appResetId')
+#' if (interactive()) {
+#'    library(shiny)
+#'    library(periscope2)
+#'    shinyApp(
+#'      ui = fluidPage(fluidRow(column(12, appResetButton(id = "appResetId")))),
+#'      server = function(input, output) {
+#'        appReset(id = "appResetId", logger = "")
+#'    })
+#' }
 #'
 #'
 #' @export
@@ -47,7 +54,6 @@
 #' @seealso \link[periscope2]{downloadablePlot}
 #' @seealso \link[periscope2]{downloadFileButton}
 #' @seealso \link[periscope2]{downloadableTable}
-#' @seealso \link[periscope2]{logViewer}
 #' @seealso \link[periscope2]{logViewerOutput}
 appResetButton <- function(id) {
     ns <- shiny::NS(id)
@@ -70,7 +76,7 @@ appResetButton <- function(id) {
 }
 
 
-#' appReset Module Server Function
+#' appReset module server function
 #'
 #' Server-side function for the appResetButton  This is a custom
 #' high-functionality button for session reload. The server function is used to
@@ -91,9 +97,15 @@ appResetButton <- function(id) {
 #' \strong{\code{appReset(id = "appResetId", logger = ss_userAction.Log)}}
 #'
 #' @examples
-#' # Inside server_local.R
-#'
-#' #appReset(id = "appResetId", logger = ss_userAction.Log)
+#' if (interactive()) {
+#'    library(shiny)
+#'    library(periscope2)
+#'    shinyApp(
+#'      ui = fluidPage(fluidRow(column(12, appResetButton(id = "appResetId")))),
+#'      server = function(input, output) {
+#'        appReset(id = "appResetId", logger = "")
+#'    })
+#' }
 #'
 #' @export
 #'
@@ -104,7 +116,6 @@ appResetButton <- function(id) {
 #' @seealso \link[periscope2]{downloadablePlot}
 #' @seealso \link[periscope2]{downloadFileButton}
 #' @seealso \link[periscope2]{downloadableTable}
-#' @seealso \link[periscope2]{logViewer}
 #' @seealso \link[periscope2]{logViewerOutput}
 appReset <- function(id,
                      reset_wait     = 5000,

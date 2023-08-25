@@ -230,9 +230,9 @@ test_that("add_ui_body example body", {
                   "functions with the goal of both streamlining robust application development and assisting in creating a consistent",
                   " user experience regardless of application or developer."),
         tags$dl(tags$dt("Features"),
-                tags$ul(tags$li("A predefined but flexible template for new Shiny applications with a default dashboard layout"),
+                tags$ul(tags$li("Predefined but flexible template for new Shiny applications with a default dashboard layout"),
                         tags$li("Separation by file of functionality that exists in one of the three shiny scopes: global, server-global, and server-local."),
-                        tags$li("Six off shelf and ready to be used modules ('Announcements', 'Table Downloader', 'Plot Downloader', 'File Downloader', 'Application Logger' and 'Reset Application'"),
+                        tags$li("Off-the-shelf and ready to be used modules ('Announcements', 'Table Downloader', 'Plot Downloader', 'File Downloader', 'Application Logger' and 'Reset Application'"),
                         tags$li("Different methods to notify user and add useful information about application UI and server operations"))),
         status = "info",
         href   = "https://periscopeapps.org/"
@@ -301,21 +301,38 @@ test_that("load_announcements empty file", {
     unlink(announcements_file, TRUE)
 })
 
+test_that("load_announcements - parsing error", {
+    # test empty announcement
+    appTemp_dir        <- tempdir()
+    appTemp            <- tempfile(pattern = "TestThatApp", tmpdir = appTemp_dir)
+    announcements_file <- paste0(gsub('\\\\|/', '', (gsub(appTemp_dir, "", appTemp, fixed = TRUE))), ".yaml")
+    cat(":", file = (con <- file(announcements_file, "w", encoding = "UTF-8")))
+    close(con)
+
+    periscope2::set_app_parameters(title              = "title",
+                                   announcements_file = announcements_file)
+    expect_warning(periscope2:::load_announcements(), regexp = "[(Could not parse TestThatApp)]")
+    unlink(announcements_file, TRUE)
+})
+
 test_that("load_announcements function parameters", {
-    expect_null(create_announcements(start_date = "11-26-2022",
-                                     end_data   = "12-26-2022"))
-    expect_null(create_announcements(start_date        = "11-26-2022",
-                                     end_data          = "12-26-2022",
-                                     start_date_format = "%m-%d-%y",
-                                     end_date_format   = "%m-%d-%y"))
-    expect_null(create_announcements(start_date        = "11-26-2022",
-                                     end_data          = "12-26-2022",
-                                     end_date_format   = "%m-%d-%y"))
-    expect_null(create_announcements(start_date        = "11-26-2022",
-                                     end_data          = "12-26-2022",
-                                     start_date_format = "%m-%d-%y"))
-    expect_null(create_announcements(start_date        = "11-26-2022",
-                                     start_date_format = "%m-%d-%y"))
+    expect_null(create_announcements(start_date = "2222-11-26",
+                                     end_data   = "2222-12-26"))
+    expect_null(create_announcements(start_date = "2022-11-26",
+                                     end_data   = "2222-12-26",
+                                     style      = "not-style"))
+    expect_null(create_announcements(start_date        = "11-26-2222",
+                                     end_data          = "12-26-2222",
+                                     start_date_format = "%m-%d-%Y",
+                                     end_date_format   = "%m-%d-%Y"))
+    expect_null(create_announcements(start_date        = "11-26-2222",
+                                     end_data          = "12-26-2222",
+                                     end_date_format   = "%m-%d-%Y"))
+    expect_null(create_announcements(start_date        = "11-26-2222",
+                                     end_data          = "12-26-2222",
+                                     start_date_format = "%m-%d-%Y"))
+    expect_null(create_announcements(start_date        = "11-26-2222",
+                                     start_date_format = "%m-%d-%Y"))
     expect_null(create_announcements(style = "info"))
     expect_null(create_announcements(style      = "info",
                                      text       = "text",
@@ -359,4 +376,39 @@ test_that("ui_tooltip", {
 
 test_that("ui_tooltip no text", {
     expect_warning(ui_tooltip(id = "id", label = "mylabel", text = ""), "ui_tooltip\\() called without tooltip text.")
+})
+
+
+test_that("theme - valid theme", {
+    theme_settings <- yaml::read_yaml(system.file("fw_templ", "p_example", "periscope_style.yaml", package = "periscope2"))
+    dir.create("www")
+    yaml::write_yaml(theme_settings, "www/periscope_style.yaml")
+    expect_snapshot(nchar(create_theme()))
+    unlink("www/periscope_style.yaml")
+    unlink("www", recursive = TRUE)
+})
+
+
+test_that("theme - parsing error", {
+    dir.create("www")
+    theme_file           <- "www/periscope_style.yaml"
+    cat(":", file = (con <- file(theme_file, "w", encoding = "UTF-8")))
+    close(con)
+    expect_snapshot(nchar(suppressWarnings(periscope2:::create_theme())))
+    unlink("www/periscope_style.yaml")
+    unlink("www", recursive = TRUE)
+})
+
+
+test_that("theme - invalid theme settings", {
+    theme_settings <- yaml::read_yaml(system.file("fw_templ", "p_example", "periscope_style.yaml", package = "periscope2"))
+    dir.create("www")
+    theme_settings[["primary"]]             <- "not color"
+    theme_settings[["sidebar_width"]]       <- "300"
+    theme_settings[["right_sidebar_width"]] <- "-300"
+
+    yaml::write_yaml(theme_settings, "www/periscope_style.yaml")
+    expect_snapshot(nchar(create_theme()))
+    unlink("www/periscope_style.yaml")
+    unlink("www", recursive = TRUE)
 })
