@@ -41,7 +41,6 @@ Suggests:
     openxlsx,
     rmarkdown,
     shinyjs,
-    shinyalert,
     spelling,
     testthat,
     waiter

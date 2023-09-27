@@ -11,7 +11,7 @@
 library(DT)
 library(shiny)
 library(periscope2)
-library(shinyalert)
+library(shinyWidgets)
 library(waiter)
 library(shinyjs)
 library(canvasXpress)
