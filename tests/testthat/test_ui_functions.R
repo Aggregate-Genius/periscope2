@@ -57,7 +57,6 @@ test_that("add_ui_header", {
 
     header <- shiny::isolate(periscope2:::.g_opts$header)
     expect_equal(length(header), 2)
-    expect_true(grepl('id="announceAlert"', header[[1]], fixed = TRUE))
     expect_true(grepl('Set using set_app_parameters() in program/global.R', header[[1]], fixed = TRUE))
     expect_null(header[[2]])
 })
@@ -244,11 +243,11 @@ test_that("add_ui_body example body", {
     add_ui_body(list(div("more elements")), append = TRUE)
     expect_snapshot_output(shiny::isolate(periscope2:::.g_opts$body_elements))
     dashboard_ui <- periscope2:::create_application_dashboard()
-    expect_true(grepl('id="announceAlert"' , dashboard_ui, fixed = TRUE))
-    expect_true(grepl('id="headerAlert"' , dashboard_ui, fixed = TRUE))
-    expect_true(grepl('Periscope2 Features' , dashboard_ui, fixed = TRUE))
-    expect_true(grepl('id="sidebarRightAlert"' , dashboard_ui, fixed = TRUE))
-    expect_true(grepl('id="footerAlert"' , dashboard_ui, fixed = TRUE))
+    expect_true(grepl('id="announceAlert"' , dashboard_ui[[1]], fixed = TRUE))
+    expect_true(grepl('id="headerAlert"' , dashboard_ui[[2]], fixed = TRUE))
+    expect_true(grepl('Periscope2 Features' , dashboard_ui[[3]], fixed = TRUE))
+    expect_true(grepl('id="sidebarRightAlert"' , dashboard_ui[[3]], fixed = TRUE))
+    expect_true(grepl('id="footerAlert"' , dashboard_ui[[3]], fixed = TRUE))
 })
 
 test_that("set_app_parameters default values", {
