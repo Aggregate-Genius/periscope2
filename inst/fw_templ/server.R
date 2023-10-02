@@ -36,8 +36,12 @@ shinyServer(function(input, output, session) {
 
     # Display application info
     observeEvent(input$app_info, {
-        shinyalert(html                = TRUE,
+        show_alert(html                = TRUE,
                    showConfirmButton   = FALSE,
+                   btn_labels          = NA,
+                   width               = "60%",
+                   showCancelButton    = FALSE,
+                   showCloseButton     = TRUE,
                    animation           = "slide-from-top",
                    closeOnClickOutside = TRUE,
                    text                = periscope2:::.g_opts$app_info,

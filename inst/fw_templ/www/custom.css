@@ -62,4 +62,49 @@ a#app_info {
     top: -39px;
     float: right;
 }
+
+/* Modal related CSS rules */
+/* Modal Title*/
+h2#swal2-title {
+    text-align: left!important;
+    font-weight: bold!important;
+    margin: 0!important;
+    font-size: large!important;
+    border-bottom: 1px solid #e5e5e5;
+    padding: 15px;
+}
+
+button.swal2-close {
+    float: right;
+    font-size: 21px;
+    font-weight: bold;
+    line-height: 1;
+    color: #000;
+    text-shadow: 0 1px 0 #FFFFFE;
+    opacity: .2;
+    padding-top: 15px;
+    padding-right: 15px;
+    box-shadow: none !important;
+}
+
+button.swal2-close:hover {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+    filter: alpha(opacity=50);
+    opacity: .5;
+}
+
+button.swal2-close:focus {
+    box-shadow: none !important;
+}
+
+div#swal2-html-container {
+    font-size: 14px;
+    text-align: inherit;
+    color: black;
+    padding: 15px;
+}
+
+/* End of modal related CSS rules */
 /* END of periscope2 basic CSS*/
