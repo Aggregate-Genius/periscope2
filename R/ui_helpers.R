@@ -140,20 +140,20 @@ add_ui_header <- function(left_menu          = NULL,
     app_info  <- shiny::isolate(.g_opts$app_info)
 
     if (!is.null(app_info) && (class(app_info)[1] == "html")) {
-        title <- shiny::div(id = "headerAlert",
-                            shiny::div(id = "app_header"),
+        title <- shiny::div(shiny::div(id = "app_header"),
                             shiny::actionLink("app_info", app_title))
     }
 
-    title_header_alert <- shiny::fluidRow(shiny::column(width = 4,
-                                                        shiny::div(class = "periscope-busy-ind",
-                                                                   "Working",
-                                                                   shiny::img(alt = "Working...",
-                                                                              hspace = "5px",
-                                                                              src = "img/loader.gif"))),
-                                          shiny::column(width = 4, title),
-                                          shiny::column(width = 4))
-    .g_opts$header <- bs4Dash::bs4DashNavbar(title_header_alert,
+    title_header <- shiny::fluidRow(style = "width:100%",
+                                    shiny::column(width = 4,
+                                                  shiny::div(class = "periscope-busy-ind",
+                                                             "Working",
+                                                             shiny::img(alt = "Working...",
+                                                                        hspace = "5px",
+                                                                        src = "img/loader.gif"))),
+                                    shiny::column(width = 4, title),
+                                    shiny::column(width = 4))
+    .g_opts$header <- bs4Dash::bs4DashNavbar(title_header,
                                              skin           = skin,
                                              status         = status,
                                              border         = border,

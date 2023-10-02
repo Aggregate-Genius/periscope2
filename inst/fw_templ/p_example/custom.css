@@ -1,7 +1,7 @@
 /************************/
 /* periscope2 basic CSS */
 /************************/
-aside#sidebarId {
+aside#sidebarId, aside#controlbarId {
     position: absolute;
 }
 
