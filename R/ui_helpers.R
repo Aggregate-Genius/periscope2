@@ -145,10 +145,7 @@ add_ui_header <- function(left_menu          = NULL,
                             shiny::actionLink("app_info", app_title))
     }
 
-    title_header_alert <- shiny::fluidRow(style = "width:100%",
-                                          shiny::column(width = 12, shiny::div(id = "announceAlert")),
-                                          shiny::column(width = 12, shiny::div(id = "headerAlert")),
-                                          shiny::column(width = 4,
+    title_header_alert <- shiny::fluidRow(shiny::column(width = 4,
                                                         shiny::div(class = "periscope-busy-ind",
                                                                    "Working",
                                                                    shiny::img(alt = "Working...",
