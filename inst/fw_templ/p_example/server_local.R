@@ -223,8 +223,8 @@ observeEvent(input$hideFileOrganization, {
 
 
 observeEvent(TRUE,{
-    output$page    <- renderUI(periscope2:::create_application_dashboard())
-    theme_settings <- read_themes()
+    output$app_theme <- renderUI(fresh::use_theme(periscope2:::create_theme()))
+    theme_settings   <- read_themes()
 
     updateColourInput(session,
                       inputId = "primary_picker",

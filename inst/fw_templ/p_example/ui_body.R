@@ -428,6 +428,11 @@ style_guide_box <- box(
     tags$li("'periscope_style.yaml' contains the most important variables with documentation explaining what each variable affects and possible values for it"),
     tags$li("Another method to update application themes or any controls in CSS is by updating 'www/css/custom.css' file"),
     tags$li("The below widget explains some of the variables and how they affect the application"),
+    br(),
+    br(),
+    tags$b(tags$i("** Note: Updating app theme might take few seconds")),
+    br(),
+    br(),
     hr(),
     tags$dt("Status Colors"),
     tags$li("Sets the status (used by bootstrap 4) colors that affects the color of the header, valueBox, infoBox and box"),
@@ -535,4 +540,5 @@ style_guide <- tabItem(tabName = "style_guide",
 
 
 # -- Register Elements in the ORDER SHOWN in the UI
-add_ui_body(tabItems(application_setup, periscope_modules, user_notifications, style_guide))
+add_ui_body(list(uiOutput("app_theme"),
+                 tabItems(application_setup, periscope_modules, user_notifications, style_guide)))

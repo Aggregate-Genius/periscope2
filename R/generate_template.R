@@ -274,11 +274,7 @@ create_application <- function(name,
 
             }
 
-            if (sample_app) {
-                file_contents <- append(file_contents, "uiOutput(\"page\")")
-            } else {
-                file_contents <- append(file_contents, "periscope2:::create_application_dashboard()")
-            }
+            file_contents <- append(file_contents, "periscope2:::create_application_dashboard()")
         }
 
         ui_file <- file(paste(newloc, file, sep = usersep), open = "w+")

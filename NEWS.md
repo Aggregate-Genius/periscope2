@@ -5,6 +5,7 @@
 - Relocated Announcements and header alerts bar to be above navbar instead of inside it
 
 ### Bug Fixes
+- Fixed non working Announcements and ResetApp modules in sample application
 
 -----
 
