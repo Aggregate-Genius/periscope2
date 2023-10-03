@@ -1,6 +1,9 @@
 /************************/
 /* periscope2 basic CSS */
 /************************/
+aside#sidebarId, aside#controlbarId {
+    position: absolute;
+}
 
 /* Application Title */
 a#app_info {
@@ -40,6 +43,11 @@ a#app_info {
 
 /*downloadfile multi dropdown file*/
 .dropdown-menu.show {
+    min-width: 100%;
+}
+
+/* LogViewer table */
+table.shiny-table {
     min-width: 100%;
 }
 
