@@ -411,3 +411,8 @@ test_that("theme - invalid theme settings", {
     unlink("www/periscope_style.yaml")
     unlink("www", recursive = TRUE)
 })
+
+
+test_that("dashboard - create default dashboard", {
+    expect_snapshot(periscope2:::create_application_dashboard())
+})
