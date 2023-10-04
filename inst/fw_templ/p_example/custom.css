@@ -1,6 +1,9 @@
 /************************/
 /* periscope2 basic CSS */
 /************************/
+aside#sidebarId, aside#controlbarId {
+    position: absolute;
+}
 
 /* Application title */
 a#app_info {

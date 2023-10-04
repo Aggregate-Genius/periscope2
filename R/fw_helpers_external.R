@@ -38,16 +38,20 @@ fw_get_user_log <- function() {
 #' @keywords internal
 #' @noRd
 create_application_dashboard <- function() {
-    bs4Dash::bs4DashPage(title      = shiny::isolate(.g_opts$app_title),
-                         header     = shiny::isolate(.g_opts$header),
-                         body       = bs4Dash::bs4DashBody(shiny::isolate(.g_opts$body_elements)),
-                         sidebar    = do.call(bs4Dash::bs4DashSidebar, shiny::isolate(.g_opts$left_sidebar)),
-                         controlbar = shiny::isolate(.g_opts$right_sidebar),
-                         footer     = shiny::isolate(.g_opts$footer),
-                         freshTheme = create_theme(),
-                         dark       = NULL,
-                         help       = NULL,
-                         preloader  = shiny::isolate(.g_opts$loading_indicator))
+    list(
+        shiny::fluidRow(shiny::column(width = 12, shiny::div(id = "announceAlert"))),
+        shiny::fluidRow(shiny::column(width = 12, shiny::div(id = "headerAlert"))),
+        shiny::fluidRow(shiny::column(width = 12,
+                        bs4Dash::bs4DashPage(title      = shiny::isolate(.g_opts$app_title),
+                                             header     = shiny::isolate(.g_opts$header),
+                                             body       = bs4Dash::bs4DashBody(shiny::isolate(.g_opts$body_elements)),
+                                             sidebar    = do.call(bs4Dash::bs4DashSidebar, shiny::isolate(.g_opts$left_sidebar)),
+                                             controlbar = shiny::isolate(.g_opts$right_sidebar),
+                                             footer     = shiny::isolate(.g_opts$footer),
+                                             freshTheme = create_theme(),
+                                             dark       = NULL,
+                                             help       = NULL,
+                                             preloader  = shiny::isolate(.g_opts$loading_indicator)))))
 }
 
 create_theme <- function() {
