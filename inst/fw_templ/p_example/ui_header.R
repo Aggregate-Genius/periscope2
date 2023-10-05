@@ -41,7 +41,7 @@ left_sidebar_icon <-  shiny::icon("bars")
 right_sidebar_icon <-  shiny::icon("th")
 
 # Whether to fix the navbar to the top
-fixed          <-  FALSE
+fixed          <-  TRUE
 
 # -- Create Header Elements
 
