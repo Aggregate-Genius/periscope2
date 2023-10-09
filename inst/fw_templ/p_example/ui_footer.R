@@ -17,7 +17,7 @@
 
 
 # ----------------------------------------
-# --   RIGHT SIDEBAR ELEMENT CREATION   --
+# --   FOOTER ELEMENT CREATION   --
 # ----------------------------------------
 
 # -- Create Elements

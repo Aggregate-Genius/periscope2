@@ -17,7 +17,7 @@
 
 
 # ----------------------------------------
-# --     SIDEBAR ELEMENT CREATION       --
+# --     HEADER ELEMENT CREATION       --
 # ----------------------------------------
 
 # -- Header Configurations
