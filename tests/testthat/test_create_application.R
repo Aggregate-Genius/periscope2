@@ -173,10 +173,13 @@ test_that("create_application invalid location", {
                  "Framework creation could not proceed, please provide valid character application location")
     expect_error(create_application(name = "Invalid", location = "invalid", sample_app = FALSE),
                  "Framework creation could not proceed, path=<invalid> does not exists!")
-    # NOTE: most servers this is true but not all, such as in CI systems, etc.  will require more setup
-    #       to create a temp directory and a non-writeable subdirectory and then try to create the app there
-    # expect_error(create_application(name = "Invalid", location = "/", sample_app = FALSE),
-    #              "Framework creation could not proceed, path=</> is not writeable!")
+    appTemp_dir <- tempdir()
+    dir.create(path = paste0(appTemp_dir, "/", "testFolder"), mode = "0000")
+    expect_error(create_application(name = "Invalid", location = paste0(appTemp_dir, "/", "testFolder"), sample_app = FALSE),
+                 regexp = "(is not writeable)")
+    unlink(paste0(appTemp_dir, "/", "testFolder"))
+    unlink(appTemp_dir)
+
 })
 
 test_that("create_application existing location", {
