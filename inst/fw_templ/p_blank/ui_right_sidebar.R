@@ -26,13 +26,13 @@
 collapsed <- TRUE
 
 # Whether the sidebar covers the content when expanded
-overlay   <- TRUE
+overlay <- TRUE
 
-# Controlbar skin. "dark" or "light".
-skin      <- "light"
+# Control bar skin. "dark" or "light".
+skin <- "light"
 
-# Whether to block the controlbar state
-pinned    <- FALSE
+# Whether to block the control bar state
+pinned <- FALSE
 
 
 # -- Create Right Sidebar Elements

@@ -22,7 +22,7 @@
 
 # -- Create Elements
 # Left text
-left  <- div("Visit the ", a(
+left <- div("Visit the ", a(
     href   = "https://periscopeapps.org/",
     target = "_blank",
     "hosted gallery"

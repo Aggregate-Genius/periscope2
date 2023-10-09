@@ -23,25 +23,25 @@
 
 # -- Left Sidebar Configurations
 # Sidebar skin. "dark" or "light"
-skin            <-  "light"
+skin <- "light"
 
 # Sidebar status
-status          <-  "info"
+status <- "info"
 
 # Sidebar elevation. 4 by default (until 5).
-elevation       <- 4
+elevation <- 4
 
 # If TRUE, the sidebar will be collapsed on app startup.
-collapsed       <-  FALSE
+collapsed <- FALSE
 
 # Whether to slightly close the sidebar but still show item icons
-minified        <-  FALSE
+minified <- FALSE
 
 # Whether to expand the sidebar om hover
 expand_on_hover <- FALSE
 
 # Whether to fix the sidebar
-fixed           <-  TRUE
+fixed <- TRUE
 
 # -- Create Sidebar Elements
 # elements to be placed before any menu
@@ -53,27 +53,27 @@ sidebar_menu <-  sidebarMenu(
     menuItem(
         "Application Setup",
         tabName = "application_setup",
-        icon = icon("building")
+        icon    = icon("building")
     ),
     menuItem(
         "Periscope2 Modules",
         tabName = "periscope_modules",
-        icon = icon("cubes")
+        icon    = icon("cubes")
     ),
     menuItem(
         "User Notifications",
         tabName = "user_notifications",
-        icon = icon("comments")
+        icon    = icon("comments")
     ),
     menuItem(
         "Style Guide",
         tabName = "style_guide",
-        icon = icon("file-code")
+        icon    = icon("file-code")
     )
 )
 
 # An area at the bottom of the sidebar to contain elements like buttons
-custom_area  <- NULL
+custom_area <- NULL
 
 # -- Register Sidebar Elements in the ORDER SHOWN in the UI
 add_ui_left_sidebar(sidebar_elements = sidebar_elements,

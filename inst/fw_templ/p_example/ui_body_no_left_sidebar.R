@@ -259,12 +259,12 @@ plot_downloader_box <- box(
 )
 
 reset_application_box <- box(
-    id = "reset_application",
-    title = "Reset Application",
-    status = "info",
+    id          = "reset_application",
+    title       = "Reset Application",
+    status      = "info",
     solidHeader = TRUE,
     collapsible = TRUE,
-    width = 12,
+    width       = 12,
     fluidRow(column(width = 6,
                     tags$dl(tags$dt("Features"),
                             tags$ul(tags$li("appReset module provids the ability to:"),

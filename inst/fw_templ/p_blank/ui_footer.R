@@ -22,7 +22,7 @@
 
 # -- Create Elements
 # Left text
-left  <- ""
+left <- ""
 
 # Right text
 right <- ""
