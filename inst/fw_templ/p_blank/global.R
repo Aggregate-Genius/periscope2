@@ -3,7 +3,7 @@
 # ----------------------------------------
 # USE: Global variables and functions
 #
-# NOTEs:
+# NOTES:
 #   - All variables/functions here are
 #     globally scoped and will be available
 #     to server, UI and session scopes

@@ -7,7 +7,7 @@
 #      ATTACH them to the UI by calling
 #      add_ui_body()
 #
-# NOTEs:
+# NOTES:
 #   - All variables/functions here are
 #     not available to the UI or Server
 #     scopes - this is isolated
@@ -102,7 +102,7 @@ logger_box <- box(
                                     tags$li(p("The XXXX should be replaced by an actual log level like ", tags$b("'debug'"), ", ",
                                               tags$b("'info'"), ", ", tags$b("'warn'"), ", ",  "or ", tags$b("'error'"),
                                               " The framework will handle updating LogViewer UI module every time the log is added to.")),
-                                    tags$li("'ss_userAction.Log' is a periscope framework logger that is defined autmatically under server.R and",
+                                    tags$li("'ss_userAction.Log' is a periscope framework logger that is defined automatically under server.R and",
                                             tags$b(" should not be altered")),
                                     tags$li("Log level can be changed based on admin preference. Only update ",
                                             tags$b("'log_level'"), " parameter in ", tags$b("'set_app_parameters'"), " method in ",
@@ -195,7 +195,7 @@ file_downloader_box <- box(
     width       = 12,
     fluidRow(column(width = 6,
                     tags$dl(tags$dt("Features"),
-                            tags$ul(tags$li("File downloader module provids the user with the ability to download any server generated data"),
+                            tags$ul(tags$li("File downloader module provides the user with the ability to download any server generated data"),
                                     tags$li("Data can be downloaded in any format available for both 'Table Downloader' and 'Plot Downloader' modules"),
                                     tags$li("Data can be downloaded in single format or in multiple formats, based on module configurations")))),
              column(width = 6,
@@ -225,7 +225,7 @@ plot_downloader_box <- box(
     width       = 12,
     fluidRow(column(width = 6,
                     tags$dl(tags$dt("Features"),
-                            tags$ul(tags$li("This module creates a custom plot output that provids download capability",
+                            tags$ul(tags$li("This module creates a custom plot output that provide download capability",
                                             "to plot tools that have no internal download ability like ggplot2 & lattice."),
                                     tags$li("Plot can be downloaded in different formats such as: ", tags$b("'png'"),
                                             ", ", tags$b("'jpeg'"), ", ", tags$b("'tiff'"), "and/or ", tags$b("'bmp'")),
@@ -273,7 +273,7 @@ reset_application_box <- box(
     width       = 12,
     fluidRow(column(width = 6,
                     tags$dl(tags$dt("Features"),
-                            tags$ul(tags$li("appReset module provids the ability to:"),
+                            tags$ul(tags$li("appReset module provides the ability to:"),
                                     tags$ul(tags$li("Resets a user's session"),
                                             tags$li("Rolls over their log.")),
                                     tags$li("It creates a toggle button to reset application session"),

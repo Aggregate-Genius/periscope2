@@ -9,7 +9,7 @@
 #      shinyServer(function(input, output, session)
 #      in server.R
 #
-# NOTEs:
+# NOTES:
 #   - All variables/functions here are
 #     SESSION scoped and are ONLY
 #     available to a single session and
@@ -29,14 +29,14 @@ source(paste("program", "fxn", "plots.R", sep = .Platform$file.sep))
 
 # -- VARIABLES --
 
-orignal_theme_settings <- list()
-orignal_theme_settings[["primary"]]                  <- "#EBCDFC"
-orignal_theme_settings[["secondary"]]                <- "#CD9489"
-orignal_theme_settings[["success"]]                  <- "#2ED610"
-orignal_theme_settings[["info"]]                     <- "#7BDFF2"
-orignal_theme_settings[["warning"]]                  <- "#FFF200"
-orignal_theme_settings[["danger"]]                   <- "#CE0900"
-orignal_theme_settings[["sidebar_background_color"]] <- "#FFFFE6"
+original_theme_settings <- list()
+original_theme_settings[["primary"]]                  <- "#EBCDFC"
+original_theme_settings[["secondary"]]                <- "#CD9489"
+original_theme_settings[["success"]]                  <- "#2ED610"
+original_theme_settings[["info"]]                     <- "#7BDFF2"
+original_theme_settings[["warning"]]                  <- "#FFF200"
+original_theme_settings[["danger"]]                   <- "#CE0900"
+original_theme_settings[["sidebar_background_color"]] <- "#FFFFE6"
 
 # -- FUNCTIONS --
 appReset(id     = "appResetId",
@@ -338,6 +338,6 @@ observeEvent(input$update_app_theme, {
 
 
 observeEvent(input$restore_app_theme, {
-    write_yaml(orignal_theme_settings, "www/periscope_style.yaml")
+    write_yaml(original_theme_settings, "www/periscope_style.yaml")
     session$reload()
 })

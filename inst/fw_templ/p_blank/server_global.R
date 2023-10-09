@@ -9,7 +9,7 @@
 #      shinyServer(function(input, output, session)
 #      in server.R
 #
-# NOTEs:
+# NOTES:
 #   - All variables/functions here are
 #     SERVER scoped and are available
 #     across all user sessions, but not to

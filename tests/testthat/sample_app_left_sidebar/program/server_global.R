@@ -9,7 +9,7 @@
 #      shinyServer(function(input, output, session)
 #      in server.R
 #
-# NOTEs:
+# NOTES:
 #   - All variables/functions here are
 #     SERVER scoped and are available
 #     across all user sessions, but not to
@@ -42,9 +42,9 @@ node_description <- list("global.R"             = "Handles FRAMEWORK global work
                          "program"              = "All logic goes here",
                          "config"               = "Where user can store application configuration files",
                          "announce.yaml"        = "Announcement module configuration file",
-                         "data"                 = "Where user can sotre related data files (rds, csv, ...)",
-                         ".gitignore"           = "Keep files extenstions to be ignored by Git",
-                         "fxns"                 = "Where application spcialzed logic goes (plot helers, data helpers, ...)",
+                         "data"                 = "Where user can store related data files (rds, csv, ...)",
+                         ".gitignore"           = "Keep files extensions to be ignored by Git",
+                         "fxns"                 = "Where application specialized logic goes (plot helpers, data helpers, ...)",
                          "modules"              = "Application modules",
                          "program.global.R"     = "All variables or/and functions that should be globally scoped to server, UI and session scopes should be here",
                          "server_global.R"      = "All variables or/and functions that should be SERVER scoped and are available across all user sessions, but not to UI, should be here",
@@ -63,7 +63,7 @@ node_description <- list("global.R"             = "Handles FRAMEWORK global work
                          "img"                  = "Application related images and icons",
                          "loader.gif"           = "buys indicator used image",
                          "tooltip.png"          = "Tooltips used image",
-                         "App_Root"             = "Appication main root")
+                         "App_Root"             = "Application main root")
 # -- FUNCTIONS --
 
 

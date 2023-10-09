@@ -187,7 +187,7 @@
     Code
       shiny::isolate(periscope2:::.g_opts$app_info)
     Output
-      Demonstrat periscope features and generated application layout
+      Demonstrate periscope features and generated application layout
 
 ---
 

@@ -6,7 +6,7 @@
 #      ATTACH them to the UI by calling
 #      add_ui_header()
 #
-# NOTEs:
+# NOTES:
 #   - All variables/functions here are
 #     not available to the UI or Server
 #     scopes - this is isolated

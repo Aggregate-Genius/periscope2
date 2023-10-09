@@ -9,7 +9,7 @@
 #      shinyServer(function(input, output, session)
 #      in server.R
 #
-# NOTEs:
+# NOTES:
 #   - All variables/functions here are
 #     SESSION scoped and are ONLY
 #     available to a single session and
