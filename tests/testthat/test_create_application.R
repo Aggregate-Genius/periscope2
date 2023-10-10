@@ -174,8 +174,11 @@ test_that("create_application invalid location", {
     expect_error(create_application(name = "Invalid", location = "invalid", sample_app = FALSE),
                  "Framework creation could not proceed, path=<invalid> does not exists!")
     appTemp_dir <- tempdir()
-    dir.create(path = paste0(appTemp_dir, "/", "testFolder"), mode = "0000")
-    expect_error(create_application(name = "Invalid", location = paste0(appTemp_dir, "/", "testFolder"), sample_app = FALSE),
+    expect_true(assertthat::is.writeable(appTemp_dir))
+    Sys.chmod(appTemp_dir, mode = "0000")
+    expect_false(assertthat::is.writeable(appTemp_dir))
+
+    expect_error(create_application(name = "Invalid", location = appTemp_dir, sample_app = FALSE),
                  regexp = "(is not writeable)")
     unlink(paste0(appTemp_dir, "/", "testFolder"))
     unlink(appTemp_dir)
