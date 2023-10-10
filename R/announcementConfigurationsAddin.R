@@ -10,7 +10,14 @@ announcementConfigurationsAddin <- function() {
 
         gadgetTitleBar("Announcement Configuration YAML File Builder"),
         miniContentPanel(
-
+            fillCol(shinyWidgets::airDatepickerInput(
+                inputId = "startEndPicker",
+                label   = periscope2::ui_tooltip(id    = "startEndPickerTip",
+                                                 label = "Select Start/End Dates",
+                                                 text  = "Top tooltip"),
+                range = TRUE,
+                value = c(Sys.Date(), Sys.Date() + 7)
+            ))
         )
     )
 
