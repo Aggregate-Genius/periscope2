@@ -177,7 +177,8 @@ test_that("create_application invalid location", {
     test_folder <- paste0(appTemp_dir, "/", "testFolder")
     dir.create(path = test_folder)
     expect_true(assertthat::is.writeable(test_folder))
-    Sys.chmod(test_folder, mode = "0000")
+    Sys.chmod(test_folder, mode = "0000", use_umask = FALSE)
+    system(paste("chmod 000",  test_folder))
     expect_false(assertthat::is.writeable(test_folder))
 
     # expect_error(create_application(name = "Invalid", location = appTemp_dir, sample_app = FALSE),
