@@ -8,7 +8,7 @@ announcementConfigurationsAddin <- function() {
     ui <- miniPage(
         gadgetTitleBar("Announcement Configuration YAML File Builder"),
         miniContentPanel(
-            fillCol(fillRow(shinyWidgets::airDatepickerInput(
+            fillRow(shinyWidgets::airDatepickerInput(
                 inputId = "startPicker",
                 label   = periscope2::ui_tooltip(id    = "startPickerTip",
                                                  label = "Start Date",
@@ -24,7 +24,12 @@ announcementConfigurationsAddin <- function() {
                     minDate = Sys.Date())),
                 fillRow(shiny::selectizeInput(inputId = "style_id",
                                               choices = c("primary", "success", "warning", "danger", "info"),
-                                              label   = "Style")))
+                                              label   = "Style"),
+                        shiny::numericInput(inputId = "auto_close",
+                                            label   = "Close after (sec):",
+                                            value   = 30,
+                                            min     = 0,
+                                            max     = 100))
         )
     )
 
