@@ -26,16 +26,32 @@ announcementConfigurationsAddin <- function() {
                                                      placement = "bottom"),
                     minDate = Sys.Date())),
             stableColumnLayout(
-                shiny::numericInput(inputId = "auto_close",
-                                    width   = "100%",
-                                    label   = "Close after (sec):",
-                                    value   = 30,
-                                    min     = 0,
-                                    max     = 100),
-                shiny::selectizeInput(inputId = "style_id",
-                                      width   = "100%",
-                                      choices = c("primary", "success", "warning", "danger", "info"),
-                                      label   = "Style"))
+                shiny::numericInput(
+                    inputId = "auto_close",
+                    width   = "100%",
+                    label   = "Close after (sec):",
+                    value   = 30,
+                    min     = 0,
+                    max     = 100),
+                shiny::selectizeInput(
+                    inputId = "style_id",
+                    width   = "100%",
+                    choices = c("primary", "success", "warning", "danger", "info"),
+                    label   = "Style")),
+            stableColumnLayout(
+                shiny::textInput(
+                    inputId     = "title",
+                    label       = "Title",
+                    width       = "100%",
+                    placeholder = "Announcement Banner Title"
+                ),
+                shiny::textAreaInput(
+                    inputId     = "announcement_text",
+                    label       = "Text",
+                    width       = "100%",
+                    height      = "100%",
+                    placeholder = "Announcement Text")
+            )
         )
     )
 
