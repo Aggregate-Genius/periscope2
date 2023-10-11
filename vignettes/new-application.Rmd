@@ -340,7 +340,7 @@ set_app_parameters(title     = "My Application Title",
 # Application Title links to a modal window with HTML content, setting log level to 'DEBUG', 
 # using simple loading screen, init app version and pass announcements configuration module file
 set_app_parameters(title              = "periscope Example Application",
-                   app_info           = HTML("Demonstrat periscope features and generated application layout"),
+                   app_info           = HTML("Demonstrate periscope features and generated application layout"),
                    log_level          = "DEBUG",
                    app_version        = "1.0.0",
                    loading_indicator  = list(html = tagList(spin_1(), "Loading ...")),
@@ -421,16 +421,16 @@ Create UI elements for the application header and attach them to the UI by calli
 
 ```{r, eval=F}
 # Navbar skin. "dark" or "light"
-skin <-  "light"
+skin <- "light"
 
 # Navbar status
-status <-  "white"
+status <- "white"
 
 # Whether to separate the navbar and body by a border.
-border <-  TRUE
+border <- TRUE
 
 # Whether items should be compacted
-compact <-  FALSE
+compact <- FALSE
 
 # Icon of the main sidebar toggle
 left_sidebar_icon <- shiny::icon("bars")

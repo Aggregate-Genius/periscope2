@@ -6,7 +6,7 @@
 #      ATTACH them to the UI by calling
 #      add_ui_header()
 #
-# NOTEs:
+# NOTES:
 #   - All variables/functions here are
 #     not available to the UI or Server
 #     scopes - this is isolated
@@ -17,36 +17,36 @@
 
 
 # ----------------------------------------
-# --     SIDEBAR ELEMENT CREATION       --
+# --     HEADER ELEMENT CREATION       --
 # ----------------------------------------
 
 # -- Header Configurations
 
 # Navbar skin. "dark" or "light"
-skin           <-  "light"
+skin <- "light"
 
 # Navbar status
-status         <-  "white"
+status <- "white"
 
 # Whether to separate the navbar and body by a border.
-border         <-  TRUE
+border <- TRUE
 
 # Whether items should be compacted
-compact        <-  FALSE
+compact <- FALSE
 
 # Icon of the main sidebar toggle
-left_sidebar_icon <-  shiny::icon("bars")
+left_sidebar_icon <- shiny::icon("bars")
 
 # Icon to toggle the right sidebar
-right_sidebar_icon <-  shiny::icon("th")
+right_sidebar_icon <- shiny::icon("th")
 
 # Whether to fix the navbar to the top
-fixed          <-  FALSE
+fixed <- FALSE
 
 # -- Create Header Elements
 
 # Custom left menu content
-left_menu  <- NULL
+left_menu <- NULL
 
 # Custom right menu content
 right_menu <- NULL

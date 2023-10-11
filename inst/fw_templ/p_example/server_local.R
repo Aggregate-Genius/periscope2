@@ -9,7 +9,7 @@
 #      shinyServer(function(input, output, session)
 #      in server.R
 #
-# NOTEs:
+# NOTES:
 #   - All variables/functions here are
 #     SESSION scoped and are ONLY
 #     available to a single session and
@@ -29,14 +29,14 @@ source(paste("program", "fxn", "plots.R", sep = .Platform$file.sep))
 
 # -- VARIABLES --
 
-orignal_theme_settings <- list()
-orignal_theme_settings[["primary"]]                  <- "#EBCDFC"
-orignal_theme_settings[["secondary"]]                <- "#CD9489"
-orignal_theme_settings[["success"]]                  <- "#2ED610"
-orignal_theme_settings[["info"]]                     <- "#7BDFF2"
-orignal_theme_settings[["warning"]]                  <- "#FFF200"
-orignal_theme_settings[["danger"]]                   <- "#CE0900"
-orignal_theme_settings[["sidebar_background_color"]] <- "#FFFFE6"
+original_theme_settings <- list()
+original_theme_settings[["primary"]]                  <- "#EBCDFC"
+original_theme_settings[["secondary"]]                <- "#CD9489"
+original_theme_settings[["success"]]                  <- "#2ED610"
+original_theme_settings[["info"]]                     <- "#7BDFF2"
+original_theme_settings[["warning"]]                  <- "#FFF200"
+original_theme_settings[["danger"]]                   <- "#CE0900"
+original_theme_settings[["sidebar_background_color"]] <- "#FFFFE6"
 
 # -- FUNCTIONS --
 appReset(id     = "appResetId",
@@ -82,7 +82,7 @@ downloadablePlot("examplePlot2",
                  ss_userAction.Log,
                  filenameroot = "plot2_ggplot",
                  downloadfxns = list(jpeg = plot2ggplot,
-                                     csv  = plot2ggplot_data),
+                                     csv  = plot_data),
                  aspectratio  = 1.5,
                  visibleplot  = plot2ggplot)
 
@@ -92,8 +92,8 @@ downloadablePlot("examplePlot3",
                  aspectratio  = 2,
                  downloadfxns = list(png  = plot3lattice,
                                      tiff = plot3lattice,
-                                     txt  = plot3lattice_data,
-                                     tsv  = plot3lattice_data),
+                                     txt  = plot_data,
+                                     tsv  = plot_data),
                  visibleplot  = plot3lattice)
 
 # ----------------------------------------
@@ -178,8 +178,8 @@ output$hover_info <- renderUI({
     if (NROW(point) > 0) {
         left_pct <- (hover$x - hover$domain$left) / (hover$domain$right - hover$domain$left)
         left_px  <- hover$range$left + left_pct * (hover$range$right - hover$range$left)
-        top_pct <- (hover$domain$top - hover$y) / (hover$domain$top - hover$domain$bottom)
-        top_px  <- hover$range$top + top_pct * (hover$range$bottom - hover$range$top)
+        top_pct  <- (hover$domain$top - hover$y) / (hover$domain$top - hover$domain$bottom)
+        top_px   <- hover$range$top + top_pct * (hover$range$bottom - hover$range$top)
 
         style <- paste0("position:absolute;",
                         "z-index:100;",
@@ -338,6 +338,6 @@ observeEvent(input$update_app_theme, {
 
 
 observeEvent(input$restore_app_theme, {
-    write_yaml(orignal_theme_settings, "www/periscope_style.yaml")
+    write_yaml(original_theme_settings, "www/periscope_style.yaml")
     session$reload()
 })

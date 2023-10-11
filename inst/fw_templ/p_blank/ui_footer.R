@@ -6,7 +6,7 @@
 #      ATTACH them to the UI by calling
 #      add_ui_footer()
 #
-# NOTEs:
+# NOTES:
 #   - All variables/functions here are
 #     not available to the UI or Server
 #     scopes - this is isolated
@@ -17,17 +17,17 @@
 
 
 # ----------------------------------------
-# --   RIGHT SIDEBAR ELEMENT CREATION   --
+# --   FOOTER ELEMENT CREATION   --
 # ----------------------------------------
 
 # -- Create Elements
 # Left text
-left  <- ""
+left <- ""
 
 # Right text
 right <- ""
 
-# Whether to fix the foote
+# Whether to fix the footer
 fixed <- FALSE
 
 # -- Register Elements in the ORDER SHOWN in the UI
