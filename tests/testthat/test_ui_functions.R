@@ -263,7 +263,7 @@ test_that("set_app_parameters default values", {
 test_that("set_app_parameters update values", {
     announcements_file <- system.file("fw_templ", "announce.yaml", package = "periscope2")
     title              <- "periscope Example Application"
-    app_info           <- HTML("Demonstrat periscope features and generated application layout")
+    app_info           <- HTML("Demonstrate periscope features and generated application layout")
     log_level          <- "INFO"
     app_version        <- "2.3.1"
     loading_indicator  <- list(html = tagList(div("Loading ...")))
