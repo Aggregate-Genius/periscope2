@@ -5,16 +5,18 @@
 #'
 #' @export
 announcementConfigurationsAddin <- function() {
-    ui <- miniPage(
-        gadgetTitleBar("Announcement Configuration YAML File Builder"),
-        miniContentPanel(
+    ui <- miniUI::miniPage(
+        miniUI::gadgetTitleBar("Announcement Configuration YAML File Builder"),
+        miniUI::miniContentPanel(
             stableColumnLayout(
                 shinyWidgets::airDatepickerInput(
                     width   = "100%",
                     inputId = "startPicker",
                     label   = periscope2::ui_tooltip(id        = "startPickerTip",
                                                      label     = "Start Date",
-                                                     text      = "Top tooltip",
+                                                     text      = paste("<p>First date the announcement will be shown in the application.<br/>",
+                                                                       "Missing or blank value indicates that the announcement will show immediately.<br/>",
+                                                                       "Both missing or blank start and end values indicates that the announcement will be always be on.</p>"),
                                                      placement = "bottom"),
                     minDate = Sys.Date()),
                 shinyWidgets::airDatepickerInput(
@@ -56,24 +58,24 @@ announcementConfigurationsAddin <- function() {
     )
 
     server <- function(input, output, session) {
-        observeEvent(input$done, {
+        shiny::observeEvent(input$done, {
             invisible(stopApp())
         })
 
     }
 
-    viewer <- dialogViewer("Announcement Configuration YAML File Builder", width = 1000, height = 800)
-    runGadget(ui, server, viewer = viewer)
+    viewer <- shiny::dialogViewer("Announcement Configuration YAML File Builder", width = 1000, height = 800)
+    shiny::runGadget(ui, server, viewer = viewer)
 }
 
 stableColumnLayout <- function(...) {
-    dots <- list(...)
-    n <- length(dots)
+    dots  <- list(...)
+    n     <- length(dots)
     width <- 12 / n
     class <- sprintf("col-xs-%s col-md-%s", width, width)
-    fluidRow(
+    shiny::fluidRow(
         lapply(dots, function(el) {
-            div(class = class, el)
+            shiny::tags$div(class = class, el)
         })
     )
 }
