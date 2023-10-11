@@ -61,7 +61,7 @@ node_description <- list("global.R"             = "Handles FRAMEWORK global work
                          "js"                   = "Store application js files",
                          "custom.js"            = "Application main js file",
                          "img"                  = "Application related images and icons",
-                         "loader.gif"           = "buys indicator used image",
+                         "loader.gif"           = "Busy indicator used image",
                          "tooltip.png"          = "Tooltips used image",
                          "App_Root"             = "Application main root")
 # -- FUNCTIONS --
