@@ -297,10 +297,10 @@ reset_application_box <- box(
 
 
 periscope_modules <- tabItem(tabName = "periscope_modules",
-                             table_downloader_box,
-                             plot_downloader_box,
                              file_downloader_box,
-                             reset_application_box)
+                             reset_application_box,
+                             table_downloader_box,
+                             plot_downloader_box)
 
 ### User Notifications Elements
 busy_indicator_box <- box(
@@ -430,7 +430,7 @@ style_guide_box <- box(
     tags$li("The below widget explains some of the variables and how they affect the application"),
     br(),
     br(),
-    tags$b(tags$i("** Note: Updating app theme might take few seconds")),
+    tags$b(tags$i("** Note: Updating app theme might take a few seconds")),
     br(),
     br(),
     hr(),
