@@ -408,3 +408,91 @@
       </div>
       
 
+# add_ui_header - html title
+
+    Code
+      shiny::isolate(periscope2:::.g_opts$app_info)
+    Output
+      Demonstrate periscope features and generated application layout
+
+---
+
+    Code
+      header[[1]]
+    Output
+      <nav data-fixed="false" class="main-header navbar navbar-expand navbar-white navbar-light">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#">
+              <i class="fas fa-bars" role="presentation" aria-label="bars icon"></i>
+            </a>
+          </li>
+        </ul>
+        <div class="row" style="width:100%">
+          <div class="col-sm-4">
+            <div class="periscope-busy-ind">
+              Working
+              <img alt="Working..." hspace="5px" src="img/loader.gif"/>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div>
+              <div id="app_header"></div>
+              <a id="app_info" href="#" class="action-button">periscope Example Application</a>
+            </div>
+          </div>
+          <div class="col-sm-4"></div>
+        </div>
+        <ul class="navbar-nav ml-auto navbar-right">
+          <li class="nav-item">
+            <a id="controlbar-toggle" class="nav-link" data-widget="control-sidebar" href="#">
+              <i class="fas fa-table-cells" role="presentation" aria-label="table-cells icon"></i>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+# add_ui_header - url title
+
+    Code
+      shiny::isolate(periscope2:::.g_opts$app_info)
+    Output
+      [1] "https://cran.r-project.org/web/packages/periscope2/index.html"
+
+---
+
+    Code
+      header[[1]]
+    Output
+      <nav data-fixed="false" class="main-header navbar navbar-expand navbar-white navbar-light">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#">
+              <i class="fas fa-bars" role="presentation" aria-label="bars icon"></i>
+            </a>
+          </li>
+        </ul>
+        <div class="row" style="width:100%">
+          <div class="col-sm-4">
+            <div class="periscope-busy-ind">
+              Working
+              <img alt="Working..." hspace="5px" src="img/loader.gif"/>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div>
+              <div id="app_header"></div>
+              <a id="app_info" href="https://cran.r-project.org/web/packages/periscope2/index.html" target="_blank">periscope Example Application</a>
+            </div>
+          </div>
+          <div class="col-sm-4"></div>
+        </div>
+        <ul class="navbar-nav ml-auto navbar-right">
+          <li class="nav-item">
+            <a id="controlbar-toggle" class="nav-link" data-widget="control-sidebar" href="#">
+              <i class="fas fa-table-cells" role="presentation" aria-label="table-cells icon"></i>
+            </a>
+          </li>
+        </ul>
+      </nav>
+

@@ -30,7 +30,7 @@ create_announcements <- function(start_date        = NULL,
 
 #########################################
 
-test_that("add_ui_header", {
+test_that("add_ui_header - default", {
     # no header
     expect_null(shiny::isolate(periscope2:::.g_opts$header))
     # normal header
@@ -415,4 +415,88 @@ test_that("theme - invalid theme settings", {
 
 test_that("dashboard - create default dashboard", {
     expect_snapshot(periscope2:::create_application_dashboard())
+})
+
+
+test_that("add_ui_header - html title", {
+    announcements_file <- system.file("fw_templ", "announce.yaml", package = "periscope2")
+    title              <- "periscope Example Application"
+    app_info           <- HTML("Demonstrate periscope features and generated application layout")
+    log_level          <- "INFO"
+    app_version        <- "2.3.1"
+    loading_indicator  <- list(html = tagList(div("Loading ...")))
+
+    periscope2::set_app_parameters(title              = title,
+                                   app_info           = app_info,
+                                   log_level          = log_level,
+                                   app_version        = app_version,
+                                   loading_indicator  = loading_indicator,
+                                   announcements_file = announcements_file)
+    # normal header
+    skin               <- "light"
+    status             <- "white"
+    border             <- TRUE
+    compact            <- FALSE
+    left_sidebar_icon  <- shiny::icon("bars")
+    right_sidebar_icon <- shiny::icon("th")
+    fixed              <- FALSE
+    left_menu          <- NULL
+    right_menu         <- NULL
+
+    periscope2::add_ui_header(left_menu          = left_menu,
+                              right_menu         = right_menu,
+                              skin               = skin,
+                              status             = status,
+                              border             = border,
+                              compact            = compact,
+                              left_sidebar_icon  = left_sidebar_icon,
+                              right_sidebar_icon = right_sidebar_icon,
+                              fixed              = fixed)
+
+
+    expect_snapshot(shiny::isolate(periscope2:::.g_opts$app_info))
+    header <- shiny::isolate(periscope2:::.g_opts$header)
+    expect_snapshot(header[[1]])
+})
+
+
+test_that("add_ui_header - url title", {
+    announcements_file <- system.file("fw_templ", "announce.yaml", package = "periscope2")
+    title              <- "periscope Example Application"
+    app_info           <- "https://cran.r-project.org/web/packages/periscope2/index.html"
+    log_level          <- "INFO"
+    app_version        <- "2.3.1"
+    loading_indicator  <- list(html = tagList(div("Loading ...")))
+
+    periscope2::set_app_parameters(title              = title,
+                                   app_info           = app_info,
+                                   log_level          = log_level,
+                                   app_version        = app_version,
+                                   loading_indicator  = loading_indicator,
+                                   announcements_file = announcements_file)
+    # normal header
+    skin               <- "light"
+    status             <- "white"
+    border             <- TRUE
+    compact            <- FALSE
+    left_sidebar_icon  <- shiny::icon("bars")
+    right_sidebar_icon <- shiny::icon("th")
+    fixed              <- FALSE
+    left_menu          <- NULL
+    right_menu         <- NULL
+
+    periscope2::add_ui_header(left_menu          = left_menu,
+                              right_menu         = right_menu,
+                              skin               = skin,
+                              status             = status,
+                              border             = border,
+                              compact            = compact,
+                              left_sidebar_icon  = left_sidebar_icon,
+                              right_sidebar_icon = right_sidebar_icon,
+                              fixed              = fixed)
+
+
+    expect_snapshot(shiny::isolate(periscope2:::.g_opts$app_info))
+    header <- shiny::isolate(periscope2:::.g_opts$header)
+    expect_snapshot(header[[1]])
 })
