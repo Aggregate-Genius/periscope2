@@ -3,7 +3,7 @@
 /************************/
 /* Application Title */
 a#app_info {
-    color: #212529;
+    color: #212529!important;
 }
 
 /* Busy Indicator */

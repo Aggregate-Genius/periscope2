@@ -182,6 +182,48 @@
     
     
 
+# add_ui_body append
+
+    [[1]]
+    <div id="bodyAlert"></div>
+    
+    [[2]]
+    <div id="head"></div>
+    
+    [[3]]
+    <div>more elements</div>
+    
+    [[4]]
+    <div>append div</div>
+    
+    [[5]]
+    [[5]][[1]]
+    <div class="jumbotron bg-info">
+      <h1 class="display-4">periscope2: Enterprise Streamlined 'Shiny' Application Framework</h1>
+      <p class="lead">
+        <p>
+          periscope2 is a scalable and UI-standardized 'shiny' framework including a variety of developer convenience
+          functions with the goal of both streamlining robust application development and assisting in creating a consistent
+           user experience regardless of application or developer.
+        </p>
+      </p>
+      <hr class="my-4"/>
+      <p>
+        <dl>
+          <dt>Features</dt>
+          <ul>
+            <li>Predefined but flexible template for new Shiny applications with a default dashboard layout</li>
+            <li>Separation by file of functionality that exists in one of the three shiny scopes: global, server-global, and server-local.</li>
+            <li>Off-the-shelf and ready to be used modules ('Announcements', 'Table Downloader', 'Plot Downloader', 'File Downloader', 'Application Logger' and 'Reset Application'</li>
+            <li>Different methods to notify user and add useful information about application UI and server operations</li>
+          </ul>
+        </dl>
+      </p>
+      <a class="btn btn-secondary btn-lg" href="https://periscopeapps.org/" target="_blank" role="button">More</a>
+    </div>
+    
+    
+
 # set_app_parameters update values
 
     Code
@@ -354,6 +396,7 @@
                   <div id="bodyAlert"></div>
                   <div id="head"></div>
                   <div>more elements</div>
+                  <div>append div</div>
                   <div class="jumbotron bg-info">
                     <h1 class="display-4">periscope2: Enterprise Streamlined 'Shiny' Application Framework</h1>
                     <p class="lead">
@@ -407,4 +450,96 @@
         </div>
       </div>
       
+
+# add_ui_header - html title
+
+    Code
+      shiny::isolate(periscope2:::.g_opts$app_info)
+    Output
+      Demonstrate periscope features and generated application layout
+
+---
+
+    Code
+      header[[1]]
+    Output
+      <nav data-fixed="false" class="main-header navbar navbar-expand navbar-white navbar-light">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#">
+              <i class="fas fa-bars" role="presentation" aria-label="bars icon"></i>
+            </a>
+          </li>
+        </ul>
+        <div class="row" style="width:100%">
+          <div class="col-sm-4">
+            <div class="periscope-busy-ind">
+              Working
+              <img alt="Working..." hspace="5px" src="img/loader.gif"/>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div>
+              <div id="app_header"></div>
+              <a id="app_info" href="#" class="action-button">periscope Example Application</a>
+            </div>
+          </div>
+          <div class="col-sm-4"></div>
+        </div>
+        <ul class="navbar-nav ml-auto navbar-right">
+          <li class="nav-item">
+            <a id="controlbar-toggle" class="nav-link" data-widget="control-sidebar" href="#">
+              <i class="fas fa-table-cells" role="presentation" aria-label="table-cells icon"></i>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+# add_ui_header - url title
+
+    Code
+      shiny::isolate(periscope2:::.g_opts$app_info)
+    Output
+      [1] "https://cran.r-project.org/web/packages/periscope2/index.html"
+
+---
+
+    Code
+      header[[1]]
+    Output
+      <nav data-fixed="false" class="main-header navbar navbar-expand navbar-white navbar-light">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#">
+              <i class="fas fa-bars" role="presentation" aria-label="bars icon"></i>
+            </a>
+          </li>
+        </ul>
+        <div class="row" style="width:100%">
+          <div class="col-sm-4">
+            <div class="periscope-busy-ind">
+              Working
+              <img alt="Working..." hspace="5px" src="img/loader.gif"/>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div>
+              <div id="app_header"></div>
+              <a id="app_info" href="https://cran.r-project.org/web/packages/periscope2/index.html" target="_blank">periscope Example Application</a>
+            </div>
+          </div>
+          <div class="col-sm-4"></div>
+        </div>
+        <ul class="navbar-nav ml-auto navbar-right">
+          <li class="nav-item">
+            <a id="controlbar-toggle" class="nav-link" data-widget="control-sidebar" href="#">
+              <i class="fas fa-table-cells" role="presentation" aria-label="table-cells icon"></i>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+# create alert - id
+
+    
 

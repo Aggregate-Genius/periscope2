@@ -139,9 +139,15 @@ add_ui_header <- function(left_menu          = NULL,
     title     <- shiny::div(id = "app_header", app_title)
     app_info  <- shiny::isolate(.g_opts$app_info)
 
-    if (!is.null(app_info) && (class(app_info)[1] == "html")) {
-        title <- shiny::div(shiny::div(id = "app_header"),
-                            shiny::actionLink("app_info", app_title))
+    if (!is.null(app_info)) {
+        if (class(app_info)[1] == "html") {
+            title <- shiny::div(shiny::div(id = "app_header"),
+                                shiny::actionLink("app_info", app_title))
+        } else {
+            title <-  shiny::div(shiny::div(id = "app_header"),
+                                 shiny::a(id = "app_info", href = app_info, target = "_blank", app_title))
+        }
+
     }
 
     title_header <- shiny::fluidRow(style = "width:100%",
