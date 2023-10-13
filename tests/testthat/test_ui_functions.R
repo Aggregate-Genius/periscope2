@@ -250,6 +250,11 @@ test_that("add_ui_body example body", {
     expect_true(grepl('id="footerAlert"' , dashboard_ui[[3]], fixed = TRUE))
 })
 
+test_that("add_ui_body append", {
+    add_ui_body(list(div("append div")), append = TRUE)
+    expect_snapshot_output(shiny::isolate(periscope2:::.g_opts$body_elements))
+})
+
 test_that("set_app_parameters default values", {
     expect_equal(shiny::isolate(periscope2:::.g_opts$app_title), "Set using set_app_parameters() in program/global.R")
     expect_null(shiny::isolate(periscope2:::.g_opts$app_info), NULL)
@@ -464,7 +469,7 @@ test_that("add_ui_header - url title", {
     announcements_file <- system.file("fw_templ", "announce.yaml", package = "periscope2")
     title              <- "periscope Example Application"
     app_info           <- "https://cran.r-project.org/web/packages/periscope2/index.html"
-    log_level          <- "INFO"
+    log_level          <- "DEBUG"
     app_version        <- "2.3.1"
     loading_indicator  <- list(html = tagList(div("Loading ...")))
 
