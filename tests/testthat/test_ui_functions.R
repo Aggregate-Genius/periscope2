@@ -253,6 +253,12 @@ test_that("add_ui_body example body", {
 test_that("add_ui_body append", {
     add_ui_body(list(div("append div")), append = TRUE)
     expect_snapshot_output(shiny::isolate(periscope2:::.g_opts$body_elements))
+    dashboard_ui <- periscope2:::create_application_dashboard()
+    expect_true(grepl('id="announceAlert"' , dashboard_ui[[1]], fixed = TRUE))
+    expect_true(grepl('id="headerAlert"' , dashboard_ui[[2]], fixed = TRUE))
+    expect_true(grepl('Periscope2 Features' , dashboard_ui[[3]], fixed = TRUE))
+    expect_true(grepl('id="sidebarRightAlert"' , dashboard_ui[[3]], fixed = TRUE))
+    expect_true(grepl('id="footerAlert"' , dashboard_ui[[3]], fixed = TRUE))
 })
 
 test_that("set_app_parameters default values", {
@@ -504,4 +510,15 @@ test_that("add_ui_header - url title", {
     expect_snapshot(shiny::isolate(periscope2:::.g_opts$app_info))
     header <- shiny::isolate(periscope2:::.g_opts$header)
     expect_snapshot(header[[1]])
+})
+
+
+test_that("create alert - id and target error", {
+    expect_error(createAlert(id = "test_id", selector = "test_selector", options = NULL),
+                 regexp = "Please choose either target or selector!")
+})
+
+
+test_that("create alert - id", {
+    expect_snapshot_output(createAlert(id = "test_id", session = MockShinySession$new(), options = NULL))
 })
