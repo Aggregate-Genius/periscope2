@@ -12,6 +12,7 @@
 library(shiny)
 library(periscope2)
 library(waiter)
+library(shinyWidgets)
 library(shinyjs)
 
 

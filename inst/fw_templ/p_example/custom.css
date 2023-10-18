@@ -7,7 +7,7 @@ aside#sidebarId, aside#controlbarId {
 
 /* Application title */
 a#app_info {
-    color: #212529;
+    color: #212529!important;
 }
 
 /* Busy Indicator */
