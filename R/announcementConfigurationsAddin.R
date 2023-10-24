@@ -37,9 +37,10 @@ announcementConfigurationsAddin <- function() {
                     value   = 30,
                     min     = 0,
                     max     = 100),
-                shiny::selectizeInput(
+                shiny::selectInput(
                     inputId = "style",
                     width   = "100%",
+                    selectize  = FALSE,
                     choices = c("primary", "success", "warning", "danger", "info"),
                     label   = "Style")),
             stableColumnLayout(
@@ -93,9 +94,7 @@ announcementConfigurationsAddin <- function() {
             content = function(announcements_file) {
                 start_date <- ""
                 end_date   <- ""
-                style      <- "Info"
                 title      <- ""
-                text       <- ""
                 auto_close <- ""
 
                 if (!is.null(input$startPicker)) {
@@ -110,7 +109,7 @@ announcementConfigurationsAddin <- function() {
                            "# First date the announcement will be shown in the application",
                            "# Missing or blank value indicates that the announcement will show immediately.",
                            "# Both missing or blank start and end values indicates that the announcement will be always be on.",
-                           paste("start_date: ", start_date, "\n"),
+                           paste0("start_date: ", start_date, "\n"),
 
                            "### start_date_format",
                            "# Format symbols are:",
@@ -126,7 +125,7 @@ announcementConfigurationsAddin <- function() {
                            "# Last date the announcement will be shown in the application.",
                            "# Missing or blank value indicates that the announcement will be shown indefinitely",
                            "# Both missing or blank start and end values indicates that the announcement will be always be on.",
-                           paste("end_date: ", end_date, "\n"),
+                           paste0("end_date: ", end_date, "\n"),
 
                            "### end_date_format",
                            "# Format symbols are:",
@@ -141,20 +140,20 @@ announcementConfigurationsAddin <- function() {
                            "### auto_close",
                            "# Time, in seconds, to auto close announcement banner after that time elapsed",
                            "# Leave value blank or zero to leave announcement bar open until user closes it manually.",
-                           paste("auto_close: ", input$auto_close, "\n"),
+                           paste0("auto_close: ", input$auto_close, "\n"),
 
                            "### style",
                            "# Color for the announcement banner, possible values are { \"primary\", \"success\", \"warning\", \"danger\" or \"info\"}.",
                            "# It is a mandatory value",
-                           paste("style: ", input$style, "\n"),
+                           paste0("style: \"", input$style, "\"\n"),
 
                            "### title",
                            "# Optional banner title. Leave it empty to disable it.",
-                           paste("title: \"", input$title, "\"\n"),
+                           paste0("title: \"", input$title, "\"\n"),
 
                            "### text",
                            "# The announcement text. Text can contain html tags and is a mandatory value",
-                           paste("text: \"", input$text, "\"\n"))
+                           paste0("text: \"", input$text, "\"\n"))
 
                 writeLines(lines, announcements_file)
             }
