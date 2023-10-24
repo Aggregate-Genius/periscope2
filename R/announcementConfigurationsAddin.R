@@ -6,6 +6,8 @@
 #' @export
 announcementConfigurationsAddin <- function() {
     ui <- miniUI::miniPage(
+        shinyFeedback::useShinyFeedback(),
+        shinyjs::useShinyjs(),
         miniUI::gadgetTitleBar("Announcement Configuration YAML File Builder"),
         miniUI::miniContentPanel(
             stableColumnLayout(
@@ -14,9 +16,9 @@ announcementConfigurationsAddin <- function() {
                     inputId = "startPicker",
                     label   = periscope2::ui_tooltip(id        = "startPickerTip",
                                                      label     = "Start Date",
-                                                     text      = paste("<p>First date the announcement will be shown in the application.<br/>",
-                                                                       "Missing or blank value indicates that the announcement will show immediately.<br/>",
-                                                                       "Both missing or blank start and end values indicates that the announcement will be always be on.</p>"),
+                                                     text      = paste("First date the announcement will be shown in the application.\n",
+                                                                       "Missing or blank value indicates that the announcement will show immediately.\n",
+                                                                       "Both missing or blank start and end values indicates that the announcement will be always be on."),
                                                      placement = "bottom"),
                     minDate = Sys.Date()),
                 shinyWidgets::airDatepickerInput(
@@ -69,6 +71,18 @@ announcementConfigurationsAddin <- function() {
                 updateAirDateInput(session = session,
                                    inputId = "endPicker",
                                    options = list(minDate = input$startPicker))
+            }
+        })
+
+        shiny::observeEvent(input$auto_close, {
+            auto_close <- as.integer(input$auto_close)
+
+            if (!is.na(auto_close) && (auto_close < 0)) {
+                shinyFeedback::showFeedback(inputId = "auto_close", text = "'auto_close' must be 0, positive or blank")
+                shinyjs::disable("downloadConfig")
+            } else {
+                shinyFeedback::hideFeedback("auto_close")
+                shinyjs::enable("downloadConfig")
             }
         })
 
