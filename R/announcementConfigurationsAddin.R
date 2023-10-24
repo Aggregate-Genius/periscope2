@@ -59,6 +59,7 @@ announcementConfigurationsAddin <- function() {
             ),
             stableColumnLayout(
                 shiny::downloadButton(outputId = "downloadConfig",
+                                      disabled = TRUE,
                                       label     = periscope2::ui_tooltip(id        = "downloadTip",
                                                                          label     = "Download",
                                                                          text      = "Download announcement configuration file"))
@@ -75,17 +76,32 @@ announcementConfigurationsAddin <- function() {
             }
         })
 
-        shiny::observeEvent(input$auto_close, {
+        shiny::observeEvent(c(input$auto_close,
+                              input$announcement_text), {
             auto_close <- as.integer(input$auto_close)
+            text       <- input$announcement_text
+            valid      <- TRUE
+
+            shinyFeedback::hideFeedback("auto_close")
+            shinyFeedback::hideFeedback("announcement_text")
 
             if (!is.na(auto_close) && (auto_close < 0)) {
                 shinyFeedback::showFeedback(inputId = "auto_close", text = "'auto_close' must be 0, positive or blank")
-                shinyjs::disable("downloadConfig")
-            } else {
-                shinyFeedback::hideFeedback("auto_close")
-                shinyjs::enable("downloadConfig")
+                valid <- FALSE
             }
-        })
+
+            if (is.na(text) || (nchar(text) == 0)) {
+                shinyFeedback::showFeedback(inputId = "announcement_text", text = "announcement text is a mandatory value")
+                valid <- FALSE
+            }
+
+            if (valid) {
+                shinyjs::enable("downloadConfig")
+            } else {
+                shinyjs::disable("downloadConfig")
+            }
+
+        }, ignoreInit = TRUE)
 
         output$downloadConfig <- shiny::downloadHandler(
             filename = function() {
