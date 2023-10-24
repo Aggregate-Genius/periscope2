@@ -64,6 +64,14 @@ announcementConfigurationsAddin <- function() {
     )
 
     server <- function(input, output, session) {
+        shiny::observeEvent(input$startPicker, {
+            if (!is.null(input$startPicker)) {
+                updateAirDateInput(session = session,
+                                   inputId = "endPicker",
+                                   options = list(minDate = input$startPicker))
+            }
+        })
+
         output$downloadConfig <- shiny::downloadHandler(
             filename = function() {
                 "announce.yaml"
@@ -137,6 +145,7 @@ announcementConfigurationsAddin <- function() {
                 writeLines(lines, announcements_file)
             }
         )
+
         shiny::observeEvent(input$done, {
             invisible(stopApp())
         })
