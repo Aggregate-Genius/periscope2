@@ -53,6 +53,12 @@ announcementConfigurationsAddin <- function() {
                     width       = "100%",
                     height      = "100%",
                     placeholder = "Announcement Text")
+            ),
+            stableColumnLayout(
+                shiny::downloadButton(outputId = "downloadConfig",
+                                      label     = periscope2::ui_tooltip(id        = "downloadTip",
+                                                                         label     = "Download",
+                                                                         text      = "Download announcement configuration file"))
             )
         )
     )
