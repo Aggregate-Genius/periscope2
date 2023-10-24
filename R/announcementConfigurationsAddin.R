@@ -36,7 +36,7 @@ announcementConfigurationsAddin <- function() {
                     min     = 0,
                     max     = 100),
                 shiny::selectizeInput(
-                    inputId = "style_id",
+                    inputId = "style",
                     width   = "100%",
                     choices = c("primary", "success", "warning", "danger", "info"),
                     label   = "Style")),
@@ -64,6 +64,79 @@ announcementConfigurationsAddin <- function() {
     )
 
     server <- function(input, output, session) {
+        output$downloadConfig <- shiny::downloadHandler(
+            filename = function() {
+                "announce.yaml"
+            },
+            content = function(announcements_file) {
+                start_date <- ""
+                end_date   <- ""
+                style      <- "Info"
+                title      <- ""
+                text       <- ""
+                auto_close <- ""
+
+                if (!is.null(input$startPicker)) {
+                    start_date <- as.character(input$startPicker)
+                }
+
+                if (!is.null(input$endPicker)) {
+                    end_date <- as.character(input$endPicker)
+                }
+
+                lines <- c("### start_date",
+                           "# First date the announcement will be shown in the application",
+                           "# Missing or blank value indicates that the announcement will show immediately.",
+                           "# Both missing or blank start and end values indicates that the announcement will be always be on.",
+                           paste("start_date: ", start_date, "\n"),
+
+                           "### start_date_format",
+                           "# Format symbols are:",
+                           "#                    %Y: for year (1999),",
+                           "#                    %y: for year format (99),",
+                           "#                    %m: for month (1-12),",
+                           "#                    %d: for day (1-31)",
+                           "# All formats must be inside double quotation.",
+                           "# Leave this field blank to use default format which is \"%Y-%m-%d\"",
+                           "start_date_format:\n",
+
+                           "### end_date",
+                           "# Last date the announcement will be shown in the application.",
+                           "# Missing or blank value indicates that the announcement will be shown indefinitely",
+                           "# Both missing or blank start and end values indicates that the announcement will be always be on.",
+                           paste("end_date: ", end_date, "\n"),
+
+                           "### end_date_format",
+                           "# Format symbols are:",
+                           "#                    %Y: for year (1999),",
+                           "#                    %y: for year format (99),",
+                           "#                    %m: for month (1-12),",
+                           "#                    %d: for day (1-31)",
+                           "# All formats must be inside double quotation.",
+                           "# Leave this field blank to use default format which is \"%Y-%m-%d\"",
+                           "end_date_format:\n",
+
+                           "### auto_close",
+                           "# Time, in seconds, to auto close announcement banner after that time elapsed",
+                           "# Leave value blank or zero to leave announcement bar open until user closes it manually.",
+                           paste("auto_close: ", input$auto_close, "\n"),
+
+                           "### style",
+                           "# Color for the announcement banner, possible values are { \"primary\", \"success\", \"warning\", \"danger\" or \"info\"}.",
+                           "# It is a mandatory value",
+                           paste("style: ", input$style, "\n"),
+
+                           "### title",
+                           "# Optional banner title. Leave it empty to disable it.",
+                           paste("title: \"", input$title, "\"\n"),
+
+                           "### text",
+                           "# The announcement text. Text can contain html tags and is a mandatory value",
+                           paste("text: \"", input$text, "\"\n"))
+
+                writeLines(lines, announcements_file)
+            }
+        )
         shiny::observeEvent(input$done, {
             invisible(stopApp())
         })
