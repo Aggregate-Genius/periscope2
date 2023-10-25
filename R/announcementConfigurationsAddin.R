@@ -16,8 +16,8 @@ announcementConfigurationsAddin <- function() {
                     inputId = "startPicker",
                     label   = periscope2::ui_tooltip(id        = "startPickerTip",
                                                      label     = "Start Date",
-                                                     text      = paste("First date the announcement will be shown in the application.\n",
-                                                                       "Missing or blank value indicates that the announcement will show immediately.\n",
+                                                     text      = paste("First date the announcement will be shown in the application.",
+                                                                       "Missing or blank value indicates that the announcement will show immediately.",
                                                                        "Both missing or blank start and end values indicates that the announcement will be always be on."),
                                                      placement = "bottom"),
                     minDate = Sys.Date()),
@@ -26,14 +26,20 @@ announcementConfigurationsAddin <- function() {
                     inputId = "endPicker",
                     label   = periscope2::ui_tooltip(id        = "endPickerTip",
                                                      label     = "End Date",
-                                                     text      = "Top tooltip",
+                                                     text      = paste("Last date the announcement will be shown in the application.",
+                                                                       "Missing or blank value indicates that the announcement will be shown indefinitely",
+                                                                       "Both missing or blank start and end values indicates that the announcement will be always be on."),
                                                      placement = "bottom"),
                     minDate = Sys.Date())),
             stableColumnLayout(
                 shiny::numericInput(
                     inputId = "auto_close",
                     width   = "100%",
-                    label   = "Close after (sec):",
+                    label   = periscope2::ui_tooltip(id        = "autoCloseTip",
+                                                     label     = "Close after (sec)",
+                                                     text      = paste("Time, in seconds, to auto close announcement banner after that time elapsed",
+                                                                       "Leave value blank or zero to leave announcement bar open until user closes it manually."),
+                                                     placement = "bottom"),
                     value   = 30,
                     min     = 0,
                     max     = 100),
@@ -42,17 +48,27 @@ announcementConfigurationsAddin <- function() {
                     width   = "100%",
                     selectize  = FALSE,
                     choices = c("primary", "success", "warning", "danger", "info"),
-                    label   = "Style")),
+                    label   = periscope2::ui_tooltip(id        = "styleTip",
+                                                     label     = "Style",
+                                                     text      = paste("Color for the announcement banner, possible values are {'primary', 'success', 'warning', 'danger' or 'info'}.",
+                                                                       "It is a mandatory value."),
+                                                     placement = "bottom"))),
             stableColumnLayout(
                 shiny::textInput(
                     inputId     = "title",
-                    label       = "Title",
+                    label       = periscope2::ui_tooltip(id        = "styleTip",
+                                                         label     = "Title",
+                                                         text      = "Optional banner title. Leave it empty to disable it",
+                                                         placement = "bottom"),
                     width       = "100%",
                     placeholder = "Announcement Banner Title"
                 ),
                 shiny::textAreaInput(
                     inputId     = "announcement_text",
-                    label       = "Text",
+                    label       = periscope2::ui_tooltip(id        = "textTip",
+                                                         label     = "Announcement Text",
+                                                         text      = "The announcement text. Text can contain html tags and is a mandatory value",
+                                                         placement = "bottom"),
                     width       = "100%",
                     height      = "100%",
                     placeholder = "Announcement Text")
@@ -181,7 +197,7 @@ announcementConfigurationsAddin <- function() {
 
     }
 
-    viewer <- shiny::dialogViewer("Announcement Configuration YAML File Builder", width = 1000, height = 800)
+    viewer <- shiny::dialogViewer("Announcement Configuration YAML File Builder", width = 1000, height = 400)
     shiny::runGadget(ui, server, viewer = viewer)
 }
 
