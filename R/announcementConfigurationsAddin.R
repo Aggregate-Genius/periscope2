@@ -86,12 +86,12 @@ announcementConfigurationsAddin <- function() {
             shinyFeedback::hideFeedback("announcement_text")
 
             if (!is.na(auto_close) && (auto_close < 0)) {
-                shinyFeedback::showFeedback(inputId = "auto_close", text = "'auto_close' must be 0, positive or blank")
+                shinyFeedback::showFeedbackDanger(inputId = "auto_close", text = "'auto_close' must be 0, positive or blank")
                 valid <- FALSE
             }
 
             if (is.na(text) || (nchar(text) == 0)) {
-                shinyFeedback::showFeedback(inputId = "announcement_text", text = "announcement text is a mandatory value")
+                shinyFeedback::showFeedbackDanger(inputId = "announcement_text", text = "announcement text is a mandatory value")
                 valid <- FALSE
             }
 
