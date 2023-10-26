@@ -204,7 +204,7 @@ announcement_addin_server <- function(id = NULL) {
             )
 
             shiny::observeEvent(input$done, {
-                invisible(stopApp())
+                invisible(shiny::stopApp())
             })
 
         })
