@@ -5,128 +5,12 @@
 #'
 #' @export
 announcementConfigurationsAddin <- function() {
-    ui <- create_addin_UI()
-
-    server <- function(input, output, session) {
-        shiny::observeEvent(input$startPicker, {
-            if (!is.null(input$startPicker)) {
-                updateAirDateInput(session = session,
-                                   inputId = "endPicker",
-                                   options = list(minDate = input$startPicker))
-            }
-        })
-
-        shiny::observeEvent(c(input$auto_close,
-                              input$announcement_text), {
-            auto_close <- as.integer(input$auto_close)
-            text       <- input$announcement_text
-            valid      <- TRUE
-
-            shinyFeedback::hideFeedback("auto_close")
-            shinyFeedback::hideFeedback("announcement_text")
-
-            if (!is.na(auto_close) && (auto_close < 0)) {
-                shinyFeedback::showFeedbackDanger(inputId = "auto_close", text = "'auto_close' must be 0, positive or blank")
-                valid <- FALSE
-            }
-
-            if (is.na(text) || (nchar(text) == 0)) {
-                shinyFeedback::showFeedbackDanger(inputId = "announcement_text", text = "announcement text is a mandatory value")
-                valid <- FALSE
-            }
-
-            if (valid) {
-                shinyjs::enable("downloadConfig")
-            } else {
-                shinyjs::disable("downloadConfig")
-            }
-
-        }, ignoreInit = TRUE)
-
-        output$downloadConfig <- shiny::downloadHandler(
-            filename = function() {
-                "announce.yaml"
-            },
-            content = function(announcements_file) {
-                start_date <- ""
-                end_date   <- ""
-                title      <- ""
-                auto_close <- ""
-
-                if (!is.null(input$startPicker)) {
-                    start_date <- as.character(input$startPicker)
-                }
-
-                if (!is.null(input$endPicker)) {
-                    end_date <- as.character(input$endPicker)
-                }
-
-                lines <- c("### start_date",
-                           "# First date the announcement will be shown in the application",
-                           "# Missing or blank value indicates that the announcement will show immediately.",
-                           "# Both missing or blank start and end values indicates that the announcement will be always be on.",
-                           paste0("start_date: ", start_date, "\n"),
-
-                           "### start_date_format",
-                           "# Format symbols are:",
-                           "#                    %Y: for year (1999),",
-                           "#                    %y: for year format (99),",
-                           "#                    %m: for month (1-12),",
-                           "#                    %d: for day (1-31)",
-                           "# All formats must be inside double quotation.",
-                           "# Leave this field blank to use default format which is \"%Y-%m-%d\"",
-                           "start_date_format:\n",
-
-                           "### end_date",
-                           "# Last date the announcement will be shown in the application.",
-                           "# Missing or blank value indicates that the announcement will be shown indefinitely",
-                           "# Both missing or blank start and end values indicates that the announcement will be always be on.",
-                           paste0("end_date: ", end_date, "\n"),
-
-                           "### end_date_format",
-                           "# Format symbols are:",
-                           "#                    %Y: for year (1999),",
-                           "#                    %y: for year format (99),",
-                           "#                    %m: for month (1-12),",
-                           "#                    %d: for day (1-31)",
-                           "# All formats must be inside double quotation.",
-                           "# Leave this field blank to use default format which is \"%Y-%m-%d\"",
-                           "end_date_format:\n",
-
-                           "### auto_close",
-                           "# Time, in seconds, to auto close announcement banner after that time elapsed",
-                           "# Leave value blank or zero to leave announcement bar open until user closes it manually.",
-                           paste0("auto_close: ", input$auto_close, "\n"),
-
-                           "### style",
-                           "# Color for the announcement banner, possible values are { \"primary\", \"success\", \"warning\", \"danger\" or \"info\"}.",
-                           "# It is a mandatory value",
-                           paste0("style: \"", input$style, "\"\n"),
-
-                           "### title",
-                           "# Optional banner title. Leave it empty to disable it.",
-                           paste0("title: \"", input$title, "\"\n"),
-
-                           "### text",
-                           "# The announcement text. Text can contain html tags and is a mandatory value",
-                           paste0("text: \"", input$text, "\"\n"))
-
-                writeLines(lines, announcements_file)
-            }
-        )
-
-        shiny::observeEvent(input$done, {
-            invisible(stopApp())
-        })
-
-    }
-
     viewer <- shiny::dialogViewer("Announcement Configuration YAML File Builder", width = 1000, height = 400)
-    shiny::runGadget(ui, server, viewer = viewer)
+    shiny::runGadget(announcement_addin_UI(), announcement_addin_server(), viewer = viewer)
 }
 
 
-create_addin_UI <- function() {
+announcement_addin_UI <- function() {
     miniUI::miniPage(
         shinyFeedback::useShinyFeedback(),
         shinyjs::useShinyjs(),
@@ -206,6 +90,122 @@ create_addin_UI <- function() {
     )
 }
 
+
+announcement_addin_server <- function() {
+    function(input, output, session) {
+        shiny::observeEvent(input$startPicker, {
+            if (!is.null(input$startPicker)) {
+                shinyWidgets::updateAirDateInput(session = session,
+                                                 inputId = "endPicker",
+                                                 options = list(minDate = input$startPicker))
+            }
+        })
+
+        shiny::observeEvent(c(input$auto_close,
+                              input$announcement_text), {
+                                  auto_close <- as.integer(input$auto_close)
+                                  text       <- input$announcement_text
+                                  valid      <- TRUE
+
+                                  shinyFeedback::hideFeedback("auto_close")
+                                  shinyFeedback::hideFeedback("announcement_text")
+
+                                  if (!is.na(auto_close) && (auto_close < 0)) {
+                                      shinyFeedback::showFeedbackDanger(inputId = "auto_close", text = "'auto_close' must be 0, positive or blank")
+                                      valid <- FALSE
+                                  }
+
+                                  if (is.na(text) || (nchar(text) == 0)) {
+                                      shinyFeedback::showFeedbackDanger(inputId = "announcement_text", text = "announcement text is a mandatory value")
+                                      valid <- FALSE
+                                  }
+
+                                  if (valid) {
+                                      shinyjs::enable("downloadConfig")
+                                  } else {
+                                      shinyjs::disable("downloadConfig")
+                                  }
+
+                              }, ignoreInit = TRUE)
+
+        output$downloadConfig <- shiny::downloadHandler(
+            filename = function() {
+                "announce.yaml"
+            },
+            content = function(announcements_file) {
+                start_date <- ""
+                end_date   <- ""
+                title      <- ""
+                auto_close <- ""
+
+                if (!is.null(input$startPicker)) {
+                    start_date <- as.character(input$startPicker)
+                }
+
+                if (!is.null(input$endPicker)) {
+                    end_date <- as.character(input$endPicker)
+                }
+
+                lines <- c("### start_date",
+                           "# First date the announcement will be shown in the application",
+                           "# Missing or blank value indicates that the announcement will show immediately.",
+                           "# Both missing or blank start and end values indicates that the announcement will be always be on.",
+                           paste0("start_date: ", start_date, "\n"),
+
+                           "### start_date_format",
+                           "# Format symbols are:",
+                           "#                    %Y: for year (1999),",
+                           "#                    %y: for year format (99),",
+                           "#                    %m: for month (1-12),",
+                           "#                    %d: for day (1-31)",
+                           "# All formats must be inside double quotation.",
+                           "# Leave this field blank to use default format which is \"%Y-%m-%d\"",
+                           "start_date_format:\n",
+
+                           "### end_date",
+                           "# Last date the announcement will be shown in the application.",
+                           "# Missing or blank value indicates that the announcement will be shown indefinitely",
+                           "# Both missing or blank start and end values indicates that the announcement will be always be on.",
+                           paste0("end_date: ", end_date, "\n"),
+
+                           "### end_date_format",
+                           "# Format symbols are:",
+                           "#                    %Y: for year (1999),",
+                           "#                    %y: for year format (99),",
+                           "#                    %m: for month (1-12),",
+                           "#                    %d: for day (1-31)",
+                           "# All formats must be inside double quotation.",
+                           "# Leave this field blank to use default format which is \"%Y-%m-%d\"",
+                           "end_date_format:\n",
+
+                           "### auto_close",
+                           "# Time, in seconds, to auto close announcement banner after that time elapsed",
+                           "# Leave value blank or zero to leave announcement bar open until user closes it manually.",
+                           paste0("auto_close: ", input$auto_close, "\n"),
+
+                           "### style",
+                           "# Color for the announcement banner, possible values are { \"primary\", \"success\", \"warning\", \"danger\" or \"info\"}.",
+                           "# It is a mandatory value",
+                           paste0("style: \"", input$style, "\"\n"),
+
+                           "### title",
+                           "# Optional banner title. Leave it empty to disable it.",
+                           paste0("title: \"", input$title, "\"\n"),
+
+                           "### text",
+                           "# The announcement text. Text can contain html tags and is a mandatory value",
+                           paste0("text: \"", input$announcement_text, "\"\n"))
+
+                writeLines(lines, announcements_file)
+            }
+        )
+
+        shiny::observeEvent(input$done, {
+            invisible(stopApp())
+        })
+
+    }
+}
 
 stableColumnLayout <- function(...) {
     dots  <- list(...)
