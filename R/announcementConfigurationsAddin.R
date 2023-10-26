@@ -5,83 +5,7 @@
 #'
 #' @export
 announcementConfigurationsAddin <- function() {
-    ui <- miniUI::miniPage(
-        shinyFeedback::useShinyFeedback(),
-        shinyjs::useShinyjs(),
-        miniUI::gadgetTitleBar("Announcement Configuration YAML File Builder"),
-        miniUI::miniContentPanel(
-            stableColumnLayout(
-                shinyWidgets::airDatepickerInput(
-                    width   = "100%",
-                    inputId = "startPicker",
-                    label   = periscope2::ui_tooltip(id        = "startPickerTip",
-                                                     label     = "Start Date",
-                                                     text      = paste("First date the announcement will be shown in the application.",
-                                                                       "Missing or blank value indicates that the announcement will show immediately.",
-                                                                       "Both missing or blank start and end values indicates that the announcement will be always be on."),
-                                                     placement = "bottom"),
-                    minDate = Sys.Date()),
-                shinyWidgets::airDatepickerInput(
-                    width   = "100%",
-                    inputId = "endPicker",
-                    label   = periscope2::ui_tooltip(id        = "endPickerTip",
-                                                     label     = "End Date",
-                                                     text      = paste("Last date the announcement will be shown in the application.",
-                                                                       "Missing or blank value indicates that the announcement will be shown indefinitely",
-                                                                       "Both missing or blank start and end values indicates that the announcement will be always be on."),
-                                                     placement = "bottom"),
-                    minDate = Sys.Date())),
-            stableColumnLayout(
-                shiny::numericInput(
-                    inputId = "auto_close",
-                    width   = "100%",
-                    label   = periscope2::ui_tooltip(id        = "autoCloseTip",
-                                                     label     = "Close after (sec)",
-                                                     text      = paste("Time, in seconds, to auto close announcement banner after that time elapsed",
-                                                                       "Leave value blank or zero to leave announcement bar open until user closes it manually."),
-                                                     placement = "bottom"),
-                    value   = 30,
-                    min     = 0,
-                    max     = 100),
-                shiny::selectInput(
-                    inputId = "style",
-                    width   = "100%",
-                    selectize  = FALSE,
-                    choices = c("primary", "success", "warning", "danger", "info"),
-                    label   = periscope2::ui_tooltip(id        = "styleTip",
-                                                     label     = "Style",
-                                                     text      = paste("Color for the announcement banner, possible values are {'primary', 'success', 'warning', 'danger' or 'info'}.",
-                                                                       "It is a mandatory value."),
-                                                     placement = "bottom"))),
-            stableColumnLayout(
-                shiny::textInput(
-                    inputId     = "title",
-                    label       = periscope2::ui_tooltip(id        = "styleTip",
-                                                         label     = "Title",
-                                                         text      = "Optional banner title. Leave it empty to disable it",
-                                                         placement = "bottom"),
-                    width       = "100%",
-                    placeholder = "Announcement Banner Title"
-                ),
-                shiny::textAreaInput(
-                    inputId     = "announcement_text",
-                    label       = periscope2::ui_tooltip(id        = "textTip",
-                                                         label     = "Announcement Text",
-                                                         text      = "The announcement text. Text can contain html tags and is a mandatory value",
-                                                         placement = "bottom"),
-                    width       = "100%",
-                    height      = "100%",
-                    placeholder = "Announcement Text")
-            ),
-            stableColumnLayout(
-                shiny::downloadButton(outputId = "downloadConfig",
-                                      disabled = TRUE,
-                                      label     = periscope2::ui_tooltip(id        = "downloadTip",
-                                                                         label     = "Download",
-                                                                         text      = "Download announcement configuration file"))
-            )
-        )
-    )
+    ui <- create_addin_UI()
 
     server <- function(input, output, session) {
         shiny::observeEvent(input$startPicker, {
@@ -200,6 +124,88 @@ announcementConfigurationsAddin <- function() {
     viewer <- shiny::dialogViewer("Announcement Configuration YAML File Builder", width = 1000, height = 400)
     shiny::runGadget(ui, server, viewer = viewer)
 }
+
+
+create_addin_UI <- function() {
+    miniUI::miniPage(
+        shinyFeedback::useShinyFeedback(),
+        shinyjs::useShinyjs(),
+        miniUI::gadgetTitleBar("Announcement Configuration YAML File Builder"),
+        miniUI::miniContentPanel(
+            stableColumnLayout(
+                shinyWidgets::airDatepickerInput(
+                    width   = "100%",
+                    inputId = "startPicker",
+                    label   = periscope2::ui_tooltip(id        = "startPickerTip",
+                                                     label     = "Start Date",
+                                                     text      = paste("First date the announcement will be shown in the application.",
+                                                                       "Missing or blank value indicates that the announcement will show immediately.",
+                                                                       "Both missing or blank start and end values indicates that the announcement will be always be on."),
+                                                     placement = "bottom"),
+                    minDate = Sys.Date()),
+                shinyWidgets::airDatepickerInput(
+                    width   = "100%",
+                    inputId = "endPicker",
+                    label   = periscope2::ui_tooltip(id        = "endPickerTip",
+                                                     label     = "End Date",
+                                                     text      = paste("Last date the announcement will be shown in the application.",
+                                                                       "Missing or blank value indicates that the announcement will be shown indefinitely",
+                                                                       "Both missing or blank start and end values indicates that the announcement will be always be on."),
+                                                     placement = "bottom"),
+                    minDate = Sys.Date())),
+            stableColumnLayout(
+                shiny::numericInput(
+                    inputId = "auto_close",
+                    width   = "100%",
+                    label   = periscope2::ui_tooltip(id        = "autoCloseTip",
+                                                     label     = "Close after (sec)",
+                                                     text      = paste("Time, in seconds, to auto close announcement banner after that time elapsed",
+                                                                       "Leave value blank or zero to leave announcement bar open until user closes it manually."),
+                                                     placement = "bottom"),
+                    value   = 30,
+                    min     = 0,
+                    max     = 100),
+                shiny::selectInput(
+                    inputId = "style",
+                    width   = "100%",
+                    selectize  = FALSE,
+                    choices = c("primary", "success", "warning", "danger", "info"),
+                    label   = periscope2::ui_tooltip(id        = "styleTip",
+                                                     label     = "Style",
+                                                     text      = paste("Color for the announcement banner, possible values are {'primary', 'success', 'warning', 'danger' or 'info'}.",
+                                                                       "It is a mandatory value."),
+                                                     placement = "bottom"))),
+            stableColumnLayout(
+                shiny::textInput(
+                    inputId     = "title",
+                    label       = periscope2::ui_tooltip(id        = "styleTip",
+                                                         label     = "Title",
+                                                         text      = "Optional banner title. Leave it empty to disable it",
+                                                         placement = "bottom"),
+                    width       = "100%",
+                    placeholder = "Announcement Banner Title"
+                ),
+                shiny::textAreaInput(
+                    inputId     = "announcement_text",
+                    label       = periscope2::ui_tooltip(id        = "textTip",
+                                                         label     = "Announcement Text",
+                                                         text      = "The announcement text. Text can contain html tags and is a mandatory value",
+                                                         placement = "bottom"),
+                    width       = "100%",
+                    height      = "100%",
+                    placeholder = "Announcement Text")
+            ),
+            stableColumnLayout(
+                shiny::downloadButton(outputId = "downloadConfig",
+                                      disabled = TRUE,
+                                      label     = periscope2::ui_tooltip(id        = "downloadTip",
+                                                                         label     = "Download",
+                                                                         text      = "Download announcement configuration file"))
+            )
+        )
+    )
+}
+
 
 stableColumnLayout <- function(...) {
     dots  <- list(...)
