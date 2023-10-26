@@ -24,7 +24,7 @@
                       <i class="far fa-calendar-days" role="presentation" aria-label="calendar-days icon"></i>
                     </div>
                   </div>
-                  <script type="application/json" data-for="startPicker">{"updateOn":"change","todayButtonAsDate":false,"language":"EN","options":{"autoClose":false,"timepicker":false,"range":false,"dateFormat":"yyyy-MM-dd","minDate":"2023-10-26","multipleDates":false,"multipleDatesSeparator":" - ","view":"days","minView":"days","clearButton":false,"todayButton":false,"buttons":false,"monthsField":"monthsShort","onlyTimepicker":false,"toggleSelected":true}}</script>
+                  <script type="application/json" data-for="startPicker">{"updateOn":"change","todayButtonAsDate":false,"language":"EN","options":{"autoClose":false,"timepicker":false,"range":false,"dateFormat":"yyyy-MM-dd","multipleDates":false,"multipleDatesSeparator":" - ","view":"days","minView":"days","clearButton":false,"todayButton":false,"buttons":false,"monthsField":"monthsShort","onlyTimepicker":false,"toggleSelected":true}}</script>
                 </div>
               </div>
               <div class="col-xs-6 col-md-6">
@@ -41,7 +41,7 @@
                       <i class="far fa-calendar-days" role="presentation" aria-label="calendar-days icon"></i>
                     </div>
                   </div>
-                  <script type="application/json" data-for="endPicker">{"updateOn":"change","todayButtonAsDate":false,"language":"EN","options":{"autoClose":false,"timepicker":false,"range":false,"dateFormat":"yyyy-MM-dd","minDate":"2023-10-26","multipleDates":false,"multipleDatesSeparator":" - ","view":"days","minView":"days","clearButton":false,"todayButton":false,"buttons":false,"monthsField":"monthsShort","onlyTimepicker":false,"toggleSelected":true}}</script>
+                  <script type="application/json" data-for="endPicker">{"updateOn":"change","todayButtonAsDate":false,"language":"EN","options":{"autoClose":false,"timepicker":false,"range":false,"dateFormat":"yyyy-MM-dd","multipleDates":false,"multipleDatesSeparator":" - ","view":"days","minView":"days","clearButton":false,"todayButton":false,"buttons":false,"monthsField":"monthsShort","onlyTimepicker":false,"toggleSelected":true}}</script>
                 </div>
               </div>
             </div>

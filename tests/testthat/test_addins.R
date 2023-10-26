@@ -2,7 +2,8 @@ context("periscope2 - package addins")
 local_edition(3)
 
 test_that("announcement addin - UI", {
-    expect_snapshot_output(announcement_addin_UI())
+    ui_output <- gsub(pattern = paste0(",\"minDate\":\"", Sys.Date(), "\""), x =  announcement_addin_UI(), replacement = "")
+    expect_snapshot_output(cat(ui_output))
 })
 
 
