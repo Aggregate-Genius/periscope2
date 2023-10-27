@@ -474,7 +474,8 @@ ui_tooltip <- function(id,
 #' @param loading_indicator  - It uses waiter (see https://waiter.john-coene.com/#/).\cr
 #'                             Pass a list like list(html = spin_1(), color = "#333e48") to \cr configure
 #'                             waiterShowOnLoad (refer to the package help for all styles).
-#' @param announcements_file - The path to announcements configuration file
+#' @param announcements_file - The path to announcements configuration file.
+#'                             Use \link[periscope2]{announcementConfigurationsAddin} to generate that file.
 #'
 #' @return no return value, called for setting new application global properties
 #'
@@ -495,6 +496,8 @@ ui_tooltip <- function(id,
 #'                      loading_indicator  = list(html = tagList(spin_1(), "Loading ...")),
 #'                      announcements_file = "./program/config/announce.yaml")
 #'
+#'
+#' @seealso \link[periscope2:announcementConfigurationsAddin]{periscope2:announcementConfigurationsAddin()}
 #' @seealso \link[waiter:waiter]{waiter:waiter_show()}
 #' @seealso \link[periscope2:add_ui_footer]{periscope2:add_ui_footer()}
 #' @seealso \link[periscope2:add_ui_left_sidebar]{periscope2:add_ui_left_sidebar()}
