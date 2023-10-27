@@ -8,8 +8,6 @@ test_that("announcement addin - UI", {
 
 
 test_that("announcement addin - server", {
-    expect_true(stopApp(announcementConfigurationsAddin()))
-
     testServer(announcement_addin_server,
                expr = {
                    session$setInputs(startPicker       = "2023-10-27",

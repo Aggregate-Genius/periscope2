@@ -17,7 +17,9 @@
 #' @export
 announcementConfigurationsAddin <- function() {
     shiny::runGadget(app    = announcement_addin_UI(),
-                     server = announcement_addin_server() ,
+                     server = function(input, output, session){
+                         announcement_addin_server()
+                     },
                      viewer = shiny::dialogViewer("Announcement Configuration YAML File Builder", width = 1000, height = 400))
 }
 
