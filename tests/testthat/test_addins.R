@@ -47,6 +47,15 @@ test_that("announcement addin - server", {
                    announce <- yaml::read_yaml(output$downloadConfig)
                    expect_equal(announce[["text"]], "NA")
                    expect_equal(announce[["auto_close"]], -10)
+
+                   session$setInputs(startPicker       = "2023-10-29",
+                                     endPicker         = "2023-10-28")
+                   announce <- yaml::read_yaml(output$downloadConfig)
+                   expect_equal(announce[["start_date"]], "2023-10-29")
+                   # the value is updated in live app to "2023-10-29",
+                   # but it has this value for limited unit test capabilities
+                   expect_equal(announce[["end_date"]], "2023-10-28")
+
                    session$setInputs(done = 1)
                })
 })

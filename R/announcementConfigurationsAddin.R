@@ -109,10 +109,14 @@ announcement_addin_server <- function(id = NULL) {
     shiny::moduleServer(
         id,
         function(input, output, session) {
-            shiny::observeEvent(input$startPicker, {
-                if (!is.null(input$startPicker)) {
+            shiny::observeEvent(c(input$startPicker,
+                                input$endPicker), {
+                if (!is.null(input$startPicker) &&
+                    !is.null(input$endPicker) &&
+                    (input$startPicker > input$endPicker)) {
                     shinyWidgets::updateAirDateInput(session = session,
                                                      inputId = "endPicker",
+                                                     value   = input$startPicker,
                                                      options = list(minDate = input$startPicker))
                 }
             })
@@ -125,6 +129,8 @@ announcement_addin_server <- function(id = NULL) {
 
                                       shinyFeedback::hideFeedback("auto_close")
                                       shinyFeedback::hideFeedback("announcement_text")
+                                      shinyFeedback::hideFeedback("startPicker")
+                                      shinyFeedback::hideFeedback("endPicker")
 
                                       if (!is.na(auto_close) && (auto_close < 0)) {
                                           shinyFeedback::showFeedbackDanger(inputId = "auto_close", text = "'auto_close' must be 0, positive or blank")
@@ -135,6 +141,7 @@ announcement_addin_server <- function(id = NULL) {
                                           shinyFeedback::showFeedbackDanger(inputId = "announcement_text", text = "announcement text is a mandatory value")
                                           valid <- FALSE
                                       }
+
 
                                       if (valid) {
                                           shinyjs::enable("downloadConfig")
