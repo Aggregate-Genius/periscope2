@@ -118,6 +118,10 @@ announcement_addin_server <- function(id = NULL) {
                                                      inputId = "endPicker",
                                                      value   = input$startPicker,
                                                      options = list(minDate = input$startPicker))
+                } else if (!is.null(input$startPicker)) {
+                    shinyWidgets::updateAirDateInput(session = session,
+                                                     inputId = "endPicker",
+                                                     options = list(minDate = input$startPicker))
                 }
             })
 
