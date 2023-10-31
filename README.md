@@ -128,8 +128,13 @@ While periscope uses shiny dashboard variables for styling in code and via the *
 
 ### Installation
 
-periscope2 is available for installation from the
-latest version of ***periscope2*** from GitHub as follows:
+periscope2 is available for installation from CRAN
+
+```r
+devtools::install_cran("periscope2")
+```
+
+and latest development version of ***periscope2*** from GitHub as follows:
 
 ```r
 devtools::install_github('Aggregate-Genius/periscope2')
