@@ -3,6 +3,7 @@
 /************************/
 aside#sidebarId, aside#controlbarId {
     position: absolute;
+    z-index: 0!important;
 }
 
 /* Application title */
