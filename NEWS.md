@@ -1,5 +1,7 @@
 ## 0.1.4
 ### New Features
+- Introduced Announcements configuration file generator RStudio add-in
+
 ### Enhancements
 - Used `shinyWidgets::show_alert` to display application info
 - Relocated Announcements and header alerts bar to be above navbar instead of inside it

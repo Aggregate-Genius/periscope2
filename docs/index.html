@@ -5,16 +5,18 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Enterprise Streamlined Shiny Application Framework Using BS4Dash • periscope2</title>
+<title>Enterprise Streamlined shiny Application Framework Using bs4Dash • periscope2</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script><meta property="og:title" content="Enterprise Streamlined Shiny Application Framework Using BS4Dash">
-<meta property="og:description" content="periscope2, like periscope, is targeting to build enterprise, scalable and UI-standardized shiny applications 
-    but with bootstrap v4 features and with more helpful shiny modules and enhanced application files organization aiming to both 
-    building powerful application development and enriching shiny developers experience for building and maintaining applications.  ">
+<script src="pkgdown.js"></script><meta property="og:title" content="Enterprise Streamlined shiny Application Framework Using bs4Dash">
+<meta property="og:description" content="A framework for building enterprise, scalable and UI-standardized shiny applications.  
+    It brings enhanced features such as bootstrap v4 &lt;https://getbootstrap.com/docs/4.0/getting-started/introduction/&gt;,
+    additional and enhanced shiny modules, customizable UI features, as well as an enhanced application file
+    organization paradigm. This update allows developers to harness the ability to build powerful applications and 
+    enriches the shiny developers' experience when building and  maintaining applications.">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -35,7 +37,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">periscope2</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.4.9006</span>
       </span>
     </div>
 
@@ -53,6 +55,9 @@
   <ul class="dropdown-menu" role="menu">
 <li>
       <a href="articles/announcement-module.html">Using the Announcement Shiny Module</a>
+    </li>
+    <li>
+      <a href="articles/announcement_addin.html">Announcement Configuration YAML File Builder</a>
     </li>
     <li>
       <a href="articles/applicationReset-module.html">Using the appReset Shiny Module</a>
@@ -99,14 +104,155 @@
   <div class="contents col-md-9">
 
 
-<p><strong><em>periscope2</em></strong> is an extension of <a href="https://cran.rstudio.com/web/packages/periscope/index.html" class="external-link">periscope</a> package. It provides a predefined but flexible template for new Shiny applications with a default dashboard layout, three locations for user alerts, a nice busy indicator and logging features.</p>
-<p>One of the most important features of the shiny applications created with this framework is the separation by file of functionality that exists in one of the three shiny scopes: global, server-global, and server-local. The framework forces application developers to consciously consider scoping in Shiny applications by making scoping distinctions very clear without interfering with normal application development. Scoping consideration is important for performance and scaling, which is critical when working with large datasets and/or across many users. In addition to creating a consistent UI experience this framework reduces development time for new applications by removing some of the boilerplate aspects of new applications such as alerting, logging, etc.</p>
+<div class="section level3">
+<h3 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
+</h3>
+<p><strong><em>periscope2</em></strong> is a scalable and UI-standardized ‘shiny’ framework including a variety of developer convenience functions with the goal of both streamlining robust application development and assisting in creating a consistent user experience regardless of application or developer.</p>
+<p><strong><em>periscope2</em></strong> is full of developer-friendly features such as:</p>
+<ul>
+<li>Predefined but flexible templates for new Shiny applications with a default <a href="https://bs4dash.rinterface.com/" class="external-link">bs4Dash</a> layout</li>
+<li>Separation by file of functionality that exists in one of the three shiny scopes: global, server-global, and server-local</li>
+<li>Generated applications are organized in an easy to follow and maintain folder structure based on files functionality</li>
+<li>Off-the-shelf and ready to be used modules (‘Table Downloader’, ‘Plot Downloader’, ‘File Downloader’ and ‘Reset Application’</li>
+<li>Different methods and tools to alert users and add useful information about application UI and server operations</li>
+<li>Application logger with different levels and a UI tool to display and review recorded application logs</li>
+<li>Application look and feel can be customized easily via ‘www/periscope_style.yaml’ or more advanced via ‘www/css/custom.css’</li>
+<li>Application can make use of JS power by customizing ‘www/js/custom.js’</li>
+</ul>
+<p>Create and run sample app for full features demo</p>
+<pre><code><span><span class="fu">periscope2</span><span class="fu">::</span><span class="fu"><a href="reference/create_application.html">create_application</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"demo_app"</span>, location <span class="op">=</span> <span class="st">"."</span>, sample_app <span class="op">=</span> <span class="cn">T</span>, right_sidebar <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
+<span><span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/runApp.html" class="external-link">runApp</a></span><span class="op">(</span><span class="st">"./demo_app/"</span>, launch.browser <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre>
+<hr>
+</div>
+<div class="section level3">
+<h3 id="periscope-vs-periscope2">periscope vs periscope2<a class="anchor" aria-label="anchor" href="#periscope-vs-periscope2"></a>
+</h3>
+<p><a href="https://cran.r-project.org/package=periscope" class="external-link">periscope</a> is widely regarded and used an enterprise application development aid framework for providing the user with the ability to build a robust shiny applications and dashboards.</p>
+<p><a href="https://cran.r-project.org/package=periscope" class="external-link">periscope</a> is the direct ancestor of periscope2 in which periscope2 took most of its basic philosophy and generated applications structure.</p>
+<p>However; as periscope2 is the next generation (iteration) of <a href="https://cran.r-project.org/package=periscope" class="external-link">periscope</a> package, they differ in many aspects as follow:</p>
+<div class="section level4">
+<h4 id="underlying-frameworks">Underlying frameworks<a class="anchor" aria-label="anchor" href="#underlying-frameworks"></a>
+</h4>
+<p><a href="https://cran.r-project.org/package=periscope" class="external-link">periscope</a> is dependent on bootstrap 3 supported shiny packages:</p>
+<ul>
+<li><a href="https://cran.r-project.org/package=shinydashboard" class="external-link">shinydashboard</a></li>
+<li><a href="https://cran.r-project.org/package=shinydashboardPlus" class="external-link">shinydashboard Plus</a></li>
+<li><a href="https://cran.r-project.org/package=shinyBS" class="external-link">shinyBS</a></li>
+</ul>
+<p>While periscope2 is dependent only on bootstrap 4 supported shiny package to bring in more functionality (i.e dashboard functionality, alerts, tool-tips, etc..) and a modernized look and feel:</p>
+<ul>
+<li><a href="https://cran.r-project.org/package=bs4Dash" class="external-link">bs4Dash</a></li>
+</ul>
+<hr>
+</div>
+<div class="section level4">
+<h4 id="generated-applications-layout">Generated applications layout<a class="anchor" aria-label="anchor" href="#generated-applications-layout"></a>
+</h4>
+<p><a href="https://cran.r-project.org/package=periscope" class="external-link">periscope</a> full generated app layouts:</p>
+<ul>
+<li>Left sidebar</li>
+<li>Right sidebar</li>
+<li>Header (only can update title)</li>
+<li>Body</li>
+</ul>
+<p>periscope2 full generated app layouts:</p>
+<ul>
+<li>Left sidebar</li>
+<li>Right sidebar</li>
+<li>Header</li>
+<li>Footer</li>
+<li>Body</li>
+</ul>
+<p>For periscope2, each part has it own UI R file that can be customized and updated. Each part also has its own dedicated alert panel, including an announcements framework as part of the header.</p>
+<p>User can adapt layout for both packages generated apps easily via related functions (refer to <code>r ?periscope</code> and <code>r ?periscope2</code> for more info)</p>
+<hr>
+</div>
+<div class="section level4">
+<h4 id="generated-applications-code-structure">Generated applications code structure<a class="anchor" aria-label="anchor" href="#generated-applications-code-structure"></a>
+</h4>
+<ul>
+<li>Regardless files contents, both packages generated applications share the same first level folder structure:</li>
+</ul>
+<center>
+<img src="./articles/figures/App_Structure.png">
+</center>
+<ul>
+<li>Differences in the next level of structure are:
+<ul>
+<li>periscope2 <strong>program</strong> folder has:
+<ul>
+<li>a dedicated UI R script for each layout part</li>
+<li>
+<strong>config</strong> - folder for storing application different configuration files
+<ul>
+<li>Initially contains announcements module configuration file</li>
+</ul>
+</li>
+<li>
+<strong>modules</strong> - folder for application shiny modules R scripts
+<center>
+<img src="./articles/figures/Program_Folder.png">
+</center>
+</li>
+</ul>
+</li>
+<li>
+<strong><em>www</em></strong> folder that contains the application JS, CSS and theme customization files
+<ul>
+<li>Although generated applications by both frameworks will have the same folder structure, periscope2 generated applications will have two additional files <strong>css/custom.css</strong> and <strong>js/custom.js</strong> to hold custom application JS and CSS code
+<ul>
+<li>Both of these files are already linked into the generated app and ready to be used</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+</div>
+<div class="section level4">
+<h4 id="packages-modules">Packages modules<a class="anchor" aria-label="anchor" href="#packages-modules"></a>
+</h4>
+<ul>
+<li>Both packages share the following modules:
+<ul>
+<li>downloadable file</li>
+<li>downloadable plot</li>
+<li>downloadable table</li>
+</ul>
+</li>
+<li>However, periscope2 has more modules (more to come with each new version) as Announcements module</li>
+<li>The following modules behave differently between the two packages:
+<ul>
+<li>Reset Application</li>
+<li>Logger</li>
+</ul>
+</li>
+</ul>
+<p><em>NOTE</em>: Check package documentation and vignettes for module details</p>
+<hr>
+</div>
+<div class="section level4">
+<h4 id="old-shiny-module-style-support">Old Shiny module style support<a class="anchor" aria-label="anchor" href="#old-shiny-module-style-support"></a>
+</h4>
+<p>While <a href="https://cran.r-project.org/package=periscope" class="external-link">periscope</a> modules can be called either via the old style (<code>callModule</code>) or new style (<code>moduleServer1</code>), periscope2 only supports the new module style. Check <a href="https://shiny.posit.co/r/articles/improve/modules/#migrating-from-callmodule-to-moduleserver" class="external-link">migrating to module server</a> article for more related technical info.</p>
+<hr>
+</div>
+<div class="section level4">
+<h4 id="fresh-package-styling-support">fresh package Styling Support<a class="anchor" aria-label="anchor" href="#fresh-package-styling-support"></a>
+</h4>
+<p><a href="https://dreamrs.github.io/fresh/" class="external-link">fresh</a> package is used in both packages to style generated applications different parts via configurations rather than code using the <strong>‘www/periscope_style.yaml’</strong> file.</p>
+<p>While periscope uses shiny dashboard variables for styling in code and via the <strong>‘www/periscope_style.yaml’</strong> configuration file, periscope2 uses bs4dash related variables . The file key names use related shiny dashboard or bs4dash variables for user friendly styling in both packages.</p>
+<hr>
+</div>
+</div>
 <div class="section level3">
 <h3 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h3>
 <p>periscope2 is available for installation from the latest version of <strong><em>periscope2</em></strong> from GitHub as follows:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">'cb4ds/periscope2'</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">'Aggregate-Genius/periscope2'</span><span class="op">)</span></span></code></pre></div>
 <p><br></p>
 <hr>
 </div>
@@ -118,7 +264,7 @@
 <div class="section level4">
 <h4 id="empty-application">Empty application<a class="anchor" aria-label="anchor" href="#empty-application"></a>
 </h4>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Aggregate-Genius/periscope2" class="external-link">periscope2</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/create_application.html">create_application</a></span><span class="op">(</span><span class="st">'emptyapp'</span>, location <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu">runApp</span><span class="op">(</span><span class="st">'emptyapp'</span><span class="op">)</span></span></code></pre></div>
@@ -126,7 +272,7 @@
 <div class="section level4">
 <h4 id="sample-application---no-right-sidebar">Sample application - no right sidebar<a class="anchor" aria-label="anchor" href="#sample-application---no-right-sidebar"></a>
 </h4>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Aggregate-Genius/periscope2" class="external-link">periscope2</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/create_application.html">create_application</a></span><span class="op">(</span><span class="st">"sampleapp1"</span>, location <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, sample_app <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="fu">runApp</span><span class="op">(</span><span class="st">'sampleapp1'</span><span class="op">)</span></span></code></pre></div>
@@ -134,7 +280,7 @@
 <div class="section level4">
 <h4 id="sample-application---including-a-right-sidebar">Sample application - including a right sidebar<a class="anchor" aria-label="anchor" href="#sample-application---including-a-right-sidebar"></a>
 </h4>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Aggregate-Genius/periscope2" class="external-link">periscope2</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/create_application.html">create_application</a></span><span class="op">(</span><span class="st">"sampleapp2"</span>, location <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, sample_app <span class="op">=</span> <span class="cn">TRUE</span>, rightsidebar <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="fu">runApp</span><span class="op">(</span><span class="st">'sampleapp2'</span><span class="op">)</span></span></code></pre></div>
@@ -147,6 +293,7 @@
     <div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
+<li><a href="https://cloud.r-project.org/package=periscope2" class="external-link">View on CRAN</a></li>
 <li><a href="https://github.com/Aggregate-Genius/periscope2/" class="external-link">Browse source code</a></li>
 <li><a href="https://github.com/Aggregate-Genius/periscope2/issues" class="external-link">Report a bug</a></li>
 </ul>
@@ -178,7 +325,10 @@
 <div class="dev-status">
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/Aggregate-Genius/periscope2/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/Aggregate-Genius/periscope2/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://CRAN.R-project.org/package=periscope2" class="external-link"><img src="https://www.r-pkg.org/badges/version/periscope2" alt="CRAN status"></a></li>
+<li><a href="https://cran.r-project.org/package=periscope2" class="external-link"><img src="http://cranlogs.r-pkg.org/badges/grand-total/periscope2" alt="Downloads Total"></a></li>
+<li><a href="https://app.circleci.com/pipelines/github/Aggregate-Genius/periscope2?branch=cran" class="external-link"><img src="https://circleci.com/gh/Aggregate-Genius/periscope2/tree/cran.svg?style=svg" alt="CircleCI build status"></a></li>
+<li><a href="https://app.codecov.io/gh/Aggregate-Genius/periscope2" class="external-link"><img src="https://codecov.io/gh/Aggregate-Genius/periscope2/branch/cran/graph/badge.svg?token=5LOU2JCTP6" alt="codecov"></a></li>
 </ul>
 </div>
 

@@ -76,7 +76,7 @@ announcement_addin_UI <- function() {
             stableColumnLayout(
                 shiny::textInput(
                     inputId     = "title",
-                    label       = periscope2::ui_tooltip(id        = "styleTip",
+                    label       = periscope2::ui_tooltip(id        = "titleTip",
                                                          label     = "Title",
                                                          text      = "Optional banner title. Leave it empty to disable it",
                                                          placement = "bottom"),
