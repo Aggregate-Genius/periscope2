@@ -291,7 +291,7 @@
     Code
       nchar(create_theme())
     Output
-      [1] 669399
+      [1] 669449
 
 # theme - parsing error
 
