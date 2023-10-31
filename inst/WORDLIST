@@ -3,8 +3,10 @@ CircleCI
 DOM
 DT
 Downloader
+Dropdown
 DropdownMenu
 JS
+RStudio
 ResetApp
 Tooltip
 Tooltips
@@ -13,7 +15,9 @@ ValidateTypes
 YAML
 actionButton
 addin
+addins
 alertClass
+announcementConfigurationsAddin
 appReset
 appResetButton
 applicationReset

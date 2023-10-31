@@ -81,7 +81,7 @@
                   <label class="control-label" id="title-label" for="title">
                     <span class="periscope-input-label-with-tt">
                       Title
-                      <img id="styleTip" src="img/tooltip.png" height="16px" width="16px" data-toggle="tooltip" data-placement="bottom" title="Optional banner title. Leave it empty to disable it"/>
+                      <img id="titleTip" src="img/tooltip.png" height="16px" width="16px" data-toggle="tooltip" data-placement="bottom" title="Optional banner title. Leave it empty to disable it"/>
                     </span>
                   </label>
                   <input id="title" type="text" class="shiny-input-text form-control" value="" placeholder="Announcement Banner Title"/>
