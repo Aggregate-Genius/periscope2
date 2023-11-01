@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">periscope2</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.4.9006</span>
       </span>
     </div>
 
@@ -51,6 +51,9 @@
   <ul class="dropdown-menu" role="menu">
 <li>
       <a href="../articles/announcement-module.html">Using the Announcement Shiny Module</a>
+    </li>
+    <li>
+      <a href="../articles/announcement_addin.html">Announcement Configuration YAML File Builder</a>
     </li>
     <li>
       <a href="../articles/applicationReset-module.html">Using the appReset Shiny Module</a>
@@ -100,7 +103,7 @@
                         <h4 data-toc-skip class="author">Mohammed
 Ali</h4>
             
-            <h4 data-toc-skip class="date">2023-05-02</h4>
+            <h4 data-toc-skip class="date">2023-10-30</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/Aggregate-Genius/periscope2/blob/HEAD/vignettes/applicationReset-module.Rmd" class="external-link"><code>vignettes/applicationReset-module.Rmd</code></a></small>
       <div class="hidden name"><code>applicationReset-module.Rmd</code></div>
@@ -115,15 +118,15 @@ Ali</h4>
 <div class="section level3">
 <h3 id="purpose">Purpose<a class="anchor" aria-label="anchor" href="#purpose"></a>
 </h3>
-<p>This <em>Shiny Module</em> was created in order to reset application
-session and logs</p>
+<p>This <em>Shiny Module</em> allows the user to easily reset
+application session and logs</p>
 </div>
 <div class="section level3">
 <h3 id="features">Features<a class="anchor" aria-label="anchor" href="#features"></a>
 </h3>
 <ul>
 <li>Resets a user’s session</li>
-<li>Rolls over their log</li>
+<li>Resets the session log</li>
 </ul>
 </div>
 </div>
@@ -157,39 +160,37 @@ the</li>
 <div class="section level3">
 <h3 id="appresetbutton">appResetButton<a class="anchor" aria-label="anchor" href="#appresetbutton"></a>
 </h3>
-<ul>
-<li>It is a toggle button can be placed at any place in ui like any
-other ui element.</li>
-</ul>
 <figure><center>
 <img src="figures/appReset-UI-1.jpg">
 </center>
 <figcaption>
 App Reset Toggle Button
 </figcaption></figure><ul>
-<li>This button is automatically wired to reset the application to the
-initial session state.</li>
-<li>The user is given a warning (as an alert on the Advanced tab) and
+<li><p>This is a toggle button can be placed in the UI like any other
+element</p></li>
+<li><p>This button is automatically wired to reset the application to
+the initial session state</p></li>
+<li><p>The user is given a warning (as an alert on the Advanced tab) and
 the reset is delayed (default = 5s) to allow the user to cancel the
-reset.</li>
+reset.</p></li>
 </ul>
 <figure><center>
 <img src="figures/appReset-UI-2.jpg" width="600px">
 </center>
 <figcaption>
-Reset application warning
+Reset Warning
 </figcaption></figure><figure><center>
 <img src="figures/appReset-UI-3.jpg" width="600px">
 </center>
 <figcaption>
-Cancel reset application
+Cancel Reset
 </figcaption></figure><ul>
 <li>Reset requests and cancellations are logged automatically.
 <figure><center>
 <img src="figures/appReset_logs.jpg">
 </center>
 <figcaption>
-Successful reset application
+Successful reset request
 </figcaption></figure>
 </li>
 </ul>
@@ -197,9 +198,9 @@ Successful reset application
 <img src="figures/appReset_logs-2.jpg">
 </center>
 <figcaption>
-Canceled reset application
+Canceled reset request
 </figcaption></figure><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Inside ui_body.R or similar ui file</span></span>
+<code class="sourceCode R"><span><span class="co"># Inside ui_body.R or similar UI file</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/appResetButton.html">appResetButton</a></span><span class="op">(</span><span class="st">'appResetId'</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -228,7 +229,7 @@ using:</p>
 <span></span>
 <span><span class="va">app_dir</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/create_application.html">create_application</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">'mysampleapp'</span>, location <span class="op">=</span> <span class="va">app_dir</span>, sample_app <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/runApp.html" class="external-link">runApp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">app_dir</span>, <span class="st">'mysampleapp'</span>, sep <span class="op">=</span> <span class="va">.Platform</span><span class="op">$</span><span class="va">file.sep</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/runApp.html" class="external-link">runApp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">app_dir</span>, <span class="st">'mysampleapp'</span>, sep <span class="op">=</span> <span class="va">.Platform</span><span class="op">$</span><span class="va">file.sep</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><br></p>
 <p><strong>Vignettes</strong></p>
 <ul>

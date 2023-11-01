@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">periscope2</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.4.9006</span>
       </span>
     </div>
 
@@ -51,6 +51,9 @@
   <ul class="dropdown-menu" role="menu">
 <li>
       <a href="../articles/announcement-module.html">Using the Announcement Shiny Module</a>
+    </li>
+    <li>
+      <a href="../articles/announcement_addin.html">Announcement Configuration YAML File Builder</a>
     </li>
     <li>
       <a href="../articles/applicationReset-module.html">Using the appReset Shiny Module</a>
@@ -100,7 +103,7 @@
                         <h4 data-toc-skip class="author">Dr. Connie
 Brett</h4>
             
-            <h4 data-toc-skip class="date">2023-05-02</h4>
+            <h4 data-toc-skip class="date">2023-10-30</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/Aggregate-Genius/periscope2/blob/HEAD/vignettes/downloadablePlot-module.Rmd" class="external-link"><code>vignettes/downloadablePlot-module.Rmd</code></a></small>
       <div class="hidden name"><code>downloadablePlot-module.Rmd</code></div>
@@ -115,20 +118,20 @@ Brett</h4>
 <div class="section level3">
 <h3 id="purpose">Purpose<a class="anchor" aria-label="anchor" href="#purpose"></a>
 </h3>
-<p>This <em>Shiny Module</em> was created in order to provide an
-easy-to-use downloadFileButton for a plot that is automatically created,
-linked and managed. This module is compatible with ggplot2, grob and
-lattice produced graphics as well as any superclass of these.</p>
+<p>This <em>Shiny Module</em> provides an easy-to-use downloadFileButton
+for a plot. It is that is automatically created, linked and managed.
+This module is compatible with ggplot2, grob and lattice graphics – as
+well as any superclass of these.</p>
 </div>
 <div class="section level3">
 <h3 id="features">Features<a class="anchor" aria-label="anchor" href="#features"></a>
 </h3>
 <ul>
-<li>Supports ggplot2, grob and lattice graphics and superclasses for
+<li>Supports ggplot2, grob and lattice graphics (and superclasses) for
 maximum flexibility</li>
 <li>Uses the downloadFile Shiny Module functionality to ensure
 consistent download functionality and paradigm for image or table
-data.</li>
+data</li>
 <li>Ability to link different plot downloads from the displayed plot if
 desired <em>(for example this might be used to ensure a
 watermark/copyright notice on downloaded plots)</em>
@@ -155,11 +158,21 @@ package, a small piece of reusable functionality. The UI function is
 called directly by the user to place the UI in the correct location (as
 with other shiny UI objects). The module server function that is called
 only once to set it up using the module name as a function inside the
-server function (i.e. user-local session scope. The function first
-arguments is string represents the module id (the same id used in module
-UI function). Additional arguments can be supplied by the user based on
-the specific shiny module that is called. There can be additional helper
-functions that are a part of a shiny module.</p>
+server function (i.e. user-local session scope. The first function
+argument is a string that represents the module id (the same id used in
+module UI function). Additional arguments can be supplied by the user
+based on the specific shiny module that is called. There can be
+additional helper functions that are a part of a shiny module.</p>
+<p>The <strong>downloadablePlot</strong> Shiny Module is a part of the
+<em>periscope2</em> package and consists of the following functions:</p>
+<ul>
+<li>
+<strong>downloadablePlotUI</strong> - the UI function to place the
+plot in the application</li>
+<li>
+<strong>downloadablePlot</strong> - the server function to be called
+inside server_local.R.</li>
+</ul>
 </div>
 <div class="section level3">
 <h3 id="downloadableplotui">downloadablePlotUI<a class="anchor" aria-label="anchor" href="#downloadableplotui"></a>
@@ -167,26 +180,31 @@ functions that are a part of a shiny module.</p>
 <p>The <strong>downloadablePlotUI</strong> function is called from the
 ui.R (or equivalent) file in the location where the plot should be
 placed. This is similar to other UI element placement in shiny.</p>
-<p>The downloadablePlotUI looks like:</p>
+<p>The downloadablePlotUI adds a button to the plot as seen in the
+bottom right corner below:</p>
 <center>
 <img src="figures/downloadablePlot-1.png" width="500px">
 </center>
 <p>The downloadablePlotUI function takes the unique object ID for the UI
-object. The next two arguments (downloadtypes and download_hovertext)
-are passed to the downloadFileButton and set the file types the button
-will allow the user to request and the downloadFileButton’s tooltip
-text. The next two options (width, height) set the plot size in the UI
-and can be any css-recognizable size value. These options are followed
-with alignment and overlap options. The last three options give you the
-standard ways of interacting with shiny plots - using the functionality
-available with the clickOpts, hoverOpts and brushOpts functions. When
-you create an object using any of these functions shiny will send
-information about the user’s interactions with the plot to the server
-and make it available to you via an input$ variable.</p>
+object.</p>
+<p>The downloadtypes and download_hovertext arguments are passed to the
+downloadFileButton and set the file types the button will allow the user
+to request and the downloadFileButton’s tooltip text.</p>
+<p>The width and height options set the plot size in the UI and can be
+any css-recognizable size value.</p>
+<p>These options are followed with alignment and overlap options for the
+button placed on the chart.</p>
+<p>The last three options give you the standard ways of interacting with
+shiny plots - using the functionality available with the clickOpts,
+hoverOpts and brushOpts functions.</p>
+<p><strong>Note</strong>: When you create an object using any of these
+functions shiny will send information about the user’s interactions with
+the plot to the server and make it available to you via an input$
+variable.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Inside ui_body.R or ui_sidebar.R</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/downloadablePlotUI.html">downloadablePlotUI</a></span><span class="op">(</span><span class="st">"object_id1"</span>, </span>
+<span><span class="fu"><a href="../reference/downloadablePlotUI.html">downloadablePlotUI</a></span><span class="op">(</span>id                 <span class="op">=</span> <span class="st">"object_id1"</span>, </span>
 <span>                   downloadtypes      <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"png"</span>, <span class="st">"csv"</span><span class="op">)</span>, </span>
 <span>                   download_hovertext <span class="op">=</span> <span class="st">"Download the plot and data here!"</span>,</span>
 <span>                   height             <span class="op">=</span> <span class="st">"500px"</span>, </span>
@@ -201,48 +219,61 @@ directly. The call consists of the following:</p>
 <li>the unique object ID that was provided to downloadablePlotUI when
 creating the UI object</li>
 <li>the logging logger to be used</li>
-<li>the root of the downloaded file name to be used in the browser as a
-character string or a reactive expression that returns a character
-string</li>
+<li>the root (prefix) of the downloaded file name to be used in the
+browser as a character string or a reactive expression that returns a
+character string</li>
 <li>the aspect ratio as a numeric value for exported images of supported
-types.<br>
-The values are width:height (width/height which is unitless) for example
-for a 1:1 ratio (square) the value would be 1/1 = 1, for a 2:1 ratio
-(wide rectangle) the value would be 2/1 = 2, for 4:3 ratio (landscape
-photo) the value would be 4/3 = 1.33, etc. This value ensures an
-exported reasonable shape for a plot regardless of the size or shape of
-the application browser window.</li>
-<li>a <strong>named list</strong> of functions that provide the images
-or data to the downloadFileButton (see below). It is important that the
-types of files to be downloaded are matched to the correct named
-function in the list. The functions are unquoted function names and will
-be called at the time the user initiates a download <em>(see
-requirements below)</em>.</li>
-<li>a function providing the plot output for the visible plot. It can be
-the same, or different, function as that provided to any of the download
-functions. This allows finer control over what the user can view
-vs. download if desired.</li>
-</ul>
-<p><strong>Download Function Requirements</strong></p>
+types.
 <ul>
-<li>The function must require NO parameters. No parameters will be
-provided when the function is called to retrieve the plot or data.</li>
-<li>The function must return an appropriate data format for the file
-type. For instance: csv/tsv/xlsx types require data that is convertible
-to a tabular type, tiff requires a tiff class object, etc. For more
-information on conversion of data to various download types see the
-downloadFile module help or vignette. <em>Note</em>: For the visible
-plot the return value must be from the ggplot2, grob or lattice classes
-(or a superclass)</li>
-<li>Since the function is called at the time the user requests the data
-it is acceptable and recommended to use reactive expressions providing
-dynamic values to the user from the application. All the above
-requirements apply.</li>
+<li>The values are width:height (width/height which is unitless) for
+example for a 1:1 ratio (square) the value would be 1/1 = 1, for a 2:1
+ratio (wide rectangle) the value would be 2/1 = 2, for 4:3 ratio
+(landscape photo) the value would be 4/3 = 1.33, etc.<br>
+</li>
+<li>This value ensures an exported reasonable shape for a plot
+regardless of the size or shape of the application browser window.</li>
+</ul>
+</li>
+<li>a <strong>named list</strong> of functions or reactive expressions
+that provide the images or data to the downloadFileButton (see below).
+<ul>
+<li>It is important that the types of files to be downloaded are matched
+to the correct named function in the list.<br>
+</li>
+<li>The function/reactive names are unquoted - they will be called at
+the time the user initiates a download <em>(see requirements
+below)</em>.</li>
+</ul>
+</li>
+<li>a function or reactive expression providing the plot output for the
+visible plot. It can be the same, or different from the ones provided to
+any of the download functions. This allows finer control over what the
+user can view vs. download if desired. For example you can allow a user
+to view a smaller subset of data but download an expanded dataset, or
+perhaps download a redacted version of data, etc.</li>
+</ul>
+<p>** Plot/Download Function or Reactive Expression Requirements**</p>
+<ul>
+<li>If a function is provided it must be parameter-less (require NO
+parameters). No parameters will be provided when a function is called to
+retrieve the plot or data. Reactive expressions cannot take parameters
+by definition.</li>
+<li>The function or reactive expression must return an appropriate data
+format for the file type. For instance: csv/tsv/xlsx types require data
+that is convertible to a tabular type, tiff formats require a tiff class
+object, etc. For more information on conversion of data to various
+download types see the downloadFile module help or vignette.</li>
+<li>For the visible plot the return value must be from the ggplot2, grob
+or lattice classes (or a superclass therein)</li>
+<li>Since the function or reactive expression is called at the time the
+user requests the data it is recommended that reactive expressions are
+used to provide dynamic values from the application to create the
+plot.</li>
 </ul>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Inside server_local.R</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/downloadablePlot.html">downloadablePlot</a></span><span class="op">(</span><span class="st">"object_id1"</span>,</span>
+<span><span class="fu"><a href="../reference/downloadablePlot.html">downloadablePlot</a></span><span class="op">(</span>id           <span class="op">=</span> <span class="st">"object_id1"</span>,</span>
 <span>                 logger       <span class="op">=</span> <span class="va">ss_userAction.Log</span>,</span>
 <span>                 filenameroot <span class="op">=</span> <span class="st">"mydownload1"</span>,</span>
 <span>                 aspectratio  <span class="op">=</span> <span class="fl">1.33</span>,</span>

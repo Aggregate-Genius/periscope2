@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">periscope2</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.4.9006</span>
       </span>
     </div>
 
@@ -51,6 +51,9 @@
   <ul class="dropdown-menu" role="menu">
 <li>
       <a href="../articles/announcement-module.html">Using the Announcement Shiny Module</a>
+    </li>
+    <li>
+      <a href="../articles/announcement_addin.html">Announcement Configuration YAML File Builder</a>
     </li>
     <li>
       <a href="../articles/applicationReset-module.html">Using the appReset Shiny Module</a>
@@ -100,7 +103,7 @@
                         <h4 data-toc-skip class="author">Dr. Connie
 Brett</h4>
             
-            <h4 data-toc-skip class="date">2023-05-02</h4>
+            <h4 data-toc-skip class="date">2023-10-30</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/Aggregate-Genius/periscope2/blob/HEAD/vignettes/downloadFile-module.Rmd" class="external-link"><code>vignettes/downloadFile-module.Rmd</code></a></small>
       <div class="hidden name"><code>downloadFile-module.Rmd</code></div>
@@ -115,9 +118,9 @@ Brett</h4>
 <div class="section level3">
 <h3 id="purpose">Purpose<a class="anchor" aria-label="anchor" href="#purpose"></a>
 </h3>
-<p>This <em>Shiny Module</em> was created in order to provide a
-consistent-looking and easy-to-use button that facilitates one or
-multiple types of file downloads.</p>
+<p>This <em>Shiny Module</em> provides a consistent-looking and
+easy-to-use button that facilitates single or multiple types of file
+downloads.</p>
 </div>
 <div class="section level3">
 <h3 id="features">Features<a class="anchor" aria-label="anchor" href="#features"></a>
@@ -128,7 +131,7 @@ downloads</li>
 <li>Ability to link different data sets to different file types if
 desired</li>
 <li>Incorporates tooltips and drop-downs automatically</li>
-<li>Converts data to various download types.</li>
+<li>Converts data to various download types</li>
 <li>Requires minimal code (see the Usage section for details)</li>
 </ul>
 <p><br></p>
@@ -145,11 +148,13 @@ package, a small piece of reusable functionality. The UI function is
 called directly by the user to place the UI in the correct location (as
 with other shiny UI objects). The module server function that is called
 only once to set it up using the module name as a function inside the
-server function (i.e. user-local session scope. The function first
-arguments is string represents the module id (the same id used in module
-UI function). Additional arguments can be supplied by the user based on
-the specific shiny module that is called. There can be additional helper
-functions that are a part of a shiny module.</p>
+server function (i.e. user-local session scope. The first function
+argument is a string that represents the module id (the same id used in
+module UI function). Additional arguments can be supplied by the user
+based on the specific shiny module that is called. There can be
+additional helper functions that are a part of a shiny module.</p>
+<p>The <strong>downloadableTable</strong> Shiny Module is a part of the
+<em>periscope2</em> package and consists of the following functions:</p>
 <p>The <strong>downloadFile</strong> Shiny Module is a part of the
 <em>periscope2</em> package and consists of the following functions:</p>
 <ul>
@@ -159,13 +164,17 @@ button in the application.</li>
 <li>
 <strong>downloadFile</strong> - the server function to be called
 inside server_local.R.</li>
+<li>Helper Functions:
+<ul>
 <li>
-<strong>downloadFile_ValidateTypes</strong> - a helper function that
-will check a given list of file types and warn the caller if the list
-contains an invalid or unsupported type.</li>
+<strong>downloadFile_ValidateTypes</strong> - will check a given
+list of file types and warn the caller if the list contains an invalid
+or unsupported type.</li>
 <li>
-<strong>downloadFile_AvailableTypes</strong> - a helper function
-that will return a vector of supported file types.</li>
+<strong>downloadFile_AvailableTypes</strong> - will return a vector
+of supported file types.</li>
+</ul>
+</li>
 </ul>
 </div>
 <div class="section level3">
@@ -175,11 +184,13 @@ that will return a vector of supported file types.</li>
 ui.R (or equivalent) file in the location where the button should be
 placed. This is similar to other UI element placement in shiny.</p>
 <p>The downloadFileButton function takes the unique object ID for the UI
-object as well as a list of file types the button will allow the user to
-request and the tooltip text.</p>
-<p>If only one type is given the button will be a single-download type
-of button that starts the specified download when the button is pressed.
-The button will look like:</p>
+object.</p>
+<p>The next two arguments (downloadtypes and hovertext) set the file
+types the button will allow the user to request and the tooltip
+text.</p>
+<p>If only one download type is given the button will be a
+single-download type of button that starts the specified download when
+the button is pressed. The button will look like:</p>
 <center>
 <img src="figures/downloadFile-1.jpg" width="50px">
 </center>
@@ -195,12 +206,12 @@ like:</p>
 <code class="sourceCode R"><span><span class="co"># Inside ui_body.R or ui_sidebar.R</span></span>
 <span></span>
 <span><span class="co">#single download type</span></span>
-<span><span class="fu"><a href="../reference/downloadFileButton.html">downloadFileButton</a></span><span class="op">(</span><span class="st">"object_id1"</span>, </span>
+<span><span class="fu"><a href="../reference/downloadFileButton.html">downloadFileButton</a></span><span class="op">(</span>id            <span class="op">=</span> <span class="st">"object_id1"</span>, </span>
 <span>                   downloadtypes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"csv"</span><span class="op">)</span>, </span>
 <span>                   hovertext     <span class="op">=</span> <span class="st">"Button 1 Tooltip"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">#multiple download types</span></span>
-<span><span class="fu"><a href="../reference/downloadFileButton.html">downloadFileButton</a></span><span class="op">(</span><span class="st">"object_id2"</span>, </span>
+<span><span class="fu"><a href="../reference/downloadFileButton.html">downloadFileButton</a></span><span class="op">(</span>id            <span class="op">=</span> <span class="st">"object_id2"</span>, </span>
 <span>                   downloadtypes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"csv"</span>, <span class="st">"tsv"</span><span class="op">)</span>, </span>
 <span>                   hovertext     <span class="op">=</span> <span class="st">"Button 2 Tooltip"</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -213,46 +224,48 @@ call consists of the following:</p>
 <li>the unique object ID that was provided to downloadFileButton when
 creating the UI object</li>
 <li>the logging logger to be used</li>
-<li>the root of the downloaded file name to be used in the browser as a
-character string or reactive expression that returns a character
-string</li>
-<li>a <strong>named list</strong> of functions that provide the data
-(see below). It is important that the types of files to be downloaded
-are matched to the correct data function in the list. The data functions
-are unquoted function names. The functions will be called at the time
-the user initiates a download <em>(see requirements below)</em>.</li>
-<li>the aspect ratio is an optional, numeric argument that only applies
-to supported image types.<br>
-The values are width:height (width/height which is unitless) for example
-for a 1:1 ratio (square) the value would be 1/1 = 1, for a 2:1 ratio
-(wide rectangle) the value would be 2/1 = 2, for 4:3 ratio (landscape
-photo) the value would be 4/3 = 1.33, etc. This value ensures an
-exported reasonable shape for a plot regardless of the size or shape of
-the application browser window.</li>
-</ul>
-<p><strong>Data Function Requirements</strong></p>
+<li>the root (prefix) of the downloaded file name to be used in the
+browser as a character string or reactive expression that returns a
+character string</li>
+<li>a <strong>named list</strong> of functions or reactive expressions
+that provide the data (see below).
 <ul>
-<li>The function must require NO parameters. No parameters will be
-provided when the function is called to retrieve the data.</li>
-<li>The function must return an appropriate data format for the file
-type. For instance, for csv/tsv/xlsx types the data returned should be
-convertible to a tabular type.</li>
-<li>Since the function is called at the time the user requests the data
-it is acceptable and recommended to use reactive expressions providing
-dynamic data to the user from the application.</li>
+<li>It is important that the types of files to be downloaded are matched
+to the correct data function in the list.<br>
+</li>
+<li>The function/reactive expression names are unquoted - they will be
+called at the time the user initiates a download <em>(see requirements
+below)</em>.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Data Function or Reactive Expression
+Requirements</strong></p>
+<ul>
+<li>If a function is provided it must be parameter-less (require NO
+parameters). No parameters will be provided when a function is called to
+retrieve the plot or data. Reactive expressions cannot take parameters
+by definition.</li>
+<li>The function or reactive expression must return an appropriate data
+format for the file type. For instance: csv/tsv/xlsx types require data
+that is convertible to a tabular type.</li>
+<li>Since the function or reactive expression is called at the time the
+user requests the data it is recommended that reactive expressions are
+used to provide dynamic values from the application to create the
+plot.</li>
 </ul>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Inside server_local.R</span></span>
 <span></span>
 <span><span class="co">#single download type</span></span>
-<span><span class="fu"><a href="../reference/downloadFile.html">downloadFile</a></span><span class="op">(</span><span class="st">"object_id1"</span>, </span>
+<span><span class="fu"><a href="../reference/downloadFile.html">downloadFile</a></span><span class="op">(</span>id           <span class="op">=</span> <span class="st">"object_id1"</span>, </span>
 <span>             logger       <span class="op">=</span> <span class="va">ss_userAction.Log</span>,</span>
 <span>             filenameroot <span class="op">=</span> <span class="st">"mydownload1"</span>,</span>
 <span>             datafxns     <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>csv <span class="op">=</span> <span class="va">mydatafxn1</span><span class="op">)</span>,</span>
 <span>             aspectratio  <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">#multiple download types</span></span>
-<span><span class="fu"><a href="../reference/downloadFile.html">downloadFile</a></span><span class="op">(</span><span class="st">"object_id2"</span>,</span>
+<span><span class="fu"><a href="../reference/downloadFile.html">downloadFile</a></span><span class="op">(</span>id           <span class="op">=</span> <span class="st">"object_id2"</span>,</span>
 <span>             logger       <span class="op">=</span> <span class="va">ss_userAction.Log</span>,</span>
 <span>             filenameroot <span class="op">=</span> <span class="st">"mytype2"</span>,</span>
 <span>             datafxns     <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>csv <span class="op">=</span> <span class="va">mydatafxn1</span>, xlsx <span class="op">=</span> <span class="va">mydatafxn2</span><span class="op">)</span>,</span>
@@ -262,14 +275,14 @@ dynamic data to the user from the application.</li>
 <h3 id="sample-application">Sample Application<a class="anchor" aria-label="anchor" href="#sample-application"></a>
 </h3>
 <p>For a complete running shiny example application using the
-downloadableTable module you can create and run a <em>periscope2</em>
-sample application using:</p>
+downloadFile module you can create and run a <em>periscope2</em> sample
+application using:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Aggregate-Genius/periscope2" class="external-link">periscope2</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">app_dir</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/create_application.html">create_application</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">'mysampleapp'</span>, location <span class="op">=</span> <span class="va">app_dir</span>, sample_app <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/runApp.html" class="external-link">runApp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">app_dir</span>, <span class="st">'mysampleapp'</span>, sep <span class="op">=</span> <span class="va">.Platform</span><span class="op">$</span><span class="va">file.sep</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/runApp.html" class="external-link">runApp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">app_dir</span>, <span class="st">'mysampleapp'</span>, sep <span class="op">=</span> <span class="va">.Platform</span><span class="op">$</span><span class="va">file.sep</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><br></p>
 </div>
 </div>

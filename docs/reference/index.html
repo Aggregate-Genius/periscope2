@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">periscope2</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.4.9006</span>
       </span>
     </div>
 
@@ -33,6 +33,9 @@
   </a>
   <ul class="dropdown-menu" role="menu"><li>
       <a href="../articles/announcement-module.html">Using the Announcement Shiny Module</a>
+    </li>
+    <li>
+      <a href="../articles/announcement_addin.html">Announcement Configuration YAML File Builder</a>
     </li>
     <li>
       <a href="../articles/applicationReset-module.html">Using the appReset Shiny Module</a>
@@ -81,35 +84,39 @@
       </tr></tbody><tbody><tr><td>
           <p><code><a href="add_ui_body.html">add_ui_body()</a></code> </p>
         </td>
-        <td><p>add_ui_body</p></td>
+        <td><p>Add UI elements to dashboard body section</p></td>
       </tr><tr><td>
           <p><code><a href="add_ui_footer.html">add_ui_footer()</a></code> </p>
         </td>
-        <td><p>add_ui_footer</p></td>
+        <td><p>Add UI elements to dashboard footer section</p></td>
       </tr><tr><td>
           <p><code><a href="add_ui_header.html">add_ui_header()</a></code> </p>
         </td>
-        <td><p>add_ui_header</p></td>
+        <td><p>Add UI elements to dashboard header section</p></td>
       </tr><tr><td>
           <p><code><a href="add_ui_left_sidebar.html">add_ui_left_sidebar()</a></code> </p>
         </td>
-        <td><p>add_ui_left_sidebar</p></td>
+        <td><p>Add UI elements to dashboard left sidebar section</p></td>
       </tr><tr><td>
           <p><code><a href="add_ui_right_sidebar.html">add_ui_right_sidebar()</a></code> </p>
         </td>
-        <td><p>add_ui_right_sidebar</p></td>
+        <td><p>Add UI elements to dashboard right sidebar section</p></td>
+      </tr><tr><td>
+          <p><code><a href="announcementConfigurationsAddin.html">announcementConfigurationsAddin()</a></code> </p>
+        </td>
+        <td><p>Build Announcement Module Configuration YAML File</p></td>
       </tr><tr><td>
           <p><code><a href="appReset.html">appReset()</a></code> </p>
         </td>
-        <td><p>appReset Module Server Function</p></td>
+        <td><p>appReset module server function</p></td>
       </tr><tr><td>
           <p><code><a href="appResetButton.html">appResetButton()</a></code> </p>
         </td>
-        <td><p>appResetButton</p></td>
+        <td><p>appResetButton module UI function</p></td>
       </tr><tr><td>
           <p><code><a href="createAlert.html">createAlert()</a></code> </p>
         </td>
-        <td><p>createAlert</p></td>
+        <td><p>Display alert panel at specified location</p></td>
       </tr><tr><td>
           <p><code><a href="create_application.html">create_application()</a></code> </p>
         </td>
@@ -125,47 +132,43 @@
       </tr><tr><td>
           <p><code><a href="downloadFile.html">downloadFile()</a></code> </p>
         </td>
-        <td><p>downloadFile Module</p></td>
+        <td><p>downloadFile module server function</p></td>
       </tr><tr><td>
           <p><code><a href="downloadFileButton.html">downloadFileButton()</a></code> </p>
         </td>
-        <td><p>downloadFileButton UI</p></td>
+        <td><p>downloadFileButton module UI function</p></td>
       </tr><tr><td>
           <p><code><a href="downloadFile_AvailableTypes.html">downloadFile_AvailableTypes()</a></code> </p>
         </td>
-        <td><p>downloadFile Helper</p></td>
+        <td><p>downloadFile module list of allowed file types</p></td>
       </tr><tr><td>
           <p><code><a href="downloadFile_ValidateTypes.html">downloadFile_ValidateTypes()</a></code> </p>
         </td>
-        <td><p>downloadFile_ValidateTypes</p></td>
+        <td><p>Check passed file types against downloadFile module allowed file types list</p></td>
       </tr><tr><td>
           <p><code><a href="downloadablePlot.html">downloadablePlot()</a></code> </p>
         </td>
-        <td><p>downloadablePlot Module</p></td>
+        <td><p>downloadablePlot module server function</p></td>
       </tr><tr><td>
           <p><code><a href="downloadablePlotUI.html">downloadablePlotUI()</a></code> </p>
         </td>
-        <td><p>downloadablePlot UI</p></td>
+        <td><p>downloadablePlot module UI function</p></td>
       </tr><tr><td>
           <p><code><a href="downloadableTable.html">downloadableTable()</a></code> </p>
         </td>
-        <td><p>downloadableTable Module</p></td>
+        <td><p>downloadableTable module server function</p></td>
       </tr><tr><td>
           <p><code><a href="downloadableTableUI.html">downloadableTableUI()</a></code> </p>
         </td>
-        <td><p>downloadableTable UI</p></td>
+        <td><p>downloadableTable module UI function</p></td>
       </tr><tr><td>
           <p><code><a href="get_url_parameters.html">get_url_parameters()</a></code> </p>
         </td>
-        <td><p>get_url_parameters</p></td>
-      </tr><tr><td>
-          <p><code><a href="logViewer.html">logViewer()</a></code> </p>
-        </td>
-        <td><p>logViewer Module Server Function</p></td>
+        <td><p>Parse application passed URL parameters</p></td>
       </tr><tr><td>
           <p><code><a href="logViewerOutput.html">logViewerOutput()</a></code> </p>
         </td>
-        <td><p>logViewerOutput</p></td>
+        <td><p>Display app logs</p></td>
       </tr><tr><td>
           <p><code><a href="logging-entrypoints.html">logdebug()</a></code> <code><a href="logging-entrypoints.html">loginfo()</a></code> <code><a href="logging-entrypoints.html">logwarn()</a></code> <code><a href="logging-entrypoints.html">logerror()</a></code> </p>
         </td>
@@ -181,7 +184,7 @@
       </tr><tr><td>
           <p><code><a href="ui_tooltip.html">ui_tooltip()</a></code> </p>
         </td>
-        <td><p>ui_tooltip</p></td>
+        <td><p>Add tooltip icon and text to UI elements labels</p></td>
       </tr></tbody></table></div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

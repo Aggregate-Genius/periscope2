@@ -1,0 +1,5 @@
+Name: Announcement Configurations Builder
+Description: Build announcement module configuration YAML file
+Binding: announcementConfigurationsAddin
+Interactive: true
+
