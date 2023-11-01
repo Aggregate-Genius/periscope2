@@ -5,9 +5,12 @@
 ### Enhancements
 - Used `shinyWidgets::show_alert` to display application info
 - Relocated Announcements and header alerts bar to be above navbar instead of inside it
+- Updated sidebars related CSS to avoid CX z-index issues
+- Updated sample app default theme colors to improve accessibility
 
 ### Bug Fixes
 - Fixed non working Announcements and ResetApp modules in sample application
+- Fixed updating selected rows issue in downloadable table module
 
 -----
 

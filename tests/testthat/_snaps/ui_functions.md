@@ -291,7 +291,7 @@
     Code
       nchar(create_theme())
     Output
-      [1] 669399
+      [1] 669489
 
 # theme - parsing error
 
@@ -308,7 +308,7 @@
       primary has invalid color value. Setting default color.
       -300 must be positive value. Setting default value.
     Output
-      [1] 669423
+      [1] 669463
 
 # dashboard - create default dashboard
 

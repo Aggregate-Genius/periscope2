@@ -3,6 +3,7 @@
 /************************/
 aside#sidebarId, aside#controlbarId {
     position: absolute;
+    z-index: 0!important;
 }
 
 /* Application title */
@@ -91,17 +92,11 @@ a:focus:not(.nav-link) {
 
 /* -------Buttons Styles-------- */
 /* btn-primary button */
-.btn-primary {
-    color: #1F2D3D!important;
-}
-
 .btn-primary:hover {
-    background-color: #D6BBE6 !important;
-    color           : #1F2D3D!important;
+    background-color: #8719a8 !important;
 }
 .btn-primary:focus {
-    background-color: #D6BBE6 !important;
-    color           : #1F2D3D!important;
+    background-color: #8719a8 !important;
 }
 
 /* btn-info button */
