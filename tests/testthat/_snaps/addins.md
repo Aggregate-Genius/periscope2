@@ -1,6 +1,13 @@
 # announcement addin - UI
 
     <div class="gadget-container">
+      <style type="text/css">span.periscope-input-label-with-tt, #star, .periscope-input-label-with-tt div {
+        display: inline-flex;
+    }
+    
+    #star {
+        color:red;
+    }</style>
       <div class="gadget-title">
         <h1>Announcement Configuration YAML File Builder</h1>
         <button class="btn btn-default btn-sm action-button pull-left" id="cancel" type="button">Cancel</button>
@@ -61,7 +68,10 @@
                 <div class="form-group shiny-input-container" style="width:100%;">
                   <label class="control-label" id="style-label" for="style">
                     <span class="periscope-input-label-with-tt">
-                      Style
+                      <div>
+                        Style
+                        <div id="star">*</div>
+                      </div>
                       <img id="styleTip" src="img/tooltip.png" height="16px" width="16px" data-toggle="tooltip" data-placement="bottom" title="Color for the announcement banner, possible values are {&#39;primary&#39;, &#39;success&#39;, &#39;warning&#39;, &#39;danger&#39; or &#39;info&#39;}. It is a mandatory value."/>
                     </span>
                   </label>
@@ -91,7 +101,10 @@
                 <div class="form-group shiny-input-container" style="width: 100%;">
                   <label class="control-label" id="announcement_text-label" for="announcement_text">
                     <span class="periscope-input-label-with-tt">
-                      Announcement Text
+                      <div>
+                        Announcement Text
+                        <div id="star">*</div>
+                      </div>
                       <img id="textTip" src="img/tooltip.png" height="16px" width="16px" data-toggle="tooltip" data-placement="bottom" title="The announcement text. Text can contain html tags and is a mandatory value"/>
                     </span>
                   </label>

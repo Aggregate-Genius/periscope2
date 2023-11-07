@@ -26,6 +26,7 @@ announcementConfigurationsAddin <- function() {
 
 announcement_addin_UI <- function() {
     miniUI::miniPage(
+        shiny::includeCSS(system.file("fw_templ/www/widgets/widgets.css", package = "periscope2")),
         shinyFeedback::useShinyFeedback(),
         shinyjs::useShinyjs(),
         miniUI::gadgetTitleBar("Announcement Configuration YAML File Builder"),
@@ -69,7 +70,7 @@ announcement_addin_UI <- function() {
                     selectize  = FALSE,
                     choices = c("primary", "success", "warning", "danger", "info"),
                     label   = periscope2::ui_tooltip(id        = "styleTip",
-                                                     label     = "Style",
+                                                     label     = shiny::div("Style", shiny::div(id = "star", "*")),
                                                      text      = paste("Color for the announcement banner, possible values are {'primary', 'success', 'warning', 'danger' or 'info'}.",
                                                                        "It is a mandatory value."),
                                                      placement = "bottom"))),
@@ -86,7 +87,7 @@ announcement_addin_UI <- function() {
                 shiny::textAreaInput(
                     inputId     = "announcement_text",
                     label       = periscope2::ui_tooltip(id        = "textTip",
-                                                         label     = "Announcement Text",
+                                                         label     = shiny::div("Announcement Text", shiny::div(id = "star", "*")),
                                                          text      = "The announcement text. Text can contain html tags and is a mandatory value",
                                                          placement = "bottom"),
                     width       = "100%",
