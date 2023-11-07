@@ -10,14 +10,14 @@ vignette: >
 ## Overview
 To help package users in creating valid announcement configuration file
 
-## Add-in Lunch
+## Add-in Launch
 
-The add-in can be lunched by one of two methods
+The add-in can be launched by one of two methods
 
 - Call **periscope2:::announcementConfigurationsAddin()** function from within RStudio console
 - From RStudio add-ins menu
 
-![Add-in Lunch](figures/add_ins_announce_1.png){#fig-1}
+![Add-in Launch](figures/add_ins_announce_1.png){#fig-1}
 
 ## Add-in Layout
 
@@ -127,3 +127,15 @@ It cannot be Negative
 - **Name**: announce.yaml
 - **Format**: Value are based on input configuration but output is similar to the following
 ![Announcement File](figures/add_ins_announce_12.png){#fig-12}
+
+For detailed usage for that file refer to [announcement Module](announcement-module.html).
+
+**Vignettes**
+
+* [announcement Module](announcement-module.html)
+* [New Application](new-application.html)
+* [downloadableTable Module](downloadableTable-module.html)
+* [downloadablePlot Module](downloadablePlot-module.html)
+* [downloadFile Module](downloadFile-module.html)
+* [logViewer Module](logViewer-module.html)
+* [applicationReset Module](applicationReset-module.html)

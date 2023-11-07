@@ -63,7 +63,7 @@ announcements_box <- box(
                             tags$li("Application admin can control how long an 'Announcement' stay visible for users or let each user close it manually"))),
              column(width = 6,
                     tags$dl(tags$dt("Setup"),
-                            tags$li("No development is needed to lunch or control 'Announcements' feature, only configurations"),
+                            tags$li("No development is needed to launch or control 'Announcements' feature, only configurations"),
                             tags$li("Default feature generated configuration file is called ", tags$b("announce.yaml")),
                             tags$li("Default configuration file path is: ", tags$i("'program/config/announce.yaml'")),
                             tags$li("Configuration file path can be changed based on admin preference. Only update ",

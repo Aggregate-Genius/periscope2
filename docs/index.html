@@ -37,7 +37,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">periscope2</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.4.9006</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.4.9008</span>
       </span>
     </div>
 
@@ -250,8 +250,11 @@
 <div class="section level3">
 <h3 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h3>
-<p>periscope2 is available for installation from the latest version of <strong><em>periscope2</em></strong> from GitHub as follows:</p>
+<p>periscope2 is available for installation from CRAN</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_cran.html" class="external-link">install_cran</a></span><span class="op">(</span><span class="st">"periscope2"</span><span class="op">)</span></span></code></pre></div>
+<p>and latest development version of <strong><em>periscope2</em></strong> from GitHub as follows:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">'Aggregate-Genius/periscope2'</span><span class="op">)</span></span></code></pre></div>
 <p><br></p>
 <hr>
@@ -264,7 +267,7 @@
 <div class="section level4">
 <h4 id="empty-application">Empty application<a class="anchor" aria-label="anchor" href="#empty-application"></a>
 </h4>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Aggregate-Genius/periscope2" class="external-link">periscope2</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/create_application.html">create_application</a></span><span class="op">(</span><span class="st">'emptyapp'</span>, location <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu">runApp</span><span class="op">(</span><span class="st">'emptyapp'</span><span class="op">)</span></span></code></pre></div>
@@ -272,7 +275,7 @@
 <div class="section level4">
 <h4 id="sample-application---no-right-sidebar">Sample application - no right sidebar<a class="anchor" aria-label="anchor" href="#sample-application---no-right-sidebar"></a>
 </h4>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Aggregate-Genius/periscope2" class="external-link">periscope2</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/create_application.html">create_application</a></span><span class="op">(</span><span class="st">"sampleapp1"</span>, location <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, sample_app <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="fu">runApp</span><span class="op">(</span><span class="st">'sampleapp1'</span><span class="op">)</span></span></code></pre></div>
@@ -280,7 +283,7 @@
 <div class="section level4">
 <h4 id="sample-application---including-a-right-sidebar">Sample application - including a right sidebar<a class="anchor" aria-label="anchor" href="#sample-application---including-a-right-sidebar"></a>
 </h4>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Aggregate-Genius/periscope2" class="external-link">periscope2</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/create_application.html">create_application</a></span><span class="op">(</span><span class="st">"sampleapp2"</span>, location <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, sample_app <span class="op">=</span> <span class="cn">TRUE</span>, rightsidebar <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="fu">runApp</span><span class="op">(</span><span class="st">'sampleapp2'</span><span class="op">)</span></span></code></pre></div>

@@ -5,7 +5,7 @@
 #'
 #' The method can be called directly via `R` console or via RStudio addins menu
 #'
-#' @return lunches gadget window
+#' @return launch gadget window
 #'
 #' @examples
 #' if (interactive()) {
@@ -65,15 +65,15 @@ announcement_addin_UI <- function() {
                     min     = 0,
                     max     = 100),
                 shiny::selectInput(
-                    inputId = "style",
-                    width   = "100%",
-                    selectize  = FALSE,
-                    choices = c("primary", "success", "warning", "danger", "info"),
-                    label   = periscope2::ui_tooltip(id        = "styleTip",
-                                                     label     = shiny::div("Style", shiny::div(id = "star", "*")),
-                                                     text      = paste("Color for the announcement banner, possible values are {'primary', 'success', 'warning', 'danger' or 'info'}.",
-                                                                       "It is a mandatory value."),
-                                                     placement = "bottom"))),
+                    inputId   = "style",
+                    width     = "100%",
+                    selectize = FALSE,
+                    choices   = c("primary", "success", "warning", "danger", "info"),
+                    label     = periscope2::ui_tooltip(id        = "styleTip",
+                                                       label     = shiny::div("Style", shiny::div(id = "star", "*")),
+                                                       text      = paste("Color for the announcement banner, possible values are {'primary', 'success', 'warning', 'danger' or 'info'}.",
+                                                                         "It is a mandatory value."),
+                                                       placement = "bottom"))),
             stableColumnLayout(
                 shiny::textInput(
                     inputId     = "title",
@@ -97,9 +97,9 @@ announcement_addin_UI <- function() {
             stableColumnLayout(
                 shiny::downloadButton(outputId = "downloadConfig",
                                       disabled = TRUE,
-                                      label     = periscope2::ui_tooltip(id        = "downloadTip",
-                                                                         label     = "Download",
-                                                                         text      = "Download announcement configuration file"))
+                                      label    = periscope2::ui_tooltip(id    = "downloadTip",
+                                                                        label = "Download",
+                                                                        text  = "Download announcement configuration file"))
             )
         )
     )

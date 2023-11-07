@@ -565,3 +565,4 @@ Application images can be stored here
 * [logViewer Module](logViewer-module.html)
 * [applicationReset Module](applicationReset-module.html)
 * [announcement Module](announcement-module.html)
+* [Announcement Configuration Builder](announcement_addin.html)
