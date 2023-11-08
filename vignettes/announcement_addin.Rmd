@@ -21,8 +21,7 @@ The add-in can be launched by one of two methods
 
 ## Add-in Layout
 
-- The add-in will open as an RStudio Viewer window
-- Window title is: "Announcement Configuration YAML File Builder"
+- The add-in will open as browser tab
 - Add-in UI consists of:
   - Header
   - Body
@@ -38,8 +37,8 @@ The add-in can be launched by one of two methods
   - Title
   - Announcement Text
   - Download button
-  
-![UI Layout](figures/add_ins_announce_2.png){#fig-2}
+
+<center><img src="figures/add_ins_announce_2.png" width="800px"></center>
 
 ## Inputs
 ### Start Date and End Date
@@ -59,13 +58,13 @@ The add-in can be launched by one of two methods
     - Current day if start date  is NULL
     - or start date day if it is selected as below
     
-    ![End Date Calendar Minimum Value](figures/add_ins_announce_4.png){#fig-4}
+<center><img src="figures/add_ins_announce_4.png" width="800px"></center>
     
   - If user selected an end date before selecting start date, then select a start date that is later than end date, end date will be updated to the selected start date
   
-![](figures/add_ins_announce_5.png){#fig-5}
+<center><img src="figures/add_ins_announce_5.png" width="800px"></center>
 
-![](figures/add_ins_announce_6.png){#fig-6}
+
 
 ### Close after (sec)
 
@@ -89,7 +88,7 @@ It cannot be Negative
   - It cannot be NULL
   - It cannot have a different value than what is listed in the dropdown
   
-![Style](figures/add_ins_announce_8.png){#fig-8}
+<center><img src="figures/add_ins_announce_8.png" width="600px"></center>
 
 
 ### Title
@@ -111,9 +110,9 @@ It cannot be Negative
 - **Placeholder**: "Announcement Banner Title"
 - Its size can be increased only by dragging the bottom left corner
 
-![Announcement Text](figures/add_ins_announce_10.png){#fig-10}
+<center><img src="figures/add_ins_announce_10.png" width="600px"></center>
 
-![Announcement Validation](figures/add_ins_announce_11.png){#fig-11}
+<center><img src="figures/add_ins_announce_11.png" width="600px"></center>
 
 ### Download button
 
@@ -126,7 +125,7 @@ It cannot be Negative
 
 - **Name**: announce.yaml
 - **Format**: Value are based on input configuration but output is similar to the following
-![Announcement File](figures/add_ins_announce_12.png){#fig-12}
+<center><img src="figures/add_ins_announce_12.png" width="800px"></center>
 
 For detailed usage for that file refer to [announcement Module](announcement-module.html).
 
