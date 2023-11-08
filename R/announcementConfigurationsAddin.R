@@ -25,6 +25,8 @@ announcementConfigurationsAddin <- function() {
 
 
 announcement_addin_UI <- function() {
+        shiny::addResourcePath(prefix        = "img",
+                               directoryPath = system.file("fw_templ/www", package = "periscope2"))
     miniUI::miniPage(
         shiny::includeCSS(system.file("fw_templ/www/widgets/widgets.css", package = "periscope2")),
         shinyFeedback::useShinyFeedback(),
@@ -229,6 +231,12 @@ announcement_addin_server <- function(id = NULL) {
             )
 
             shiny::observeEvent(input$done, {
+                removeResourcePath(prefix = "img")
+                invisible(shiny::stopApp())
+            })
+
+            observeEvent(input$cancel, {
+                removeResourcePath(prefix = "img")
                 invisible(shiny::stopApp())
             })
 

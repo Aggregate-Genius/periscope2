@@ -72,8 +72,7 @@ NULL
         }
     }
 
-    shiny::addResourcePath(prefix        = "img",
-                           directoryPath = system.file("fw_templ/www", package = "periscope2"))
+
 }
 
 

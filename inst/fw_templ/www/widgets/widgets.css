@@ -2,6 +2,10 @@ span.periscope-input-label-with-tt, #star, .periscope-input-label-with-tt div {
     display: inline-flex;
 }
 
+.dialogTop  img {
+    display: none;
+}
+
 #star {
     color:red;
 }
