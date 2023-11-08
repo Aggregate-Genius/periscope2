@@ -20,7 +20,7 @@ announcementConfigurationsAddin <- function() {
                      server = function(input, output, session){
                          announcement_addin_server()
                      },
-                     viewer = shiny::dialogViewer("Announcement Configuration YAML File Builder", width = 1000, height = 400))
+                     viewer = shiny::browserViewer())
 }
 
 

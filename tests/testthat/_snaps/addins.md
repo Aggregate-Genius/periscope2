@@ -5,10 +5,6 @@
         display: inline-flex;
     }
     
-    .dialogTop  img {
-        display: none;
-    }
-    
     #star {
         color:red;
     }</style>
