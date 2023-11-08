@@ -31,7 +31,7 @@ source(paste("program", "fxn", "plots.R", sep = .Platform$file.sep))
 
 original_theme_settings <- list()
 original_theme_settings[["primary"]]                  <- "#EBCDFC"
-original_theme_settings[["secondary"]]                <- "#CD9489"
+original_theme_settings[["secondary"]]                <- "#6c757d"
 original_theme_settings[["success"]]                  <- "#2ED610"
 original_theme_settings[["info"]]                     <- "#7BDFF2"
 original_theme_settings[["warning"]]                  <- "#FFF200"

@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">periscope2</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.4.9006</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.4.9008</span>
       </span>
     </div>
 
@@ -117,24 +117,23 @@ Builder</h1>
 file</p>
 </div>
 <div class="section level2">
-<h2 id="add-in-lunch">Add-in Lunch<a class="anchor" aria-label="anchor" href="#add-in-lunch"></a>
+<h2 id="add-in-launch">Add-in Launch<a class="anchor" aria-label="anchor" href="#add-in-launch"></a>
 </h2>
-<p>The add-in can be lunched by one of two methods</p>
+<p>The add-in can be launched by one of two methods</p>
 <ul>
 <li>Call <strong>periscope2:::announcementConfigurationsAddin()</strong>
 function from within RStudio console</li>
 <li>From RStudio add-ins menu</li>
 </ul>
 <div class="float" id="fig-1">
-<img src="figures/add_ins_announce_1.png" alt="Add-in Lunch"><div class="figcaption">Add-in Lunch</div>
+<img src="figures/add_ins_announce_1.png" alt="Add-in Launch"><div class="figcaption">Add-in Launch</div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="add-in-layout">Add-in Layout<a class="anchor" aria-label="anchor" href="#add-in-layout"></a>
 </h2>
 <ul>
-<li>The add-in will open as an RStudio Viewer window</li>
-<li>Window title is: “Announcement Configuration YAML File Builder”</li>
+<li>The add-in will open as browser tab</li>
 <li>Add-in UI consists of:
 <ul>
 <li>Header</li>
@@ -163,9 +162,9 @@ YAML File Builder”</li>
 </ul>
 </li>
 </ul>
-<div class="float" id="fig-2">
-<img src="figures/add_ins_announce_2.png" alt="UI Layout"><div class="figcaption">UI Layout</div>
-</div>
+<center>
+<img src="figures/add_ins_announce_2.png" width="800px">
+</center>
 </div>
 <div class="section level2">
 <h2 id="inputs">Inputs<a class="anchor" aria-label="anchor" href="#inputs"></a>
@@ -202,18 +201,21 @@ won’t be able to select earlier days)</li>
 <li>Current day if start date is NULL</li>
 <li>or start date day if it is selected as below</li>
 </ul>
-<div class="float" id="fig-4">
-<img src="figures/add_ins_announce_4.png" alt="End Date Calendar Minimum Value"><div class="figcaption">End Date Calendar Minimum Value</div>
-</div>
 </li>
+</ul>
+</li>
+</ul>
+<center>
+<img src="figures/add_ins_announce_4.png" width="800px">
+</center>
+<ul>
 <li>If user selected an end date before selecting start date, then
 select a start date that is later than end date, end date will be
 updated to the selected start date</li>
 </ul>
-</li>
-</ul>
-<p><img src="figures/add_ins_announce_5.png" id="fig-5"></p>
-<p><img src="figures/add_ins_announce_6.png" id="fig-6"></p>
+<center>
+<img src="figures/add_ins_announce_5.png" width="800px">
+</center>
 </div>
 <div class="section level3">
 <h3 id="close-after-sec">Close after (sec)<a class="anchor" aria-label="anchor" href="#close-after-sec"></a>
@@ -258,9 +260,9 @@ dropdown</li>
 </ul>
 </li>
 </ul>
-<div class="float" id="fig-8">
-<img src="figures/add_ins_announce_8.png" alt="Style"><div class="figcaption">Style</div>
-</div>
+<center>
+<img src="figures/add_ins_announce_8.png" width="600px">
+</center>
 </div>
 <div class="section level3">
 <h3 id="title">Title<a class="anchor" aria-label="anchor" href="#title"></a>
@@ -300,12 +302,12 @@ html tags and is a mandatory value”</li>
 <li>Its size can be increased only by dragging the bottom left
 corner</li>
 </ul>
-<div class="float" id="fig-10">
-<img src="figures/add_ins_announce_10.png" alt="Announcement Text"><div class="figcaption">Announcement Text</div>
-</div>
-<div class="float" id="fig-11">
-<img src="figures/add_ins_announce_11.png" alt="Announcement Validation"><div class="figcaption">Announcement Validation</div>
-</div>
+<center>
+<img src="figures/add_ins_announce_10.png" width="600px">
+</center>
+<center>
+<img src="figures/add_ins_announce_11.png" width="600px">
+</center>
 </div>
 <div class="section level3">
 <h3 id="download-button">Download button<a class="anchor" aria-label="anchor" href="#download-button"></a>
@@ -331,8 +333,25 @@ are provided and valid</li>
 <strong>Name</strong>: announce.yaml</li>
 <li>
 <strong>Format</strong>: Value are based on input configuration but
-output is similar to the following <img src="figures/add_ins_announce_12.png" id="fig-12" alt="Announcement File">
+output is similar to the following
+<center>
+<img src="figures/add_ins_announce_12.png" width="800px">
+</center>
 </li>
+</ul>
+<p>For detailed usage for that file refer to <a href="announcement-module.html">announcement Module</a>.</p>
+<p><strong>Vignettes</strong></p>
+<ul>
+<li><a href="announcement-module.html">announcement Module</a></li>
+<li><a href="new-application.html">New Application</a></li>
+<li><a href="downloadableTable-module.html">downloadableTable
+Module</a></li>
+<li><a href="downloadablePlot-module.html">downloadablePlot
+Module</a></li>
+<li><a href="downloadFile-module.html">downloadFile Module</a></li>
+<li><a href="logViewer-module.html">logViewer Module</a></li>
+<li><a href="applicationReset-module.html">applicationReset
+Module</a></li>
 </ul>
 </div>
 </div>

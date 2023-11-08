@@ -5,7 +5,7 @@
 ## Blank/empty values will use the default values
 
 primary: "#B221DD"
-secondary:
+secondary: "#6c757d"
 success: "#2ED610"
 info: "#7BDFF2"
 warning: "#FFF200"

@@ -7,7 +7,7 @@
 announcementConfigurationsAddin()
 }
 \value{
-lunches gadget window
+launch gadget window
 }
 \description{
 Call this as an addin to build valid yaml file that is needed for running

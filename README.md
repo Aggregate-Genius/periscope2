@@ -37,6 +37,24 @@ shiny::runApp("./demo_app/", launch.browser = T)
 
 -----
 
+### Installation
+
+periscope2 is available for installation from CRAN
+
+```r
+devtools::install_cran("periscope2")
+```
+
+and latest development version of ***periscope2*** from GitHub as follows:
+
+```r
+devtools::install_github('Aggregate-Genius/periscope2')
+```
+
+<br/>
+
+-----
+
 ### periscope vs periscope2
 [periscope](https://cran.r-project.org/package=periscope) is widely regarded and used an enterprise application development aid framework for providing the user with the ability to build a robust shiny applications and dashboards.
 
@@ -124,24 +142,6 @@ While [periscope](https://cran.r-project.org/package=periscope) modules can be c
 
 While periscope uses shiny dashboard variables for styling in code and via the **'www/periscope_style.yaml'** configuration file, periscope2 uses bs4dash related variables . The file key names use related shiny dashboard or bs4dash variables for user friendly styling in both packages.
 
------
-
-### Installation
-
-periscope2 is available for installation from CRAN
-
-```r
-devtools::install_cran("periscope2")
-```
-
-and latest development version of ***periscope2*** from GitHub as follows:
-
-```r
-devtools::install_github('Aggregate-Genius/periscope2')
-```
-
-<br/>
-
 ---
 
 ### Examples
@@ -153,26 +153,23 @@ These are included to get you started. You can either start with an empty applic
 #### Empty application
 
 ```r
-library(periscope2)
-create_application('emptyapp', location = tempdir())
-runApp('emptyapp')
+periscope2::create_application('emptyapp', location = ".")
+shiny::runApp('emptyapp', launch.browser = T)
 ```
 
 
 #### Sample application - no right sidebar
 
 ```r
-library(periscope2)
-create_application("sampleapp1", location = tempdir(), sample_app = TRUE)
-runApp('sampleapp1')
+periscope2::create_application("sampleapp1", location = ".", sample_app = TRUE)
+shiny::runApp('sampleapp1', launch.browser = T)
 
 ```
 
 #### Sample application - including a right sidebar
 
 ```r
-library(periscope2)
-create_application("sampleapp2", location = tempdir(), sample_app = TRUE, rightsidebar = TRUE)
-runApp('sampleapp2')
+periscope2::create_application("sampleapp2", location = ".", sample_app = TRUE, right_sidebar = TRUE)
+shiny::runApp('sampleapp2', launch.browser = T)
 
 ```

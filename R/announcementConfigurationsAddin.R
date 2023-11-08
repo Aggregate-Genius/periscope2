@@ -5,7 +5,7 @@
 #'
 #' The method can be called directly via `R` console or via RStudio addins menu
 #'
-#' @return lunches gadget window
+#' @return launch gadget window
 #'
 #' @examples
 #' if (interactive()) {
@@ -20,12 +20,15 @@ announcementConfigurationsAddin <- function() {
                      server = function(input, output, session){
                          announcement_addin_server()
                      },
-                     viewer = shiny::dialogViewer("Announcement Configuration YAML File Builder", width = 1000, height = 400))
+                     viewer = shiny::browserViewer())
 }
 
 
 announcement_addin_UI <- function() {
+        shiny::addResourcePath(prefix        = "img",
+                               directoryPath = system.file("fw_templ/www", package = "periscope2"))
     miniUI::miniPage(
+        shiny::includeCSS(system.file("fw_templ/www/widgets/widgets.css", package = "periscope2")),
         shinyFeedback::useShinyFeedback(),
         shinyjs::useShinyjs(),
         miniUI::gadgetTitleBar("Announcement Configuration YAML File Builder"),
@@ -64,15 +67,15 @@ announcement_addin_UI <- function() {
                     min     = 0,
                     max     = 100),
                 shiny::selectInput(
-                    inputId = "style",
-                    width   = "100%",
-                    selectize  = FALSE,
-                    choices = c("primary", "success", "warning", "danger", "info"),
-                    label   = periscope2::ui_tooltip(id        = "styleTip",
-                                                     label     = "Style",
-                                                     text      = paste("Color for the announcement banner, possible values are {'primary', 'success', 'warning', 'danger' or 'info'}.",
-                                                                       "It is a mandatory value."),
-                                                     placement = "bottom"))),
+                    inputId   = "style",
+                    width     = "100%",
+                    selectize = FALSE,
+                    choices   = c("primary", "success", "warning", "danger", "info"),
+                    label     = periscope2::ui_tooltip(id        = "styleTip",
+                                                       label     = shiny::div("Style", shiny::div(id = "star", "*")),
+                                                       text      = paste("Color for the announcement banner, possible values are {'primary', 'success', 'warning', 'danger' or 'info'}.",
+                                                                         "It is a mandatory value."),
+                                                       placement = "bottom"))),
             stableColumnLayout(
                 shiny::textInput(
                     inputId     = "title",
@@ -86,7 +89,7 @@ announcement_addin_UI <- function() {
                 shiny::textAreaInput(
                     inputId     = "announcement_text",
                     label       = periscope2::ui_tooltip(id        = "textTip",
-                                                         label     = "Announcement Text",
+                                                         label     = shiny::div("Announcement Text", shiny::div(id = "star", "*")),
                                                          text      = "The announcement text. Text can contain html tags and is a mandatory value",
                                                          placement = "bottom"),
                     width       = "100%",
@@ -96,9 +99,9 @@ announcement_addin_UI <- function() {
             stableColumnLayout(
                 shiny::downloadButton(outputId = "downloadConfig",
                                       disabled = TRUE,
-                                      label     = periscope2::ui_tooltip(id        = "downloadTip",
-                                                                         label     = "Download",
-                                                                         text      = "Download announcement configuration file"))
+                                      label    = periscope2::ui_tooltip(id    = "downloadTip",
+                                                                        label = "Download",
+                                                                        text  = "Download announcement configuration file"))
             )
         )
     )
@@ -228,6 +231,12 @@ announcement_addin_server <- function(id = NULL) {
             )
 
             shiny::observeEvent(input$done, {
+                shiny::removeResourcePath(prefix = "img")
+                invisible(shiny::stopApp())
+            })
+
+            shiny::observeEvent(input$cancel, {
+                shiny::removeResourcePath(prefix = "img")
                 invisible(shiny::stopApp())
             })
 

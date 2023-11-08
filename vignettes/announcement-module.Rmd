@@ -93,6 +93,7 @@ runApp(paste(app_dir, 'mysampleapp', sep = .Platform$file.sep))
 
 **Vignettes**
 
+* [Announcement Configuration Builder](announcement_addin.html)
 * [New Application](new-application.html)
 * [downloadableTable Module](downloadableTable-module.html)
 * [downloadablePlot Module](downloadablePlot-module.html)

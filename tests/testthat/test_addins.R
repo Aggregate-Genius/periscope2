@@ -58,4 +58,9 @@ test_that("announcement addin - server", {
 
                    session$setInputs(done = 1)
                })
+
+    testServer(announcement_addin_server,
+               expr = {
+                   expect_warning(session$setInputs(cancel = 1))
+               })
 })
