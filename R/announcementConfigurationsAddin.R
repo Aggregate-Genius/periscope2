@@ -231,12 +231,12 @@ announcement_addin_server <- function(id = NULL) {
             )
 
             shiny::observeEvent(input$done, {
-                removeResourcePath(prefix = "img")
+                shiny::removeResourcePath(prefix = "img")
                 invisible(shiny::stopApp())
             })
 
-            observeEvent(input$cancel, {
-                removeResourcePath(prefix = "img")
+            shiny::observeEvent(input$cancel, {
+                shiny::removeResourcePath(prefix = "img")
                 invisible(shiny::stopApp())
             })
 
