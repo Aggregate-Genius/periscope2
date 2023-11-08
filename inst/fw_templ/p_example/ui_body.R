@@ -531,7 +531,7 @@ style_guide_box <- box(
              column(width = 6,
                     actionButton(inputId = "restore_app_theme",
                                  label   = "Restore Default Theme",
-                                 status  = "info")))
+                                 status  = "secondary")))
 
 )
 
