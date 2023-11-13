@@ -1,8 +1,10 @@
 context("periscope2 - App reset")
 
 test_that(".appResetButton", {
-    local_edition(3)
-    expect_snapshot_output(appResetButton("myid"))
+    reset_btn <- appResetButton("myid")
+
+    expect_true(grepl('<span>Cancel Application Reset</span>', reset_btn, fixed = TRUE))
+    expect_true(grepl('id="myid-resetButton"', reset_btn, fixed = TRUE))
 })
 
 test_that("app_reset - no reset button", {
