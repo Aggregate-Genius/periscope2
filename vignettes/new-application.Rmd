@@ -63,7 +63,7 @@ The right sidebar is optional.  When used it is collapsed by default and can be 
 
 *4: Footer*
 
-The footer is optional.  The footer supports short textual or html formatted info/citations.
+The footer supports short textual or html formatted info/citations.
 
 *5: Body*
 
@@ -221,25 +221,18 @@ View application session recorded log
 library(periscope2)
 app_dir = tempdir()
 
-# application without a right sidebar or footer
-create_application(
-    name = 'mytestapp', 
-    location = app_dir, 
-    sample_app = TRUE)
+# application without a right sidebar
+create_application(name       = 'mytestapp', 
+                   location   = app_dir, 
+                   sample_app = TRUE)
 
-# application without a left sidebar, a right sidebar or footer
+# application without a left sidebar or a right sidebar
 create_application(name         = 'mytestapp', 
                    location     = app_dir, 
                    sample_app   = TRUE, 
                    left_sidebar = FALSE)
 
-# application with a footer
-create_application(name       = 'mytestapp', 
-                   location   = app_dir, 
-                   sample_app = TRUE, 
-                   footer     = TRUE)
-
-# application with a right sidebar
+# application with left and right sidebars
 create_application(name          = 'mytestapp', 
                    location      = app_dir, 
                    sample_app    = TRUE, 
@@ -271,19 +264,14 @@ etc.  You can use this sample application to explore the functionality and code.
 library(periscope2)
 app_dir = tempdir()
 
-# application without a right sidebar or footer
+# application without a right sidebar
 create_application(name     = 'mytestapp', 
                    location = app_dir)
 
-# application without a left sidebar, a right sidebar or footer
+# application without a left sidebar or a right sidebar
 create_application(name         = 'mytestapp', 
                    location     = app_dir, 
                    left_sidebar = FALSE)
-
-# application with a footer
-create_application(name     = 'mytestapp', 
-                   location = app_dir, 
-                   footer   = TRUE)
 
 # application with a right sidebar
 create_application(name          = 'mytestapp', 

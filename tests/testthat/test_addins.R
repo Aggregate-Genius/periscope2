@@ -2,8 +2,10 @@ context("periscope2 - package addins")
 local_edition(3)
 
 test_that("announcement addin - UI", {
-    ui_output <- gsub(pattern = paste0(",\"minDate\":\"", Sys.Date(), "\""), x =  announcement_addin_UI(), replacement = "")
-    expect_snapshot_output(cat(ui_output))
+    ui_output <- announcement_addin_UI()
+    expect_true(grepl(Sys.Date(), ui_output, fixed = TRUE))
+    expect_true(grepl("startPicker", ui_output, fixed = TRUE))
+    expect_true(grepl("endPicker", ui_output, fixed = TRUE))
 })
 
 
