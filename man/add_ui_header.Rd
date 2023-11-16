@@ -5,6 +5,9 @@
 \title{Add UI elements to dashboard header section}
 \usage{
 add_ui_header(
+  ui_elements = NULL,
+  ui_position = "right",
+  title_position = "center",
   left_menu = NULL,
   right_menu = NULL,
   border = TRUE,

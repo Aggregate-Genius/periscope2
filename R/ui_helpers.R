@@ -126,7 +126,10 @@ add_ui_left_sidebar <- function(sidebar_elements = NULL,
 #' @seealso \link[periscope2:get_url_parameters]{periscope2:get_url_parameters()}
 #'
 #' @export
-add_ui_header <- function(left_menu          = NULL,
+add_ui_header <- function(ui_elements        = NULL,
+                          ui_position        = "right",
+                          title_position     = "center",
+                          left_menu          = NULL,
                           right_menu         = NULL,
                           border             = TRUE,
                           compact            = FALSE,
@@ -141,25 +144,85 @@ add_ui_header <- function(left_menu          = NULL,
 
     if (!is.null(app_info)) {
         if (class(app_info)[1] == "html") {
-            title <- shiny::div(shiny::div(id = "app_header"),
+            title <- shiny::div(id = "app_header",
                                 shiny::actionLink("app_info", app_title))
         } else {
-            title <-  shiny::div(shiny::div(id = "app_header"),
-                                 shiny::a(id = "app_info", href = app_info, target = "_blank", app_title))
+            title <- shiny::div(id = "app_header",
+                                shiny::a(id = "app_info", href = app_info, target = "_blank", app_title))
         }
 
     }
 
-    title_header <- shiny::fluidRow(style = "width:100%",
-                                    shiny::column(width = 4,
-                                                  shiny::div(class = "periscope-busy-ind",
-                                                             "Working",
-                                                             shiny::img(alt = "Working...",
-                                                                        hspace = "5px",
-                                                                        src = "img/loader.gif"))),
-                                    shiny::column(width = 4, title),
-                                    shiny::column(width = 4))
-    .g_opts$header <- bs4Dash::bs4DashNavbar(title_header,
+    busy_indicator <- shiny::div(class = "periscope-busy-ind",
+                                 "Working",
+                                 shiny::img(alt = "Working...",
+                                            hspace = "5px",
+                                            src = "img/loader.gif"))
+    header_left   <- busy_indicator
+    header_center <- title
+    header_right  <- ui_elements
+
+    left_width   <- 4
+    right_width  <- 4
+    center_width <- 4
+
+    if (!is.null(ui_elements)) {
+        left_width   <- 3
+        right_width  <- 6
+        center_width <- 3
+
+        if (ui_position == "left") {
+            left_width   <- 6
+            right_width  <- 3
+            center_width <- 3
+        } else if (ui_position == "center") {
+            left_width   <- 3
+            right_width  <- 3
+            center_width <- 6
+        }
+
+        if (title_position == ui_position) {
+            logwarn("title_position cannot be equal to ui_position. Setting default values")
+            title_position <- "center"
+            ui_position    <- "right"
+        }
+
+        if (title_position == "center") {
+            if (ui_position == "left") {
+                header_right <- busy_indicator
+                header_left  <- ui_elements
+            }
+        } else if (title_position == "left") {
+            header_left <- title
+
+            if (ui_position == "right") {
+                header_right  <- ui_elements
+                header_center <- busy_indicator
+            } else{
+                header_right  <- busy_indicator
+                header_center <- ui_elements
+            }
+        } else if (title_position == "right") {
+            header_right <- title
+
+            if (ui_position == "left") {
+                header_left   <- ui_elements
+                header_center <- busy_indicator
+            } else{
+                header_center <- busy_indicator
+                header_left   <- ui_elements
+            }
+        }
+
+
+    }
+
+    header <- shiny::fluidRow(style = "width:100%",
+                              shiny::column(width = left_width, header_left),
+                              shiny::column(width = center_width, header_center),
+                              shiny::column(width = right_width, header_right))
+
+    .g_opts$header <- bs4Dash::bs4DashNavbar(header,
                                              skin           = skin,
                                              status         = status,
                                              border         = border,
