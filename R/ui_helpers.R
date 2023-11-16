@@ -167,6 +167,18 @@ add_ui_header <- function(ui_elements        = NULL,
     center_width <- 4
 
     if (!is.null(ui_elements)) {
+        if ((is.null(title_position)) ||
+            !(title_position %in% c("left", "center", "right"))) {
+            warning("title_position must be on of 'left', 'center'or 'right' values. Setting default value 'center'")
+            title_position <- "center"
+        }
+
+        if ((is.null(ui_position)) ||
+            !(ui_position %in% c("left", "center", "right"))) {
+            warning("ui_position must be on of 'left', 'center'or 'right' values. Setting default value 'right'")
+            ui_position <- "right"
+        }
+
         if (title_position == ui_position) {
             warning("title_position cannot be equal to ui_position. Setting default values")
             title_position <- "center"

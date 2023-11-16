@@ -103,6 +103,66 @@ test_that("add_ui_header - ui element", {
     header <- shiny::isolate(periscope2:::.g_opts$header)
     expect_true(grepl('periscope-busy-ind.*Set using set_app_parameters.*Tab1', header[[1]]$children[[2]]))
     expect_true(grepl('col-sm-3.*col-sm-3.*col-sm-6', header[[1]]$children[[2]]))
+
+    # busy indicator - title - UI elements positions is NULL
+    expect_warning(periscope2::add_ui_header(ui_elements = menu,
+                                             ui_position = NULL),
+                   regexp = "ui_position must be on of 'left', 'center'or 'right' values. Setting default value 'right'")
+
+    header <- shiny::isolate(periscope2:::.g_opts$header)
+    expect_true(grepl('periscope-busy-ind.*Set using set_app_parameters.*Tab1', header[[1]]$children[[2]]))
+    expect_true(grepl('col-sm-3.*col-sm-3.*col-sm-6', header[[1]]$children[[2]]))
+
+    # busy indicator - title - UI elements positions is wrong
+    expect_warning(periscope2::add_ui_header(ui_elements = menu,
+                                             ui_position = "abc"),
+                   regexp = "ui_position must be on of 'left', 'center'or 'right' values. Setting default value 'right'")
+
+    header <- shiny::isolate(periscope2:::.g_opts$header)
+    expect_true(grepl('periscope-busy-ind.*Set using set_app_parameters.*Tab1', header[[1]]$children[[2]]))
+    expect_true(grepl('col-sm-3.*col-sm-3.*col-sm-6', header[[1]]$children[[2]]))
+
+    # busy indicator - title positions is wrong- UI elements
+    expect_warning(periscope2::add_ui_header(ui_elements    = menu,
+                                             title_position = "abc"),
+                   regexp = "title_position must be on of 'left', 'center'or 'right' values. Setting default value 'center'")
+
+    header <- shiny::isolate(periscope2:::.g_opts$header)
+    expect_true(grepl('periscope-busy-ind.*Set using set_app_parameters.*Tab1', header[[1]]$children[[2]]))
+    expect_true(grepl('col-sm-3.*col-sm-3.*col-sm-6', header[[1]]$children[[2]]))
+
+    # busy indicator - title positions is NULL- UI elements
+    expect_warning(periscope2::add_ui_header(ui_elements    = menu,
+                                             title_position = NULL),
+                   regexp = "title_position must be on of 'left', 'center'or 'right' values. Setting default value 'center'")
+
+    header <- shiny::isolate(periscope2:::.g_opts$header)
+    expect_true(grepl('periscope-busy-ind.*Set using set_app_parameters.*Tab1', header[[1]]$children[[2]]))
+    expect_true(grepl('col-sm-3.*col-sm-3.*col-sm-6', header[[1]]$children[[2]]))
+
+    # busy indicator - title positions is NULL- UI elements position is center
+    warn_msgs <- capture_warnings(periscope2::add_ui_header(ui_elements    = menu,
+                                             ui_position    = "center",
+                                             title_position = NULL))
+    expect_equal("title_position must be on of 'left', 'center'or 'right' values. Setting default value 'center'",
+                 warn_msgs[1])
+    expect_equal("title_position cannot be equal to ui_position. Setting default values",
+                 warn_msgs[2])
+    header <- shiny::isolate(periscope2:::.g_opts$header)
+    expect_true(grepl('periscope-busy-ind.*Set using set_app_parameters.*Tab1', header[[1]]$children[[2]]))
+    expect_true(grepl('col-sm-3.*col-sm-3.*col-sm-6', header[[1]]$children[[2]]))
+
+    # busy indicator - title positions is right- UI elements position is NULL
+    warn_msgs <- capture_warnings(periscope2::add_ui_header(ui_elements    = menu,
+                                                            ui_position    = NULL,
+                                                            title_position = "right"))
+    expect_equal("ui_position must be on of 'left', 'center'or 'right' values. Setting default value 'right'",
+                 warn_msgs[1])
+    expect_equal("title_position cannot be equal to ui_position. Setting default values",
+                 warn_msgs[2])
+    header <- shiny::isolate(periscope2:::.g_opts$header)
+    expect_true(grepl('periscope-busy-ind.*Set using set_app_parameters.*Tab1', header[[1]]$children[[2]]))
+    expect_true(grepl('col-sm-3.*col-sm-3.*col-sm-6', header[[1]]$children[[2]]))
 })
 
 
