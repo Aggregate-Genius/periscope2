@@ -69,8 +69,18 @@ add_ui_left_sidebar <- function(sidebar_elements = NULL,
 #' Add UI elements to dashboard header section
 #'
 #' Builds application header with given configurations and elements. It is called within "ui_header.R".
+#' These elements will be displayed in the header beside application title and application busy indicator.
+#'
+#' User can configure UI elements, application title and the busy indicator positions as well using this method.
+#'
 #' Check example application for detailed example
 #'
+#' @param ui_elements        - It can be any UI element but mostly used for navbarMenu. NULL by default.
+#'                             Check \code{?bs4Dash::navbarMenu()}
+#' @param ui_position        - Location of UI elements in the header. Must be either of 'center', 'left' or 'right'
+#'                             Default value is 'right'.
+#' @param title_position     - Location of the title in the header. Must be either of 'center', 'left' or 'right'
+#'                             Default value is 'Center'. If there are no UI elements, this param will be ignored.
 #' @param left_menu          - Left menu. bs4DropdownMenu object (or similar dropdown menu).
 #'                             Check \code{?bs4Dash::bs4DropdownMenu()}
 #' @param right_menu         - Right menu. bs4DropdownMenu object (or similar dropdown menu).
@@ -167,6 +177,14 @@ add_ui_header <- function(ui_elements        = NULL,
     center_width <- 4
 
     if (!is.null(ui_elements)) {
+        if (!is.null(title_position)) {
+            title_position <- tolower(title_position)
+        }
+
+        if (!is.null(ui_position)) {
+            ui_position <- tolower(ui_position)
+        }
+
         if ((is.null(title_position)) ||
             !(title_position %in% c("left", "center", "right"))) {
             warning("title_position must be on of 'left', 'center'or 'right' values. Setting default value 'center'")

@@ -20,6 +20,15 @@ add_ui_header(
 )
 }
 \arguments{
+\item{ui_elements}{- can be any UI element but mostly used for navbarMenu. NULL by default.
+Check \code{?bs4Dash::navbarMenu()}}
+
+\item{ui_position}{- Location of UI elements in the header. Must be either of 'center', 'left' or 'right'
+Default value is 'right'.}
+
+\item{title_position}{- Location of the title in the header. Must be either of 'center', 'left' or 'right'
+Default value is 'Center'. If there are no UI elements, this param will be ignored.}
+
 \item{left_menu}{- Left menu. bs4DropdownMenu object (or similar dropdown menu).
 Check \code{?bs4Dash::bs4DropdownMenu()}}
 
@@ -45,6 +54,11 @@ list of both shiny UI elements and named header properties
 }
 \description{
 Builds application header with given configurations and elements. It is called within "ui_header.R".
+These elements will be displayed in the header beside application title and application busy indicator.
+}
+\details{
+User can configure UI elements, application title and the busy indicator positions as well using this method.
+
 Check example application for detailed example
 }
 \section{Shiny Usage}{
