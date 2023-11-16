@@ -7,6 +7,7 @@ setInterval(function() {
     if ($('html').attr('class')=='shiny-busy') {
         busyTimeout = setTimeout(function() {
             if ($('html').attr('class')=='shiny-busy') {
+                $('div.periscope-busy-ind').css('display', 'inline-flex');
                 $('div.periscope-busy-ind').fadeIn(500);
             }
         }, 250);
