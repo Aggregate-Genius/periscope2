@@ -479,8 +479,7 @@
             </div>
           </div>
           <div class="col-sm-4">
-            <div>
-              <div id="app_header"></div>
+            <div id="app_header">
               <a id="app_info" href="#" class="action-button">periscope Example Application</a>
             </div>
           </div>
@@ -523,8 +522,7 @@
             </div>
           </div>
           <div class="col-sm-4">
-            <div>
-              <div id="app_header"></div>
+            <div id="app_header">
               <a id="app_info" href="https://cran.r-project.org/web/packages/periscope2/index.html" target="_blank">periscope Example Application</a>
             </div>
           </div>

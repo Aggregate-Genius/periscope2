@@ -30,10 +30,73 @@ create_announcements <- function(start_date        = NULL,
 
 #########################################
 
-test_that("add_ui_header - default", {
-    # no header
+test_that("add_ui_header - no header", {
     expect_null(shiny::isolate(periscope2:::.g_opts$header))
-    # normal header
+})
+
+test_that("add_ui_header - ui element", {
+    menu <-   navbarMenu(
+        id = "navmenu",
+        navbarTab(tabName = "Tab1", text = "Tab 1"),
+        navbarTab(tabName = "Tab2", text = "Tab 2"),
+        navbarTab(
+            text = "Menu",
+            dropdownHeader("Dropdown header"),
+            navbarTab(tabName = "Tab3", text = "Tab 3")
+        )
+    )
+
+    # busy indicator - title - UI elements
+    periscope2::add_ui_header(ui_elements = menu)
+    header <- shiny::isolate(periscope2:::.g_opts$header)
+    expect_equal(length(header), 2)
+    expect_equal(length(header[[1]]), 3)
+    expect_equal(length(header[[1]]$children), 3)
+    grepl('periscope-busy-ind.*Set using set_app_parameters.*Tab1', header[[1]]$children[[2]])
+    grepl('col-sm-3.*col-sm-3.*col-sm-6', header[[1]]$children[[2]])
+
+    # busy indicator - UI elements - title
+    periscope2::add_ui_header(ui_elements    = menu,
+                              ui_position    = "center",
+                              title_position = "right")
+    header <- shiny::isolate(periscope2:::.g_opts$header)
+    grepl('periscope-busy-ind.*Tab1.*Set using set_app_parameters', header[[1]]$children[[2]])
+    grepl('col-sm-3.*col-sm-6.*col-sm-3', header[[1]]$children[[2]])
+
+    # UI elements - busy indicator - title
+    periscope2::add_ui_header(ui_elements    = menu,
+                              ui_position    = "left",
+                              title_position = "right")
+    header <- shiny::isolate(periscope2:::.g_opts$header)
+    grepl('Tab1.*periscope-busy-ind.*Set using set_app_parameters', header[[1]]$children[[2]])
+    grepl('col-sm-6.*col-sm-3.*col-sm-3', header[[1]]$children[[2]])
+
+    # UI elements - title - busy indicator
+    periscope2::add_ui_header(ui_elements    = menu,
+                              ui_position    = "left",
+                              title_position = "center")
+    header <- shiny::isolate(periscope2:::.g_opts$header)
+    grepl('Tab1.*Set using set_app_parameters.*periscope-busy-ind', header[[1]]$children[[2]])
+    grepl('col-sm-6.*col-sm-3.*col-sm-3', header[[1]]$children[[2]])
+
+    # title - UI elements - busy indicator
+    periscope2::add_ui_header(ui_elements    = menu,
+                              ui_position    = "center",
+                              title_position = "left")
+    header <- shiny::isolate(periscope2:::.g_opts$header)
+    grepl('Set using set_app_parameters.*Tab1.*periscope-busy-ind', header[[1]]$children[[2]])
+    grepl('col-sm-3.*col-sm-6.*col-sm-3', header[[1]]$children[[2]])
+
+    # title - busy indicator - UI elements
+    periscope2::add_ui_header(ui_elements    = menu,
+                              ui_position    = "right",
+                              title_position = "left")
+    header <- shiny::isolate(periscope2:::.g_opts$header)
+    grepl('Set using set_app_parameters.*periscope-busy-ind.*Tab1', header[[1]]$children[[2]])
+    grepl('col-sm-3.*col-sm-3.*col-sm-6', header[[1]]$children[[2]])
+})
+
+test_that("add_ui_header - no ui element", {
     skin               <- "light"
     status             <- "white"
     border             <- TRUE
