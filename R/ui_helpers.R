@@ -168,7 +168,7 @@ add_ui_header <- function(ui_elements        = NULL,
 
     if (!is.null(ui_elements)) {
         if (title_position == ui_position) {
-            logwarn("title_position cannot be equal to ui_position. Setting default values")
+            warning("title_position cannot be equal to ui_position. Setting default values")
             title_position <- "center"
             ui_position    <- "right"
         }

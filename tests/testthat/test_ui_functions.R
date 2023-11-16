@@ -52,49 +52,59 @@ test_that("add_ui_header - ui element", {
     expect_equal(length(header), 2)
     expect_equal(length(header[[1]]), 3)
     expect_equal(length(header[[1]]$children), 3)
-    grepl('periscope-busy-ind.*Set using set_app_parameters.*Tab1', header[[1]]$children[[2]])
-    grepl('col-sm-3.*col-sm-3.*col-sm-6', header[[1]]$children[[2]])
+    expect_true(grepl('periscope-busy-ind.*Set using set_app_parameters.*Tab1', header[[1]]$children[[2]]))
+    expect_true(grepl('col-sm-3.*col-sm-3.*col-sm-6', header[[1]]$children[[2]]))
 
     # busy indicator - UI elements - title
     periscope2::add_ui_header(ui_elements    = menu,
                               ui_position    = "center",
                               title_position = "right")
     header <- shiny::isolate(periscope2:::.g_opts$header)
-    grepl('periscope-busy-ind.*Tab1.*Set using set_app_parameters', header[[1]]$children[[2]])
-    grepl('col-sm-3.*col-sm-6.*col-sm-3', header[[1]]$children[[2]])
+    expect_true(grepl('periscope-busy-ind.*Tab1.*Set using set_app_parameters', header[[1]]$children[[2]]))
+    expect_true(grepl('col-sm-3.*col-sm-6.*col-sm-3', header[[1]]$children[[2]]))
 
     # UI elements - busy indicator - title
     periscope2::add_ui_header(ui_elements    = menu,
                               ui_position    = "left",
                               title_position = "right")
     header <- shiny::isolate(periscope2:::.g_opts$header)
-    grepl('Tab1.*periscope-busy-ind.*Set using set_app_parameters', header[[1]]$children[[2]])
-    grepl('col-sm-6.*col-sm-3.*col-sm-3', header[[1]]$children[[2]])
+    expect_true(grepl('Tab1.*periscope-busy-ind.*Set using set_app_parameters', header[[1]]$children[[2]]))
+    expect_true(grepl('col-sm-6.*col-sm-3.*col-sm-3', header[[1]]$children[[2]]))
 
     # UI elements - title - busy indicator
     periscope2::add_ui_header(ui_elements    = menu,
                               ui_position    = "left",
                               title_position = "center")
     header <- shiny::isolate(periscope2:::.g_opts$header)
-    grepl('Tab1.*Set using set_app_parameters.*periscope-busy-ind', header[[1]]$children[[2]])
-    grepl('col-sm-6.*col-sm-3.*col-sm-3', header[[1]]$children[[2]])
+    expect_true(grepl('Tab1.*Set using set_app_parameters.*periscope-busy-ind', header[[1]]$children[[2]]))
+    expect_true(grepl('col-sm-6.*col-sm-3.*col-sm-3', header[[1]]$children[[2]]))
 
     # title - UI elements - busy indicator
     periscope2::add_ui_header(ui_elements    = menu,
                               ui_position    = "center",
                               title_position = "left")
     header <- shiny::isolate(periscope2:::.g_opts$header)
-    grepl('Set using set_app_parameters.*Tab1.*periscope-busy-ind', header[[1]]$children[[2]])
-    grepl('col-sm-3.*col-sm-6.*col-sm-3', header[[1]]$children[[2]])
+    expect_true(grepl('Set using set_app_parameters.*Tab1.*periscope-busy-ind', header[[1]]$children[[2]]))
+    expect_true(grepl('col-sm-3.*col-sm-6.*col-sm-3', header[[1]]$children[[2]]))
 
     # title - busy indicator - UI elements
     periscope2::add_ui_header(ui_elements    = menu,
                               ui_position    = "right",
                               title_position = "left")
     header <- shiny::isolate(periscope2:::.g_opts$header)
-    grepl('Set using set_app_parameters.*periscope-busy-ind.*Tab1', header[[1]]$children[[2]])
-    grepl('col-sm-3.*col-sm-3.*col-sm-6', header[[1]]$children[[2]])
+    expect_true(grepl('Set using set_app_parameters.*periscope-busy-ind.*Tab1', header[[1]]$children[[2]]))
+    expect_true(grepl('col-sm-3.*col-sm-3.*col-sm-6', header[[1]]$children[[2]]))
+
+    # busy indicator - title - UI elements (center as well)
+    expect_warning(periscope2::add_ui_header(ui_elements = menu,
+                                                    ui_position = "center"),
+                   regexp = "title_position cannot be equal to ui_position")
+
+    header <- shiny::isolate(periscope2:::.g_opts$header)
+    expect_true(grepl('periscope-busy-ind.*Set using set_app_parameters.*Tab1', header[[1]]$children[[2]]))
+    expect_true(grepl('col-sm-3.*col-sm-3.*col-sm-6', header[[1]]$children[[2]]))
 })
+
 
 test_that("add_ui_header - no ui element", {
     skin               <- "light"
