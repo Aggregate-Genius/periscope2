@@ -167,24 +167,24 @@ add_ui_header <- function(ui_elements        = NULL,
     center_width <- 4
 
     if (!is.null(ui_elements)) {
-        left_width   <- 3
-        right_width  <- 6
-        center_width <- 3
-
-        if (ui_position == "left") {
-            left_width   <- 6
-            right_width  <- 3
-            center_width <- 3
-        } else if (ui_position == "center") {
-            left_width   <- 3
-            right_width  <- 3
-            center_width <- 6
-        }
-
         if (title_position == ui_position) {
             logwarn("title_position cannot be equal to ui_position. Setting default values")
             title_position <- "center"
             ui_position    <- "right"
+        }
+
+        left_width   <- 3
+        center_width <- 3
+        right_width  <- 6
+
+        if (ui_position == "left") {
+            left_width   <- 6
+            center_width <- 3
+            right_width  <- 3
+        } else if (ui_position == "center") {
+            left_width   <- 3
+            center_width <- 6
+            right_width  <- 3
         }
 
         if (title_position == "center") {
@@ -209,8 +209,8 @@ add_ui_header <- function(ui_elements        = NULL,
                 header_left   <- ui_elements
                 header_center <- busy_indicator
             } else{
-                header_center <- busy_indicator
-                header_left   <- ui_elements
+                header_left   <- busy_indicator
+                header_center <- ui_elements
             }
         }
 
