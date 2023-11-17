@@ -29,9 +29,48 @@ themeBuilder_addin_UI <- function() {
         miniUI::gadgetTitleBar("Theme Configuration YAML File Builder"),
         miniUI::miniTabstripPanel(
             miniUI::miniTabPanel(
-                "Status",
+                "Status Colors",
                 #icon = icon("code"),
-                miniUI::miniContentPanel()
+                miniUI::miniContentPanel(
+                    shiny::p("periscope2 main theme colors are defined with the following status colors,
+                             you can use those status in infoBox, valueBox, cards"),
+                    stableColumnLayout(
+                        colourpicker::colourInput(inputId    = "primary",
+                                                  label      = "Primary",
+                                                  showColour = "both",
+                                                  value      = "#B221DD"),
+                        colourpicker::colourInput(inputId    = "secondary",
+                                                  label      = "Secondary",
+                                                  showColour = "both",
+                                                  value      = "#6c757d")),
+                    stableColumnLayout(
+                        colourpicker::colourInput(inputId    = "success",
+                                                  label      = "Success",
+                                                  showColour = "both",
+                                                  value      = "#2ED610"),
+                        colourpicker::colourInput(inputId    = "info",
+                                                  label      = "Info",
+                                                  showColour = "both",
+                                                  value      = "#7BDFF2")),
+                    stableColumnLayout(
+                        colourpicker::colourInput(inputId    = "warning",
+                                                  label      = "Warning",
+                                                  showColour = "both",
+                                                  value      = "#FFF200"),
+                        colourpicker::colourInput(inputId    = "danger",
+                                                  label      = "Danger",
+                                                  showColour = "both",
+                                                  value      = "#CE0900")),
+                    stableColumnLayout(
+                        colourpicker::colourInput(inputId    = "light",
+                                                  label      = "Light",
+                                                  showColour = "both",
+                                                  value      = "#f8f9fa"),
+                        colourpicker::colourInput(inputId    = "dark",
+                                                  label      = "Dark",
+                                                  showColour = "both",
+                                                  value      = "#343a40"))
+                )
             ),
             miniUI::miniTabPanel(
                 "Layout",
