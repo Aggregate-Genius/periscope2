@@ -25,7 +25,41 @@ themeConfigurationsAddin <- function() {
 
 
 themeBuilder_addin_UI <- function() {
-    miniUI::miniPage()
+    miniUI::miniPage(
+        miniUI::gadgetTitleBar("Theme Configuration YAML File Builder"),
+        miniUI::miniTabstripPanel(
+            miniUI::miniTabPanel(
+                "Status",
+                #icon = icon("code"),
+                miniUI::miniContentPanel()
+            ),
+            miniUI::miniTabPanel(
+                "Layout",
+                #icon = icon("code"),
+                miniUI::miniContentPanel()
+            ),
+            miniUI::miniTabPanel(
+                "Sidebars",
+                #icon = icon("code"),
+                miniUI::miniContentPanel()
+            ),
+            miniUI::miniTabPanel(
+                "Navbar",
+                #icon = icon("code"),
+                miniUI::miniContentPanel()
+            ),
+            miniUI::miniTabPanel(
+                "Colors",
+                #icon = icon("code"),
+                miniUI::miniContentPanel()
+            ),
+            miniUI::miniTabPanel(
+                "Color Contrast",
+                #icon = icon("code"),
+                miniUI::miniContentPanel()
+            )
+        )
+    )
 }
 
 
