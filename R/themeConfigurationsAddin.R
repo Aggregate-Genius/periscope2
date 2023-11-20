@@ -73,7 +73,7 @@ themeBuilder_addin_UI <- function() {
                 )
             ),
             miniUI::miniTabPanel(
-                "Sidebar Colors",
+                "Sidebars Colors",
                 #icon = icon("code"),
                 miniUI::miniContentPanel(
                     shiny::p("Sidebar colors variables allow you to change sidebars (left and right) related colors"),
@@ -116,9 +116,25 @@ themeBuilder_addin_UI <- function() {
                 )
             ),
             miniUI::miniTabPanel(
-                "Sidebars",
+                "Sidebars Layout",
                 #icon = icon("code"),
-                miniUI::miniContentPanel()
+                miniUI::miniContentPanel(
+                    stableColumnLayout(shiny::numericInput(inputId = "left_sidebar_width",
+                                                           label   = "Left Sidebar Width",
+                                                           value   = 250),
+                                       shiny::numericInput(inputId = "right_sidebar_width",
+                                                           label   = "Right Sidebar Width",
+                                                           value   = 200)),
+                    stableColumnLayout(shiny::numericInput(inputId = "sidebar_padding_x",
+                                                           label   = "Sidebar Horizontal Padding",
+                                                           value   = NA),
+                                       shiny::numericInput(inputId = "sidebar_padding_y",
+                                                           label   = "Sidebar Vertical Padding",
+                                                           value   = NA)),
+                    stableColumnLayout(shiny::numericInput(inputId = "sidebar_mini_width",
+                                                           label   = "Width for mini sidebar",
+                                                           value   = NA))
+                )
             ),
             miniUI::miniTabPanel(
                 "Navbar",
