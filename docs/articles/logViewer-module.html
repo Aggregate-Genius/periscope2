@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">periscope2</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.4</span>
       </span>
     </div>
 
@@ -51,6 +51,9 @@
   <ul class="dropdown-menu" role="menu">
 <li>
       <a href="../articles/announcement-module.html">Using the Announcement Shiny Module</a>
+    </li>
+    <li>
+      <a href="../articles/announcement_addin.html">Announcement Configuration YAML File Builder</a>
     </li>
     <li>
       <a href="../articles/applicationReset-module.html">Using the appReset Shiny Module</a>
@@ -100,7 +103,7 @@
                         <h4 data-toc-skip class="author">Mohammed
 Ali</h4>
             
-            <h4 data-toc-skip class="date">2023-05-02</h4>
+            <h4 data-toc-skip class="date">2023-11-13</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/Aggregate-Genius/periscope2/blob/HEAD/vignettes/logViewer-module.Rmd" class="external-link"><code>vignettes/logViewer-module.Rmd</code></a></small>
       <div class="hidden name"><code>logViewer-module.Rmd</code></div>
@@ -115,23 +118,25 @@ Ali</h4>
 <div class="section level3">
 <h3 id="purpose">Purpose<a class="anchor" aria-label="anchor" href="#purpose"></a>
 </h3>
-<p>This <em>Shiny Module</em> was created in order to display recorded
-logs in tabular format</p>
+<p>This <em>Shiny Module</em> displays recorded session logs in tabular
+format</p>
 </div>
 <div class="section level3">
 <h3 id="features">Features<a class="anchor" aria-label="anchor" href="#features"></a>
 </h3>
 <ul>
-<li>It is important to note that the log rolls over for each
-session.</li>
-<li>The log files are kept in the /log directory and named
-‘actions.log’. ONE old copy of the log is kept as ’actions.log.last</li>
 <li>Table contains two columns:
 <ul>
 <li>action: describe the recorded action</li>
 <li>time: display action time</li>
 </ul>
 </li>
+<li>The log files are kept in the /log directory and named
+‘actions.log’. ONE old copy of the log is kept as ’actions.log.last</li>
+<li>Many actions are automatically logged by the framework and it is
+easy for developers to add additional items as they see fit.</li>
+<li>It is important to note that the log rolls over for each session and
+is reset if using the appReset module.</li>
 </ul>
 <center>
 <img src="figures/user_action_log.jpg" width="800px">
@@ -150,12 +155,12 @@ package, a small piece of reusable functionality. The UI function is
 called directly by the user to place the UI in the correct location (as
 with other shiny UI objects). The module server function that is called
 only once to set it up using the module name as a function inside the
-server function (i.e. user-local session scope. The function first
-arguments is string represents the module id (the same id used in module
-UI function). Additional arguments can be supplied by the user based on
-the specific shiny module that is called. There can be additional helper
-functions that are a part of a shiny module.</p>
-<p>The <strong>LogViewer</strong> Shiny Module is a part of the
+server function (i.e. user-local session scope. The first function
+argument is a string that represents the module id (the same id used in
+module UI function). Additional arguments can be supplied by the user
+based on the specific shiny module that is called. There can be
+additional helper functions that are a part of a shiny module.</p>
+<p>The <strong>logViewer</strong> Shiny Module is a part of the
 <em>periscope2</em> package and consists of the following functions:</p>
 <ul>
 <li>
@@ -167,8 +172,8 @@ button in the</li>
 <h3 id="logvieweroutput">logViewerOutput<a class="anchor" aria-label="anchor" href="#logvieweroutput"></a>
 </h3>
 <p>The <strong>logViewerOutput</strong> function is called from the
-ui_body.R (or equivalent) file in the location where any other box can
-be placed.</p>
+ui_body.R (or equivalent) file in the location where any other UI
+element (box) can be placed.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Inside ui_body.R</span></span>
 <span></span>
@@ -185,7 +190,7 @@ using:</p>
 <span></span>
 <span><span class="va">app_dir</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/create_application.html">create_application</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">'mysampleapp'</span>, location <span class="op">=</span> <span class="va">app_dir</span>, sample_app <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/runApp.html" class="external-link">runApp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">app_dir</span>, <span class="st">'mysampleapp'</span>, sep <span class="op">=</span> <span class="va">.Platform</span><span class="op">$</span><span class="va">file.sep</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/runApp.html" class="external-link">runApp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">app_dir</span>, <span class="st">'mysampleapp'</span>, sep <span class="op">=</span> <span class="va">.Platform</span><span class="op">$</span><span class="va">file.sep</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><br></p>
 </div>
 </div>
@@ -203,6 +208,8 @@ Module</a></li>
 <li><a href="applicationReset-module.html">applicationReset
 Module</a></li>
 <li><a href="announcement-module.html">announcement Module</a></li>
+<li><a href="announcement_addin.html">Announcement Configuration
+Builder</a></li>
 </ul>
 </div>
   </div>

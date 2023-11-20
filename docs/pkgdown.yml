@@ -1,13 +1,14 @@
-pandoc: 2.19.2
+pandoc: 3.1.1
 pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   announcement-module: announcement-module.html
+  announcement_addin: announcement_addin.html
   applicationReset-module: applicationReset-module.html
   downloadFile-module: downloadFile-module.html
   downloadablePlot-module: downloadablePlot-module.html
   downloadableTable-module: downloadableTable-module.html
   logViewer-module: logViewer-module.html
   new-application: new-application.html
-last_built: 2023-05-02T14:19Z
+last_built: 2023-11-13T15:25Z
 

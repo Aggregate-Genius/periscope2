@@ -1,7 +1,7 @@
 Package: periscope2
 Type: Package
 Title: Enterprise Streamlined 'shiny' Application Framework Using 'bs4Dash'
-Version: 0.1.3
+Version: 0.1.5.9001
 Authors@R: c(
     person("Mohammed", "Ali",      role = c("aut", "cre"), email   = "mohammed@aggregate-genius.com"),
     person("Constance", "Brett",   role = c("ctb")),
@@ -27,6 +27,8 @@ Imports:
     grDevices,
     lubridate,
     methods,
+    miniUI,
+    shinyFeedback,
     shinyWidgets,
     utils,
     writexl,
@@ -41,7 +43,6 @@ Suggests:
     openxlsx,
     rmarkdown,
     shinyjs,
-    shinyalert,
     spelling,
     testthat,
     waiter

@@ -71,6 +71,8 @@ NULL
             packageStartupMessage(paste("The logging package is not supported anymore. Please remove the line 'library(logging)' in", server_filename))
         }
     }
+
+
 }
 
 

@@ -37,7 +37,8 @@ set_app_parameters(
 Pass a list like list(html = spin_1(), color = "#333e48") to \cr configure
 waiterShowOnLoad (refer to the package help for all styles).}
 
-\item{announcements_file}{- The path to announcements configuration file}
+\item{announcements_file}{- The path to announcements configuration file.
+Use \link[periscope2]{announcementConfigurationsAddin} to generate that file.}
 }
 \value{
 no return value, called for setting new application global properties
@@ -64,8 +65,11 @@ parameters.
                      loading_indicator  = list(html = tagList(spin_1(), "Loading ...")),
                      announcements_file = "./program/config/announce.yaml")
 
+
 }
 \seealso{
+\link[periscope2:announcementConfigurationsAddin]{periscope2:announcementConfigurationsAddin()}
+
 \link[waiter:waiter]{waiter:waiter_show()}
 
 \link[periscope2:add_ui_footer]{periscope2:add_ui_footer()}

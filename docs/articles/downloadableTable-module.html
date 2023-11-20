@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">periscope2</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.4</span>
       </span>
     </div>
 
@@ -51,6 +51,9 @@
   <ul class="dropdown-menu" role="menu">
 <li>
       <a href="../articles/announcement-module.html">Using the Announcement Shiny Module</a>
+    </li>
+    <li>
+      <a href="../articles/announcement_addin.html">Announcement Configuration YAML File Builder</a>
     </li>
     <li>
       <a href="../articles/applicationReset-module.html">Using the appReset Shiny Module</a>
@@ -100,7 +103,7 @@
                         <h4 data-toc-skip class="author">Dr. Connie
 Brett</h4>
             
-            <h4 data-toc-skip class="date">2023-05-02</h4>
+            <h4 data-toc-skip class="date">2023-11-13</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/Aggregate-Genius/periscope2/blob/HEAD/vignettes/downloadableTable-module.Rmd" class="external-link"><code>vignettes/downloadableTable-module.Rmd</code></a></small>
       <div class="hidden name"><code>downloadableTable-module.Rmd</code></div>
@@ -115,9 +118,9 @@ Brett</h4>
 <div class="section level3">
 <h3 id="purpose">Purpose<a class="anchor" aria-label="anchor" href="#purpose"></a>
 </h3>
-<p>This <em>Shiny Module</em> was created in order to provide a
-consistent-looking and easy-to-use table including a downloadFileButton
-that is automatically created, linked and managed.</p>
+<p>This <em>Shiny Module</em> provides a consistent and easy-to-use
+table including a downloadFileButton that is automatically created,
+linked and managed.</p>
 </div>
 <div class="section level3">
 <h3 id="features">Features<a class="anchor" aria-label="anchor" href="#features"></a>
@@ -125,17 +128,18 @@ that is automatically created, linked and managed.</p>
 <ul>
 <li>Uses the downloadFile Shiny Module functionality to ensure
 consistent download functionality and paradigm for the table data.</li>
-<li>Ability to link different data sets to the displayed table and
-downloadFile functionality if desired</li>
+<li>Ability to use different data sets for display vs. download if
+desired</li>
 <li>User selection of multiple rows by default - can be single select
 also by setting the appropriate option</li>
 <li>Returns a reactive expression containing the rows of the table
-selected by the user</li>
+selected by the user for easier development of code depending on table
+selections.</li>
 <li>Supports full-table searching including regular expressions with
 search highlighting</li>
-<li>Columns are sortable in both directions</li>
+<li>Columns are sort-able in both directions</li>
 <li>Configurable table “window” (viewing area) height with infinite
-vertical scrolling (no paging)</li>
+vertical scrolling (no paging by default)</li>
 <li>Supports rownames and a table caption</li>
 <li>Requires minimal code (see the Usage section for details)</li>
 </ul>
@@ -153,11 +157,11 @@ package, a small piece of reusable functionality. The UI function is
 called directly by the user to place the UI in the correct location (as
 with other shiny UI objects). The module server function that is called
 only once to set it up using the module name as a function inside the
-server function (i.e. user-local session scope. The function first
-arguments is string represents the module id (the same id used in module
-UI function). Additional arguments can be supplied by the user based on
-the specific shiny module that is called. There can be additional helper
-functions that are a part of a shiny module.</p>
+server function (i.e. user-local session scope. The first function
+argument is a string that represents the module id (the same id used in
+module UI function). Additional arguments can be supplied by the user
+based on the specific shiny module that is called. There can be
+additional helper functions that are a part of a shiny module.</p>
 <p>The <strong>downloadableTable</strong> Shiny Module is a part of the
 <em>periscope2</em> package and consists of the following functions:</p>
 <ul>
@@ -180,19 +184,20 @@ placed. This is similar to other UI element placement in shiny.</p>
 <img src="figures/downloadableTable-1.jpg" width="500px">
 </center>
 <p>The downloadableTableUI function takes the unique object ID for the
-UI object. The next two arguments (downloadtypes and hovertext) are
-passed to the downloadFileButton and set the file types the button will
-allow the user to request and the downloadFileButton’s tooltip text. The
-contentHeight argument is optional but important - it sets the viewable
-height of the table content which can be any css-recognizable size
-value.</p>
-<p>downloadableTables are multi-select by default, however if you need a
-table to only allow single row selections you can set the singleSelect
-argument to TRUE.</p>
+UI object.</p>
+<p>The next two arguments (downloadtypes and hovertext) are passed to
+the downloadFileButton and set the file types the button will allow the
+user to request and the downloadFileButton’s tooltip text.</p>
+<p>The contentHeight argument is optional but important - it sets the
+viewable height of the table content which can be any css-recognizable
+size value.</p>
+<p>The downloadableTables are multi-select by default, however if you
+need a table to only allow single row selections you can set the
+singleSelect argument to TRUE.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Inside ui_body.R or ui_sidebar.R</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/downloadableTableUI.html">downloadableTableUI</a></span><span class="op">(</span><span class="st">"object_id1"</span>, </span>
+<span><span class="fu"><a href="../reference/downloadableTableUI.html">downloadableTableUI</a></span><span class="op">(</span>id            <span class="op">=</span> <span class="st">"object_id1"</span>, </span>
 <span>                    downloadtypes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"csv"</span>, <span class="st">"tsv"</span><span class="op">)</span>, </span>
 <span>                    hovertext     <span class="op">=</span> <span class="st">"Download the data here!"</span>,</span>
 <span>                    contentHeight <span class="op">=</span> <span class="st">"300px"</span>,</span>
@@ -207,47 +212,63 @@ The call consists of the following:</p>
 <li>the unique object ID that was provided to downloadableTableUI when
 creating the UI object</li>
 <li>the logging logger to be used</li>
-<li>the root of the downloaded file name to be used in the browser as a
-character string or a reactive expression that returns a character
-string</li>
-<li>a <strong>named list</strong> of functions that provide the data to
-the downloadFileButton (see below). It is important that the types of
-files to be downloaded are matched to the correct data function in the
-list. The data functions are unquoted function names. The functions will
-be called at the time the user initiates a download <em>(see
-requirements below)</em>.</li>
-<li>a data function providing the data for the visible table. It can be
-the same, or different, data as that provided by the download data
-functions. This allows finer control over what the user can view
-vs. download if desired.</li>
-<li>… free parameters <strong>named list</strong> to pass table
-customization options. It supports most of DT table options
-customization. See example below.</li>
-</ul>
-<p><strong>Data Function Requirements</strong></p>
+<li>the root (prefix) of the downloaded file name to be used in the
+browser as a character string or a reactive expression that returns a
+character string</li>
+<li>a <strong>named list</strong> of functions or reactive expressions
+that provide the data to the downloadFileButton (see below).
 <ul>
-<li>The function must require NO parameters. No parameters will be
-provided when the function is called to retrieve the data.</li>
-<li>The function must return an appropriate data format for the file
-type. For instance, for csv/tsv/xlsx types the data returned should be
-convertible to a tabular type. <em>Note</em>: For data shown in the
-table the data must be able to be converted to tabular format.</li>
-<li>Since the function is called at the time the user requests the data
-it is acceptable and recommended to use reactive expressions providing
-dynamic data to the user from the application. All the above
-requirements apply.</li>
+<li>It is important that the types of files to be downloaded are matched
+to the correct data function in the list.<br>
+</li>
+<li>The function/reactive expression names are unquoted - they will be
+called at the time the user initiates a download <em>(see requirements
+below)</em>.</li>
+<li>a function or reactive expression providing the plot output for the
+visible plot. It can be the same, or different from the ones provided to
+any of the download functions. This allows finer control over what the
+user can view vs. download if desired. For example you can allow a user
+to view a smaller subset of data but download an expanded dataset, or
+perhaps download a redacted version of data, etc.</li>
+</ul>
+</li>
+<li>This module also supports most of DT table options for further
+customization. See the example below.</li>
+</ul>
+<p><strong>Data Function or Reactive Expression
+Requirements</strong></p>
+<ul>
+<li>If a function is provided it must be parameter-less (require NO
+parameters). No parameters will be provided when a function is called to
+retrieve the plot or data. Reactive expressions cannot take parameters
+by definition.</li>
+<li>The function or reactive expression must return an appropriate data
+format for the file type. For instance: csv/tsv/xlsx types require data
+that is convertible to a tabular type, tiff formats require a tiff class
+object, etc. For more information on conversion of data to various
+download types see the downloadFile module help or vignette.</li>
+<li>For the visible table data the return value must be able to be
+converted to tabular format</li>
+<li>Since the function or reactive expression is called at the time the
+user requests the data it is recommended that reactive expressions are
+used to provide dynamic values from the application to create the
+plot.</li>
 </ul>
 <p><strong>Reactive Return Value</strong></p>
 <p>The server function returns a reactive expression containing the
-selected rows (data, not references, rownumbers, etc - the actual table
-row data). This allows the user to capture this to update another table,
-chart, etc. as desired. It is acceptable to ignore the return value as
-well if this functionality is not needed.</p>
+selected rows. Note that this is the data, not references, rownumbers,
+etc from the table – it is the actual, visible, table row data. This
+allows the developer to use this more easily to update another table,
+chart, etc. as desired.</p>
+<p>It is acceptable to ignore the return value as well if this
+functionality is not needed. Simply do not assign the result to a
+variable.</p>
 <p><strong>Customization Options</strong></p>
-<p><em>downloadableTable</em> module can be customized using the same
-<code><a href="https://rdrr.io/pkg/DT/man/datatable.html" class="external-link">?DT::datatable</a></code> arguments. options or format functions.
-These options can be sent as a named options via the server function,
-see example below. <em>Notes</em>:</p>
+<p><em>downloadableTable</em> module can be customized using DT
+arguments, options or format functions (see
+<code><a href="https://rdrr.io/pkg/DT/man/datatable.html" class="external-link">?DT::datatable</a></code>). These options can be sent as a named
+options via the server function, see example below.</p>
+<p><em>Caveats on DT usage</em>:</p>
 <ul>
 <li>
 <code>selection</code> parameter in the server function has
@@ -264,39 +285,42 @@ options in <code><a href="https://rdrr.io/pkg/DT/man/datatable.html" class="exte
 <center>
 <img src="figures/downloadableTable-2.jpg" width="500px">
 </center>
-<p>It is generated using the following code:</p>
+<p>It was generated using the following code:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Inside server_local.R</span></span>
-<span><span class="va">sketch</span> <span class="op">&lt;-</span> <span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/withTags.html" class="external-link">withTags</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span></span>
-<span>    class <span class="op">=</span> <span class="st">"display"</span>,</span>
-<span>    <span class="fu">thead</span><span class="op">(</span></span>
-<span>        <span class="fu">tr</span><span class="op">(</span></span>
-<span>            <span class="fu">th</span><span class="op">(</span>rowspan <span class="op">=</span> <span class="fl">2</span>, <span class="st">"Location"</span><span class="op">)</span>,</span>
-<span>            <span class="fu">th</span><span class="op">(</span>colspan <span class="op">=</span> <span class="fl">2</span>, <span class="st">"Statistics"</span><span class="op">)</span></span>
-<span>        <span class="op">)</span>,</span>
-<span>        <span class="fu">tr</span><span class="op">(</span></span>
-<span>            <span class="fu">th</span><span class="op">(</span><span class="st">"Change"</span><span class="op">)</span>,</span>
-<span>            <span class="fu">th</span><span class="op">(</span><span class="st">"Increase"</span><span class="op">)</span></span>
+<span><span class="va">sketch</span> <span class="op">&lt;-</span> <span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/withTags.html" class="external-link">withTags</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span></span>
+<span>        class <span class="op">=</span> <span class="st">"display"</span>,</span>
+<span>        <span class="fu">thead</span><span class="op">(</span></span>
+<span>            <span class="fu">tr</span><span class="op">(</span></span>
+<span>                <span class="fu">th</span><span class="op">(</span>rowspan <span class="op">=</span> <span class="fl">2</span>, <span class="st">"Location"</span><span class="op">)</span>,</span>
+<span>                <span class="fu">th</span><span class="op">(</span>colspan <span class="op">=</span> <span class="fl">2</span>, <span class="st">"Statistics"</span><span class="op">)</span></span>
+<span>            <span class="op">)</span>,</span>
+<span>            <span class="fu">tr</span><span class="op">(</span></span>
+<span>                <span class="fu">th</span><span class="op">(</span><span class="st">"Change"</span><span class="op">)</span>,</span>
+<span>                <span class="fu">th</span><span class="op">(</span><span class="st">"Increase"</span><span class="op">)</span></span>
+<span>            <span class="op">)</span></span>
 <span>        <span class="op">)</span></span>
-<span>        </span>
 <span>    <span class="op">)</span></span>
-<span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">selectedrows</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/downloadableTable.html">downloadableTable</a></span><span class="op">(</span><span class="st">"exampleDT1"</span>,</span>
-<span>                                  <span class="va">ss_userAction.Log</span>,</span>
-<span>                                  <span class="st">"exampletable"</span>,</span>
-<span>                                  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>csv <span class="op">=</span> <span class="va">load_data3</span>, tsv <span class="op">=</span> <span class="va">load_data3</span><span class="op">)</span>,</span>
-<span>                                  <span class="va">load_data3</span>,</span>
-<span>                                  colnames    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Area"</span>, <span class="st">"Delta"</span>, <span class="st">"Increase"</span><span class="op">)</span>,</span>
-<span>                                  filter      <span class="op">=</span> <span class="st">"bottom"</span>,</span>
-<span>                                  callback    <span class="op">=</span> <span class="fu">htmlwidgets</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/htmlwidgets/man/JS.html" class="external-link">JS</a></span><span class="op">(</span><span class="st">"table.order([1, 'asc']).draw();"</span><span class="op">)</span>,</span>
-<span>                                  container   <span class="op">=</span> <span class="va">sketch</span>,</span>
-<span>                                  formatStyle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Total.Population.Change"</span><span class="op">)</span>,   </span>
-<span>                                                     color   <span class="op">=</span> <span class="fu">DT</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DT/man/styleInterval.html" class="external-link">styleInterval</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"red"</span>, <span class="st">"green"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>                                  formatStyle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Natural.Increase"</span><span class="op">)</span>,   </span>
-<span>                                                     backgroundColor <span class="op">=</span> <span class="fu">DT</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DT/man/styleInterval.html" class="external-link">styleInterval</a></span><span class="op">(</span></span>
-<span>                                                         <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">7614</span>, <span class="fl">15914</span>, <span class="fl">34152</span><span class="op">)</span>,</span>
-<span>                                                         <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"blue"</span>, <span class="st">"lightblue"</span>, <span class="st">"#FF7F7F"</span>, <span class="st">"red"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">selectedrows</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/downloadableTable.html">downloadableTable</a></span><span class="op">(</span></span>
+<span>    id               <span class="op">=</span> <span class="st">"exampleDT1"</span>,</span>
+<span>    logger           <span class="op">=</span> <span class="va">ss_userAction.Log</span>,</span>
+<span>    filenameroot     <span class="op">=</span> <span class="st">"exampletable"</span>,</span>
+<span>    downloaddatafxns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>csv <span class="op">=</span> <span class="va">load_data3</span>, tsv <span class="op">=</span> <span class="va">load_data3</span><span class="op">)</span>,</span>
+<span>    tabledata        <span class="op">=</span> <span class="va">load_data3</span>,</span>
+<span>    colnames         <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Area"</span>, <span class="st">"Delta"</span>, <span class="st">"Increase"</span><span class="op">)</span>,</span>
+<span>    filter           <span class="op">=</span> <span class="st">"bottom"</span>,</span>
+<span>    callback         <span class="op">=</span> <span class="fu">htmlwidgets</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/htmlwidgets/man/JS.html" class="external-link">JS</a></span><span class="op">(</span><span class="st">"table.order([1, 'asc']).draw();"</span><span class="op">)</span>,</span>
+<span>    container        <span class="op">=</span> <span class="va">sketch</span>,</span>
+<span>    formatStyle      <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Total.Population.Change"</span><span class="op">)</span>,   </span>
+<span>                            color   <span class="op">=</span> <span class="fu">DT</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DT/man/styleInterval.html" class="external-link">styleInterval</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"red"</span>, <span class="st">"green"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    formatStyle      <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Natural.Increase"</span><span class="op">)</span>,   </span>
+<span>                            backgroundColor <span class="op">=</span> <span class="fu">DT</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DT/man/styleInterval.html" class="external-link">styleInterval</a></span><span class="op">(</span></span>
+<span>                                <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">7614</span>, <span class="fl">15914</span>, <span class="fl">34152</span><span class="op">)</span>,</span>
+<span>                                <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"blue"</span>, <span class="st">"lightblue"</span>, <span class="st">"#FF7F7F"</span>, <span class="st">"red"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># NOTE: selectedrows is the reactive return value, captured for later use</span></span></code></pre></div>
 </div>
@@ -311,7 +335,7 @@ sample application using:</p>
 <span></span>
 <span><span class="va">app_dir</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu">create_new_application</span><span class="op">(</span>name <span class="op">=</span> <span class="st">'mysampleapp'</span>, location <span class="op">=</span> <span class="va">app_dir</span>, sample_app <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/runApp.html" class="external-link">runApp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">app_dir</span>, <span class="st">'mysampleapp'</span>, sep <span class="op">=</span> <span class="va">.Platform</span><span class="op">$</span><span class="va">file.sep</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/runApp.html" class="external-link">runApp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">app_dir</span>, <span class="st">'mysampleapp'</span>, sep <span class="op">=</span> <span class="va">.Platform</span><span class="op">$</span><span class="va">file.sep</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><br></p>
 </div>
 </div>
@@ -328,6 +352,8 @@ Module</a></li>
 <li><a href="applicationReset-module.html">applicationReset
 Module</a></li>
 <li><a href="announcement-module.html">announcement Module</a></li>
+<li><a href="announcement_addin.html">Announcement Configuration
+Builder</a></li>
 </ul>
 </div>
   </div>

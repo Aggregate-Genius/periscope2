@@ -7,6 +7,9 @@
     <loc>/articles/announcement-module.html</loc>
   </url>
   <url>
+    <loc>/articles/announcement_addin.html</loc>
+  </url>
+  <url>
     <loc>/articles/applicationReset-module.html</loc>
   </url>
   <url>
@@ -50,6 +53,9 @@
   </url>
   <url>
     <loc>/reference/add_ui_right_sidebar.html</loc>
+  </url>
+  <url>
+    <loc>/reference/announcementConfigurationsAddin.html</loc>
   </url>
   <url>
     <loc>/reference/appReset.html</loc>

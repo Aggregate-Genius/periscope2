@@ -29,8 +29,8 @@ Call this function from \code{program/server_local.R} or any other server file
   # Display application info
   observeEvent(input$app_info, {
                url_params <- get_url_parameters(session)
-               shinyalert(html                = TRUE,
-                          showConfirmButton   = FALSE,
+               show_alert(html                = TRUE,
+                          showCloseButton     = FALSE,
                           animation           = "slide-from-top",
                           closeOnClickOutside = TRUE,
                           text                = url_params[["passed_paramter"]],

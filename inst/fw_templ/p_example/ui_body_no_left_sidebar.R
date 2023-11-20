@@ -7,7 +7,7 @@
 #      ATTACH them to the UI by calling
 #      add_ui_body()
 #
-# NOTEs:
+# NOTES:
 #   - All variables/functions here are
 #     not available to the UI or Server
 #     scopes - this is isolated
@@ -63,7 +63,7 @@ announcements_box <- box(
                             tags$li("Application admin can control how long an 'Announcement' stay visible for users or let each user close it manually"))),
              column(width = 6,
                     tags$dl(tags$dt("Setup"),
-                            tags$li("No development is needed to lunch or control 'Announcements' feature, only configurations"),
+                            tags$li("No development is needed to launch or control 'Announcements' feature, only configurations"),
                             tags$li("Default feature generated configuration file is called ", tags$b("announce.yaml")),
                             tags$li("Default configuration file path is: ", tags$i("'program/config/announce.yaml'")),
                             tags$li("Configuration file path can be changed based on admin preference. Only update ",
@@ -102,7 +102,7 @@ logger_box <- box(
                                     tags$li(p("The XXXX should be replaced by an actual log level like ", tags$b("'debug'"), ", ",
                                               tags$b("'info'"), ", ", tags$b("'warn'"), ", ",  "or ", tags$b("'error'"),
                                               " The framework will handle updating LogViewer UI module every time the log is added to.")),
-                                    tags$li("'ss_userAction.Log' is a periscope framework logger that is defined autmatically under server.R and",
+                                    tags$li("'ss_userAction.Log' is a periscope framework logger that is defined automatically under server.R and",
                                             tags$b(" should not be altered")),
                                     tags$li("Log level can be changed based on admin preference. Only update ",
                                             tags$b("'log_level'"), " parameter in ", tags$b("'set_app_parameters'"), " method in ",
@@ -189,7 +189,7 @@ file_downloader_box <- box(
     width       = 12,
     fluidRow(column(width = 6,
                     tags$dl(tags$dt("Features"),
-                            tags$ul(tags$li("File downloader module provids the user with the ability to download any server generated data"),
+                            tags$ul(tags$li("File downloader module provides the user with the ability to download any server generated data"),
                                     tags$li("Data can be downloaded in any format available for both 'Table Downloader' and 'Plot Downloader' modules"),
                                     tags$li("Data can be downloaded in single format or in multiple formats, based on module configurations")))),
              column(width = 6,
@@ -219,7 +219,7 @@ plot_downloader_box <- box(
     width       = 12,
     fluidRow(column(width = 6,
                     tags$dl(tags$dt("Features"),
-                            tags$ul(tags$li("This module creates a custom plot output that provids download capability",
+                            tags$ul(tags$li("This module creates a custom plot output that provide download capability",
                                             "to plot tools that have no internal download ability like ggplot2 & lattice."),
                                     tags$li("Plot can be downloaded in different formats such as: ", tags$b("'png'"),
                                             ", ", tags$b("'jpeg'"), ", ", tags$b("'tiff'"), "and/or ", tags$b("'bmp'")),
@@ -259,15 +259,15 @@ plot_downloader_box <- box(
 )
 
 reset_application_box <- box(
-    id = "reset_application",
-    title = "Reset Application",
-    status = "info",
+    id          = "reset_application",
+    title       = "Reset Application",
+    status      = "info",
     solidHeader = TRUE,
     collapsible = TRUE,
-    width = 12,
+    width       = 12,
     fluidRow(column(width = 6,
                     tags$dl(tags$dt("Features"),
-                            tags$ul(tags$li("appReset module provids the ability to:"),
+                            tags$ul(tags$li("appReset module provides the ability to:"),
                                     tags$ul(tags$li("Resets a user's session"),
                                             tags$li("Rolls over their log.")),
                                     tags$li("It creates a toggle button to reset application session"),
@@ -407,10 +407,15 @@ style_guide_box <- box(
             " for more info"),
     tags$li("Fortunately, periscope2 provides a user-friendly method to update fresh theme variables via configurations,
             rather than by updating them programatically.",
-            tags$ul(tags$li("The theme can be updated by editing 'www/periscope_style.yaml' and relunching the app"))),
+            tags$ul(tags$li("The theme can be updated by editing 'www/periscope_style.yaml' and relaunching the app"))),
     tags$li("'periscope_style.yaml' contains the most important variables with documentation explaining what each variable affects and possible values for it"),
     tags$li("Another method to update application themes or any controls in CSS is by updating 'www/css/custom.css' file"),
     tags$li("The below widget explains some of the variables and how they affect the application"),
+    br(),
+    br(),
+    tags$b(tags$i("** Note: Updating app theme might take a few seconds")),
+    br(),
+    br(),
     hr(),
     tags$dt("Status Colors"),
     tags$li("Sets the status (used by bootstrap 4) colors that affects the color of the header, valueBox, infoBox and box"),
@@ -509,17 +514,18 @@ style_guide_box <- box(
              column(width = 6,
                     actionButton(inputId = "restore_app_theme",
                                  label   = "Restore Default Theme",
-                                 status  = "info")))
+                                 status  = "secondary")))
 
 )
 # -- Register Elements in the ORDER SHOWN in the UI
-add_ui_body(list(about_box,
+add_ui_body(list(uiOutput("app_theme"),
+                 about_box,
                  files_organization_box,
                  announcements_box,
-                 table_downloader_box,
-                 plot_downloader_box,
                  fluidRow(file_downloader_box,
                           reset_application_box),
+                 table_downloader_box,
+                 plot_downloader_box,
                  logger_box,
                  busy_indicator_box,
                  alerts_box,

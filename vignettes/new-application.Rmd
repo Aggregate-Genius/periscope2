@@ -63,7 +63,7 @@ The right sidebar is optional.  When used it is collapsed by default and can be 
 
 *4: Footer*
 
-The footer is optional.  The footer supports short textual or html formatted info/citations.
+The footer supports short textual or html formatted info/citations.
 
 *5: Body*
 
@@ -221,25 +221,18 @@ View application session recorded log
 library(periscope2)
 app_dir = tempdir()
 
-# application without a right sidebar or footer
-create_application(
-    name = 'mytestapp', 
-    location = app_dir, 
-    sample_app = TRUE)
+# application without a right sidebar
+create_application(name       = 'mytestapp', 
+                   location   = app_dir, 
+                   sample_app = TRUE)
 
-# application without a left sidebar, a right sidebar or footer
+# application without a left sidebar or a right sidebar
 create_application(name         = 'mytestapp', 
                    location     = app_dir, 
                    sample_app   = TRUE, 
                    left_sidebar = FALSE)
 
-# application with a footer
-create_application(name       = 'mytestapp', 
-                   location   = app_dir, 
-                   sample_app = TRUE, 
-                   footer     = TRUE)
-
-# application with a right sidebar
+# application with left and right sidebars
 create_application(name          = 'mytestapp', 
                    location      = app_dir, 
                    sample_app    = TRUE, 
@@ -271,19 +264,14 @@ etc.  You can use this sample application to explore the functionality and code.
 library(periscope2)
 app_dir = tempdir()
 
-# application without a right sidebar or footer
+# application without a right sidebar
 create_application(name     = 'mytestapp', 
                    location = app_dir)
 
-# application without a left sidebar, a right sidebar or footer
+# application without a left sidebar or a right sidebar
 create_application(name         = 'mytestapp', 
                    location     = app_dir, 
                    left_sidebar = FALSE)
-
-# application with a footer
-create_application(name     = 'mytestapp', 
-                   location = app_dir, 
-                   footer   = TRUE)
 
 # application with a right sidebar
 create_application(name          = 'mytestapp', 
@@ -340,7 +328,7 @@ set_app_parameters(title     = "My Application Title",
 # Application Title links to a modal window with HTML content, setting log level to 'DEBUG', 
 # using simple loading screen, init app version and pass announcements configuration module file
 set_app_parameters(title              = "periscope Example Application",
-                   app_info           = HTML("Demonstrat periscope features and generated application layout"),
+                   app_info           = HTML("Demonstrate periscope features and generated application layout"),
                    log_level          = "DEBUG",
                    app_version        = "1.0.0",
                    loading_indicator  = list(html = tagList(spin_1(), "Loading ...")),
@@ -421,16 +409,16 @@ Create UI elements for the application header and attach them to the UI by calli
 
 ```{r, eval=F}
 # Navbar skin. "dark" or "light"
-skin <-  "light"
+skin <- "light"
 
 # Navbar status
-status <-  "white"
+status <- "white"
 
 # Whether to separate the navbar and body by a border.
-border <-  TRUE
+border <- TRUE
 
 # Whether items should be compacted
-compact <-  FALSE
+compact <- FALSE
 
 # Icon of the main sidebar toggle
 left_sidebar_icon <- shiny::icon("bars")
@@ -565,3 +553,4 @@ Application images can be stored here
 * [logViewer Module](logViewer-module.html)
 * [applicationReset Module](applicationReset-module.html)
 * [announcement Module](announcement-module.html)
+* [Announcement Configuration Builder](announcement_addin.html)

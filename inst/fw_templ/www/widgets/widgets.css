@@ -1,0 +1,7 @@
+span.periscope-input-label-with-tt, #star, .periscope-input-label-with-tt div {
+    display: inline-flex;
+}
+
+#star {
+    color:red;
+}
