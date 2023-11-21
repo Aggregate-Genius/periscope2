@@ -292,4 +292,14 @@ themeBuilder_addin_server <- function(id = NULL) {
         function(input, output, session) {
         }
     )
+
+    shiny::observeEvent(input$done, {
+        shiny::removeResourcePath(prefix = "img")
+        invisible(shiny::stopApp())
+    })
+
+    shiny::observeEvent(input$cancel, {
+        shiny::removeResourcePath(prefix = "img")
+        invisible(shiny::stopApp())
+    })
 }
