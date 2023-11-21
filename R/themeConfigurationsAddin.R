@@ -224,18 +224,11 @@ themeBuilder_addin_UI <- function() {
                                                                  label      = "Gray 600",
                                                                  showColour = "both",
                                                                  value      = "#6c757d"),
-                                       colourpicker::colourInput(inputId    = "gray_800",
-                                                                 label      = "Gray 800t",
-                                                                 showColour = "both",
-                                                                 value      = "#343a40")),
-                    stableColumnLayout(colourpicker::colourInput(inputId    = "gray_900",
-                                                                 label      = "Gray 900",
-                                                                 showColour = "both",
-                                                                 value      = "#212529"),
                                        colourpicker::colourInput(inputId    = "white",
                                                                  label      = "White",
                                                                  showColour = "both",
-                                                                 value      = "#ffffff"))
+                                                                 value      = "#ffffff")),
+
                 )
             ),
             miniUI::miniTabPanel(
@@ -277,9 +270,14 @@ themeBuilder_addin_UI <- function() {
                 )
             ),
             miniUI::miniTabPanel(
-                "Custom Variables",
+                "Other Variables",
                 #icon = icon("code"),
-                miniUI::miniContentPanel()
+                miniUI::miniContentPanel(
+                    stableColumnLayout(shiny::tags$div(style = "margin-bottom: 30px;",
+                                                       shiny::actionButton(inputId = "addVariable",
+                                                           label   = "Add Variable"))),
+                    stableColumnLayout(shiny::tags$div(id = "variablesPlaceholder"))
+                )
             )
         )
     )
@@ -290,16 +288,50 @@ themeBuilder_addin_server <- function(id = NULL) {
     shiny::moduleServer(
         id,
         function(input, output, session) {
+            variables       <- fresh::search_vars_bs4dash()
+            added_variables <- shiny::reactiveVal(c())
+            ids             <- shiny::reactiveVal(c(sample(NROW(variables))))
+
+            observeEvent(input$addVariable, {
+                variable_id      <- ids()[1]
+                variable_row_id  <- paste0(variable_id,"-variableRow")
+                variable_name_id <- paste0(variable_id,"-variableName")
+                variable_val_id  <- paste0(variable_id,"-variableValue")
+                remove_btn_id    <- paste0(variable_id,"-removeVariableBtn")
+
+                btn <- input$insertBtn
+                id <- paste0('txt', btn)
+                shiny::insertUI(
+                    selector = "#variablesPlaceholder",
+                    ui       = shiny::tags$div(id = variable_row_id,
+                                              stableColumnLayout(
+                                                  shiny::selectizeInput(inputId = variable_name_id,
+                                                                        label   = "Select Variable",
+                                                                        choices = unique(variables$variable)),
+                                                  shiny::textInput(inputId = variable_val_id,
+                                                                   label   = "Value"),
+                                                  shiny::actionButton(inputId = remove_btn_id,
+                                                                      label   = NULL,
+                                                                      icon    = shiny::icon("xmark"),
+                                                                      style   = "margin-top: 25px;")))
+                )
+
+                ids(ids()[-which(ids() == variable_id)])
+                observeEvent(input[[remove_btn_id]], {
+                    variable_row_id  <- paste0("#", variable_row_id)
+                    removeUI(selector = variable_row_id, immediate = TRUE)
+                })
+            })
+
+            shiny::observeEvent(input$done, {
+                shiny::removeResourcePath(prefix = "img")
+                invisible(shiny::stopApp())
+            })
+
+            shiny::observeEvent(input$cancel, {
+                shiny::removeResourcePath(prefix = "img")
+                invisible(shiny::stopApp())
+            })
         }
     )
-
-    shiny::observeEvent(input$done, {
-        shiny::removeResourcePath(prefix = "img")
-        invisible(shiny::stopApp())
-    })
-
-    shiny::observeEvent(input$cancel, {
-        shiny::removeResourcePath(prefix = "img")
-        invisible(shiny::stopApp())
-    })
 }
