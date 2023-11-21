@@ -292,6 +292,13 @@ themeBuilder_addin_UI <- function() {
                     stableColumnLayout(shiny::tags$div(id = "variablesPlaceholder"))
                 )
             )
+        ),
+        stableColumnLayout(
+            shiny::downloadButton(outputId = "downloadConfig",
+                                  disabled = TRUE,
+                                  label    = periscope2::ui_tooltip(id    = "downloadTip",
+                                                                    label = "Download periscope2 theme",
+                                                                    text  = "Download theme configuration file"))
         )
     )
 }
