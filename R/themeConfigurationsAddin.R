@@ -72,63 +72,64 @@ themeBuilder_addin_UI <- function() {
                                                   label      = "Dark",
                                                   showColour = "both",
                                                   value      = "#343a40"))
-                )
-            ),
+               )
+           ),
             miniUI::miniTabPanel(
                 "Sidebars Colors",
                 #icon = icon("code"),
                 miniUI::miniContentPanel(
                     shiny::p("Sidebar colors variables allow you to change sidebars (left and right) related colors"),
-                    stableColumnLayout(colourpicker::colourInput(inputId    = "sb_bg_color",
+                    shiny::tags$i("Use value \"#00000000\" to reset back to original theme default color"),
+                    stableColumnLayout(colourpicker::colourInput(inputId    = "bg",
                                                                  label      = "Background Color",
                                                                  showColour = "both",
                                                                  value      = "#00000000"),
-                                       colourpicker::colourInput(inputId    = "sb_hover_bg_color",
+                                       colourpicker::colourInput(inputId    = "hover_bg",
                                                                  label      = "Hover Background Color",
                                                                  showColour = "both",
                                                                  value      = "#00000000")),
-                    stableColumnLayout(colourpicker::colourInput(inputId    = "sb_color",
+                    stableColumnLayout(colourpicker::colourInput(inputId    = "color",
                                                                  label      = "Color",
                                                                  showColour = "both",
                                                                  value      = "#00000000"),
-                                       colourpicker::colourInput(inputId    = "sb_hover_color",
+                                       colourpicker::colourInput(inputId    = "hover_color",
                                                                  label      = "Hover Color",
                                                                  showColour = "both",
                                                                  value      = "#00000000")),
-                    stableColumnLayout(colourpicker::colourInput(inputId    = "sb_active_color",
+                    stableColumnLayout(colourpicker::colourInput(inputId    = "active_color",
                                                                  label      = "Active Color",
                                                                  showColour = "both",
                                                                  value      = "#00000000"),
-                                       colourpicker::colourInput(inputId    = "sb_submenu_bg_color",
+                                       colourpicker::colourInput(inputId    = "submenu_bg",
                                                                  label      = "Submenu Background Color",
                                                                  showColour = "both",
                                                                  value      = "#00000000")),
-                    stableColumnLayout(colourpicker::colourInput(inputId    = "sb_submenu_color",
+                    stableColumnLayout(colourpicker::colourInput(inputId    = "submenu_color",
                                                                  label      = "Submenu Color",
                                                                  showColour = "both",
                                                                  value      = "#00000000"),
-                                       colourpicker::colourInput(inputId    = "sb_submenu_hover_color",
+                                       colourpicker::colourInput(inputId    = "submenu_hover_color",
                                                                  label      = "Submenu Hover Color",
                                                                  showColour = "both",
                                                                  value      = "#00000000")),
-                    stableColumnLayout(colourpicker::colourInput(inputId    = "sb_submenu_hover_bg_color",
+                    stableColumnLayout(colourpicker::colourInput(inputId    = "submenu_hover_bg",
                                                                  label      = "Submenu Hover Background Color",
                                                                  showColour = "both",
                                                                  value      = "#00000000"),
-                                       colourpicker::colourInput(inputId    = "sb_submenu_active_color",
+                                       colourpicker::colourInput(inputId    = "submenu_active_color",
                                                                  label      = "Submenu Active Color",
                                                                  showColour = "both",
                                                                  value      = "#00000000")),
-                    stableColumnLayout(colourpicker::colourInput(inputId    = "sb_submenu_active_bg_color",
+                    stableColumnLayout(colourpicker::colourInput(inputId    = "submenu_active_bg",
                                                                  label      = "Submenu Active Background Color",
                                                                  showColour = "both",
                                                                  value      = "#00000000"),
-                                       colourpicker::colourInput(inputId    = "sb_header_color",
+                                       colourpicker::colourInput(inputId    = "header_color",
                                                                  label      = "Header Color",
                                                                  showColour = "both",
                                                                  value      = "#00000000"))
-                )
-            ),
+               )
+           ),
             miniUI::miniTabPanel(
                 "Sidebars Layout",
                 #icon = icon("code"),
@@ -149,8 +150,8 @@ themeBuilder_addin_UI <- function() {
                     stableColumnLayout(shiny::numericInput(inputId = "sidebar_mini_width",
                                                            label   = "Width for mini sidebar",
                                                            value   = NA))
-                )
-            ),
+               )
+           ),
             miniUI::miniTabPanel(
                 "Main Colors",
                 #icon = icon("code"),
@@ -229,8 +230,8 @@ themeBuilder_addin_UI <- function() {
                                                                  showColour = "both",
                                                                  value      = "#ffffff")),
 
-                )
-            ),
+               )
+           ),
             miniUI::miniTabPanel(
                 "Color Contrast",
                 #icon = icon("code"),
@@ -265,10 +266,10 @@ themeBuilder_addin_UI <- function() {
                                                                                           text  = "Light text color"),
                                                       showColour = "both",
                                                       value      = "#00000000")
-                        )
-                    )
-                )
-            ),
+                       )
+                   )
+               )
+           ),
             miniUI::miniTabPanel(
                 "Other Variables",
                 #icon = icon("code"),
@@ -290,17 +291,16 @@ themeBuilder_addin_UI <- function() {
                                                        shiny::actionButton(inputId = "addVariable",
                                                            label   = "Add Variable"))),
                     stableColumnLayout(shiny::tags$div(id = "variablesPlaceholder"))
-                )
-            )
-        ),
+               )
+           )
+       ),
         stableColumnLayout(
             shiny::downloadButton(outputId = "downloadConfig",
-                                  disabled = TRUE,
                                   label    = periscope2::ui_tooltip(id    = "downloadTip",
                                                                     label = "Download periscope2 theme",
                                                                     text  = "Download theme configuration file"))
-        )
-    )
+       )
+   )
 }
 
 
@@ -334,7 +334,7 @@ themeBuilder_addin_server <- function(id = NULL) {
                                                                       label   = NULL,
                                                                       icon    = shiny::icon("xmark"),
                                                                       style   = "margin-top: 25px;")))
-                )
+               )
 
                 ids(ids()[-which(ids() == variable_id)])
                 observeEvent(input[[remove_btn_id]], {
@@ -342,6 +342,133 @@ themeBuilder_addin_server <- function(id = NULL) {
                     removeUI(selector = variable_row_id, immediate = TRUE)
                 })
             })
+
+            output$downloadConfig <- shiny::downloadHandler(
+                filename = function() {
+                    "periscope_style.yaml"
+                },
+                content = function(theme_file) {
+                    lines           <- c()
+                    status          <- c()
+                    sidebar_colors  <- c()
+                    sidebar_layout  <- c()
+                    main_colors     <- c()
+                    other_variables <- c()
+
+                    ### Status colors
+                    if (input$primary != "#00000000") {
+                        status <- c(status, paste0("primary: ", input$primary))
+                    }
+
+                    if (input$secondary != "#00000000") {
+                        status <- c(status, paste0("secondary: ", input$secondary))
+                    }
+
+                    if (input$success != "#00000000") {
+                        status <- c(status, paste0("success: ", input$success))
+                    }
+
+                    if (input$info != "#00000000") {
+                        status <- c(status, paste0("info: ", input$info))
+                    }
+
+                    if (input$warning != "#00000000") {
+                        status <- c(status, paste0("warning: ", input$warning))
+                    }
+
+                    if (input$danger != "#00000000") {
+                        status <- c(status, paste0("danger: ", input$danger))
+                    }
+
+                    if (input$light != "#00000000") {
+                        status <- c(status, paste0("light: ", input$light))
+                    }
+
+                    if (input$dark != "#00000000") {
+                        status <- c(status, paste0("dark: ", input$dark))
+                    }
+
+                    if (length(status) > 0) {
+                        status <- c("# Status Colors",
+                                    "## Sets the status colors that affects the color of the header, valueBox, infoBox and box.",
+                                    "## Valid values are names of the color or hex-decimal value of the color (i.e,: \"blue\", \"#086A87\").",
+                                    "## Blank/empty values will use the default values",
+                                    status)
+                        lines <- c(lines, status,"\n\n")
+                    }
+
+                    ###### Sidebar colors
+                    if (input$bg != "#00000000") {
+                        sidebar_colors <- c(sidebar_colors, paste0("### Background color"))
+                        sidebar_colors <- c(sidebar_colors, paste0("bg: ", input$bg, "\n"))
+                    }
+
+                    if (input$hover_bg != "#00000000") {
+                        sidebar_colors <- c(sidebar_colors, paste0("### Hover background color"))
+                        sidebar_colors <- c(sidebar_colors, paste0("hover_bg: ", input$hover_bg, "\n"))
+                    }
+
+                    if (input$color != "#00000000") {
+                        sidebar_colors <- c(sidebar_colors, paste0("### Color"))
+                        sidebar_colors <- c(sidebar_colors, paste0("color: ", input$color, "\n"))
+                    }
+
+                    if (input$hover_color != "#00000000") {
+                        sidebar_colors <- c(sidebar_colors, paste0("### Hover color"))
+                        sidebar_colors <- c(sidebar_colors, paste0("hover_color: ", input$hover_color, "\n"))
+                    }
+
+                    if (input$active_color != "#00000000") {
+                        sidebar_colors <- c(sidebar_colors, paste0("### Active color"))
+                        sidebar_colors <- c(sidebar_colors, paste0("active_color: ", input$active_color, "\n"))
+                    }
+
+                    if (input$submenu_bg != "#00000000") {
+                        sidebar_colors <- c(sidebar_colors, paste0("### Submenu background color"))
+                        sidebar_colors <- c(sidebar_colors, paste0("submenu_bg: ", input$submenu_bg, "\n"))
+                    }
+
+                    if (input$submenu_color != "#00000000") {
+                        sidebar_colors <- c(sidebar_colors, paste0("### Submenu color"))
+                        sidebar_colors <- c(sidebar_colors, paste0("submenu_color: ", input$submenu_color, "\n"))
+                    }
+
+                    if (input$submenu_hover_color != "#00000000") {
+                        sidebar_colors <- c(sidebar_colors, paste0("### Submenu hover color"))
+                        sidebar_colors <- c(sidebar_colors, paste0("submenu_hover_color: ", input$submenu_hover_color, "\n"))
+                    }
+
+                    if (input$submenu_hover_bg != "#00000000") {
+                        sidebar_colors <- c(sidebar_colors, paste0("### Submenu hover background color"))
+                        sidebar_colors <- c(sidebar_colors, paste0("submenu_hover_bg: ", input$submenu_hover_bg, "\n"))
+                    }
+
+                    if (input$submenu_active_color != "#00000000") {
+                        sidebar_colors <- c(sidebar_colors, paste0("### Submenu active color"))
+                        sidebar_colors <- c(sidebar_colors, paste0("submenu_active_color: ", input$submenu_active_color, "\n"))
+                    }
+
+                    if (input$submenu_active_bg != "#00000000") {
+                        sidebar_colors <- c(sidebar_colors, paste0("### Submenu active background color"))
+                        sidebar_colors <- c(sidebar_colors, paste0("submenu_active_bg: ", input$submenu_active_bg, "\n"))
+                    }
+
+                    if (input$header_color != "#00000000") {
+                        sidebar_colors <- c(sidebar_colors, paste0("### Header color"))
+                        sidebar_colors <- c(sidebar_colors, paste0("header_color: ", input$header_color, "\n"))
+                    }
+
+                    if (length(sidebar_colors) > 0) {
+                        sidebar_colors <- c("# Sidebars Colors",
+                                            "## Sidebar colors variables allow you to change sidebars (left and right) related colors",
+                                            "## Blank/empty values will use the default values",
+                                            sidebar_colors)
+                        lines <- c(lines, sidebar_colors, "\n", "\n")
+                    }
+
+                    writeLines(lines, theme_file)
+                }
+           )
 
             shiny::observeEvent(input$done, {
                 shiny::removeResourcePath(prefix = "img")
@@ -353,5 +480,5 @@ themeBuilder_addin_server <- function(id = NULL) {
                 invisible(shiny::stopApp())
             })
         }
-    )
+   )
 }
