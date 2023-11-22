@@ -16,6 +16,11 @@
 #'
 #' @export
 themeConfigurationsAddin <- function() {
+    if (!requireNamespace("miniUI", quietly = TRUE)) {
+        stop("You must have package 'miniUI' installed to use this add-in",
+             call. = FALSE)
+    }
+
     shiny::runGadget(app    = themeBuilder_addin_UI(),
                      server = function(input, output, session){
                          themeBuilder_addin_server()
