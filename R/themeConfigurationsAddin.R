@@ -378,6 +378,7 @@ themeBuilder_addin_server <- function(id = NULL) {
                 )
 
                 ids(ids()[-which(ids() == variable_id)])
+                added_variables(c(added_variables(), variable_id))
                 observeEvent(input[[remove_btn_id]], {
                     variable_row_id  <- paste0("#", variable_row_id)
                     removeUI(selector = variable_row_id, immediate = TRUE)
@@ -505,7 +506,7 @@ themeBuilder_addin_server <- function(id = NULL) {
                                             "## Sidebar colors variables allow you to change sidebars (left and right) related colors",
                                             "## Blank/empty values will use the default values",
                                             sidebar_colors)
-                        lines <- c(lines, sidebar_colors, "\n", "\n")
+                        lines <- c(lines, sidebar_colors, "\n")
                     }
 
                     ###### Sidebar Layout
@@ -539,7 +540,7 @@ themeBuilder_addin_server <- function(id = NULL) {
                                             "## Sidebar colors variables allow you to change sidebars (left and right) related colors",
                                             "## Blank/empty values will use the default values",
                                             sidebar_layout)
-                        lines <- c(lines, sidebar_layout, "\n", "\n")
+                        lines <- c(lines, sidebar_layout, "\n")
                     }
 
                     ###### Main colors
@@ -636,7 +637,7 @@ themeBuilder_addin_server <- function(id = NULL) {
                     if (length(main_colors) > 0) {
                         main_colors <- c("# Main Colors",
                                          main_colors)
-                        lines <- c(lines, main_colors, "\n", "\n")
+                        lines <- c(lines, main_colors, "\n")
                     }
 
                     # colors contrast
@@ -663,7 +664,27 @@ themeBuilder_addin_server <- function(id = NULL) {
                                              "## and its background is under threshold. For example, it's used to choose",
                                              "## text color written in bs4ValueBox with background defined by a status.",
                                          colors_contrast)
-                        lines <- c(lines, colors_contrast, "\n", "\n")
+                        lines <- c(lines, colors_contrast, "\n")
+                    }
+
+                    # Other variables
+                    if (length(added_variables()) > 0) {
+                        for (var in added_variables()) {
+                            name  <- input[[paste0(var, "-variableName")]]
+                            value <- input[[paste0(var, "-variableValue")]]
+                            if (!is.na(name) && (name != "") &&
+                                !is.na(value) && (value != "")) {
+                                other_variables <- c(other_variables,
+                                                     paste0("\"", name, "\": ", "\"", value, "\""))
+                            }
+                        }
+                    }
+
+                    if (length(other_variables) > 0) {
+                        other_variables <- c("# Other Variables",
+                                             "## Use any AdminLTE or Bootstrap variables to customize app theme",
+                                             other_variables)
+                        lines <- c(lines, other_variables)
                     }
                     writeLines(lines, theme_file)
                 }
