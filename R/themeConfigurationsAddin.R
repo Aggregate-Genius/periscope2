@@ -72,8 +72,8 @@ themeBuilder_addin_UI <- function() {
                                                   label      = "Dark",
                                                   showColour = "both",
                                                   value      = "#343a40"))
-               )
-           ),
+                )
+            ),
             miniUI::miniTabPanel(
                 "Sidebars Colors",
                 #icon = icon("code"),
@@ -128,8 +128,8 @@ themeBuilder_addin_UI <- function() {
                                                                  label      = "Header Color",
                                                                  showColour = "both",
                                                                  value      = "#00000000"))
-               )
-           ),
+                )
+            ),
             miniUI::miniTabPanel(
                 "Sidebars Layout",
                 #icon = icon("code"),
@@ -151,8 +151,8 @@ themeBuilder_addin_UI <- function() {
                     stableColumnLayout(shiny::numericInput(inputId = "sidebar_mini_width",
                                                            label   = "Width for mini sidebar",
                                                            value   = NA))
-               )
-           ),
+                )
+            ),
             miniUI::miniTabPanel(
                 "Main Colors",
                 #icon = icon("code"),
@@ -231,8 +231,8 @@ themeBuilder_addin_UI <- function() {
                                                                  showColour = "both",
                                                                  value      = "#ffffff")),
 
-               )
-           ),
+                )
+            ),
             miniUI::miniTabPanel(
                 "Color Contrast",
                 #icon = icon("code"),
@@ -267,10 +267,10 @@ themeBuilder_addin_UI <- function() {
                                                                                           text  = "Light text color"),
                                                       showColour = "both",
                                                       value      = "#00000000")
-                       )
-                   )
-               )
-           ),
+                        )
+                    )
+                )
+            ),
             miniUI::miniTabPanel(
                 "Other Variables",
                 #icon = icon("code"),
@@ -290,18 +290,18 @@ themeBuilder_addin_UI <- function() {
                                   shiny::tags$br()),
                     stableColumnLayout(shiny::tags$div(style = "margin-bottom: 30px;",
                                                        shiny::actionButton(inputId = "addVariable",
-                                                           label   = "Add Variable"))),
+                                                                           label   = "Add Variable"))),
                     stableColumnLayout(shiny::tags$div(id = "variablesPlaceholder"))
-               )
-           )
-       ),
+                )
+            )
+        ),
         stableColumnLayout(
             shiny::downloadButton(outputId = "downloadConfig",
                                   label    = periscope2::ui_tooltip(id    = "downloadTip",
                                                                     label = "Download periscope2 theme",
                                                                     text  = "Download theme configuration file"))
-       )
-   )
+        )
+    )
 }
 
 
@@ -325,17 +325,17 @@ themeBuilder_addin_server <- function(id = NULL) {
                 shiny::insertUI(
                     selector = "#variablesPlaceholder",
                     ui       = shiny::tags$div(id = variable_row_id,
-                                              stableColumnLayout(
-                                                  shiny::selectizeInput(inputId = variable_name_id,
-                                                                        label   = "Select Variable",
-                                                                        choices = unique(variables$variable)),
-                                                  shiny::textInput(inputId = variable_val_id,
-                                                                   label   = "Value"),
-                                                  shiny::actionButton(inputId = remove_btn_id,
-                                                                      label   = NULL,
-                                                                      icon    = shiny::icon("xmark"),
-                                                                      style   = "margin-top: 25px;")))
-               )
+                                               stableColumnLayout(
+                                                   shiny::selectizeInput(inputId = variable_name_id,
+                                                                         label   = "Select Variable",
+                                                                         choices = unique(variables$variable)),
+                                                   shiny::textInput(inputId = variable_val_id,
+                                                                    label   = "Value"),
+                                                   shiny::actionButton(inputId = remove_btn_id,
+                                                                       label   = NULL,
+                                                                       icon    = shiny::icon("xmark"),
+                                                                       style   = "margin-top: 25px;")))
+                )
 
                 ids(ids()[-which(ids() == variable_id)])
                 observeEvent(input[[remove_btn_id]], {
@@ -355,7 +355,7 @@ themeBuilder_addin_server <- function(id = NULL) {
                     sidebar_layout  <- c()
                     main_colors     <- c()
                     other_variables <- c()
-
+                    browser()
                     ### Status colors
                     if (input$primary != "#00000000") {
                         status <- c(status, paste0("primary: ", input$primary))
@@ -468,27 +468,27 @@ themeBuilder_addin_server <- function(id = NULL) {
                     }
 
                     ###### Sidebar Layout
-                    if (input$sidebar_width != "") {
+                    if (!is.na(input$sidebar_width) && (input$sidebar_width != "")) {
                         sidebar_layout <- c(sidebar_layout, paste0("### Left Sidebar width"))
                         sidebar_layout <- c(sidebar_layout, paste0("sidebar_width: ", input$sidebar_width, "\n"))
                     }
 
-                    if (input$control_sidebar_width != "") {
+                    if (!is.na(input$control_sidebar_width) && (input$control_sidebar_width != "")) {
                         sidebar_layout <- c(sidebar_layout, paste0("### Right Sidebar width"))
                         sidebar_layout <- c(sidebar_layout, paste0("control_sidebar_width: ", input$control_sidebar_width, "\n"))
                     }
 
-                    if (input$sidebar_padding_x != "") {
+                    if (!is.na(input$sidebar_padding_x) && (input$sidebar_padding_x != "")) {
                         sidebar_layout <- c(sidebar_layout, paste0("### Sidebar horizontal padding"))
                         sidebar_layout <- c(sidebar_layout, paste0("sidebar_padding_x: ", input$sidebar_padding_x, "\n"))
                     }
 
-                    if (input$sidebar_padding_y != "") {
+                    if (!is.na(input$sidebar_padding_y) && (input$sidebar_padding_y != "")) {
                         sidebar_layout <- c(sidebar_layout, paste0("### Sidebar vertical padding"))
                         sidebar_layout <- c(sidebar_layout, paste0("sidebar_padding_y: ", input$sidebar_padding_y, "\n"))
                     }
 
-                    if (input$sidebar_mini_width != "") {
+                    if (!is.na(input$sidebar_mini_width) && (input$sidebar_mini_width != "")) {
                         sidebar_layout <- c(sidebar_layout, paste0("### Width for mini sidebar"))
                         sidebar_layout <- c(sidebar_layout, paste0("sidebar_mini_width: ", input$sidebar_mini_width, "\n"))
                     }
@@ -500,9 +500,106 @@ themeBuilder_addin_server <- function(id = NULL) {
                                             sidebar_layout)
                         lines <- c(lines, sidebar_layout, "\n", "\n")
                     }
+
+                    ###### Main colors
+                    if (input$blue != "#000000") {
+                        main_colors <- c(main_colors, paste0("### Blue"))
+                        main_colors <- c(main_colors, paste0("blue: ", input$blue, "\n"))
+                    }
+
+                    if (input$lightblue != "#000000") {
+                        main_colors <- c(main_colors, paste0("###Light Blue"))
+                        main_colors <- c(main_colors, paste0("lightblue: ", input$lightblue, "\n"))
+                    }
+
+                    if (input$navy != "#000000") {
+                        main_colors <- c(main_colors, paste0("### Navy"))
+                        main_colors <- c(main_colors, paste0("navy: ", input$navy, "\n"))
+                    }
+
+                    if (input$cyan != "#000000") {
+                        main_colors <- c(main_colors, paste0("### Cyan"))
+                        main_colors <- c(main_colors, paste0("cyan: ", input$cyan, "\n"))
+                    }
+
+                    if (input$teal != "#000000") {
+                        main_colors <- c(main_colors, paste0("### Teal"))
+                        main_colors <- c(main_colors, paste0("teal: ", input$teal, "\n"))
+                    }
+
+                    if (input$olive != "#000000") {
+                        main_colors <- c(main_colors, paste0("### Olive"))
+                        main_colors <- c(main_colors, paste0("olive: ", input$olive, "\n"))
+                    }
+
+                    if (input$green != "#000000") {
+                        main_colors <- c(main_colors, paste0("### Green"))
+                        main_colors <- c(main_colors, paste0("green: ", input$green, "\n"))
+                    }
+
+                    if (input$lime != "#000000") {
+                        main_colors <- c(main_colors, paste0("### Lime"))
+                        main_colors <- c(main_colors, paste0("lime: ", input$lime, "\n"))
+                    }
+
+                    if (input$orange != "#000000") {
+                        main_colors <- c(main_colors, paste0("### Orange"))
+                        main_colors <- c(main_colors, paste0("orange: ", input$orange, "\n"))
+                    }
+
+                    if (input$yellow != "#000000") {
+                        main_colors <- c(main_colors, paste0("### Yellow"))
+                        main_colors <- c(main_colors, paste0("yellow: ", input$yellow, "\n"))
+                    }
+
+                    if (input$fuchsia != "#000000") {
+                        main_colors <- c(main_colors, paste0("### Fuchsia"))
+                        main_colors <- c(main_colors, paste0("fuchsia: ", input$fuchsia, "\n"))
+                    }
+
+                    if (input$purple != "#000000") {
+                        main_colors <- c(main_colors, paste0("### Purple"))
+                        main_colors <- c(main_colors, paste0("purple: ", input$purple, "\n"))
+                    }
+
+                    if (input$maroon != "#000000") {
+                        main_colors <- c(main_colors, paste0("### Maroon"))
+                        main_colors <- c(main_colors, paste0("maroon: ", input$maroon, "\n"))
+                    }
+
+                    if (input$red != "#000000") {
+                        main_colors <- c(main_colors, paste0("### Red"))
+                        main_colors <- c(main_colors, paste0("red: ", input$red, "\n"))
+                    }
+
+                    if (input$black != "#000000") {
+                        main_colors <- c(main_colors, paste0("### Black"))
+                        main_colors <- c(main_colors, paste0("black: ", input$black, "\n"))
+                    }
+
+                    if (input$gray_x_light != "#000000") {
+                        main_colors <- c(main_colors, paste0("### Gray X Light"))
+                        main_colors <- c(main_colors, paste0("gray_x_light: ", input$gray_x_light, "\n"))
+                    }
+
+                    if (input$gray_600 != "#000000") {
+                        main_colors <- c(main_colors, paste0("### Gray 600"))
+                        main_colors <- c(main_colors, paste0("gray_600: ", input$gray_600, "\n"))
+                    }
+
+                    if (input$white != "#000000") {
+                        main_colors <- c(main_colors, paste0("### White"))
+                        main_colors <- c(main_colors, paste0("white: ", input$white, "\n"))
+                    }
+
+                    if (length(main_colors) > 0) {
+                        main_colors <- c("# Main Colors",
+                                         main_colors)
+                        lines <- c(lines, main_colors, "\n", "\n")
+                    }
                     writeLines(lines, theme_file)
                 }
-           )
+            )
 
             shiny::observeEvent(input$done, {
                 shiny::removeResourcePath(prefix = "img")
@@ -514,5 +611,5 @@ themeBuilder_addin_server <- function(id = NULL) {
                 invisible(shiny::stopApp())
             })
         }
-   )
+    )
 }
