@@ -32,7 +32,6 @@ themeBuilder_addin_UI <- function() {
         miniUI::miniTabstripPanel(
             miniUI::miniTabPanel(
                 "Status Colors",
-                #icon = icon("code"),
                 miniUI::miniContentPanel(
                     shiny::p("periscope2 main theme colors are defined with the following status colors,
                              you can use those status in infoBox, valueBox, cards"),
@@ -84,7 +83,6 @@ themeBuilder_addin_UI <- function() {
             ),
             miniUI::miniTabPanel(
                 "Sidebars Colors",
-                #icon = icon("code"),
                 miniUI::miniContentPanel(
                     shiny::p("Sidebar colors variables allow you to change sidebars (left and right) related colors"),
                     shiny::tags$i("Use value \"#00000000\" to reset back to original theme default color"),
@@ -152,7 +150,6 @@ themeBuilder_addin_UI <- function() {
             ),
             miniUI::miniTabPanel(
                 "Sidebars Layout",
-                #icon = icon("code"),
                 miniUI::miniContentPanel(
                     shiny::p("Sidebar layout variables allow you to change sidebars (left and right) width, padding, ...",
                              shiny::tags$i("All units are in pixels")),
@@ -175,7 +172,6 @@ themeBuilder_addin_UI <- function() {
             ),
             miniUI::miniTabPanel(
                 "Main Colors",
-                #icon = icon("code"),
                 miniUI::miniContentPanel(
                     shiny::p("Templates main colors definition"),
                     stableColumnLayout(colourpicker::colourInput(inputId          = "blue",
@@ -273,7 +269,6 @@ themeBuilder_addin_UI <- function() {
             ),
             miniUI::miniTabPanel(
                 "Color Contrast",
-                #icon = icon("code"),
                 miniUI::miniContentPanel(
                     miniUI::miniContentPanel(
                         shiny::p("These variables allow to customize color",
@@ -313,7 +308,6 @@ themeBuilder_addin_UI <- function() {
             ),
             miniUI::miniTabPanel(
                 "Other Variables",
-                #icon = icon("code"),
                 miniUI::miniContentPanel(
                     shiny::p("This is an advanced method to add customize any more AdminLTE",
                              " or Bootstrap 4 variable in periscope2 generated application theme."),
@@ -336,10 +330,11 @@ themeBuilder_addin_UI <- function() {
             )
         ),
         stableColumnLayout(
-            shiny::downloadButton(outputId = "downloadConfig",
-                                  label    = periscope2::ui_tooltip(id    = "downloadTip",
-                                                                    label = "Download periscope2 theme",
-                                                                    text  = "Download theme configuration file"))
+            shiny::tags$div(style = "margin-top: 15px;",
+                        shiny::downloadButton(outputId = "downloadConfig",
+                                              label    = periscope2::ui_tooltip(id    = "downloadTip",
+                                                                                label = "Download periscope2 theme",
+                                                                                text  = "Download theme configuration file")))
         )
     )
 }
