@@ -19,7 +19,7 @@ themeConfigurationsAddin <- function() {
     shiny::runGadget(app    = themeBuilder_addin_UI(),
                      server = function(input, output, session){
                          themeBuilder_addin_server()
-                     },
+                      },
                      viewer = shiny::browserViewer())
 }
 
@@ -255,18 +255,20 @@ themeBuilder_addin_UI <- function() {
                                                 value   = NA,
                                                 min     = 0,
                                                 max     = 255),
-                            colourpicker::colourInput(inputId    = "text_dark",
-                                                      label      = periscope2::ui_tooltip(id    = "text_darkTip",
-                                                                                          label = "Text Dark",
-                                                                                          text  = "Dark text color"),
-                                                      showColour = "both",
-                                                      value      = "#00000000"),
-                            colourpicker::colourInput(inputId    = "text_light",
-                                                      label      = periscope2::ui_tooltip(id    = "light_darkTip",
-                                                                                          label = "Text Light",
-                                                                                          text  = "Light text color"),
-                                                      showColour = "both",
-                                                      value      = "#00000000")
+                            colourpicker::colourInput(inputId          = "text_dark",
+                                                      label            = periscope2::ui_tooltip(id    = "text_darkTip",
+                                                                                                label = "Text Dark",
+                                                                                                text  = "Dark text color"),
+                                                      showColour       = "both",
+                                                      value            = "#00000000",
+                                                      allowTransparent = TRUE),
+                            colourpicker::colourInput(inputId          = "text_light",
+                                                      label            = periscope2::ui_tooltip(id    = "light_darkTip",
+                                                                                                label = "Text Light",
+                                                                                                text  = "Light text color"),
+                                                      showColour       = "both",
+                                                      value            = "#00000000",
+                                                      allowTransparent = TRUE)
                         )
                     )
                 )
@@ -354,8 +356,9 @@ themeBuilder_addin_server <- function(id = NULL) {
                     sidebar_colors  <- c()
                     sidebar_layout  <- c()
                     main_colors     <- c()
+                    colors_contrast <- c()
                     other_variables <- c()
-                    browser()
+
                     ### Status colors
                     if (input$primary != "#00000000") {
                         status <- c(status, paste0("primary: ", input$primary))
@@ -399,62 +402,62 @@ themeBuilder_addin_server <- function(id = NULL) {
                     }
 
                     ###### Sidebar colors
-                    if (input$bg != "#000000") {
+                    if (input$bg != "#00000000") {
                         sidebar_colors <- c(sidebar_colors, paste0("### Background color"))
                         sidebar_colors <- c(sidebar_colors, paste0("bg: ", input$bg, "\n"))
                     }
 
-                    if (input$hover_bg != "#000000") {
+                    if (input$hover_bg != "#00000000") {
                         sidebar_colors <- c(sidebar_colors, paste0("### Hover background color"))
                         sidebar_colors <- c(sidebar_colors, paste0("hover_bg: ", input$hover_bg, "\n"))
                     }
 
-                    if (input$color != "#000000") {
+                    if (input$color != "#00000000") {
                         sidebar_colors <- c(sidebar_colors, paste0("### Color"))
                         sidebar_colors <- c(sidebar_colors, paste0("color: ", input$color, "\n"))
                     }
 
-                    if (input$hover_color != "#000000") {
+                    if (input$hover_color != "#00000000") {
                         sidebar_colors <- c(sidebar_colors, paste0("### Hover color"))
                         sidebar_colors <- c(sidebar_colors, paste0("hover_color: ", input$hover_color, "\n"))
                     }
 
-                    if (input$active_color != "#000000") {
+                    if (input$active_color != "#00000000") {
                         sidebar_colors <- c(sidebar_colors, paste0("### Active color"))
                         sidebar_colors <- c(sidebar_colors, paste0("active_color: ", input$active_color, "\n"))
                     }
 
-                    if (input$submenu_bg != "#000000") {
+                    if (input$submenu_bg != "#00000000") {
                         sidebar_colors <- c(sidebar_colors, paste0("### Submenu background color"))
                         sidebar_colors <- c(sidebar_colors, paste0("submenu_bg: ", input$submenu_bg, "\n"))
                     }
 
-                    if (input$submenu_color != "#000000") {
+                    if (input$submenu_color != "#00000000") {
                         sidebar_colors <- c(sidebar_colors, paste0("### Submenu color"))
                         sidebar_colors <- c(sidebar_colors, paste0("submenu_color: ", input$submenu_color, "\n"))
                     }
 
-                    if (input$submenu_hover_color != "#000000") {
+                    if (input$submenu_hover_color != "#00000000") {
                         sidebar_colors <- c(sidebar_colors, paste0("### Submenu hover color"))
                         sidebar_colors <- c(sidebar_colors, paste0("submenu_hover_color: ", input$submenu_hover_color, "\n"))
                     }
 
-                    if (input$submenu_hover_bg != "#000000") {
+                    if (input$submenu_hover_bg != "#00000000") {
                         sidebar_colors <- c(sidebar_colors, paste0("### Submenu hover background color"))
                         sidebar_colors <- c(sidebar_colors, paste0("submenu_hover_bg: ", input$submenu_hover_bg, "\n"))
                     }
 
-                    if (input$submenu_active_color != "#000000") {
+                    if (input$submenu_active_color != "#00000000") {
                         sidebar_colors <- c(sidebar_colors, paste0("### Submenu active color"))
                         sidebar_colors <- c(sidebar_colors, paste0("submenu_active_color: ", input$submenu_active_color, "\n"))
                     }
 
-                    if (input$submenu_active_bg != "#000000") {
+                    if (input$submenu_active_bg != "#00000000") {
                         sidebar_colors <- c(sidebar_colors, paste0("### Submenu active background color"))
                         sidebar_colors <- c(sidebar_colors, paste0("submenu_active_bg: ", input$submenu_active_bg, "\n"))
                     }
 
-                    if (input$header_color != "#000000") {
+                    if (input$header_color != "#00000000") {
                         sidebar_colors <- c(sidebar_colors, paste0("### Header color"))
                         sidebar_colors <- c(sidebar_colors, paste0("header_color: ", input$header_color, "\n"))
                     }
@@ -502,92 +505,92 @@ themeBuilder_addin_server <- function(id = NULL) {
                     }
 
                     ###### Main colors
-                    if (input$blue != "#000000") {
+                    if (input$blue != "#00000000") {
                         main_colors <- c(main_colors, paste0("### Blue"))
                         main_colors <- c(main_colors, paste0("blue: ", input$blue, "\n"))
                     }
 
-                    if (input$lightblue != "#000000") {
+                    if (input$lightblue != "#00000000") {
                         main_colors <- c(main_colors, paste0("###Light Blue"))
                         main_colors <- c(main_colors, paste0("lightblue: ", input$lightblue, "\n"))
                     }
 
-                    if (input$navy != "#000000") {
+                    if (input$navy != "#00000000") {
                         main_colors <- c(main_colors, paste0("### Navy"))
                         main_colors <- c(main_colors, paste0("navy: ", input$navy, "\n"))
                     }
 
-                    if (input$cyan != "#000000") {
+                    if (input$cyan != "#00000000") {
                         main_colors <- c(main_colors, paste0("### Cyan"))
                         main_colors <- c(main_colors, paste0("cyan: ", input$cyan, "\n"))
                     }
 
-                    if (input$teal != "#000000") {
+                    if (input$teal != "#00000000") {
                         main_colors <- c(main_colors, paste0("### Teal"))
                         main_colors <- c(main_colors, paste0("teal: ", input$teal, "\n"))
                     }
 
-                    if (input$olive != "#000000") {
+                    if (input$olive != "#00000000") {
                         main_colors <- c(main_colors, paste0("### Olive"))
                         main_colors <- c(main_colors, paste0("olive: ", input$olive, "\n"))
                     }
 
-                    if (input$green != "#000000") {
+                    if (input$green != "#00000000") {
                         main_colors <- c(main_colors, paste0("### Green"))
                         main_colors <- c(main_colors, paste0("green: ", input$green, "\n"))
                     }
 
-                    if (input$lime != "#000000") {
+                    if (input$lime != "#00000000") {
                         main_colors <- c(main_colors, paste0("### Lime"))
                         main_colors <- c(main_colors, paste0("lime: ", input$lime, "\n"))
                     }
 
-                    if (input$orange != "#000000") {
+                    if (input$orange != "#00000000") {
                         main_colors <- c(main_colors, paste0("### Orange"))
                         main_colors <- c(main_colors, paste0("orange: ", input$orange, "\n"))
                     }
 
-                    if (input$yellow != "#000000") {
+                    if (input$yellow != "#00000000") {
                         main_colors <- c(main_colors, paste0("### Yellow"))
                         main_colors <- c(main_colors, paste0("yellow: ", input$yellow, "\n"))
                     }
 
-                    if (input$fuchsia != "#000000") {
+                    if (input$fuchsia != "#00000000") {
                         main_colors <- c(main_colors, paste0("### Fuchsia"))
                         main_colors <- c(main_colors, paste0("fuchsia: ", input$fuchsia, "\n"))
                     }
 
-                    if (input$purple != "#000000") {
+                    if (input$purple != "#00000000") {
                         main_colors <- c(main_colors, paste0("### Purple"))
                         main_colors <- c(main_colors, paste0("purple: ", input$purple, "\n"))
                     }
 
-                    if (input$maroon != "#000000") {
+                    if (input$maroon != "#00000000") {
                         main_colors <- c(main_colors, paste0("### Maroon"))
                         main_colors <- c(main_colors, paste0("maroon: ", input$maroon, "\n"))
                     }
 
-                    if (input$red != "#000000") {
+                    if (input$red != "#00000000") {
                         main_colors <- c(main_colors, paste0("### Red"))
                         main_colors <- c(main_colors, paste0("red: ", input$red, "\n"))
                     }
 
-                    if (input$black != "#000000") {
+                    if (input$black != "#00000000") {
                         main_colors <- c(main_colors, paste0("### Black"))
                         main_colors <- c(main_colors, paste0("black: ", input$black, "\n"))
                     }
 
-                    if (input$gray_x_light != "#000000") {
+                    if (input$gray_x_light != "#00000000") {
                         main_colors <- c(main_colors, paste0("### Gray X Light"))
                         main_colors <- c(main_colors, paste0("gray_x_light: ", input$gray_x_light, "\n"))
                     }
 
-                    if (input$gray_600 != "#000000") {
+                    if (input$gray_600 != "#00000000") {
                         main_colors <- c(main_colors, paste0("### Gray 600"))
                         main_colors <- c(main_colors, paste0("gray_600: ", input$gray_600, "\n"))
                     }
 
-                    if (input$white != "#000000") {
+                    if (input$white != "#00000000") {
                         main_colors <- c(main_colors, paste0("### White"))
                         main_colors <- c(main_colors, paste0("white: ", input$white, "\n"))
                     }
@@ -596,6 +599,33 @@ themeBuilder_addin_server <- function(id = NULL) {
                         main_colors <- c("# Main Colors",
                                          main_colors)
                         lines <- c(lines, main_colors, "\n", "\n")
+                    }
+
+                    # colors contrast
+                    if (!is.na(input$contrasted_threshold) && (input$contrasted_threshold != "")) {
+                        colors_contrast <- c(colors_contrast, paste0("### The yiq lightness value that determines when the",
+                                                                     "### lightness of color changes from \"dark\" to \"light\".",
+                                                                     "Acceptable values are between 0 and 255"))
+                        colors_contrast <- c(colors_contrast, paste0("contrasted_threshold: ", input$contrasted_threshold, "\n"))
+                    }
+
+                    if (input$text_dark != "#00000000") {
+                        colors_contrast <- c(colors_contrast, paste0("### Dark text color"))
+                        colors_contrast <- c(colors_contrast, paste0("text_dark: ", input$text_dark, "\n"))
+                    }
+
+                    if (input$text_light != "#00000000") {
+                        colors_contrast <- c(colors_contrast, paste0("### Light text color"))
+                        colors_contrast <- c(colors_contrast, paste0("text_light: ", input$text_light, "\n"))
+                    }
+
+                    if (length(colors_contrast) > 0) {
+                        colors_contrast <- c("# Colors Contrast",
+                                             "## These variables allow to customize color used if contrast between a color",
+                                             "## and its background is under threshold. For example, it's used to choose",
+                                             "## text color written in bs4ValueBox with background defined by a status.",
+                                         colors_contrast)
+                        lines <- c(lines, colors_contrast, "\n", "\n")
                     }
                     writeLines(lines, theme_file)
                 }
