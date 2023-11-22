@@ -134,11 +134,12 @@ themeBuilder_addin_UI <- function() {
                 "Sidebars Layout",
                 #icon = icon("code"),
                 miniUI::miniContentPanel(
-                    shiny::p("Sidebar layout variables allow you to change sidebars (left and right) width, paddinh, ..."),
-                    stableColumnLayout(shiny::numericInput(inputId = "left_sidebar_width",
+                    shiny::p("Sidebar layout variables allow you to change sidebars (left and right) width, padding, ...",
+                             shiny::tags$i("All units are in pixels")),
+                    stableColumnLayout(shiny::numericInput(inputId = "sidebar_width",
                                                            label   = "Left Sidebar Width",
                                                            value   = NA),
-                                       shiny::numericInput(inputId = "right_sidebar_width",
+                                       shiny::numericInput(inputId = "control_sidebar_width",
                                                            label   = "Right Sidebar Width",
                                                            value   = NA)),
                     stableColumnLayout(shiny::numericInput(inputId = "sidebar_padding_x",
@@ -398,62 +399,62 @@ themeBuilder_addin_server <- function(id = NULL) {
                     }
 
                     ###### Sidebar colors
-                    if (input$bg != "#00000000") {
+                    if (input$bg != "#000000") {
                         sidebar_colors <- c(sidebar_colors, paste0("### Background color"))
                         sidebar_colors <- c(sidebar_colors, paste0("bg: ", input$bg, "\n"))
                     }
 
-                    if (input$hover_bg != "#00000000") {
+                    if (input$hover_bg != "#000000") {
                         sidebar_colors <- c(sidebar_colors, paste0("### Hover background color"))
                         sidebar_colors <- c(sidebar_colors, paste0("hover_bg: ", input$hover_bg, "\n"))
                     }
 
-                    if (input$color != "#00000000") {
+                    if (input$color != "#000000") {
                         sidebar_colors <- c(sidebar_colors, paste0("### Color"))
                         sidebar_colors <- c(sidebar_colors, paste0("color: ", input$color, "\n"))
                     }
 
-                    if (input$hover_color != "#00000000") {
+                    if (input$hover_color != "#000000") {
                         sidebar_colors <- c(sidebar_colors, paste0("### Hover color"))
                         sidebar_colors <- c(sidebar_colors, paste0("hover_color: ", input$hover_color, "\n"))
                     }
 
-                    if (input$active_color != "#00000000") {
+                    if (input$active_color != "#000000") {
                         sidebar_colors <- c(sidebar_colors, paste0("### Active color"))
                         sidebar_colors <- c(sidebar_colors, paste0("active_color: ", input$active_color, "\n"))
                     }
 
-                    if (input$submenu_bg != "#00000000") {
+                    if (input$submenu_bg != "#000000") {
                         sidebar_colors <- c(sidebar_colors, paste0("### Submenu background color"))
                         sidebar_colors <- c(sidebar_colors, paste0("submenu_bg: ", input$submenu_bg, "\n"))
                     }
 
-                    if (input$submenu_color != "#00000000") {
+                    if (input$submenu_color != "#000000") {
                         sidebar_colors <- c(sidebar_colors, paste0("### Submenu color"))
                         sidebar_colors <- c(sidebar_colors, paste0("submenu_color: ", input$submenu_color, "\n"))
                     }
 
-                    if (input$submenu_hover_color != "#00000000") {
+                    if (input$submenu_hover_color != "#000000") {
                         sidebar_colors <- c(sidebar_colors, paste0("### Submenu hover color"))
                         sidebar_colors <- c(sidebar_colors, paste0("submenu_hover_color: ", input$submenu_hover_color, "\n"))
                     }
 
-                    if (input$submenu_hover_bg != "#00000000") {
+                    if (input$submenu_hover_bg != "#000000") {
                         sidebar_colors <- c(sidebar_colors, paste0("### Submenu hover background color"))
                         sidebar_colors <- c(sidebar_colors, paste0("submenu_hover_bg: ", input$submenu_hover_bg, "\n"))
                     }
 
-                    if (input$submenu_active_color != "#00000000") {
+                    if (input$submenu_active_color != "#000000") {
                         sidebar_colors <- c(sidebar_colors, paste0("### Submenu active color"))
                         sidebar_colors <- c(sidebar_colors, paste0("submenu_active_color: ", input$submenu_active_color, "\n"))
                     }
 
-                    if (input$submenu_active_bg != "#00000000") {
+                    if (input$submenu_active_bg != "#000000") {
                         sidebar_colors <- c(sidebar_colors, paste0("### Submenu active background color"))
                         sidebar_colors <- c(sidebar_colors, paste0("submenu_active_bg: ", input$submenu_active_bg, "\n"))
                     }
 
-                    if (input$header_color != "#00000000") {
+                    if (input$header_color != "#000000") {
                         sidebar_colors <- c(sidebar_colors, paste0("### Header color"))
                         sidebar_colors <- c(sidebar_colors, paste0("header_color: ", input$header_color, "\n"))
                     }
@@ -466,6 +467,39 @@ themeBuilder_addin_server <- function(id = NULL) {
                         lines <- c(lines, sidebar_colors, "\n", "\n")
                     }
 
+                    ###### Sidebar Layout
+                    if (input$sidebar_width != "") {
+                        sidebar_layout <- c(sidebar_layout, paste0("### Left Sidebar width"))
+                        sidebar_layout <- c(sidebar_layout, paste0("sidebar_width: ", input$sidebar_width, "\n"))
+                    }
+
+                    if (input$control_sidebar_width != "") {
+                        sidebar_layout <- c(sidebar_layout, paste0("### Right Sidebar width"))
+                        sidebar_layout <- c(sidebar_layout, paste0("control_sidebar_width: ", input$control_sidebar_width, "\n"))
+                    }
+
+                    if (input$sidebar_padding_x != "") {
+                        sidebar_layout <- c(sidebar_layout, paste0("### Sidebar horizontal padding"))
+                        sidebar_layout <- c(sidebar_layout, paste0("sidebar_padding_x: ", input$sidebar_padding_x, "\n"))
+                    }
+
+                    if (input$sidebar_padding_y != "") {
+                        sidebar_layout <- c(sidebar_layout, paste0("### Sidebar vertical padding"))
+                        sidebar_layout <- c(sidebar_layout, paste0("sidebar_padding_y: ", input$sidebar_padding_y, "\n"))
+                    }
+
+                    if (input$sidebar_mini_width != "") {
+                        sidebar_layout <- c(sidebar_layout, paste0("### Width for mini sidebar"))
+                        sidebar_layout <- c(sidebar_layout, paste0("sidebar_mini_width: ", input$sidebar_mini_width, "\n"))
+                    }
+
+                    if (length(sidebar_layout) > 0) {
+                        sidebar_layout <- c("# Sidebars Layout",
+                                            "## Sidebar colors variables allow you to change sidebars (left and right) related colors",
+                                            "## Blank/empty values will use the default values",
+                                            sidebar_layout)
+                        lines <- c(lines, sidebar_layout, "\n", "\n")
+                    }
                     writeLines(lines, theme_file)
                 }
            )
