@@ -78,7 +78,7 @@ Shiny.addCustomMessageHandler('pcreate-alert', function (message) {
             ${closeButton}${titleTag}${contentTag}
             </div>`
     } else {
-        contentTag = `<h5><i class="icon fa fa-${iconType}"></i>${config.content}</h5>`
+        contentTag = `<i class="icon fa fa-${iconType}"></i>${config.content}`
 
         alertTag = `<div
             id="${id}-alert"

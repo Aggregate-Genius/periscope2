@@ -338,19 +338,19 @@ add_ui_body <- function(body_elements = NULL, append = FALSE) {
 #'   library(bs4Dash)
 #'
 #'   # Inside server_local.R
-#'   periscope2::createAlert(id       = "sidebarRightAlert",
-#'                           options  = list(title    = "Right Side",
-#'                                           status   = "success",
-#'                                           closable = TRUE,
-#'                                           content  = "Example Basic Sidebar Alert"))
-#'   # Test selector
+#'   createPSAlert(id       = "sidebarRightAlert",
+#'                 options  = list(title    = "Right Side",
+#'                                 status   = "success",
+#'                                 closable = TRUE,
+#'                                 content  = "Example Basic Sidebar Alert"))
+#'   # Test se
 #'   ## a div with class "badge-danger.navbar-badge" must be exist in UI to display alert
 #'   selector <- "div.badge-danger.navbar-badge"
-#'   periscope2::createAlert(selector = selector,
-#'                           options  = list(title    = "Selector Title",
-#'                                           status   = "danger",
-#'                                           closable = TRUE,
-#'                                           content  = "Selector Alert"))
+#'   createPSAlert(selector = selector,
+#'                 options  = list(title    = "Selector Title",
+#'                                 status   = "danger",
+#'                                 closable = TRUE,
+#'                                 content  = "Selector Alert"))
 #'
 #'
 #' @seealso \link[bs4Dash:closeAlert]{bs4Dash:closeAlert()}
@@ -359,7 +359,7 @@ add_ui_body <- function(body_elements = NULL, append = FALSE) {
 #' @seealso \link[periscope2:get_url_parameters]{periscope2:get_url_parameters()}
 #'
 #' @export
-createAlert <- function(session  = shiny::getDefaultReactiveDomain(),
+createPSAlert <- function(session  = shiny::getDefaultReactiveDomain(),
                         id       = NULL,
                         selector = NULL,
                         options) {
