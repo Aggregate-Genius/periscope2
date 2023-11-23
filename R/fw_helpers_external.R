@@ -55,105 +55,43 @@ create_application_dashboard <- function() {
 }
 
 create_theme <- function() {
-    theme_settings <- NULL
-
-    ## statuses colors
-    primary   <- NULL
-    secondary <- NULL
-    success   <- NULL
-    info      <- NULL
-    warning   <- NULL
-    danger    <- NULL
-    light     <- NULL
-    dark      <- NULL
-
-    ## layout options
-    sidebar_width                   <- NULL
-    sidebar_horizontal_padding      <- NULL
-    sidebar_vertical_padding        <- NULL
-    sidebar_mini_width              <- NULL
-    right_sidebar_width             <- NULL
-    main_content_horizontal_padding <- NULL
-    main_content_vertical_padding   <- NULL
-    main_background_color           <- NULL
-
-    ## sidebar colors
-    sidebar_background_color        <- NULL
-    sidebar_background_hover_color  <- NULL
-    sidebar_hover_color             <- NULL
-    sidebar_color                   <- NULL
-    sidebar_active_color            <- NULL
-    submenu_background_color        <- NULL
-    submenu_color                   <- NULL
-    submenu_hover_color             <- NULL
-    submenu_background_hover_color  <- NULL
-    submenu_active_color            <- NULL
-    submenu_active_background_color <- NULL
-    header_color                    <- NULL
-
-    ## button colors
-    button_background_color <- NULL
-    button_color            <- NULL
-    button_border_color     <- NULL
+    bs4dash_vars_keys <- fresh::search_vars_bs4dash()[["variable"]]
+    theme_settings    <- load_theme_settings()
+    status            <- list()
+    sidebar_colors    <- list()
+    sidebar_layout    <- list()
+    main_colors       <- list()
+    colors_contrast   <- list()
+    other_variables   <- list()
 
     # keys
-    status_keys          <- c("primary", "secondary", "success", "info",
+    status_keys         <- c("primary", "secondary", "success", "info",
                               "warning", "danger", "light", "dark")
-    layout_colors_keys   <- c("main_background_color")
-    layout_measures_keys <- c("sidebar_width", "sidebar_horizontal_padding",
-                              "sidebar_vertical_padding", "sidebar_mini_width",
-                              "right_sidebar_width", "main_content_horizontal_padding",
-                              "main_content_vertical_padding")
-    sidebar_colors_keys  <- c("sidebar_background_color", "sidebar_background_hover_color",
-                             "sidebar_hover_color", "sidebar_color", "sidebar_active_color",
-                             "submenu_background_color", "submenu_color", "submenu_hover_color",
-                             "submenu_background_hover_color", "submenu_active_color",
-                             "submenu_active_background_color", "header_color")
-    button_colors_keys   <- c("button_background_color", "button_color", "button_border_color")
-    all_colors_keys      <- c(status_keys, layout_colors_keys, sidebar_colors_keys, button_colors_keys)
-    theme_settings       <- load_theme_settings()
+    sidebar_colors_keys <- c("bg", "hover_bg", "color", "hover_color", "active_color",
+                              "submenu_bg", "submenu_color", "submenu_hover_color", "submenu_hover_bg",
+                              "submenu_active_color", "submenu_active_bg", "header_color")
+    sidebar_layout_keys <- c("sidebar_width", "control_sidebar_width", "sidebar_padding_x", "sidebar_padding_y",
+                              "sidebar_mini_width")
+    main_colors_keys    <- c("blue", "lightblue", "navy", "cyan", "teal", "olive", "green", "lime", "orange", "yellow",
+                              "fuchsia", "purple", "maroon", "red", "black", "gray_x_light", "gray_600", "gray_800",
+                              "gray_900", "white")
+    contrast_keys       <- c("contrasted_threshold", "text_dark", "text_light")
 
     if (!is.null(theme_settings) && is.list(theme_settings)) {
-        for (color in all_colors_keys) {
-            if (!is_valid_color(theme_settings[[color]])) {
-                warning(color, " has invalid color value. Setting default color.")
-                theme_settings[[color]] <- NULL
+        # colors check
+        for (color_key in c(status_keys,
+                            sidebar_colors_keys,
+                            main_colors_keys,
+                            c("text_dark", "text_light"))) {
+            if ((color_key %in% names(theme_settings)) &&
+                !is_valid_color(theme_settings[[color_key]])) {
+                warning(color_key, " has invalid color value. Setting default color.")
+                theme_settings[color_key] <- NULL
             }
         }
 
-        # statuses
-        primary   <- theme_settings[["primary"]]
-        secondary <- theme_settings[["secondary"]]
-        success   <- theme_settings[["success"]]
-        info      <- theme_settings[["info"]]
-        warning   <- theme_settings[["warning"]]
-        danger    <- theme_settings[["danger"]]
-        light     <- theme_settings[["light"]]
-        dark      <- theme_settings[["dark"]]
-
-        # layout colors
-        main_background_color <- theme_settings[["main_background_color"]]
-
-        ## sidebar colors
-        sidebar_background_color        <- theme_settings[["sidebar_background_color"]]
-        sidebar_background_hover_color  <- theme_settings[["sidebar_background_hover_color"]]
-        sidebar_hover_color             <- theme_settings[["sidebar_hover_color"]]
-        sidebar_color                   <- theme_settings[["sidebar_color"]]
-        sidebar_active_color            <- theme_settings[["sidebar_active_color"]]
-        submenu_background_color        <- theme_settings[["submenu_background_color"]]
-        submenu_color                   <- theme_settings[["submenu_color"]]
-        submenu_hover_color             <- theme_settings[["submenu_hover_color"]]
-        submenu_background_hover_color  <- theme_settings[["submenu_background_hover_color"]]
-        submenu_active_color            <- theme_settings[["submenu_active_color"]]
-        submenu_active_background_color <- theme_settings[["submenu_active_background_color"]]
-        header_color                    <- theme_settings[["header_color"]]
-
-        ## button colors
-        button_background_color <- theme_settings[["button_background_color"]]
-        button_color            <- theme_settings[["button_color"]]
-        button_border_color     <- theme_settings[["button_border_color"]]
-
-        for (measure_key in layout_measures_keys) {
+        # measures check
+        for (measure_key in c(sidebar_layout_keys, "contrasted_threshold")) {
             measure <- theme_settings[[measure_key]]
 
             if (!is.null(measure)) {
@@ -166,55 +104,22 @@ create_theme <- function() {
             }
         }
 
-        sidebar_width                   <- theme_settings[["sidebar_width"]]
-        sidebar_horizontal_padding      <- theme_settings[["sidebar_horizontal_padding"]]
-        sidebar_vertical_padding        <- theme_settings[["sidebar_vertical_padding"]]
-        sidebar_mini_width              <- theme_settings[["sidebar_mini_width"]]
-        right_sidebar_width             <- theme_settings[["right_sidebar_width"]]
-        main_content_horizontal_padding <- theme_settings[["main_content_horizontal_padding"]]
-        main_content_vertical_padding   <- theme_settings[["main_content_vertical_padding"]]
+        status          <- theme_settings[status_keys[status_keys %in% names(theme_settings)]]
+        sidebar_colors  <- theme_settings[sidebar_colors_keys[sidebar_colors_keys %in% names(theme_settings)]]
+        sidebar_layout  <- theme_settings[sidebar_layout_keys[sidebar_layout_keys %in% names(theme_settings)]]
+        main_colors     <- theme_settings[main_colors_keys[main_colors_keys %in% names(theme_settings)]]
+        colors_contrast <- theme_settings[contrast_keys[contrast_keys %in% names(theme_settings)]]
+        other_variables <- theme_settings[bs4dash_vars_keys[bs4dash_vars_keys %in% names(theme_settings)]]
+
     }
 
     fresh::create_theme(
-        fresh::bs4dash_status(
-            primary   = primary,
-            secondary = secondary,
-            success   = success,
-            info      = info,
-            warning   = warning,
-            danger    = danger,
-            light     = light,
-            dark      = dark
-        ),
-        fresh::bs4dash_layout(
-            sidebar_width         = sidebar_width,
-            sidebar_padding_x     = sidebar_horizontal_padding,
-            sidebar_padding_y     = sidebar_vertical_padding,
-            sidebar_mini_width    = sidebar_mini_width,
-            control_sidebar_width = right_sidebar_width,
-            main_bg               = main_background_color,
-            content_padding_x     = main_content_horizontal_padding,
-            content_padding_y     = main_content_vertical_padding
-        ),
-        fresh::bs4dash_sidebar_light(
-            bg                   = sidebar_background_color,
-            hover_bg             = sidebar_background_hover_color,
-            color                = sidebar_color,
-            hover_color          = sidebar_hover_color,
-            active_color         = sidebar_active_color,
-            submenu_bg           = submenu_background_color,
-            submenu_color        = submenu_color,
-            submenu_hover_color  = submenu_hover_color,
-            submenu_hover_bg     = submenu_background_hover_color,
-            submenu_active_color = submenu_active_color,
-            submenu_active_bg    = submenu_active_background_color,
-            header_color         = header_color
-        ),
-        fresh::bs4dash_button(
-            default_background_color = button_background_color,
-            default_color            = button_color,
-            default_border_color     = button_border_color
-        )
+        do.call(fresh::bs4dash_status, status),
+        do.call(fresh::bs4dash_sidebar_light, sidebar_colors),
+        do.call(fresh::bs4dash_layout, sidebar_layout),
+        do.call(fresh::bs4dash_color, main_colors),
+        do.call(fresh::bs4dash_yiq, colors_contrast),
+        do.call(fresh::bs4dash_vars, other_variables)
     )
 }
 
