@@ -400,35 +400,35 @@ themeBuilder_addin_server <- function(id = NULL) {
 
                     ### Status colors
                     if (input$primary != "#00000000") {
-                        status <- c(status, paste0("primary: ", input$primary))
+                        status <- c(status, paste0("primary: \"", input$primary, "\""))
                     }
 
                     if (input$secondary != "#00000000") {
-                        status <- c(status, paste0("secondary: ", input$secondary))
+                        status <- c(status, paste0("secondary: \"", input$secondary, "\""))
                     }
 
                     if (input$success != "#00000000") {
-                        status <- c(status, paste0("success: ", input$success))
+                        status <- c(status, paste0("success: \"", input$success, "\""))
                     }
 
                     if (input$info != "#00000000") {
-                        status <- c(status, paste0("info: ", input$info))
+                        status <- c(status, paste0("info: \"", input$info, "\""))
                     }
 
                     if (input$warning != "#00000000") {
-                        status <- c(status, paste0("warning: ", input$warning))
+                        status <- c(status, paste0("warning: \"", input$warning, "\""))
                     }
 
                     if (input$danger != "#00000000") {
-                        status <- c(status, paste0("danger: ", input$danger))
+                        status <- c(status, paste0("danger: \"", input$danger, "\""))
                     }
 
                     if (input$light != "#00000000") {
-                        status <- c(status, paste0("light: ", input$light))
+                        status <- c(status, paste0("light: \"", input$light, "\""))
                     }
 
                     if (input$dark != "#00000000") {
-                        status <- c(status, paste0("dark: ", input$dark))
+                        status <- c(status, paste0("dark: \"", input$dark, "\""))
                     }
 
                     if (length(status) > 0) {
@@ -437,207 +437,218 @@ themeBuilder_addin_server <- function(id = NULL) {
                                     "## Valid values are names of the color or hex-decimal value of the color (i.e,: \"blue\", \"#086A87\").",
                                     "## Blank/empty values will use the default values",
                                     status)
-                        lines <- c(lines, status,"\n\n")
+                        lines <- c(lines, status)
                     }
 
                     ###### Sidebar colors
                     if (input$bg != "#00000000") {
                         sidebar_colors <- c(sidebar_colors, paste0("### Background color"))
-                        sidebar_colors <- c(sidebar_colors, paste0("bg: ", input$bg, "\n"))
+                        sidebar_colors <- c(sidebar_colors, paste0("bg: \"", input$bg, "\""))
                     }
 
                     if (input$hover_bg != "#00000000") {
                         sidebar_colors <- c(sidebar_colors, paste0("### Hover background color"))
-                        sidebar_colors <- c(sidebar_colors, paste0("hover_bg: ", input$hover_bg, "\n"))
+                        sidebar_colors <- c(sidebar_colors, paste0("hover_bg: \"", input$hover_bg, "\""))
                     }
 
                     if (input$color != "#00000000") {
                         sidebar_colors <- c(sidebar_colors, paste0("### Color"))
-                        sidebar_colors <- c(sidebar_colors, paste0("color: ", input$color, "\n"))
+                        sidebar_colors <- c(sidebar_colors, paste0("color: \"", input$color, "\""))
                     }
 
                     if (input$hover_color != "#00000000") {
                         sidebar_colors <- c(sidebar_colors, paste0("### Hover color"))
-                        sidebar_colors <- c(sidebar_colors, paste0("hover_color: ", input$hover_color, "\n"))
+                        sidebar_colors <- c(sidebar_colors, paste0("hover_color: \"", input$hover_color, "\""))
                     }
 
                     if (input$active_color != "#00000000") {
                         sidebar_colors <- c(sidebar_colors, paste0("### Active color"))
-                        sidebar_colors <- c(sidebar_colors, paste0("active_color: ", input$active_color, "\n"))
+                        sidebar_colors <- c(sidebar_colors, paste0("active_color: \"", input$active_color, "\""))
                     }
 
                     if (input$submenu_bg != "#00000000") {
                         sidebar_colors <- c(sidebar_colors, paste0("### Submenu background color"))
-                        sidebar_colors <- c(sidebar_colors, paste0("submenu_bg: ", input$submenu_bg, "\n"))
+                        sidebar_colors <- c(sidebar_colors, paste0("submenu_bg: \"", input$submenu_bg, "\""))
                     }
 
                     if (input$submenu_color != "#00000000") {
                         sidebar_colors <- c(sidebar_colors, paste0("### Submenu color"))
-                        sidebar_colors <- c(sidebar_colors, paste0("submenu_color: ", input$submenu_color, "\n"))
+                        sidebar_colors <- c(sidebar_colors, paste0("submenu_color: \"", input$submenu_color, "\""))
                     }
 
                     if (input$submenu_hover_color != "#00000000") {
                         sidebar_colors <- c(sidebar_colors, paste0("### Submenu hover color"))
-                        sidebar_colors <- c(sidebar_colors, paste0("submenu_hover_color: ", input$submenu_hover_color, "\n"))
+                        sidebar_colors <- c(sidebar_colors, paste0("submenu_hover_color: \"", input$submenu_hover_color, "\""))
                     }
 
                     if (input$submenu_hover_bg != "#00000000") {
                         sidebar_colors <- c(sidebar_colors, paste0("### Submenu hover background color"))
-                        sidebar_colors <- c(sidebar_colors, paste0("submenu_hover_bg: ", input$submenu_hover_bg, "\n"))
+                        sidebar_colors <- c(sidebar_colors, paste0("submenu_hover_bg: \"", input$submenu_hover_bg, "\""))
                     }
 
                     if (input$submenu_active_color != "#00000000") {
                         sidebar_colors <- c(sidebar_colors, paste0("### Submenu active color"))
-                        sidebar_colors <- c(sidebar_colors, paste0("submenu_active_color: ", input$submenu_active_color, "\n"))
+                        sidebar_colors <- c(sidebar_colors, paste0("submenu_active_color: \"", input$submenu_active_color, "\""))
                     }
 
                     if (input$submenu_active_bg != "#00000000") {
                         sidebar_colors <- c(sidebar_colors, paste0("### Submenu active background color"))
-                        sidebar_colors <- c(sidebar_colors, paste0("submenu_active_bg: ", input$submenu_active_bg, "\n"))
+                        sidebar_colors <- c(sidebar_colors, paste0("submenu_active_bg: \"", input$submenu_active_bg, "\""))
                     }
 
                     if (input$header_color != "#00000000") {
                         sidebar_colors <- c(sidebar_colors, paste0("### Header color"))
-                        sidebar_colors <- c(sidebar_colors, paste0("header_color: ", input$header_color, "\n"))
+                        sidebar_colors <- c(sidebar_colors, paste0("header_color: \"", input$header_color, "\""))
                     }
 
                     if (length(sidebar_colors) > 0) {
+                        if (length(lines) > 0) {
+                            lines <- c(lines, "\n")
+                        }
+
                         sidebar_colors <- c("# Sidebars Colors",
                                             "## Sidebar colors variables allow you to change sidebars (left and right) related colors",
                                             "## Blank/empty values will use the default values",
                                             sidebar_colors)
-                        lines <- c(lines, sidebar_colors, "\n")
+                        lines <- c(lines, sidebar_colors)
                     }
 
                     ###### Sidebar Layout
                     if (!is.na(input$sidebar_width) && (input$sidebar_width != "")) {
                         sidebar_layout <- c(sidebar_layout, paste0("### Left Sidebar width"))
-                        sidebar_layout <- c(sidebar_layout, paste0("sidebar_width: ", input$sidebar_width, "\n"))
+                        sidebar_layout <- c(sidebar_layout, paste0("sidebar_width: \"", input$sidebar_width, "\""))
                     }
 
                     if (!is.na(input$control_sidebar_width) && (input$control_sidebar_width != "")) {
                         sidebar_layout <- c(sidebar_layout, paste0("### Right Sidebar width"))
-                        sidebar_layout <- c(sidebar_layout, paste0("control_sidebar_width: ", input$control_sidebar_width, "\n"))
+                        sidebar_layout <- c(sidebar_layout, paste0("control_sidebar_width: \"", input$control_sidebar_width, "\""))
                     }
 
                     if (!is.na(input$sidebar_padding_x) && (input$sidebar_padding_x != "")) {
                         sidebar_layout <- c(sidebar_layout, paste0("### Sidebar horizontal padding"))
-                        sidebar_layout <- c(sidebar_layout, paste0("sidebar_padding_x: ", input$sidebar_padding_x, "\n"))
+                        sidebar_layout <- c(sidebar_layout, paste0("sidebar_padding_x: \"", input$sidebar_padding_x, "\""))
                     }
 
                     if (!is.na(input$sidebar_padding_y) && (input$sidebar_padding_y != "")) {
                         sidebar_layout <- c(sidebar_layout, paste0("### Sidebar vertical padding"))
-                        sidebar_layout <- c(sidebar_layout, paste0("sidebar_padding_y: ", input$sidebar_padding_y, "\n"))
+                        sidebar_layout <- c(sidebar_layout, paste0("sidebar_padding_y: \"", input$sidebar_padding_y, "\""))
                     }
 
                     if (!is.na(input$sidebar_mini_width) && (input$sidebar_mini_width != "")) {
                         sidebar_layout <- c(sidebar_layout, paste0("### Width for mini sidebar"))
-                        sidebar_layout <- c(sidebar_layout, paste0("sidebar_mini_width: ", input$sidebar_mini_width, "\n"))
+                        sidebar_layout <- c(sidebar_layout, paste0("sidebar_mini_width: \"", input$sidebar_mini_width, "\""))
                     }
 
                     if (length(sidebar_layout) > 0) {
+                        if (length(lines) > 0) {
+                            lines <- c(lines, "\n")
+                        }
+
                         sidebar_layout <- c("# Sidebars Layout",
                                             "## Sidebar colors variables allow you to change sidebars (left and right) related colors",
                                             "## Blank/empty values will use the default values",
                                             sidebar_layout)
-                        lines <- c(lines, sidebar_layout, "\n")
+                        lines <- c(lines, sidebar_layout)
                     }
 
                     ###### Main colors
                     if (input$blue != "#00000000") {
                         main_colors <- c(main_colors, paste0("### Blue"))
-                        main_colors <- c(main_colors, paste0("blue: ", input$blue, "\n"))
+                        main_colors <- c(main_colors, paste0("blue: \"", input$blue, "\""))
                     }
 
                     if (input$lightblue != "#00000000") {
                         main_colors <- c(main_colors, paste0("###Light Blue"))
-                        main_colors <- c(main_colors, paste0("lightblue: ", input$lightblue, "\n"))
+                        main_colors <- c(main_colors, paste0("lightblue: \"", input$lightblue, "\""))
                     }
 
                     if (input$navy != "#00000000") {
                         main_colors <- c(main_colors, paste0("### Navy"))
-                        main_colors <- c(main_colors, paste0("navy: ", input$navy, "\n"))
+                        main_colors <- c(main_colors, paste0("navy: \"", input$navy, "\""))
                     }
 
                     if (input$cyan != "#00000000") {
                         main_colors <- c(main_colors, paste0("### Cyan"))
-                        main_colors <- c(main_colors, paste0("cyan: ", input$cyan, "\n"))
+                        main_colors <- c(main_colors, paste0("cyan: \"", input$cyan, "\""))
                     }
 
                     if (input$teal != "#00000000") {
                         main_colors <- c(main_colors, paste0("### Teal"))
-                        main_colors <- c(main_colors, paste0("teal: ", input$teal, "\n"))
+                        main_colors <- c(main_colors, paste0("teal: \"", input$teal, "\""))
                     }
 
                     if (input$olive != "#00000000") {
                         main_colors <- c(main_colors, paste0("### Olive"))
-                        main_colors <- c(main_colors, paste0("olive: ", input$olive, "\n"))
+                        main_colors <- c(main_colors, paste0("olive: \"", input$olive, "\""))
                     }
 
                     if (input$green != "#00000000") {
                         main_colors <- c(main_colors, paste0("### Green"))
-                        main_colors <- c(main_colors, paste0("green: ", input$green, "\n"))
+                        main_colors <- c(main_colors, paste0("green: \"", input$green, "\""))
                     }
 
                     if (input$lime != "#00000000") {
                         main_colors <- c(main_colors, paste0("### Lime"))
-                        main_colors <- c(main_colors, paste0("lime: ", input$lime, "\n"))
+                        main_colors <- c(main_colors, paste0("lime: \"", input$lime, "\""))
                     }
 
                     if (input$orange != "#00000000") {
                         main_colors <- c(main_colors, paste0("### Orange"))
-                        main_colors <- c(main_colors, paste0("orange: ", input$orange, "\n"))
+                        main_colors <- c(main_colors, paste0("orange: \"", input$orange, "\""))
                     }
 
                     if (input$yellow != "#00000000") {
                         main_colors <- c(main_colors, paste0("### Yellow"))
-                        main_colors <- c(main_colors, paste0("yellow: ", input$yellow, "\n"))
+                        main_colors <- c(main_colors, paste0("yellow: \"", input$yellow, "\""))
                     }
 
                     if (input$fuchsia != "#00000000") {
                         main_colors <- c(main_colors, paste0("### Fuchsia"))
-                        main_colors <- c(main_colors, paste0("fuchsia: ", input$fuchsia, "\n"))
+                        main_colors <- c(main_colors, paste0("fuchsia: \"", input$fuchsia, "\""))
                     }
 
                     if (input$purple != "#00000000") {
                         main_colors <- c(main_colors, paste0("### Purple"))
-                        main_colors <- c(main_colors, paste0("purple: ", input$purple, "\n"))
+                        main_colors <- c(main_colors, paste0("purple: \"", input$purple, "\""))
                     }
 
                     if (input$maroon != "#00000000") {
                         main_colors <- c(main_colors, paste0("### Maroon"))
-                        main_colors <- c(main_colors, paste0("maroon: ", input$maroon, "\n"))
+                        main_colors <- c(main_colors, paste0("maroon: \"", input$maroon, "\""))
                     }
 
                     if (input$red != "#00000000") {
                         main_colors <- c(main_colors, paste0("### Red"))
-                        main_colors <- c(main_colors, paste0("red: ", input$red, "\n"))
+                        main_colors <- c(main_colors, paste0("red: \"", input$red, "\""))
                     }
 
                     if (input$black != "#00000000") {
                         main_colors <- c(main_colors, paste0("### Black"))
-                        main_colors <- c(main_colors, paste0("black: ", input$black, "\n"))
+                        main_colors <- c(main_colors, paste0("black: \"", input$black, "\""))
                     }
 
                     if (input$gray_x_light != "#00000000") {
                         main_colors <- c(main_colors, paste0("### Gray X Light"))
-                        main_colors <- c(main_colors, paste0("gray_x_light: ", input$gray_x_light, "\n"))
+                        main_colors <- c(main_colors, paste0("gray_x_light: \"", input$gray_x_light, "\""))
                     }
 
                     if (input$gray_600 != "#00000000") {
                         main_colors <- c(main_colors, paste0("### Gray 600"))
-                        main_colors <- c(main_colors, paste0("gray_600: ", input$gray_600, "\n"))
+                        main_colors <- c(main_colors, paste0("gray_600: \"", input$gray_600, "\""))
                     }
 
                     if (input$white != "#00000000") {
                         main_colors <- c(main_colors, paste0("### White"))
-                        main_colors <- c(main_colors, paste0("white: ", input$white, "\n"))
+                        main_colors <- c(main_colors, paste0("white: \"", input$white, "\""))
                     }
 
                     if (length(main_colors) > 0) {
-                        main_colors <- c("# Main Colors",
-                                         main_colors)
-                        lines <- c(lines, main_colors, "\n")
+                        if (length(lines) > 0) {
+                            lines <- c(lines, "\n")
+                        }
+
+                        main_colors <- c("# Main Colors", main_colors)
+                        lines <- c(lines, main_colors)
                     }
 
                     # colors contrast
@@ -645,26 +656,30 @@ themeBuilder_addin_server <- function(id = NULL) {
                         colors_contrast <- c(colors_contrast, paste0("### The yiq lightness value that determines when the",
                                                                      "### lightness of color changes from \"dark\" to \"light\".",
                                                                      "Acceptable values are between 0 and 255"))
-                        colors_contrast <- c(colors_contrast, paste0("contrasted_threshold: ", input$contrasted_threshold, "\n"))
+                        colors_contrast <- c(colors_contrast, paste0("contrasted_threshold: \"", input$contrasted_threshold, "\""))
                     }
 
                     if (input$text_dark != "#00000000") {
                         colors_contrast <- c(colors_contrast, paste0("### Dark text color"))
-                        colors_contrast <- c(colors_contrast, paste0("text_dark: ", input$text_dark, "\n"))
+                        colors_contrast <- c(colors_contrast, paste0("text_dark: \"", input$text_dark, "\""))
                     }
 
                     if (input$text_light != "#00000000") {
                         colors_contrast <- c(colors_contrast, paste0("### Light text color"))
-                        colors_contrast <- c(colors_contrast, paste0("text_light: ", input$text_light, "\n"))
+                        colors_contrast <- c(colors_contrast, paste0("text_light: \"", input$text_light, "\""))
                     }
 
                     if (length(colors_contrast) > 0) {
+                        if (length(lines) > 0) {
+                            lines <- c(lines, "\n")
+                        }
+
                         colors_contrast <- c("# Colors Contrast",
                                              "## These variables allow to customize color used if contrast between a color",
                                              "## and its background is under threshold. For example, it's used to choose",
                                              "## text color written in bs4ValueBox with background defined by a status.",
                                          colors_contrast)
-                        lines <- c(lines, colors_contrast, "\n")
+                        lines <- c(lines, colors_contrast)
                     }
 
                     # Other variables
@@ -681,6 +696,10 @@ themeBuilder_addin_server <- function(id = NULL) {
                     }
 
                     if (length(other_variables) > 0) {
+                        if (length(lines) > 0) {
+                            lines <- c(lines, "\n")
+                        }
+
                         other_variables <- c("# Other Variables",
                                              "## Use any AdminLTE or Bootstrap variables to customize app theme",
                                              other_variables)
