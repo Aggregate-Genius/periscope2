@@ -1,6 +1,11 @@
 context("periscope2 - package addins")
 local_edition(3)
 
+test_that("theme builder addin - UI", {
+    ui_output <- periscope2:::themeBuilder_addin_UI()
+    expect_snapshot()
+})
+
 test_that("announcement addin - UI", {
     ui_output <- announcement_addin_UI()
     expect_true(grepl(Sys.Date(), ui_output, fixed = TRUE))
