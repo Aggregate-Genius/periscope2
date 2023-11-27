@@ -360,8 +360,6 @@ themeBuilder_addin_server <- function(id = NULL) {
                 variable_val_id  <- paste0(variable_id,"-variableValue")
                 remove_btn_id    <- paste0(variable_id,"-removeVariableBtn")
 
-                btn <- input$insertBtn
-                id <- paste0('txt', btn)
                 shiny::insertUI(
                     selector = "#variablesPlaceholder",
                     ui       = shiny::tags$div(id = variable_row_id,
@@ -687,6 +685,7 @@ themeBuilder_addin_server <- function(id = NULL) {
                         for (var in added_variables()) {
                             name  <- input[[paste0(var, "-variableName")]]
                             value <- input[[paste0(var, "-variableValue")]]
+
                             if (!is.na(name) && (name != "") &&
                                 !is.na(value) && (value != "")) {
                                 other_variables <- c(other_variables,
