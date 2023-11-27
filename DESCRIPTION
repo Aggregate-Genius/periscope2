@@ -36,6 +36,7 @@ RoxygenNote: 7.2.3
 Suggests:
     assertthat,
     canvasXpress,
+    colourpicker,
     ggplot2,
     knitr,
     lattice,

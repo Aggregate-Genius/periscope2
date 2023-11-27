@@ -16,8 +16,8 @@
 #'
 #' @export
 themeConfigurationsAddin <- function() {
-    if (!requireNamespace("miniUI", quietly = TRUE)) {
-        stop("You must have package 'miniUI' installed to use this add-in",
+    if (!requireNamespace(c("miniUI", "colourpicker"), quietly = TRUE)) {
+        stop("You must have packages 'miniUI' and 'colourpicker' installed to use this add-in",
              call. = FALSE)
     }
 
@@ -353,7 +353,7 @@ themeBuilder_addin_server <- function(id = NULL) {
             added_variables <- shiny::reactiveVal(c())
             ids             <- shiny::reactiveVal(c(sample(NROW(variables))))
 
-            observeEvent(input$addVariable, {
+            shiny::observeEvent(input$addVariable, {
                 variable_id      <- ids()[1]
                 variable_row_id  <- paste0(variable_id,"-variableRow")
                 variable_name_id <- paste0(variable_id,"-variableName")
@@ -377,9 +377,9 @@ themeBuilder_addin_server <- function(id = NULL) {
 
                 ids(ids()[-which(ids() == variable_id)])
                 added_variables(c(added_variables(), variable_id))
-                observeEvent(input[[remove_btn_id]], {
+                shiny::observeEvent(input[[remove_btn_id]], {
                     variable_row_id  <- paste0("#", variable_row_id)
-                    removeUI(selector = variable_row_id, immediate = TRUE)
+                    shiny::removeUI(selector = variable_row_id, immediate = TRUE)
                 })
             })
 
