@@ -20,7 +20,7 @@ add_ui_header(
 )
 }
 \arguments{
-\item{ui_elements}{- can be any UI element but mostly used for navbarMenu. NULL by default.
+\item{ui_elements}{- It can be any UI element but mostly used for navbarMenu. NULL by default.
 Check \code{?bs4Dash::navbarMenu()}}
 
 \item{ui_position}{- Location of UI elements in the header. Must be either of 'center', 'left' or 'right'

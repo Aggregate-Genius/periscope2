@@ -326,7 +326,7 @@ load_announcements <- function() {
             }
 
             if (valid) {
-                createAlert(id      = "announceAlert",
+                createPSAlert(id      = "announceAlert",
                             options = list(title    = title,
                                            status   = style,
                                            closable = TRUE,
