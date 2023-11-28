@@ -232,10 +232,10 @@ load_announcements <- function() {
 
             if (valid) {
                 createPSAlert(id      = "announceAlert",
-                            options = list(title    = title,
-                                           status   = style,
-                                           closable = TRUE,
-                                           content  = text))
+                              options = list(title    = title,
+                                             status   = style,
+                                             closable = TRUE,
+                                             content  = text))
                 if (is.null(auto_close) ||
                     !is.numeric(auto_close) ||
                     auto_close == 0) {
