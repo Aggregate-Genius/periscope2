@@ -4,6 +4,9 @@
 
 ### Enhancements
 - Allowed header to have navbar menu
+- Renamed `createAlert` method to be `createPSAlert` to:
+  - Avoid confusion with `bs4Dash::createAlert` method
+  - Display alert with status icon correctly when there is no alert title
 
 -----
 

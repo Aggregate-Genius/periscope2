@@ -96,52 +96,51 @@ downloadablePlot("examplePlot3",
 observeEvent(input$rightAlert, {
     loginfo("Right Sidebar Alert Button Pushed",
             logger = ss_userAction.Log)
-    periscope2::createAlert(id      = "sidebarRightAlert",
-                            options = list(title    = "Right Side",
-                                           status   = "success",
-                                           closable = TRUE,
-                                           content  = "Example Basic Sidebar Alert"))
+    createPSAlert(id      = "sidebarRightAlert",
+                  options = list(title    = "Right Side",
+                                 status   = "success",
+                                 closable = TRUE,
+                                 content  = "Example Basic Sidebar Alert"))
 })
 
 observeEvent(input$leftAlert, {
     logwarn("Left Sidebar Alert Example Button Pushed",
             logger = ss_userAction.Log)
-    periscope2::createAlert(id      = "sidebarBasicAlert",
-                            options = list(title    = "Left Side",
-                                           status   = "warning",
-                                           closable = TRUE,
-                                           content  = "Example Advanced Sidebar Alert"))
-
+    createPSAlert(id      = "sidebarBasicAlert",
+                  options = list(title    = "Left Side",
+                                 status   = "warning",
+                                 closable = TRUE,
+                                 content  = "Example Advanced Sidebar Alert"))
 })
 
 observeEvent(input$bodyAlertBtn, {
     logdebug("Body Alert Example Button Pushed",
              logger = ss_userAction.Log)
-    periscope2::createAlert(id      = "bodyAlert",
-                            options = list(title    = "Body",
-                                           status   = "info",
-                                           closable = TRUE,
-                                           content  = paste("Example Body Alert")))
+    createPSAlert(id      = "bodyAlert",
+                  options = list(title    = "Body",
+                                 status   = "info",
+                                 closable = TRUE,
+                                 content  = paste("Example Body Alert")))
 })
 
 observeEvent(input$footerAlertbtn, {
     logerror("Footer Alert Example Button Pushed",
              logger = ss_userAction.Log)
-    periscope2::createAlert(id      = "footerAlert",
-                            options = list(title    = "Footer",
-                                           status   = "danger",
-                                           closable = TRUE,
-                                           content  = paste("Example Footer Alert")))
+    createPSAlert(id      = "footerAlert",
+                  options = list(title    = "Footer",
+                                 status   = "danger",
+                                 closable = TRUE,
+                                 content  = paste("Example Footer Alert")))
 })
 
 observeEvent(input$headerAlertbtn, {
     loginfo("Header Alert Example Button Pushed",
             logger = ss_userAction.Log)
-    periscope2::createAlert(id      = "headerAlert",
-                            options = list(title    = "Header",
-                                           status   = "primary",
-                                           closable = TRUE,
-                                           content  = "Example Header Alert"))
+    createPSAlert(id      = "headerAlert",
+                  options = list(title    = "Header",
+                                 status   = "primary",
+                                 closable = TRUE,
+                                 content  = "Example Header Alert"))
 })
 
 observeEvent(input$showWorking, {
