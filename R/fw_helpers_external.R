@@ -241,7 +241,7 @@ load_announcements <- function() {
                     auto_close == 0) {
                     logwarn(paste("Announcement 'auto_close' value '",
                                   auto_close,
-                                  "' is invalid. It must contain numeric value.",
+                                  "' is invalid. It must contain greater than 0 numeric value.",
                                   "Setting 'auto_close' to default value 'NULL'"))
                     auto_close <- NULL
                 } else {
