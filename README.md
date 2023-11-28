@@ -116,7 +116,7 @@ User can adapt layout for both packages generated apps easily via related functi
 
 ----
 
-#### Packages modules
+#### Periscope2 Modules
 
 - Both packages share the following modules:
   - downloadable file
@@ -128,6 +128,15 @@ User can adapt layout for both packages generated apps easily via related functi
   - Logger
 
 *NOTE*: Check package documentation and vignettes for module details
+
+----
+
+#### Periscope2 RStudio Add-ins
+
+Periscope2 provides multiple RStudio add-ins to help package user to configure different generated application aspects visually and correctly. Please refer to the following documentation for each add-in details:
+
+- `vignette("announcement_addin", package = "periscope2")`
+- `vignette("themeBuilder_addin", package = "periscope2")`
 
 ----
 
