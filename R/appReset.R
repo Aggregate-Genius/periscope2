@@ -141,7 +141,7 @@ appReset <- function(id,
                                       "Resetting in ", (waittime / 1000),
                                       "seconds."),
                                 logger = logger)
-                        createAlert(
+                        createPSAlert(
                             selector = paste0("#", alert_location),
                             options  = list(status   = "danger",
                                             title    = "Reset Application",
@@ -157,7 +157,7 @@ appReset <- function(id,
                         # reset cancelled by pushing the button again
                         loginfo("Application Reset cancelled by user.",
                                 logger = logger)
-                        createAlert(
+                        createPSAlert(
                             selector = paste0("#", alert_location),
                             options  = list(status   = "success",
                                             title    = "Reset Application",
