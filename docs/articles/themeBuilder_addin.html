@@ -5,13 +5,13 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Using the logViewer Shiny Module • periscope2</title>
+<title>Theme Configuration Builder • periscope2</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Using the logViewer Shiny Module">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Theme Configuration Builder">
 <meta property="og:description" content="periscope2">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -102,14 +102,14 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Using the logViewer Shiny Module</h1>
+      <h1 data-toc-skip>Theme Configuration Builder</h1>
                         <h4 data-toc-skip class="author">Mohammed
 Ali</h4>
             
             <h4 data-toc-skip class="date">2023-11-27</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/Aggregate-Genius/periscope2/blob/HEAD/vignettes/logViewer-module.Rmd" class="external-link"><code>vignettes/logViewer-module.Rmd</code></a></small>
-      <div class="hidden name"><code>logViewer-module.Rmd</code></div>
+      <small class="dont-index">Source: <a href="https://github.com/Aggregate-Genius/periscope2/blob/HEAD/vignettes/themeBuilder_addin.Rmd" class="external-link"><code>vignettes/themeBuilder_addin.Rmd</code></a></small>
+      <div class="hidden name"><code>themeBuilder_addin.Rmd</code></div>
 
     </div>
 
@@ -118,103 +118,166 @@ Ali</h4>
 <div class="section level2">
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
-<div class="section level3">
-<h3 id="purpose">Purpose<a class="anchor" aria-label="anchor" href="#purpose"></a>
-</h3>
-<p>This <em>Shiny Module</em> displays recorded session logs in tabular
-format</p>
+<p>To help package users in creating valid theme configuration file</p>
 </div>
-<div class="section level3">
-<h3 id="features">Features<a class="anchor" aria-label="anchor" href="#features"></a>
-</h3>
+<div class="section level2">
+<h2 id="add-in-launch">Add-in Launch<a class="anchor" aria-label="anchor" href="#add-in-launch"></a>
+</h2>
+<p>The add-in can be lunched by one of two methods - Call
+<code>periscope2:::themeConfigurationsAddin()</code> function from
+within RStudio console - From RStudio add-ins menu</p>
+<div class="float" id="fig-1">
+<img src="figures/theme_1.png" alt="Add-in Launch"><div class="figcaption">Add-in Launch</div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="add-in-layout">Add-in Layout<a class="anchor" aria-label="anchor" href="#add-in-layout"></a>
+</h2>
 <ul>
-<li>Table contains two columns:
+<li>The add-in will open as web browser tab</li>
+<li>Add-in UI consists of:
 <ul>
-<li>action: describe the recorded action</li>
-<li>time: display action time</li>
+<li>Header</li>
+<li>Body</li>
+<li>Footer</li>
 </ul>
 </li>
-<li>The log files are kept in the /log directory and named
-‘actions.log’. ONE old copy of the log is kept as ’actions.log.last</li>
-<li>Many actions are automatically logged by the framework and it is
-easy for developers to add additional items as they see fit.</li>
-<li>It is important to note that the log rolls over for each session and
-is reset if using the appReset module.</li>
+<li>Add-in header that consists of:
+<ul>
+<li>Cancel/Done buttons: they are default add-ins buttons and their solo
+purpose is to close add-in window
+<ul>
+<li>Upon Clicking on it, the widget add-in will be closed</li>
+</ul>
+</li>
+<li>Done button functionality can be customized but that is not needed
+in this add-in
+<ul>
+<li>Upon Clicking on it, the widget add-in will be closed</li>
+</ul>
+</li>
+<li>Add-in title between the two buttons is: “Theme Configuration YAML
+File Builder”</li>
+</ul>
+</li>
+<li>Add-in body consists of 6 tabs:
+<ul>
+<li>Status Colors</li>
+<li>Sidebar Colors</li>
+<li>Sidebar layout</li>
+<li>Main Colors</li>
+<li>Colors Contrast</li>
+<li>Other Variables</li>
+</ul>
+</li>
+<li>Footer:
+<ul>
+<li>Download button</li>
+</ul>
+</li>
+<li>No mandatory fields</li>
+</ul>
+</div>
+<div class="section level2">
+<h2 id="status-colors-tab">Status Colors Tab<a class="anchor" aria-label="anchor" href="#status-colors-tab"></a>
+</h2>
+<p>periscope2 main theme colors are defined with the following status
+colors, you can use those status in infoBox, valueBox, cards</p>
+<center>
+<img src="figures/theme_2.png" width="600px">
+</center>
+</div>
+<div class="section level2">
+<h2 id="sidebar-colors-tab">Sidebar Colors Tab<a class="anchor" aria-label="anchor" href="#sidebar-colors-tab"></a>
+</h2>
+<p>Sidebar colors variables allow you to change sidebars (left and
+right) related colors</p>
+<center>
+<img src="figures/theme_3.png" width="600px">
+</center>
+</div>
+<div class="section level2">
+<h2 id="sidebar-layout-tab">Sidebar layout Tab<a class="anchor" aria-label="anchor" href="#sidebar-layout-tab"></a>
+</h2>
+<p>Sidebar layout variables allow you to change sidebars (left and
+right) width, padding, …</p>
+<center>
+<img src="figures/theme_4.png" width="600px">
+</center>
+</div>
+<div class="section level2">
+<h2 id="main-colors-tab">Main Colors Tab<a class="anchor" aria-label="anchor" href="#main-colors-tab"></a>
+</h2>
+<p>Template main colors definition</p>
+<center>
+<img src="figures/theme_5.png" width="600px">
+</center>
+</div>
+<div class="section level2">
+<h2 id="colors-contrast-tab">Colors Contrast Tab<a class="anchor" aria-label="anchor" href="#colors-contrast-tab"></a>
+</h2>
+<p>These variables allow to customize color used if contrast between a
+color and its background is under threshold. For example, it’s used to
+choose text color written in bs4ValueBox with background defined by a
+status</p>
+<center>
+<img src="figures/theme_6.png" width="600px">
+</center>
+</div>
+<div class="section level2">
+<h2 id="other-variables-tab">Other Variables Tab<a class="anchor" aria-label="anchor" href="#other-variables-tab"></a>
+</h2>
+<p>This is an advanced method to add customize any more AdminLTE or
+Bootstrap 4 variable in periscope2 generated application theme.</p>
+<ul>
+<li>User can add variables to customize by clicking “Add Variable”
+button</li>
+<li>User can remove added variables by adding remove button for that
+variable</li>
+<li>User can search for the theme variable in the selectize input</li>
 </ul>
 <center>
-<img src="figures/user_action_log.jpg" width="800px">
+<img src="figures/theme_7.png" width="600px">
 </center>
-<p><br></p>
-</div>
+<center>
+<img src="figures/theme_8.png" width="600px">
+</center>
 </div>
 <div class="section level2">
-<h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
+<h2 id="download-button">Download Button<a class="anchor" aria-label="anchor" href="#download-button"></a>
 </h2>
-<div class="section level3">
-<h3 id="shiny-module-overview">Shiny Module Overview<a class="anchor" aria-label="anchor" href="#shiny-module-overview"></a>
-</h3>
-<p>Shiny modules consist of a pair of functions that modularize, or
-package, a small piece of reusable functionality. The UI function is
-called directly by the user to place the UI in the correct location (as
-with other shiny UI objects). The module server function that is called
-only once to set it up using the module name as a function inside the
-server function (i.e. user-local session scope. The first function
-argument is a string that represents the module id (the same id used in
-module UI function). Additional arguments can be supplied by the user
-based on the specific shiny module that is called. There can be
-additional helper functions that are a part of a shiny module.</p>
-<p>The <strong>logViewer</strong> Shiny Module is a part of the
-<em>periscope2</em> package and consists of the following functions:</p>
 <ul>
-<li>
-<strong>logViewerOutput</strong> - the UI function to place the
-button in the</li>
+<li>Function: Download theme configuration yaml file</li>
+<li>Label: “Download”</li>
 </ul>
 </div>
-<div class="section level3">
-<h3 id="logvieweroutput">logViewerOutput<a class="anchor" aria-label="anchor" href="#logvieweroutput"></a>
-</h3>
-<p>The <strong>logViewerOutput</strong> function is called from the
-ui_body.R (or equivalent) file in the location where any other UI
-element (box) can be placed.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Inside ui_body.R</span></span>
-<span></span>
-<span><span class="fu"><a href="../reference/logViewerOutput.html">logViewerOutput</a></span><span class="op">(</span><span class="st">"logViewerId"</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level3">
-<h3 id="sample-application">Sample Application<a class="anchor" aria-label="anchor" href="#sample-application"></a>
-</h3>
-<p>For a complete running shiny example application using the logViewer
-module you can create and run a <em>periscope2</em> sample application
-using:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Aggregate-Genius/periscope2" class="external-link">periscope2</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">app_dir</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/create_application.html">create_application</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">'mysampleapp'</span>, location <span class="op">=</span> <span class="va">app_dir</span>, sample_app <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/runApp.html" class="external-link">runApp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">app_dir</span>, <span class="st">'mysampleapp'</span>, sep <span class="op">=</span> <span class="va">.Platform</span><span class="op">$</span><span class="va">file.sep</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><br></p>
-</div>
+<div class="section level2">
+<h2 id="downloaded-file">Downloaded File<a class="anchor" aria-label="anchor" href="#downloaded-file"></a>
+</h2>
+<p>Name: periscope_style.yaml Format: Value are based on input
+configuration but output is similar to the following</p>
+<center>
+<img src="figures/theme_9.png" width="600px">
+</center>
 </div>
 <div class="section level2">
-<h2 id="additional-resources">Additional Resources<a class="anchor" aria-label="anchor" href="#additional-resources"></a>
+<h2 id="downloaded-configuration-file-usage">Downloaded Configuration File Usage<a class="anchor" aria-label="anchor" href="#downloaded-configuration-file-usage"></a>
 </h2>
-<p><strong>Vignettes</strong></p>
+<p>The generate file is used by putting it inside the generated app www
+folder where it will be located by default</p>
 <ul>
+<li><a href="announcement-module.html">announcement Module</a></li>
+<li><a href="announcement_addin.html">Announcement Configuration
+Builder</a></li>
 <li><a href="new-application.html">New Application</a></li>
 <li><a href="downloadableTable-module.html">downloadableTable
 Module</a></li>
 <li><a href="downloadablePlot-module.html">downloadablePlot
 Module</a></li>
 <li><a href="downloadFile-module.html">downloadFile Module</a></li>
+<li><a href="logViewer-module.html">logViewer Module</a></li>
 <li><a href="applicationReset-module.html">applicationReset
 Module</a></li>
-<li><a href="announcement-module.html">announcement Module</a></li>
-<li><a href="announcement_addin.html">Announcement Configuration
-Builder</a></li>
-<li><a href="themeBuilder_addin.html">Theme Configuration
-Builder</a></li>
 </ul>
 </div>
   </div>
