@@ -1,3 +1,12 @@
+## 0.1.5
+### New Features
+- Introduced application theme configuration file generator RStudio add-in
+
+### Enhancements
+- Allowed header to have navbar menu
+
+-----
+
 ## 0.1.4
 ### New Features
 - Introduced Announcements configuration file generator RStudio add-in
