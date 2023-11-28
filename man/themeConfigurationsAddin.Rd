@@ -10,8 +10,8 @@ themeConfigurationsAddin()
 launch gadget window
 }
 \description{
-Call this as an addin to build valid yaml file that is needed for creating/updating application
-periscope_style.yaml file. The generated file can be used in periscope2 app using \link[periscope2]{set_app_parameters}.
+Call this as an addin to build valid yaml file that is needed for creating application
+periscope_style.yaml file. The generated file can be used in periscope2 app ny putting it inside generated app www folder.
 }
 \details{
 The method can be called directly via `R` console or via RStudio addins menu
@@ -23,5 +23,5 @@ if (interactive()) {
 
 }
 \seealso{
-\link[periscope2:set_app_parameters]{periscope2:set_app_parameters()}
+\link[periscope2:create_application]{periscope2:create_application()}
 }

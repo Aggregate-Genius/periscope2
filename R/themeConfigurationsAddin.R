@@ -1,7 +1,7 @@
 #' Build application theme configuration YAML file
 #'
-#' Call this as an addin to build valid yaml file that is needed for creating/updating application
-#' periscope_style.yaml file. The generated file can be used in periscope2 app using \link[periscope2]{set_app_parameters}.
+#' Call this as an addin to build valid yaml file that is needed for creating application
+#' periscope_style.yaml file. The generated file can be used in periscope2 app ny putting it inside generated app www folder.
 #'
 #' The method can be called directly via `R` console or via RStudio addins menu
 #'
@@ -12,7 +12,7 @@
 #'    periscope2:::themeConfigurationsAddin()
 #' }
 #'
-#' @seealso \link[periscope2:set_app_parameters]{periscope2:set_app_parameters()}
+#' @seealso \link[periscope2:create_application]{periscope2:create_application()}
 #'
 #' @export
 themeConfigurationsAddin <- function() {
@@ -157,6 +157,7 @@ themeBuilder_addin_UI <- function() {
                 "Sidebars Layout",
                 miniUI::miniContentPanel(
                     shiny::p("Sidebar layout variables allow you to change sidebars (left and right) width, padding, ...",
+                             shiny::tags$br(),
                              shiny::tags$i("All units are in pixels")),
                     stableColumnLayout(shiny::numericInput(inputId = "sidebar_width",
                                                            label   = "Left Sidebar Width",
@@ -178,7 +179,7 @@ themeBuilder_addin_UI <- function() {
             miniUI::miniTabPanel(
                 "Main Colors",
                 miniUI::miniContentPanel(
-                    shiny::p("Templates main colors definition"),
+                    shiny::p("Template main colors definition"),
                     stableColumnLayout(colourpicker::colourInput(inputId          = "blue",
                                                                  label            = "Blue",
                                                                  showColour       = "both",
