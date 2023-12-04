@@ -647,11 +647,11 @@ test_that("add_ui_header - url title", {
 
 
 test_that("create alert - id and target error", {
-    expect_error(createAlert(id = "test_id", selector = "test_selector", options = NULL),
+    expect_error(createPSAlert(id = "test_id", selector = "test_selector", options = NULL),
                  regexp = "Please choose either target or selector!")
 })
 
 
 test_that("create alert - id", {
-    expect_snapshot_output(createAlert(id = "test_id", session = MockShinySession$new(), options = NULL))
+    expect_snapshot_output(createPSAlert(id = "test_id", session = MockShinySession$new(), options = NULL))
 })

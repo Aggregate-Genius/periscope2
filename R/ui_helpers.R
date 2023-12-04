@@ -360,9 +360,9 @@ add_ui_body <- function(body_elements = NULL, append = FALSE) {
 #'
 #' @export
 createPSAlert <- function(session  = shiny::getDefaultReactiveDomain(),
-                        id       = NULL,
-                        selector = NULL,
-                        options) {
+                          id       = NULL,
+                          selector = NULL,
+                          options) {
     if (!is.null(id) && !is.null(selector)) {
         stop("Please choose either target or selector!")
     }

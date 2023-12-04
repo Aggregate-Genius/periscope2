@@ -16,6 +16,11 @@
 #'
 #' @export
 announcementConfigurationsAddin <- function() {
+    if (!requireNamespace("miniUI", quietly = TRUE)) {
+        stop("You must have package 'miniUI' installed to use this add-in",
+             call. = FALSE)
+    }
+
     shiny::runGadget(app    = announcement_addin_UI(),
                      server = function(input, output, session){
                          announcement_addin_server()

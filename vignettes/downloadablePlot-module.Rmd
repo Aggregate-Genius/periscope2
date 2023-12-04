@@ -148,3 +148,4 @@ downloadablePlot(id           = "object_id1",
 * [applicationReset Module](applicationReset-module.html)
 * [announcement Module](announcement-module.html)
 * [Announcement Configuration Builder](announcement_addin.html)
+* [Theme Configuration Builder](themeBuilder_addin.html)

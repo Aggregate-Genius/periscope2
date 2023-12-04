@@ -1,0 +1,114 @@
+---
+title: "Theme Configuration Builder"
+author: "Mohammed Ali"
+date: "`r Sys.Date()`"
+output: 
+    rmarkdown::html_vignette:
+        toc: TRUE
+        toc_depth: 3
+vignette: >
+  %\VignetteIndexEntry{Theme Configuration Builder}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+## Overview
+
+To help package users in creating valid theme configuration file
+
+## Add-in Launch
+
+The add-in can be lunched by one of two methods
+- Call `periscope2:::themeConfigurationsAddin()` function from within RStudio console
+- From RStudio add-ins menu
+
+![Add-in Launch](figures/theme_1.png){#fig-1}
+
+
+## Add-in Layout
+
+- The add-in will open as web browser tab
+- Add-in UI consists of:
+  - Header
+  - Body
+  - Footer
+- Add-in header that consists of:
+  - Cancel/Done buttons: they are default add-ins buttons and their solo purpose is to close add-in window
+    - Upon Clicking on it, the widget add-in will be closed
+  - Done button functionality can be customized but that is not needed in this add-in
+    - Upon Clicking on it, the widget add-in will be closed
+  - Add-in title between the two buttons is: "Theme Configuration YAML File Builder"
+- Add-in body consists of 6 tabs:
+  - Status Colors
+  - Sidebar Colors
+  - Sidebar layout
+  - Main Colors
+  - Colors Contrast
+  - Other Variables
+- Footer:
+  - Download button
+- No mandatory fields
+
+## Status Colors Tab
+
+periscope2 main theme colors are defined with the following status colors, you can use those status in infoBox, valueBox, cards
+
+<center><img src="figures/theme_2.png" width="600px"></center>
+
+## Sidebar Colors Tab
+
+Sidebar colors variables allow you to change sidebars (left and right) related colors
+
+<center><img src="figures/theme_3.png" width="600px"></center>
+
+## Sidebar layout Tab
+
+Sidebar layout variables allow you to change sidebars (left and right) width, padding, ...
+
+<center><img src="figures/theme_4.png" width="600px"></center>
+
+## Main Colors Tab
+
+Template main colors definition
+
+<center><img src="figures/theme_5.png" width="600px"></center>
+
+## Colors Contrast Tab
+
+These variables allow to customize color used if contrast between a color and its background is under threshold. For example, it's used to choose text color written in bs4ValueBox with background defined by a status
+
+<center><img src="figures/theme_6.png" width="600px"></center>
+
+## Other Variables Tab
+
+This is an advanced method to add customize any more AdminLTE or Bootstrap 4 variable in periscope2 generated application theme.
+
+- User can add variables to customize by clicking "Add Variable" button
+- User can remove added variables by adding remove button for that variable
+- User can search for the theme variable in the selectize input
+
+<center><img src="figures/theme_7.png" width="600px"></center>
+<center><img src="figures/theme_8.png" width="600px"></center>
+
+## Download Button
+
+- Function: Download theme configuration yaml file
+- Label: "Download"
+
+## Downloaded File
+Name: periscope_style.yaml
+Format: Value are based on input configuration but output is similar to the following
+
+<center><img src="figures/theme_9.png" width="600px"></center>
+
+## Downloaded Configuration File Usage
+The generate file is used by putting it inside the generated app www folder where it will be located by default
+
+* [announcement Module](announcement-module.html)
+* [Announcement Configuration Builder](announcement_addin.html)
+* [New Application](new-application.html)
+* [downloadableTable Module](downloadableTable-module.html)
+* [downloadablePlot Module](downloadablePlot-module.html)
+* [downloadFile Module](downloadFile-module.html)
+* [logViewer Module](logViewer-module.html)
+* [applicationReset Module](applicationReset-module.html)
