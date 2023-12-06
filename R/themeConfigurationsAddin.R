@@ -336,7 +336,7 @@ themeBuilder_addin_UI <- function() {
             )
         ),
         stableColumnLayout(
-            shiny::tags$div(style = "margin-top: 15px;",
+            miniUI::miniButtonBlock(
                         shiny::downloadButton(outputId = "downloadConfig",
                                               label    = periscope2::ui_tooltip(id    = "downloadTip",
                                                                                 label = "Download periscope2 theme",
