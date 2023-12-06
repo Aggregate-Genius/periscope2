@@ -544,7 +544,7 @@ ui_tooltip <- function(id,
 
    shiny::span(class = "periscope-input-label-with-tt",
                label,
-               bs4Dash::tooltip(shiny::img(id     = id,
+               tooltip(shiny::img(id     = id,
                                            src    = shiny::isolate(.g_opts$tt_image),
                                            height = shiny::isolate(.g_opts$tt_height),
                                            width  = shiny::isolate(.g_opts$tt_width)),
@@ -672,3 +672,38 @@ get_url_parameters <- function(session) {
 
     parameters
 }
+
+
+# Override bs4Dash tooltip function to allow html handling in tooltips
+tooltip <- function(tag, title, placement = c("top", "bottom", "left", "right")) {
+    placement <- match.arg(placement)
+
+    tag <- shiny::tagAppendAttributes(
+        tag,
+        `data-toggle`    = "tooltip",
+        `data-placement` = placement,
+        title            = title,
+        `data-html`      = "true"
+    )
+
+    tagId <- tag$attribs$id
+
+    shiny::tagList(
+        shiny::singleton(
+            shiny::tags$head(
+                shiny::tags$script(
+                    sprintf(
+                        "$(function () {
+              // enable tooltip
+              $('#%s').tooltip();
+            });
+            ",
+                        tagId
+                    )
+                )
+            )
+        ),
+        tag
+    )
+}
+
