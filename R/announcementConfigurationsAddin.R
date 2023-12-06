@@ -102,11 +102,11 @@ announcement_addin_UI <- function() {
                     placeholder = "Announcement Text")
             ),
             stableColumnLayout(
-                shiny::downloadButton(outputId = "downloadConfig",
-                                      disabled = TRUE,
-                                      label    = periscope2::ui_tooltip(id    = "downloadTip",
-                                                                        label = "Download",
-                                                                        text  = "Download announcement configuration file"))
+                miniUI::miniButtonBlock(shiny::downloadButton(outputId = "downloadConfig",
+                                                              disabled = TRUE,
+                                                              label    = periscope2::ui_tooltip(id    = "downloadTip",
+                                                                                                label = "Download",
+                                                                                                text  = "Download announcement configuration file")))
             )
         )
     )
