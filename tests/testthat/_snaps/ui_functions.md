@@ -349,7 +349,7 @@
                     </div>
                   </div>
                   <div class="col-sm-4">
-                    <div id="app_header">Set using set_app_parameters() in program/global.R</div>
+                    <div id="app_header">good title</div>
                   </div>
                   <div class="col-sm-4"></div>
                 </div>
