@@ -38,8 +38,7 @@ themeBuilder_addin_UI <- function() {
             miniUI::miniTabPanel(
                 "Status Colors",
                 miniUI::miniContentPanel(
-                    shiny::p("periscope2 main theme colors are defined with the following status colors,
-                             you can use those status in infoBox, valueBox, cards"),
+                    shiny::p("Specify the colors to used when the corresponding status argument in shiny UI elements such as infoBox, valueBox, cards are set."),
                     stableColumnLayout(
                         colourpicker::colourInput(inputId          = "primary",
                                                   label            = "Primary",
@@ -179,7 +178,7 @@ themeBuilder_addin_UI <- function() {
             miniUI::miniTabPanel(
                 "Main Colors",
                 miniUI::miniContentPanel(
-                    shiny::p("Template main colors definition"),
+                    shiny::p("Customize main colors definition based on your needs"),
                     stableColumnLayout(colourpicker::colourInput(inputId          = "blue",
                                                                  label            = "Blue",
                                                                  showColour       = "both",
@@ -340,7 +339,7 @@ themeBuilder_addin_UI <- function() {
                 shiny::downloadButton(outputId = "downloadConfig",
                                       label    = periscope2::ui_tooltip(id    = "downloadTip",
                                                                         label = "Download periscope2 theme",
-                                                                        text  = "Download theme configuration file")))
+                                                                        text  = "Download theme configuration file and replace the file in the generated periscope app shiny_app/www folder")))
         )
     )
 }
