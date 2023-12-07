@@ -1,4 +1,4 @@
-## 0.1.5
+## 0.2.0
 ### New Features
 - Introduced application theme configuration file generator RStudio add-in
 
@@ -7,7 +7,7 @@
 - Renamed `createAlert` method to be `createPSAlert` to:
   - Avoid confusion with `bs4Dash::createAlert` method
   - Display alert with status icon correctly when there is no alert title
-- Allowed html tags inside tooltip function
+- Allowed html tags inside tooltip function 
 -----
 
 ## 0.1.4
