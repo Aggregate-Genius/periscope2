@@ -171,14 +171,19 @@ themeBuilder_addin_UI <- function() {
                                                            label   = "Sidebar Vertical Padding",
                                                            value   = NA)),
                     stableColumnLayout(shiny::numericInput(inputId = "sidebar_mini_width",
-                                                           label   = "Width for mini sidebar",
+                                                           label   = periscope2::ui_tooltip(id        = "textTip",
+                                                                                            label     = "Width for mini sidebar",
+                                                                                            text      = paste("Left sidebar can be minimized to show menu icons (and not to be fully collapsed).",
+                                                                                                              "That property controls the width of the minimized sidebar.",
+                                                                                                              sep = "<br/><br/>"),
+                                                                                            placement = "bottom"),
                                                            value   = NA))
                 )
             ),
             miniUI::miniTabPanel(
                 "Main Colors",
                 miniUI::miniContentPanel(
-                    shiny::p("Customize main colors definition based on your needs"),
+                    shiny::p("Specify the specific hex codes for the following color words that can be referenced In the app."),
                     stableColumnLayout(colourpicker::colourInput(inputId          = "blue",
                                                                  label            = "Blue",
                                                                  showColour       = "both",
