@@ -319,7 +319,7 @@ themeBuilder_addin_UI <- function() {
             miniUI::miniTabPanel(
                 "Other Variables",
                 miniUI::miniContentPanel(
-                    shiny::p("This is an advanced method to add customize any more AdminLTE",
+                    shiny::p("This is an advanced method to add or customize any more AdminLTE",
                              " or Bootstrap 4 variable in periscope2 generated application theme."),
                     shiny::tags$i("Please refer to ",
                                   shiny::tags$a(href   = "https://adminlte.io/docs/3.2/",
