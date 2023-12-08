@@ -86,7 +86,7 @@ themeBuilder_addin_UI <- function() {
                 )
             ),
             miniUI::miniTabPanel(
-                "Sidebars Colors",
+                "Sidebar Colors",
                 miniUI::miniContentPanel(
                     shiny::p("Sidebar colors variables allow you to change sidebars (left and right) related colors"),
                     shiny::tags$i("Use value \"#00000000\" to reset back to original theme default color"),
@@ -153,7 +153,7 @@ themeBuilder_addin_UI <- function() {
                 )
             ),
             miniUI::miniTabPanel(
-                "Sidebars Layout",
+                "Sidebar Layout",
                 miniUI::miniContentPanel(
                     shiny::p("Sidebar layout variables allow you to change sidebars (left and right) width, padding, ...",
                              shiny::tags$br(),
@@ -504,7 +504,7 @@ themeBuilder_addin_server <- function(id = NULL) {
                             lines <- c(lines, "\n")
                         }
 
-                        sidebar_colors <- c("# Sidebars Colors",
+                        sidebar_colors <- c("# Sidebar Colors",
                                             "## Sidebar colors variables allow you to change sidebars (left and right) related colors",
                                             "## Blank/empty values will use the default values",
                                             sidebar_colors)
@@ -542,7 +542,7 @@ themeBuilder_addin_server <- function(id = NULL) {
                             lines <- c(lines, "\n")
                         }
 
-                        sidebar_layout <- c("# Sidebars Layout",
+                        sidebar_layout <- c("# Sidebar Layout",
                                             "## Sidebar colors variables allow you to change sidebars (left and right) related colors",
                                             "## Blank/empty values will use the default values",
                                             sidebar_layout)
