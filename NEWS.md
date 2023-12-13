@@ -1,13 +1,14 @@
 ## 0.2.0
 ### New Features
 - Introduced application theme configuration file generator RStudio add-in
+- Enabled full usage of bootstrap4 variables customization in `periscope_style.yaml` (refer to [Migrate periscope2 applications to v0.1.5](migrate_to_v0_1_5.html) document
 
 ### Enhancements
 - Allowed header to have navbar menu
-- Renamed `createAlert` method to be `createPSAlert` to:
-  - Avoid confusion with `bs4Dash::createAlert` method
-  - Display alert with status icon correctly when there is no alert title
-- Allowed html tags inside tooltip function 
+- Renamed `createAlert` method to be `createPSAlert` to avoid confusion with `bs4Dash::createAlert` (refer to [Migrate periscope2 applications to v0.1.5](migrate_to_v0_1_5.html) document
+- Display alert with status icon correctly when there is no alert title
+- Allowed html tags inside tooltip function
+
 -----
 
 ## 0.1.4
