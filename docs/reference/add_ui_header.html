@@ -18,7 +18,7 @@ These elements will be displayed in the header beside application title and appl
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">periscope2</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.5.9002</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.0.9001</span>
       </span>
     </div>
 
@@ -92,6 +92,7 @@ These elements will be displayed in the header beside application title and appl
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">add_ui_header</span><span class="op">(</span></span>
 <span>  ui_elements <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  ui_position <span class="op">=</span> <span class="st">"right"</span>,</span>
+<span>  title <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  title_position <span class="op">=</span> <span class="st">"center"</span>,</span>
 <span>  left_menu <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  right_menu <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -115,6 +116,11 @@ Check <code>?bs4Dash::navbarMenu()</code></p></dd>
 <dt>ui_position</dt>
 <dd><p>- Location of UI elements in the header. Must be either of 'center', 'left' or 'right'
 Default value is 'right'.</p></dd>
+
+
+<dt>title</dt>
+<dd><p>- Sets application title. If it is not NULL, it will override "title" value that is set in
+<code>?periscope2::set_app_parameters()</code> (default = NULL)</p></dd>
 
 
 <dt>title_position</dt>
@@ -180,6 +186,7 @@ Check <code>?bs4Dash::bs4DropdownMenu()</code></p></dd>
     <div id="see-also">
     <h2>See also</h2>
     <div class="dont-index"><p><a href="https://rdrr.io/pkg/bs4Dash/man/dashboardHeader.html" class="external-link">bs4Dash:bs4DashNavbar()</a></p>
+<p><a href="set_app_parameters.html">periscope2:set_app_parameters()</a></p>
 <p><a href="add_ui_footer.html">periscope2:add_ui_footer()</a></p>
 <p><a href="add_ui_left_sidebar.html">periscope2:add_ui_left_sidebar()</a></p>
 <p><a href="add_ui_body.html">periscope2:add_ui_body()</a></p>
