@@ -5,13 +5,13 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Using the logViewer Shiny Module • periscope2</title>
+<title>Migrate periscope2 applications to v 0.1.5 • periscope2</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Using the logViewer Shiny Module">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Migrate periscope2 applications to v 0.1.5">
 <meta property="og:description" content="periscope2">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -105,120 +105,109 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Using the logViewer Shiny Module</h1>
-                        <h4 data-toc-skip class="author">Mohammed
-Ali</h4>
+      <h1 data-toc-skip>Migrate periscope2 applications to v 0.1.5</h1>
             
-            <h4 data-toc-skip class="date">2023-12-13</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/Aggregate-Genius/periscope2/blob/HEAD/vignettes/logViewer-module.Rmd" class="external-link"><code>vignettes/logViewer-module.Rmd</code></a></small>
-      <div class="hidden name"><code>logViewer-module.Rmd</code></div>
+      <small class="dont-index">Source: <a href="https://github.com/Aggregate-Genius/periscope2/blob/HEAD/vignettes/migrate_to_v0_1_5.Rmd" class="external-link"><code>vignettes/migrate_to_v0_1_5.Rmd</code></a></small>
+      <div class="hidden name"><code>migrate_to_v0_1_5.Rmd</code></div>
 
     </div>
 
     
     
 <div class="section level2">
-<h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
+<h2 id="objective">Objective<a class="anchor" aria-label="anchor" href="#objective"></a>
 </h2>
-<div class="section level3">
-<h3 id="purpose">Purpose<a class="anchor" aria-label="anchor" href="#purpose"></a>
-</h3>
-<p>This <em>Shiny Module</em> displays recorded session logs in tabular
-format</p>
+<p>Explain the steps to migrate a periscope2 generated applications with
+periscope2 prior to v 0.1.5 to use new/updated features of periscope2
+v.1.5</p>
 </div>
-<div class="section level3">
-<h3 id="features">Features<a class="anchor" aria-label="anchor" href="#features"></a>
-</h3>
+<div class="section level2">
+<h2 id="header-navbar">Header Navbar<a class="anchor" aria-label="anchor" href="#header-navbar"></a>
+</h2>
 <ul>
-<li>Table contains two columns:
+<li>Now header is divided into 3 elements:
 <ul>
-<li>action: describe the recorded action</li>
-<li>time: display action time</li>
+<li>Working in progress element</li>
+<li>Header title</li>
+<li>UI elements as menu bar</li>
 </ul>
 </li>
-<li>The log files are kept in the /log directory and named
-‘actions.log’. ONE old copy of the log is kept as ’actions.log.last</li>
-<li>Many actions are automatically logged by the framework and it is
-easy for developers to add additional items as they see fit.</li>
-<li>It is important to note that the log rolls over for each session and
-is reset if using the appReset module.</li>
+<li>New functions params:
+<ul>
+<li>ui_elements</li>
+<li>ui_position</li>
+<li>title: it will override the title param in set_app_parameters
+function in program/global.R</li>
+<li>title position</li>
 </ul>
-<center>
-<img src="figures/user_action_log.jpg" width="800px">
-</center>
-<p><br></p>
-</div>
+</li>
+<li>CSS changes This update to be added to already created apps</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode css"><code class="sourceCode css"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">.periscope-busy-ind</span> {</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>    <span class="kw">height</span>: <span class="dv">100</span><span class="dt">%</span><span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>    <span class="kw">display</span>: <span class="dv">inline-flex</span><span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>    <span class="kw">align-items</span>: <span class="dv">center</span><span class="op">;</span></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>}</span></code></pre></div>
+<style type="text/css">
+.periscope-busy-ind {
+    height: 100%;
+    display: inline-flex;
+    align-items: center;
+}
+</style>
 </div>
 <div class="section level2">
-<h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
+<h2 id="periscope_style-yaml">periscope_style.yaml<a class="anchor" aria-label="anchor" href="#periscope_style-yaml"></a>
 </h2>
-<div class="section level3">
-<h3 id="shiny-module-overview">Shiny Module Overview<a class="anchor" aria-label="anchor" href="#shiny-module-overview"></a>
-</h3>
-<p>Shiny modules consist of a pair of functions that modularize, or
-package, a small piece of reusable functionality. The UI function is
-called directly by the user to place the UI in the correct location (as
-with other shiny UI objects). The module server function that is called
-only once to set it up using the module name as a function inside the
-server function (i.e. user-local session scope. The first function
-argument is a string that represents the module id (the same id used in
-module UI function). Additional arguments can be supplied by the user
-based on the specific shiny module that is called. There can be
-additional helper functions that are a part of a shiny module.</p>
-<p>The <strong>logViewer</strong> Shiny Module is a part of the
-<em>periscope2</em> package and consists of the following functions:</p>
 <ul>
-<li>
-<strong>logViewerOutput</strong> - the UI function to place the
-button in the</li>
+<li>Now periscope_style can be generated directly from <a href="themeBuilder_addin.html">theme configuration addin
+Add-ins</a>
+</li>
+<li>The generated file now contains bootstrap 4 variables names directly
+to be able to manage all available variables</li>
+<li>The following variables will be the same and no change in them:
+<ul>
+<li>primary, secondary, success, info, warning, danger, light and
+dark</li>
 </ul>
-</div>
-<div class="section level3">
-<h3 id="logvieweroutput">logViewerOutput<a class="anchor" aria-label="anchor" href="#logvieweroutput"></a>
-</h3>
-<p>The <strong>logViewerOutput</strong> function is called from the
-ui_body.R (or equivalent) file in the location where any other UI
-element (box) can be placed.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Inside ui_body.R</span></span>
-<span></span>
-<span><span class="fu"><a href="../reference/logViewerOutput.html">logViewerOutput</a></span><span class="op">(</span><span class="st">"logViewerId"</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level3">
-<h3 id="sample-application">Sample Application<a class="anchor" aria-label="anchor" href="#sample-application"></a>
-</h3>
-<p>For a complete running shiny example application using the logViewer
-module you can create and run a <em>periscope2</em> sample application
-using:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Aggregate-Genius/periscope2" class="external-link">periscope2</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">app_dir</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/create_application.html">create_application</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">'mysampleapp'</span>, location <span class="op">=</span> <span class="va">app_dir</span>, sample_app <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/runApp.html" class="external-link">runApp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">app_dir</span>, <span class="st">'mysampleapp'</span>, sep <span class="op">=</span> <span class="va">.Platform</span><span class="op">$</span><span class="va">file.sep</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><br></p>
-</div>
+</li>
+<li>The following are the mapping between old periscope_style.yaml file
+keys and new used keys:
+<ul>
+<li>sidebar_width -&gt; sidebar_width</li>
+<li>sidebar_horizontal_padding -&gt; sidebar_padding_x</li>
+<li>sidebar_vertical_padding -&gt;sidebar_padding_y</li>
+<li>sidebar_mini_width -&gt; sidebar_mini_width</li>
+<li>right_sidebar_width -&gt; control_sidebar_width</li>
+<li>main_content_horizontal_padding -&gt; “content-padding-x”</li>
+<li>main_content_vertical_padding -&gt; “content-padding-y”</li>
+<li>main_background_color -&gt;“main-bg”</li>
+<li>sidebar_background_color -&gt; bg</li>
+<li>sidebar_background_hover_color -&gt; hover_bg</li>
+<li>sidebar_hover_color -&gt; hover_color</li>
+<li>sidebar_color -&gt; color</li>
+<li>sidebar_active_color -&gt; active_color</li>
+<li>submenu_background_color -&gt; submenu_bg</li>
+<li>submenu_color -&gt; submenu_color</li>
+<li>submenu_hover_color -&gt; submenu_hover_color</li>
+<li>submenu_background_hover_color -&gt; submenu_hover_bg</li>
+<li>submenu_active_color -&gt; submenu_active_color</li>
+<li>submenu_active_background_color -&gt; submenu_active_bg</li>
+<li>header_color -&gt; “navbar-light-color”</li>
+<li>button_background_color -&gt; “button-default-background-color”</li>
+<li>button_color -&gt; “button-default-color”</li>
+<li>button_border_color -&gt; “button-default-border-color”</li>
+</ul>
+</li>
+</ul>
 </div>
 <div class="section level2">
-<h2 id="additional-resources">Additional Resources<a class="anchor" aria-label="anchor" href="#additional-resources"></a>
+<h2 id="periscope-alert">periscope Alert<a class="anchor" aria-label="anchor" href="#periscope-alert"></a>
 </h2>
-<p><strong>Vignettes</strong></p>
-<ul>
-<li><a href="new-application.html">New Application</a></li>
-<li><a href="downloadableTable-module.html">downloadableTable
-Module</a></li>
-<li><a href="downloadablePlot-module.html">downloadablePlot
-Module</a></li>
-<li><a href="downloadFile-module.html">downloadFile Module</a></li>
-<li><a href="applicationReset-module.html">applicationReset
-Module</a></li>
-<li><a href="announcement-module.html">announcement Module</a></li>
-<li><a href="announcement_addin.html">Announcement Configuration
-Builder</a></li>
-<li><a href="themeBuilder_addin.html">Theme Configuration
-Builder</a></li>
-</ul>
+<p>In generated applications change: -
+<code><a href="https://rdrr.io/pkg/bs4Dash/man/alert.html" class="external-link">periscope2::createAlert</a></code> to only <code>createPSAlert</code>
+with the same parameters</p>
 </div>
   </div>
 
