@@ -1,5 +1,5 @@
 ---
-title: "Migrate periscope2 applications to v 0.1.5"
+title: "Migrate periscope2 applications to v0.1.5"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Migrate periscope2 applications to v 0.1.5}
