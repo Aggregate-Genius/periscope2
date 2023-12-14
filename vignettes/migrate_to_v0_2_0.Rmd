@@ -13,7 +13,7 @@ Explain the steps to migrate a periscope2 generated applications with periscope2
 
 ## Header Navbar
 
-- Now header is divided into 3 elements:
+- Now the header is divided into 3 elements:
   - Working in progress element
   - Header title
   - UI elements as menu bar
@@ -37,7 +37,7 @@ This update to be added to already created apps
 
 - Now periscope_style can be generated directly from [theme configuration addin Add-ins](themeBuilder_addin.html)
 - The generated file now contains bootstrap 4 variables names directly to be able to manage all available variables
-- The following variables will be the same and no change in them:
+- The following variables will be the same:
   - primary, secondary, success, info, warning, danger, light and dark
 - The following are the mapping between old periscope_style.yaml file keys and new used keys:
   - sidebar_width -> sidebar_width
@@ -63,6 +63,7 @@ This update to be added to already created apps
   - button_background_color -> "button-default-background-color"
   - button_color -> "button-default-color"
   - button_border_color -> "button-default-border-color"
+- Use [theme configuration addin Add-ins](themeBuilder_addin.html) to generate a periscope_style.yaml file with the above keys
 
 ## periscope Alert
 In generated applications change:

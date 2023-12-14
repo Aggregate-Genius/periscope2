@@ -183,7 +183,7 @@ themeBuilder_addin_UI <- function() {
             miniUI::miniTabPanel(
                 "Main Colors",
                 miniUI::miniContentPanel(
-                    shiny::p("Specify the specific hex codes for the following color words that can be referenced In the app."),
+                    shiny::p("Specify the specific hex codes for the following color words that can be referenced in the app."),
                     stableColumnLayout(colourpicker::colourInput(inputId          = "blue",
                                                                  label            = "Blue",
                                                                  showColour       = "both",
@@ -633,7 +633,7 @@ themeBuilder_addin_server <- function(id = NULL) {
                         }
 
                         main_colors <- c("# Main Colors",
-                                         "## Specify the specific hex codes for the following color words that can be referenced In the app.", main_colors)
+                                         "## Specify the specific hex codes for the following color words that can be referenced in the app.", main_colors)
                         lines <- c(lines, main_colors)
                     }
 
