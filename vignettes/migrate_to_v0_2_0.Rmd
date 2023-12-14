@@ -1,15 +1,15 @@
 ---
-title: "Migrate periscope2 applications to v0.1.5"
+title: "Migrate periscope2 applications to v0.2.0"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Migrate periscope2 applications to v 0.1.5}
+  %\VignetteIndexEntry{Migrate periscope2 applications to v0.2.0}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
 ## Objective
 
-Explain the steps to migrate a periscope2 generated applications with periscope2 prior to v 0.1.5 to use new/updated features of periscope2 v.1.5
+Explain the steps to migrate a periscope2 generated applications with periscope2 prior to v0.2.0 to use new/updated features of periscope2 v0.2.0
 
 ## Header Navbar
 
