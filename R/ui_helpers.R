@@ -545,11 +545,11 @@ ui_tooltip <- function(id,
    shiny::span(class = "periscope-input-label-with-tt",
                label,
                tooltip(shiny::img(id     = id,
-                                           src    = shiny::isolate(.g_opts$tt_image),
-                                           height = shiny::isolate(.g_opts$tt_height),
-                                           width  = shiny::isolate(.g_opts$tt_width)),
-                                title     = text,
-                                placement = placement))
+                                  src    = shiny::isolate(.g_opts$tt_image),
+                                  height = shiny::isolate(.g_opts$tt_height),
+                                  width  = shiny::isolate(.g_opts$tt_width)),
+                       title     = text,
+                       placement = placement))
 }
 
 
