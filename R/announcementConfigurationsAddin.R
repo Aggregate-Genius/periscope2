@@ -46,7 +46,8 @@ announcement_addin_UI <- function() {
                                                      label     = "Start Date",
                                                      text      = paste("First date the announcement will be shown in the application.",
                                                                        "Missing or blank value indicates that the announcement will show immediately.",
-                                                                       "Both missing or blank start and end values indicates that the announcement will be always be on."),
+                                                                       "Both missing or blank start and end values indicates that the announcement will be always be on.",
+                                                                       sep = "<br/><br/>"),
                                                      placement = "bottom"),
                     minDate = Sys.Date()),
                 shinyWidgets::airDatepickerInput(
@@ -56,7 +57,8 @@ announcement_addin_UI <- function() {
                                                      label     = "End Date",
                                                      text      = paste("Last date the announcement will be shown in the application.",
                                                                        "Missing or blank value indicates that the announcement will be shown indefinitely",
-                                                                       "Both missing or blank start and end values indicates that the announcement will be always be on."),
+                                                                       "Both missing or blank start and end values indicates that the announcement will be always be on.",
+                                                                       sep = "<br/><br/>"),
                                                      placement = "bottom"),
                     minDate = Sys.Date())),
             stableColumnLayout(
@@ -66,7 +68,8 @@ announcement_addin_UI <- function() {
                     label   = periscope2::ui_tooltip(id        = "autoCloseTip",
                                                      label     = "Close after (sec)",
                                                      text      = paste("Time, in seconds, to auto close announcement banner after that time elapsed",
-                                                                       "Leave value blank or zero to leave announcement bar open until user closes it manually."),
+                                                                       "Leave value blank or zero to leave announcement bar open until user closes it manually.",
+                                                                       sep = "<br/><br/>"),
                                                      placement = "bottom"),
                     value   = 30,
                     min     = 0,
@@ -102,11 +105,11 @@ announcement_addin_UI <- function() {
                     placeholder = "Announcement Text")
             ),
             stableColumnLayout(
-                shiny::downloadButton(outputId = "downloadConfig",
-                                      disabled = TRUE,
-                                      label    = periscope2::ui_tooltip(id    = "downloadTip",
-                                                                        label = "Download",
-                                                                        text  = "Download announcement configuration file"))
+                miniUI::miniButtonBlock(shiny::downloadButton(outputId = "downloadConfig",
+                                                              disabled = TRUE,
+                                                              label    = periscope2::ui_tooltip(id    = "downloadTip",
+                                                                                                label = "Download",
+                                                                                                text  = "Download announcement configuration file")))
             )
         )
     )

@@ -7,6 +7,7 @@
 add_ui_header(
   ui_elements = NULL,
   ui_position = "right",
+  title = NULL,
   title_position = "center",
   left_menu = NULL,
   right_menu = NULL,
@@ -25,6 +26,9 @@ Check \code{?bs4Dash::navbarMenu()}}
 
 \item{ui_position}{- Location of UI elements in the header. Must be either of 'center', 'left' or 'right'
 Default value is 'right'.}
+
+\item{title}{- Sets application title. If it is not NULL, it will override "title" value that is set in
+\code{?periscope2::set_app_parameters()} (default = NULL)}
 
 \item{title_position}{- Location of the title in the header. Must be either of 'center', 'left' or 'right'
 Default value is 'Center'. If there are no UI elements, this param will be ignored.}
@@ -98,6 +102,8 @@ Call this function from \code{program/ui_header.R} to set header parameters
 }
 \seealso{
 \link[bs4Dash:bs4DashNavbar]{bs4Dash:bs4DashNavbar()}
+
+\link[periscope2:set_app_parameters]{periscope2:set_app_parameters()}
 
 \link[periscope2:add_ui_footer]{periscope2:add_ui_footer()}
 

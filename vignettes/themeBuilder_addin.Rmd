@@ -14,11 +14,11 @@ vignette: >
 
 ## Overview
 
-To help package users in creating valid theme configuration file
+To help package users in creating valid theme configuration file.
 
 ## Add-in Launch
 
-The add-in can be lunched by one of two methods
+The add-in can be launched by one of two methods
 - Call `periscope2:::themeConfigurationsAddin()` function from within RStudio console
 - From RStudio add-ins menu
 
@@ -33,7 +33,7 @@ The add-in can be lunched by one of two methods
   - Body
   - Footer
 - Add-in header that consists of:
-  - Cancel/Done buttons: they are default add-ins buttons and their solo purpose is to close add-in window
+  - Cancel/Done buttons: they are default add-ins buttons and their sole purpose is to close add-in window
     - Upon Clicking on it, the widget add-in will be closed
   - Done button functionality can be customized but that is not needed in this add-in
     - Upon Clicking on it, the widget add-in will be closed
@@ -81,7 +81,7 @@ These variables allow to customize color used if contrast between a color and it
 
 ## Other Variables Tab
 
-This is an advanced method to add customize any more AdminLTE or Bootstrap 4 variable in periscope2 generated application theme.
+This is an advanced method to add or customize any more AdminLTE or Bootstrap 4 variable in periscope2 generated application theme.
 
 - User can add variables to customize by clicking "Add Variable" button
 - User can remove added variables by adding remove button for that variable
@@ -102,7 +102,7 @@ Format: Value are based on input configuration but output is similar to the foll
 <center><img src="figures/theme_9.png" width="600px"></center>
 
 ## Downloaded Configuration File Usage
-The generate file is used by putting it inside the generated app www folder where it will be located by default
+The generated file is used by putting it inside the generated app www folder where it will be located by default
 
 * [announcement Module](announcement-module.html)
 * [Announcement Configuration Builder](announcement_addin.html)

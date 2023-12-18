@@ -1,0 +1,70 @@
+---
+title: "Migrate periscope2 applications to v0.2.0"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Migrate periscope2 applications to v0.2.0}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+## Objective
+
+Explain the steps to migrate a periscope2 generated applications with periscope2 prior to v0.2.0 to use new/updated features of periscope2 v0.2.0
+
+## Header Navbar
+
+- Now the header is divided into 3 elements:
+  - Working in progress element
+  - Header title
+  - UI elements as menu bar
+- New functions params:
+  - ui_elements
+  - ui_position
+  - title: it will override the title param in set_app_parameters function in  program/global.R
+  - title position
+- CSS changes
+This update to be added to already created apps
+
+```{css}
+.periscope-busy-ind {
+    height: 100%;
+    display: inline-flex;
+    align-items: center;
+}
+```
+
+## periscope_style.yaml
+
+- Now periscope_style can be generated directly from [theme configuration addin Add-ins](themeBuilder_addin.html)
+- The generated file now contains bootstrap 4 variables names directly to be able to manage all available variables
+- The following variables will be the same:
+  - primary, secondary, success, info, warning, danger, light and dark
+- The following are the mapping between old periscope_style.yaml file keys and new used keys:
+  - sidebar_width -> sidebar_width
+  - sidebar_horizontal_padding -> sidebar_padding_x
+  - sidebar_vertical_padding ->sidebar_padding_y
+  - sidebar_mini_width -> sidebar_mini_width
+  - right_sidebar_width -> control_sidebar_width
+  - main_content_horizontal_padding -> "content-padding-x"
+  - main_content_vertical_padding -> "content-padding-y"
+  - main_background_color ->"main-bg"
+  - sidebar_background_color -> bg
+  - sidebar_background_hover_color -> hover_bg
+  - sidebar_hover_color -> hover_color
+  - sidebar_color -> color
+  - sidebar_active_color -> active_color
+  - submenu_background_color -> submenu_bg
+  - submenu_color -> submenu_color
+  - submenu_hover_color -> submenu_hover_color
+  - submenu_background_hover_color -> submenu_hover_bg
+  - submenu_active_color -> submenu_active_color
+  - submenu_active_background_color -> submenu_active_bg
+  - header_color -> "navbar-light-color"
+  - button_background_color -> "button-default-background-color"
+  - button_color -> "button-default-color"
+  - button_border_color -> "button-default-border-color"
+- Use [theme configuration addin Add-ins](themeBuilder_addin.html) to generate a periscope_style.yaml file with the above keys
+
+## periscope Alert
+In generated applications change:
+- `periscope2::createAlert` to only `createPSAlert` with the same parameters

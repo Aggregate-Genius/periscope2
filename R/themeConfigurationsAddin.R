@@ -38,8 +38,7 @@ themeBuilder_addin_UI <- function() {
             miniUI::miniTabPanel(
                 "Status Colors",
                 miniUI::miniContentPanel(
-                    shiny::p("periscope2 main theme colors are defined with the following status colors,
-                             you can use those status in infoBox, valueBox, cards"),
+                    shiny::p("Specify the colors to used when the corresponding status argument in shiny UI elements such as infoBox, valueBox, cards are set."),
                     stableColumnLayout(
                         colourpicker::colourInput(inputId          = "primary",
                                                   label            = "Primary",
@@ -87,7 +86,7 @@ themeBuilder_addin_UI <- function() {
                 )
             ),
             miniUI::miniTabPanel(
-                "Sidebars Colors",
+                "Sidebar Colors",
                 miniUI::miniContentPanel(
                     shiny::p("Sidebar colors variables allow you to change sidebars (left and right) related colors"),
                     shiny::tags$i("Use value \"#00000000\" to reset back to original theme default color"),
@@ -154,7 +153,7 @@ themeBuilder_addin_UI <- function() {
                 )
             ),
             miniUI::miniTabPanel(
-                "Sidebars Layout",
+                "Sidebar Layout",
                 miniUI::miniContentPanel(
                     shiny::p("Sidebar layout variables allow you to change sidebars (left and right) width, padding, ...",
                              shiny::tags$br(),
@@ -172,14 +171,19 @@ themeBuilder_addin_UI <- function() {
                                                            label   = "Sidebar Vertical Padding",
                                                            value   = NA)),
                     stableColumnLayout(shiny::numericInput(inputId = "sidebar_mini_width",
-                                                           label   = "Width for mini sidebar",
+                                                           label   = periscope2::ui_tooltip(id        = "textTip",
+                                                                                            label     = "Width for mini sidebar",
+                                                                                            text      = paste("Left sidebar can be minimized to show menu icons (and not to be fully collapsed).",
+                                                                                                              "That property controls the width of the minimized sidebar.",
+                                                                                                              sep = "<br/><br/>"),
+                                                                                            placement = "bottom"),
                                                            value   = NA))
                 )
             ),
             miniUI::miniTabPanel(
                 "Main Colors",
                 miniUI::miniContentPanel(
-                    shiny::p("Template main colors definition"),
+                    shiny::p("Specify the specific hex codes for the following color words that can be referenced in the app."),
                     stableColumnLayout(colourpicker::colourInput(inputId          = "blue",
                                                                  label            = "Blue",
                                                                  showColour       = "both",
@@ -315,7 +319,7 @@ themeBuilder_addin_UI <- function() {
             miniUI::miniTabPanel(
                 "Other Variables",
                 miniUI::miniContentPanel(
-                    shiny::p("This is an advanced method to add customize any more AdminLTE",
+                    shiny::p("This is an advanced method to add or customize any more AdminLTE",
                              " or Bootstrap 4 variable in periscope2 generated application theme."),
                     shiny::tags$i("Please refer to ",
                                   shiny::tags$a(href   = "https://adminlte.io/docs/3.2/",
@@ -336,11 +340,11 @@ themeBuilder_addin_UI <- function() {
             )
         ),
         stableColumnLayout(
-            shiny::tags$div(style = "margin-top: 15px;",
-                        shiny::downloadButton(outputId = "downloadConfig",
-                                              label    = periscope2::ui_tooltip(id    = "downloadTip",
-                                                                                label = "Download periscope2 theme",
-                                                                                text  = "Download theme configuration file")))
+            miniUI::miniButtonBlock(
+                shiny::downloadButton(outputId = "downloadConfig",
+                                      label    = periscope2::ui_tooltip(id    = "downloadTip",
+                                                                        label = "Download periscope2 theme",
+                                                                        text  = "Download theme configuration file and replace the file in the generated periscope app shiny_app/www folder")))
         )
     )
 }
@@ -505,7 +509,7 @@ themeBuilder_addin_server <- function(id = NULL) {
                             lines <- c(lines, "\n")
                         }
 
-                        sidebar_colors <- c("# Sidebars Colors",
+                        sidebar_colors <- c("# Sidebar Colors",
                                             "## Sidebar colors variables allow you to change sidebars (left and right) related colors",
                                             "## Blank/empty values will use the default values",
                                             sidebar_colors)
@@ -543,7 +547,7 @@ themeBuilder_addin_server <- function(id = NULL) {
                             lines <- c(lines, "\n")
                         }
 
-                        sidebar_layout <- c("# Sidebars Layout",
+                        sidebar_layout <- c("# Sidebar Layout",
                                             "## Sidebar colors variables allow you to change sidebars (left and right) related colors",
                                             "## Blank/empty values will use the default values",
                                             sidebar_layout)
@@ -552,92 +556,74 @@ themeBuilder_addin_server <- function(id = NULL) {
 
                     ###### Main colors
                     if (input$blue != "#00000000") {
-                        main_colors <- c(main_colors, paste0("### Blue"))
                         main_colors <- c(main_colors, paste0("blue: \"", input$blue, "\""))
                     }
 
                     if (input$lightblue != "#00000000") {
-                        main_colors <- c(main_colors, paste0("###Light Blue"))
                         main_colors <- c(main_colors, paste0("lightblue: \"", input$lightblue, "\""))
                     }
 
                     if (input$navy != "#00000000") {
-                        main_colors <- c(main_colors, paste0("### Navy"))
                         main_colors <- c(main_colors, paste0("navy: \"", input$navy, "\""))
                     }
 
                     if (input$cyan != "#00000000") {
-                        main_colors <- c(main_colors, paste0("### Cyan"))
                         main_colors <- c(main_colors, paste0("cyan: \"", input$cyan, "\""))
                     }
 
                     if (input$teal != "#00000000") {
-                        main_colors <- c(main_colors, paste0("### Teal"))
                         main_colors <- c(main_colors, paste0("teal: \"", input$teal, "\""))
                     }
 
                     if (input$olive != "#00000000") {
-                        main_colors <- c(main_colors, paste0("### Olive"))
                         main_colors <- c(main_colors, paste0("olive: \"", input$olive, "\""))
                     }
 
                     if (input$green != "#00000000") {
-                        main_colors <- c(main_colors, paste0("### Green"))
                         main_colors <- c(main_colors, paste0("green: \"", input$green, "\""))
                     }
 
                     if (input$lime != "#00000000") {
-                        main_colors <- c(main_colors, paste0("### Lime"))
                         main_colors <- c(main_colors, paste0("lime: \"", input$lime, "\""))
                     }
 
                     if (input$orange != "#00000000") {
-                        main_colors <- c(main_colors, paste0("### Orange"))
                         main_colors <- c(main_colors, paste0("orange: \"", input$orange, "\""))
                     }
 
                     if (input$yellow != "#00000000") {
-                        main_colors <- c(main_colors, paste0("### Yellow"))
                         main_colors <- c(main_colors, paste0("yellow: \"", input$yellow, "\""))
                     }
 
                     if (input$fuchsia != "#00000000") {
-                        main_colors <- c(main_colors, paste0("### Fuchsia"))
                         main_colors <- c(main_colors, paste0("fuchsia: \"", input$fuchsia, "\""))
                     }
 
                     if (input$purple != "#00000000") {
-                        main_colors <- c(main_colors, paste0("### Purple"))
                         main_colors <- c(main_colors, paste0("purple: \"", input$purple, "\""))
                     }
 
                     if (input$maroon != "#00000000") {
-                        main_colors <- c(main_colors, paste0("### Maroon"))
                         main_colors <- c(main_colors, paste0("maroon: \"", input$maroon, "\""))
                     }
 
                     if (input$red != "#00000000") {
-                        main_colors <- c(main_colors, paste0("### Red"))
                         main_colors <- c(main_colors, paste0("red: \"", input$red, "\""))
                     }
 
                     if (input$black != "#00000000") {
-                        main_colors <- c(main_colors, paste0("### Black"))
                         main_colors <- c(main_colors, paste0("black: \"", input$black, "\""))
                     }
 
                     if (input$gray_x_light != "#00000000") {
-                        main_colors <- c(main_colors, paste0("### Gray X Light"))
                         main_colors <- c(main_colors, paste0("gray_x_light: \"", input$gray_x_light, "\""))
                     }
 
                     if (input$gray_600 != "#00000000") {
-                        main_colors <- c(main_colors, paste0("### Gray 600"))
                         main_colors <- c(main_colors, paste0("gray_600: \"", input$gray_600, "\""))
                     }
 
                     if (input$white != "#00000000") {
-                        main_colors <- c(main_colors, paste0("### White"))
                         main_colors <- c(main_colors, paste0("white: \"", input$white, "\""))
                     }
 
@@ -646,7 +632,8 @@ themeBuilder_addin_server <- function(id = NULL) {
                             lines <- c(lines, "\n")
                         }
 
-                        main_colors <- c("# Main Colors", main_colors)
+                        main_colors <- c("# Main Colors",
+                                         "## Specify the specific hex codes for the following color words that can be referenced in the app.", main_colors)
                         lines <- c(lines, main_colors)
                     }
 

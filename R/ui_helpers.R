@@ -79,6 +79,8 @@ add_ui_left_sidebar <- function(sidebar_elements = NULL,
 #'                             Check \code{?bs4Dash::navbarMenu()}
 #' @param ui_position        - Location of UI elements in the header. Must be either of 'center', 'left' or 'right'
 #'                             Default value is 'right'.
+#' @param title              - Sets application title. If it is not NULL, it will override "title" value that is set in
+#'                             \code{?periscope2::set_app_parameters()} (default = NULL)
 #' @param title_position     - Location of the title in the header. Must be either of 'center', 'left' or 'right'
 #'                             Default value is 'Center'. If there are no UI elements, this param will be ignored.
 #' @param left_menu          - Left menu. bs4DropdownMenu object (or similar dropdown menu).
@@ -128,6 +130,7 @@ add_ui_left_sidebar <- function(sidebar_elements = NULL,
 #'   add_ui_header(left_menu = left_menu, right_menu = right_menu)
 #'
 #' @seealso \link[bs4Dash:bs4DashNavbar]{bs4Dash:bs4DashNavbar()}
+#' @seealso \link[periscope2:set_app_parameters]{periscope2:set_app_parameters()}
 #' @seealso \link[periscope2:add_ui_footer]{periscope2:add_ui_footer()}
 #' @seealso \link[periscope2:add_ui_left_sidebar]{periscope2:add_ui_left_sidebar()}
 #' @seealso \link[periscope2:add_ui_body]{periscope2:add_ui_body()}
@@ -138,6 +141,7 @@ add_ui_left_sidebar <- function(sidebar_elements = NULL,
 #' @export
 add_ui_header <- function(ui_elements        = NULL,
                           ui_position        = "right",
+                          title              = NULL,
                           title_position     = "center",
                           left_menu          = NULL,
                           right_menu         = NULL,
@@ -148,6 +152,10 @@ add_ui_header <- function(ui_elements        = NULL,
                           left_sidebar_icon  = shiny::icon("th"),
                           skin               = "light",
                           status             = "white") {
+    if (!is.null(title)) {
+        .g_opts$app_title <- title
+    }
+
     app_title <- shiny::isolate(.g_opts$app_title)
     title     <- shiny::div(id = "app_header", app_title)
     app_info  <- shiny::isolate(.g_opts$app_info)
@@ -536,12 +544,12 @@ ui_tooltip <- function(id,
 
    shiny::span(class = "periscope-input-label-with-tt",
                label,
-               bs4Dash::tooltip(shiny::img(id     = id,
-                                           src    = shiny::isolate(.g_opts$tt_image),
-                                           height = shiny::isolate(.g_opts$tt_height),
-                                           width  = shiny::isolate(.g_opts$tt_width)),
-                                title     = text,
-                                placement = placement))
+               tooltip(shiny::img(id     = id,
+                                  src    = shiny::isolate(.g_opts$tt_image),
+                                  height = shiny::isolate(.g_opts$tt_height),
+                                  width  = shiny::isolate(.g_opts$tt_width)),
+                       title     = text,
+                       placement = placement))
 }
 
 
@@ -664,3 +672,38 @@ get_url_parameters <- function(session) {
 
     parameters
 }
+
+
+# Override bs4Dash tooltip function to allow html handling in tooltips
+tooltip <- function(tag, title, placement = c("top", "bottom", "left", "right")) {
+    placement <- match.arg(placement)
+
+    tag <- shiny::tagAppendAttributes(
+        tag,
+        `data-toggle`    = "tooltip",
+        `data-placement` = placement,
+        title            = title,
+        `data-html`      = "true"
+    )
+
+    tagId <- tag$attribs$id
+
+    shiny::tagList(
+        shiny::singleton(
+            shiny::tags$head(
+                shiny::tags$script(
+                    sprintf(
+                        "$(function () {
+              // enable tooltip
+              $('#%s').tooltip();
+            });
+            ",
+                        tagId
+                    )
+                )
+            )
+        ),
+        tag
+    )
+}
+

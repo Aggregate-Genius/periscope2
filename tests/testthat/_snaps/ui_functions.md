@@ -272,14 +272,14 @@
 
     <span class="periscope-input-label-with-tt">
       mylabel
-      <img id="id" src="img/tooltip.png" height="16px" width="16px" data-toggle="tooltip" data-placement="top" title="mytext"/>
+      <img id="id" src="img/tooltip.png" height="16px" width="16px" data-toggle="tooltip" data-placement="top" title="mytext" data-html="true"/>
     </span>
 
 ---
 
     <span class="periscope-input-label-with-tt">
       mylabel2
-      <img id="id2" src="img/tooltip.png" height="16px" width="16px" data-toggle="tooltip" data-placement="left" title="mytext2"/>
+      <img id="id2" src="img/tooltip.png" height="16px" width="16px" data-toggle="tooltip" data-placement="left" title="mytext2" data-html="true"/>
     </span>
 
 ---
@@ -349,7 +349,7 @@
                     </div>
                   </div>
                   <div class="col-sm-4">
-                    <div id="app_header">Set using set_app_parameters() in program/global.R</div>
+                    <div id="app_header">good title</div>
                   </div>
                   <div class="col-sm-4"></div>
                 </div>
