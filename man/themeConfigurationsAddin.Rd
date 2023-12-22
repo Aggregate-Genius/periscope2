@@ -11,7 +11,7 @@ launch gadget window
 }
 \description{
 Call this as an addin to build valid yaml file that is needed for creating application
-periscope_style.yaml file. The generated file can be used in periscope2 app ny putting it inside generated app www folder.
+periscope_style.yaml file. The generated file can be used in periscope2 app by putting it inside generated app www folder.
 }
 \details{
 The method can be called directly via `R` console or via RStudio addins menu
