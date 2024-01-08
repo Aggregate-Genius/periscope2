@@ -304,7 +304,8 @@
 
     Code
       nchar(create_theme())
-    Warning <simpleWarning>
+    Condition
+      Warning in `create_theme()`:
       primary has invalid color value. Setting default color.
     Output
       [1] 669707
