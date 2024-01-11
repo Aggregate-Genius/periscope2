@@ -1,3 +1,4 @@
+AdminLTE
 AvailableTypes
 CX
 CircleCI
@@ -7,12 +8,14 @@ Downloader
 Dropdown
 DropdownMenu
 JS
+Navbar
 RStudio
 ResetApp
 Tooltip
 Tooltips
 UI
 ValidateTypes
+ValueBox
 YAML
 actionButton
 addin
@@ -22,6 +25,7 @@ announcementConfigurationsAddin
 appReset
 appResetButton
 applicationReset
+bg
 bodyAlert
 brushOpts
 bs
@@ -58,6 +62,7 @@ htmlOutput
 http
 https
 img
+infoBox
 inputText
 jQuery
 javascript
@@ -70,16 +75,21 @@ modularize
 msg
 mytestapp
 navbar
+navbarMenu
+param
+params
 periscopeapps
 prettyToggle
 rownumbers
 runnable
 scalable
+selectize
 shinyBS
 shinyServer
 shinydashboard
 singleSelect
 ss
+submenu
 tableOutput
 templated
 textArea
@@ -90,6 +100,7 @@ tsv
 ui
 unitless
 userAction
+valueBox
 waiterShowOnLoad
 www
 xlsx

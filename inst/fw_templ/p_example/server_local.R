@@ -30,13 +30,13 @@ source(paste("program", "fxn", "plots.R", sep = .Platform$file.sep))
 # -- VARIABLES --
 
 original_theme_settings <- list()
-original_theme_settings[["primary"]]                  <- "#EBCDFC"
-original_theme_settings[["secondary"]]                <- "#6c757d"
-original_theme_settings[["success"]]                  <- "#2ED610"
-original_theme_settings[["info"]]                     <- "#7BDFF2"
-original_theme_settings[["warning"]]                  <- "#FFF200"
-original_theme_settings[["danger"]]                   <- "#CE0900"
-original_theme_settings[["sidebar_background_color"]] <- "#FFFFE6"
+original_theme_settings[["primary"]]   <- "#EBCDFC"
+original_theme_settings[["secondary"]] <- "#6c757d"
+original_theme_settings[["success"]]   <- "#2ED610"
+original_theme_settings[["info"]]      <- "#7BDFF2"
+original_theme_settings[["warning"]]   <- "#FFF200"
+original_theme_settings[["danger"]]    <- "#CE0900"
+original_theme_settings[["bg"]]        <- "#FFFFE6"
 
 # -- FUNCTIONS --
 appReset(id     = "appResetId",
@@ -104,52 +104,54 @@ downloadablePlot("examplePlot3",
 observeEvent(input$rightAlert, {
     loginfo("Right Sidebar Alert Button Pushed",
             logger = ss_userAction.Log)
-    periscope2::createAlert(id      = "sidebarRightAlert",
-                            options = list(title    = "Right Side",
-                                           status   = "success",
-                                           closable = TRUE,
-                                           content  = "Example Basic Sidebar Alert"))
+    createPSAlert(id      = "sidebarRightAlert",
+                  options = list(title    = "Right Side",
+                                 status   = "success",
+                                 closable = TRUE,
+                                 content  = "Example Basic Sidebar Alert"))
 })
 
 observeEvent(input$leftAlert, {
     logwarn("Left Sidebar Alert Example Button Pushed",
             logger = ss_userAction.Log)
-    periscope2::createAlert(id      = "sidebarBasicAlert",
-                            options = list(title    = "Left Side",
-                                           status   = "warning",
-                                           closable = TRUE,
-                                           content  = "Example Advanced Sidebar Alert"))
+    createPSAlert(id      = "sidebarBasicAlert",
+                  options = list(
+                      title    = "Left Side",
+                      status   = "warning",
+                      closable = TRUE,
+                      content  = "Example Advanced Sidebar Alert"))
 
 })
 
 observeEvent(input$bodyAlertBtn, {
     logdebug("Body Alert Example Button Pushed",
              logger = ss_userAction.Log)
-    periscope2::createAlert(id      = "bodyAlert",
-                            options = list(title    = "Body",
-                                           status   = "info",
-                                           closable = TRUE,
-                                           content  = paste("Example Body Alert")))
+    createPSAlert(id      = "bodyAlert",
+                  options = list(
+                      title    = "Body",
+                      status   = "info",
+                      closable = TRUE,
+                      content  = paste("Example Body Alert")))
 })
 
 observeEvent(input$footerAlertbtn, {
     logerror("Footer Alert Example Button Pushed",
              logger = ss_userAction.Log)
-    periscope2::createAlert(id      = "footerAlert",
-                            options = list(title    = "Footer",
-                                           status   = "danger",
-                                           closable = TRUE,
-                                           content  = paste("Example Footer Alert")))
+    createPSAlert(id      = "footerAlert",
+                  options = list(title    = "Footer",
+                                 status   = "danger",
+                                 closable = TRUE,
+                                 content  = paste("Example Footer Alert")))
 })
 
 observeEvent(input$headerAlertbtn, {
     loginfo("Header Alert Example Button Pushed",
             logger = ss_userAction.Log)
-    periscope2::createAlert(id      = "headerAlert",
-                            options = list(title    = "Header",
-                                           status   = "primary",
-                                           closable = TRUE,
-                                           content  = "Example Header Alert"))
+    createPSAlert(id      = "headerAlert",
+                  options = list(title    = "Header",
+                                 status   = "primary",
+                                 closable = TRUE,
+                                 content  = "Example Header Alert"))
 })
 
 observeEvent(input$showWorking, {
@@ -228,46 +230,46 @@ observeEvent(TRUE,{
 
     updateColourInput(session,
                       inputId = "primary_picker",
-                      value   = theme_settings[["primary"]])
+                      value   = ifelse(is.null(theme_settings[["primary"]]), "#00000000", theme_settings[["primary"]]))
     updateColourInput(session,
                       inputId = "secondary_picker",
-                      value   = theme_settings[["secondary"]])
+                      value   = ifelse(is.null(theme_settings[["secondary"]]), "#00000000", theme_settings[["secondary"]]))
     updateColourInput(session,
                       inputId = "success_picker",
-                      value   = theme_settings[["success"]])
+                      value   = ifelse(is.null(theme_settings[["success"]]), "#00000000", theme_settings[["success"]]))
     updateColourInput(session,
                       inputId = "info_picker",
-                      value   = theme_settings[["info"]])
+                      value   = ifelse(is.null(theme_settings[["info"]]), "#00000000", theme_settings[["info"]]))
     updateColourInput(session,
                       inputId = "warning_picker",
-                      value   = theme_settings[["warning"]])
+                      value   = ifelse(is.null(theme_settings[["warning"]]), "#00000000", theme_settings[["warning"]]))
     updateColourInput(session,
                       inputId = "danger_picker",
-                      value   = theme_settings[["danger"]])
+                      value   = ifelse(is.null(theme_settings[["danger"]]), "#00000000", theme_settings[["danger"]]))
     updateNumericInput(session,
                        inputId = "left_width",
                        value   = ifelse(is.null(theme_settings[["sidebar_width"]]), NA, theme_settings[["sidebar_width"]]))
     updateNumericInput(session,
                        inputId = "right_width",
-                       value   = ifelse(is.null(theme_settings[["right_sidebar_width"]]), NA, theme_settings[["right_sidebar_width"]]))
+                       value   = ifelse(is.null(theme_settings[["control_sidebar_width"]]), NA, theme_settings[["right_sidebar_width"]]))
     updateColourInput(session,
                       inputId = "background_color_picker",
-                      value   = theme_settings[["main_background_color"]])
+                      value   = ifelse(is.null(theme_settings[["main-bg"]]), "#00000000", theme_settings[["main-bg"]]))
     updateColourInput(session,
                       inputId = "sidebar_background_color_picker",
-                      value   = theme_settings[["sidebar_background_color"]])
+                      value   = ifelse(is.null(theme_settings[["bg"]]), "#00000000", theme_settings[["bg"]]))
     updateColourInput(session,
                       inputId = "sidebar_background_hover_color_picker",
-                      value   = theme_settings[["sidebar_background_hover_color"]])
+                      value   = ifelse(is.null(theme_settings[["hover_bg"]]), "#00000000", theme_settings[["hover_bg"]]))
     updateColourInput(session,
                       inputId = "sidebar_hover_color_picker",
-                      value   = theme_settings[["sidebar_hover_color"]])
+                      value   = ifelse(is.null(theme_settings[["hover_color"]]), "#00000000", theme_settings[["hover_color"]]))
     updateColourInput(session,
                       inputId = "sidebar_color_picker",
-                      value   = theme_settings[["sidebar_color"]])
+                      value   = ifelse(is.null(theme_settings[["color"]]), "#00000000", theme_settings[["color"]]))
     updateColourInput(session,
                       inputId = "sidebar_active_color_picker",
-                      value   = theme_settings[["sidebar_active_color"]])
+                      value   = ifelse(is.null(theme_settings[["active_color"]]), "#00000000", theme_settings[["active_color"]]))
 }, once = TRUE)
 
 
@@ -294,43 +296,48 @@ observeEvent(input$update_app_theme, {
     if (is.na(right_width) ||
         is.null(right_width) ||
         (right_width <= 0)) {
-        theme_settings[["right_sidebar_width"]] <- NULL
+        theme_settings[["control_sidebar_width"]] <- NULL
     } else {
-        theme_settings[["right_sidebar_width"]] <- right_width
+        theme_settings[["control_sidebar_width"]] <- right_width
     }
 
     background_color_picker               <- NULL
+    sidebar_background_color_picker       <- NULL
     sidebar_background_hover_color_picker <- NULL
     sidebar_hover_color_picker            <- NULL
     sidebar_color_picker                  <- NULL
     sidebar_active_color_picker           <- NULL
 
-    if (input$background_color_picker != "#FFFFFF") {
+    if (input$background_color_picker != "#00000000") {
         background_color_picker <- input$background_color_picker
     }
 
-    if (input$sidebar_background_hover_color_picker != "#FFFFFF") {
+    if (input$sidebar_background_color_picker != "#00000000") {
+        sidebar_background_color_picker <- input$sidebar_background_color_picker
+    }
+
+    if (input$sidebar_background_hover_color_picker != "#00000000") {
         sidebar_background_hover_color_picker <- input$sidebar_background_hover_color_picker
     }
 
-    if (input$sidebar_hover_color_picker != "#FFFFFF") {
+    if (input$sidebar_hover_color_picker != "#00000000") {
         sidebar_hover_color_picker <- input$sidebar_hover_color_picker
     }
 
-    if (input$sidebar_color_picker != "#FFFFFF") {
+    if (input$sidebar_color_picker != "#00000000") {
         sidebar_color_picker <- input$sidebar_color_picker
     }
 
-    if (input$sidebar_active_color_picker != "#FFFFFF") {
+    if (input$sidebar_active_color_picker != "#00000000") {
         sidebar_active_color_picker <- input$sidebar_active_color_picker
     }
 
-    theme_settings[["main_background_color"]]          <- background_color_picker
-    theme_settings[["sidebar_background_color"]]       <- input$sidebar_background_color_picker
-    theme_settings[["sidebar_background_hover_color"]] <- sidebar_background_hover_color_picker
-    theme_settings[["sidebar_hover_color"]]            <- sidebar_hover_color_picker
-    theme_settings[["sidebar_color"]]                  <- sidebar_color_picker
-    theme_settings[["sidebar_active_color"]]           <- sidebar_active_color_picker
+    theme_settings[["main-bg"]]      <- background_color_picker
+    theme_settings[["bg"]]           <- sidebar_background_color_picker
+    theme_settings[["hover_bg"]]     <- sidebar_background_hover_color_picker
+    theme_settings[["hover_color"]]  <- sidebar_hover_color_picker
+    theme_settings[["color"]]        <- sidebar_color_picker
+    theme_settings[["active_color"]] <- sidebar_active_color_picker
 
     write_yaml(theme_settings, "www/periscope_style.yaml")
     session$reload()

@@ -1,6 +1,11 @@
 ---
 title: "Announcement Configuration YAML File Builder"
-output: rmarkdown::html_vignette
+author: "Mohammed Ali"
+date: "`r Sys.Date()`"
+output: 
+    rmarkdown::html_vignette:
+        toc: TRUE
+        toc_depth: 3
 vignette: >
   %\VignetteIndexEntry{Announcement Configuration YAML File Builder}
   %\VignetteEngine{knitr::rmarkdown}
@@ -26,7 +31,7 @@ The add-in can be launched by one of two methods
   - Header
   - Body
 - Add-in header that consists of:
-  - Cancel/Done buttons: they are default add-ins buttons and their solo purpose is to close add-in window
+  - Cancel/Done buttons: they are default add-ins buttons and their sole purpose is to close add-in window
   - Done button functionality can be customized but that is not needed in this add-in
   - Add-in title between the two buttons is: "Announcement Configuration YAML File Builder"
 - Add-in body:
@@ -138,3 +143,4 @@ For detailed usage for that file refer to [announcement Module](announcement-mod
 * [downloadFile Module](downloadFile-module.html)
 * [logViewer Module](logViewer-module.html)
 * [applicationReset Module](applicationReset-module.html)
+* [Theme Configuration Builder](themeBuilder_addin.html)

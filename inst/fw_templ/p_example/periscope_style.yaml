@@ -1,53 +1,58 @@
 # Status Colors
-
 ## Sets the status colors that affects the color of the header, valueBox, infoBox and box.
 ## Valid values are names of the color or hex-decimal value of the color (i.e,: "blue", "#086A87").
 ## Blank/empty values will use the default values
-
 primary: "#B221DD"
-secondary: "#6c757d"
+secondary: "#6C757D"
 success: "#2ED610"
 info: "#7BDFF2"
 warning: "#FFF200"
 danger: "#CE0900"
-light:
-dark:
+light: "#F8F9FA"
+dark: "#343A40"
 
 
-# Layout Measures and Colors
-
-## Width or padding is to be specified as a numeric value in pixels. Must be greater than 0 and include numbers only.
-## Valid possible value are 200, 350, 425, ...
-## Blank/empty values will use default values
-
-sidebar_width:
-sidebar_horizontal_padding:
-sidebar_vertical_padding:
-right_sidebar_width:
-main_content_horizontal_padding:
-main_content_vertical_padding:
-main_background_color:
-### Width for the sidebar when it is minimized
-sidebar_mini_width:
+# Sidebars Colors
+## Sidebar colors variables allow you to change sidebars (left and right) related colors
+## Blank/empty values will use the default values
+### Background color
+bg: "#FFFFE6"
 
 
-# Color values
-
-## Valid values are names of the color or hex-decimal value of the color (i.e,: "blue", "#086A87").
-## Blank/empty values will use default values
-
-sidebar_background_color: "#FFFFE6"
-sidebar_background_hover_color:
-sidebar_hover_color:
-sidebar_color:
-sidebar_active_color:
-submenu_background_color:
-submenu_color:
-submenu_hover_color:
-submenu_background_hover_color:
-submenu_active_color:
-submenu_active_background_color:
-header_color:
-button_background_color:
-button_color:
-button_border_color:
+# Main Colors
+### Blue
+blue: "#007BFF"
+###Light Blue
+lightblue: "#3C8DBC"
+### Navy
+navy: "#001F3F"
+### Cyan
+cyan: "#17A2B8"
+### Teal
+teal: "#39CCCC"
+### Olive
+olive: "#3D9970"
+### Green
+green: "#28A745"
+### Lime
+lime: "#01FF70"
+### Orange
+orange: "#FF851B"
+### Yellow
+yellow: "#FFC107"
+### Fuchsia
+fuchsia: "#F012BE"
+### Purple
+purple: "#605CA8"
+### Maroon
+maroon: "#D81B60"
+### Red
+red: "#DC3545"
+### Black
+black: "#111111"
+### Gray X Light
+gray_x_light: "#D2D6DE"
+### Gray 600
+gray_600: "#6C757D"
+### White
+white: "#FFFFFF"

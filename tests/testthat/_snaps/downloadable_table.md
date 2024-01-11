@@ -2,7 +2,7 @@
 
     Code
       build_datatable_arguments(table_options)
-    Message <simpleMessage>
+    Message
       DT option 'width' is not supported. Ignoring it.
       DT option 'height' is not supported. Ignoring it.
       DT option 'editable' is not supported. Ignoring it.

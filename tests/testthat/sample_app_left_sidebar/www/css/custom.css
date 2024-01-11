@@ -9,7 +9,9 @@ a#app_info {
 
 /* Busy Indicator */
 .periscope-busy-ind {
-
+    height: 100%;
+    display: inline-flex;
+    align-items: center;
 }
 
 .hidden {

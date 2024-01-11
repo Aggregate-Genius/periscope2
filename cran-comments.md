@@ -1,3 +1,14 @@
+# Round 2
+
+## Reviewer comments
+
+  `Found the following (possibly) invalid file URI:`<br/>
+   `  URI: migrate_to_v0_2_0.html`<br/>
+    `   From: NEWS.md`<br/>
+    
+## Comments from Maintainer
+- Replaced the document url with instructions on how to find it using R commands 
+
 ## Test Environments
     
 

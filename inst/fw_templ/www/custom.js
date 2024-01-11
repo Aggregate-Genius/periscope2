@@ -68,18 +68,26 @@ Shiny.addCustomMessageHandler('pcreate-alert', function (message) {
     }
 
     title = config.title;
-    if (!title) {
-      title = '';
+    if (title) {
+        titleTag = `<h5><i class="icon fa fa-${iconType}"></i>${title}</h5>`
+        contentTag = config.content;
+
+        alertTag = `<div
+            id="${id}-alert"
+            class="${alertCl}">
+            ${closeButton}${titleTag}${contentTag}
+            </div>`
+    } else {
+        contentTag = `<i class="icon fa fa-${iconType}"></i>${config.content}`
+
+        alertTag = `<div
+            id="${id}-alert"
+            class="${alertCl}">
+            ${closeButton}${contentTag}
+            </div>`
     }
 
-    titleTag = `<h5><i class="icon fa fa-${iconType}"></i>${title}</h5>`
-    contentTag = config.content;
 
-    alertTag = `<div
-      id="${id}-alert"
-      class="${alertCl}">
-        ${closeButton}${titleTag}${contentTag}
-    </div>`
     if (config.width !== undefined) {
       alertTag = `<div class="col-sm-${config.width}">${alertTag}</div>`
     }

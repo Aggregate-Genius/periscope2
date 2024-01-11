@@ -272,14 +272,14 @@
 
     <span class="periscope-input-label-with-tt">
       mylabel
-      <img id="id" src="img/tooltip.png" height="16px" width="16px" data-toggle="tooltip" data-placement="top" title="mytext"/>
+      <img id="id" src="img/tooltip.png" height="16px" width="16px" data-toggle="tooltip" data-placement="top" title="mytext" data-html="true"/>
     </span>
 
 ---
 
     <span class="periscope-input-label-with-tt">
       mylabel2
-      <img id="id2" src="img/tooltip.png" height="16px" width="16px" data-toggle="tooltip" data-placement="left" title="mytext2"/>
+      <img id="id2" src="img/tooltip.png" height="16px" width="16px" data-toggle="tooltip" data-placement="left" title="mytext2" data-html="true"/>
     </span>
 
 ---
@@ -291,7 +291,7 @@
     Code
       nchar(create_theme())
     Output
-      [1] 669489
+      [1] 669733
 
 # theme - parsing error
 
@@ -304,11 +304,11 @@
 
     Code
       nchar(create_theme())
-    Warning <simpleWarning>
+    Condition
+      Warning in `create_theme()`:
       primary has invalid color value. Setting default color.
-      -300 must be positive value. Setting default value.
     Output
-      [1] 669463
+      [1] 669707
 
 # dashboard - create default dashboard
 
@@ -350,7 +350,7 @@
                     </div>
                   </div>
                   <div class="col-sm-4">
-                    <div id="app_header">Set using set_app_parameters() in program/global.R</div>
+                    <div id="app_header">good title</div>
                   </div>
                   <div class="col-sm-4"></div>
                 </div>

@@ -3,3 +3,8 @@ Description: Build announcement module configuration YAML file
 Binding: announcementConfigurationsAddin
 Interactive: true
 
+
+Name: Theme Configurations Builder
+Description: Build application theme configuration YAML file
+Binding: themeConfigurationsAddin
+Interactive: true
