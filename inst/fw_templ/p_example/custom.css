@@ -13,7 +13,8 @@ aside#sidebarId, aside#controlbarId {
 *  https://css-tricks.com/snippets/css/a-guide-to-flexbox/ for more
 *  information*/
 .app_header_container {
-    display: flex;
+    display: inline-flex;
+    width: 100%;
 }
 
 /* app info modal*/
@@ -27,6 +28,8 @@ div#app_header {
     display: inline-flex;
     align-items: center;
     font-size: x-large;
+    justify-content: center;
+    width: 100%;
 }
 
 /* Busy Indicator */
@@ -34,6 +37,9 @@ div#app_header {
     height: 100%;
     display: inline-flex;
     align-items: center;
+    justify-content: flex-start;
+    width: 0%;
+    align-self: center;
 }
 
 /* header menu*/

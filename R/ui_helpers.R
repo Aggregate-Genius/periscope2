@@ -242,9 +242,9 @@ add_ui_header <- function(ui_elements        = NULL,
     }
 
     header <- shiny::div(class = "app_header_container",
-                         shiny::div(header_left),
-                         shiny::div(header_center),
-                         shiny::div(header_right))
+                         header_left,
+                         header_center,
+                         header_right)
 
     .g_opts$header <- bs4Dash::bs4DashNavbar(header,
                                              skin           = skin,
