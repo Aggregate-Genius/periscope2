@@ -82,7 +82,7 @@
 #'
 #' @export
 downloadableTableUI <- function(id,
-                                downloadtypes = c("csv"),
+                                downloadtypes = c(),
                                 hovertext     = NULL,
                                 contentHeight = "200px",
                                 singleSelect  = FALSE) {
@@ -206,7 +206,7 @@ downloadableTableUI <- function(id,
 #' @export
 downloadableTable <- function(id,
                               logger,
-                              filenameroot,
+                              filenameroot     = "",
                               downloaddatafxns = list(),
                               tabledata,
                               selection        = NULL,

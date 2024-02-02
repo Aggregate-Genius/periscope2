@@ -7,7 +7,7 @@
 downloadableTable(
   id,
   logger,
-  filenameroot,
+  filenameroot = "",
   downloaddatafxns = list(),
   tabledata,
   selection = NULL,

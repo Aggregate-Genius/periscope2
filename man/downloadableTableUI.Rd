@@ -6,7 +6,7 @@
 \usage{
 downloadableTableUI(
   id,
-  downloadtypes = c("csv"),
+  downloadtypes = c(),
   hovertext = NULL,
   contentHeight = "200px",
   singleSelect = FALSE
