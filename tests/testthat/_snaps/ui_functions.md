@@ -342,17 +342,12 @@
                     </a>
                   </li>
                 </ul>
-                <div class="row" style="width:100%">
-                  <div class="col-sm-4">
-                    <div class="periscope-busy-ind">
-                      Working
-                      <img alt="Working..." hspace="5px" src="img/loader.gif"/>
-                    </div>
+                <div class="app_header_container">
+                  <div class="periscope-busy-ind">
+                    Working
+                    <img alt="Working..." hspace="5px" src="img/loader.gif"/>
                   </div>
-                  <div class="col-sm-4">
-                    <div id="app_header">good title</div>
-                  </div>
-                  <div class="col-sm-4"></div>
+                  <div id="app_header">good title</div>
                 </div>
                 <ul class="navbar-nav ml-auto navbar-right">
                   <li class="nav-item">
@@ -471,19 +466,14 @@
             </a>
           </li>
         </ul>
-        <div class="row" style="width:100%">
-          <div class="col-sm-4">
-            <div class="periscope-busy-ind">
-              Working
-              <img alt="Working..." hspace="5px" src="img/loader.gif"/>
-            </div>
+        <div class="app_header_container">
+          <div class="periscope-busy-ind">
+            Working
+            <img alt="Working..." hspace="5px" src="img/loader.gif"/>
           </div>
-          <div class="col-sm-4">
-            <div id="app_header">
-              <a id="app_info" href="#" class="action-button">periscope Example Application</a>
-            </div>
+          <div id="app_header">
+            <a id="app_info" href="#" class="action-button">periscope Example Application</a>
           </div>
-          <div class="col-sm-4"></div>
         </div>
         <ul class="navbar-nav ml-auto navbar-right">
           <li class="nav-item">
@@ -514,19 +504,14 @@
             </a>
           </li>
         </ul>
-        <div class="row" style="width:100%">
-          <div class="col-sm-4">
-            <div class="periscope-busy-ind">
-              Working
-              <img alt="Working..." hspace="5px" src="img/loader.gif"/>
-            </div>
+        <div class="app_header_container">
+          <div class="periscope-busy-ind">
+            Working
+            <img alt="Working..." hspace="5px" src="img/loader.gif"/>
           </div>
-          <div class="col-sm-4">
-            <div id="app_header">
-              <a id="app_info" href="https://cran.r-project.org/web/packages/periscope2/index.html" target="_blank">periscope Example Application</a>
-            </div>
+          <div id="app_header">
+            <a id="app_info" href="https://cran.r-project.org/web/packages/periscope2/index.html" target="_blank">periscope Example Application</a>
           </div>
-          <div class="col-sm-4"></div>
         </div>
         <ul class="navbar-nav ml-auto navbar-right">
           <li class="nav-item">

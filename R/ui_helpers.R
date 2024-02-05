@@ -71,8 +71,19 @@ add_ui_left_sidebar <- function(sidebar_elements = NULL,
 #' Builds application header with given configurations and elements. It is called within "ui_header.R".
 #' These elements will be displayed in the header beside application title and application busy indicator.
 #'
-#' User can configure UI elements, application title and the busy indicator positions as well using this method.
+#' \subsection{Application header consists of three elements:}{
+#'    \describe{
+#'      \item{busy indicator}{An automatic wait indicator that are shown when the shiny server session is busy}
+#'      \item{application title}{Display application title}
+#'      \item{heade menu}{Optional header menu to switch between application different tabs}
+#'    }
+#' }
 #'
+#' Header elements can be arranged via \code{ui_position} and \code{title_position} parameters.
+#' \cr
+#' Header elements look and feel can also be configured in \bold{"www\\css\\custom.css"} file under
+#' \bold{"Application Header"} section.
+#' \cr
 #' Check example application for detailed example
 #'
 #' @param ui_elements        - It can be any UI element but mostly used for navbarMenu. NULL by default.
@@ -176,13 +187,13 @@ add_ui_header <- function(ui_elements        = NULL,
                                  shiny::img(alt = "Working...",
                                             hspace = "5px",
                                             src = "img/loader.gif"))
+    if (length(ui_elements) > 0) {
+        ui_elements <- shiny::div(id = "header_menu", ui_elements)
+    }
+
     header_left   <- busy_indicator
     header_center <- title
     header_right  <- ui_elements
-
-    left_width   <- 4
-    right_width  <- 4
-    center_width <- 4
 
     if (!is.null(ui_elements)) {
         if (!is.null(title_position)) {
@@ -209,20 +220,6 @@ add_ui_header <- function(ui_elements        = NULL,
             warning("title_position cannot be equal to ui_position. Setting default values")
             title_position <- "center"
             ui_position    <- "right"
-        }
-
-        left_width   <- 3
-        center_width <- 3
-        right_width  <- 6
-
-        if (ui_position == "left") {
-            left_width   <- 6
-            center_width <- 3
-            right_width  <- 3
-        } else if (ui_position == "center") {
-            left_width   <- 3
-            center_width <- 6
-            right_width  <- 3
         }
 
         if (title_position == "center") {
@@ -255,10 +252,10 @@ add_ui_header <- function(ui_elements        = NULL,
 
     }
 
-    header <- shiny::fluidRow(style = "width:100%",
-                              shiny::column(width = left_width, header_left),
-                              shiny::column(width = center_width, header_center),
-                              shiny::column(width = right_width, header_right))
+    header <- shiny::div(class = "app_header_container",
+                         header_left,
+                         header_center,
+                         header_right)
 
     .g_opts$header <- bs4Dash::bs4DashNavbar(header,
                                              skin           = skin,
