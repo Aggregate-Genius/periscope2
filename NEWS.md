@@ -1,4 +1,12 @@
-# periscope2 0.2.1
+# periscope2 0.2.3
+
+## Enhancements
+
+- Re-factored header layout to be more flexible with menu items
+
+-----
+
+# periscope2 0.2.2
 
 ## New Features
 

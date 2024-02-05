@@ -6,15 +6,30 @@ aside#sidebarId, aside#controlbarId {
     z-index: 0!important;
 }
 
-/* Application title */
+/* Application Header (busy indicator - app title - app menu) */
+
+/* header flex container properties*/
+/* To customize the container or any of its three elements refer to
+*  https://css-tricks.com/snippets/css/a-guide-to-flexbox/ for more
+*  information*/
+.app_header_container {
+    display: inline-flex;
+    width: 100%;
+}
+
+/* app info modal*/
 a#app_info {
     color: #212529!important;
 }
 
+/* app title container*/
 div#app_header {
     height: 100%;
     display: inline-flex;
     align-items: center;
+    font-size: x-large;
+    justify-content: center;
+    width: 100%;
 }
 
 /* Busy Indicator */
@@ -22,11 +37,21 @@ div#app_header {
     height: 100%;
     display: inline-flex;
     align-items: center;
+    justify-content: flex-start;
+    width: 0%;
+    align-self: center;
 }
 
-.hidden {
-    display: none !important;
+/* header menu*/
+div#header_menu{
+
 }
+
+ul.dropdown-menu {
+    width: max-content;
+}
+
+/* End of Application Header CSS rules */
 
 
 /* Other */
