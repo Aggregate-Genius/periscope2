@@ -75,8 +75,8 @@
 downloadFileButton <- function(id,
                                downloadtypes = c("csv"),
                                hovertext     = NULL) {
-    ns     <- shiny::NS(id)
-    output <- ""
+    ns             <- shiny::NS(id)
+    file_button_ui <- ""
 
     if (length(downloadtypes) > 1) {
         # create dropdown list
@@ -92,31 +92,31 @@ downloadFileButton <- function(id,
         dropdown <- shiny::tagList(dropdown)
 
         # button with dropdown list
-        output <- bs4Dash::tooltip(shiny::span(class = "btn-group",
-                                               bs4Dash::actionButton(
-                                                   inputId         = ns("downloadFileList"),
-                                                   label           = NULL,
-                                                   icon            = shiny::icon("copy", lib = "font-awesome"),
-                                                   type            = "action",
-                                                   class           = "dropdown-toggle periscope-download-btn",
-                                                   `data-toggle`   = "dropdown",
-                                                   `aria-haspopup` = "true",
-                                                   `aria-expanded` = "false"),
-                                               shiny::tags$ul(class = "dropdown-menu",
-                                                              id = ns("testList"),
-                                                              dropdown)),
-                                   title     = hovertext,
-                                   placement = "top")
+        file_button_ui <- bs4Dash::tooltip(shiny::span(class = "btn-group",
+                                                       bs4Dash::actionButton(
+                                                           inputId          = ns("downloadFileList"),
+                                                           label            = NULL,
+                                                           icon             = shiny::icon("copy", lib = "font-awesome"),
+                                                           type             = "action",
+                                                           class            = "dropdown-toggle periscope-download-btn",
+                                                           `data-toggle`    = "dropdown",
+                                                           `aria-haspopup`  = "true",
+                                                           `aria-expanded`  = "false"),
+                                                       shiny::tags$ul(class = "dropdown-menu",
+                                                                      id = ns("testList"),
+                                                                      dropdown)),
+                                           title     = hovertext,
+                                           placement = "top")
 
-    } else {
+    } else if (length(downloadtypes) == 1) {
         # single button - no dropdown
-        output <- bs4Dash::tooltip(shiny::span(shiny::downloadButton(ns(downloadtypes[1]),
-                                                                     label = NULL,
-                                                                     class = "periscope-download-btn")),
-                                   title     = hovertext,
-                                   placement = "top")
+        file_button_ui <- bs4Dash::tooltip(shiny::span(shiny::downloadButton(ns(downloadtypes[1]),
+                                                                             label = NULL,
+                                                                             class = "periscope-download-btn")),
+                                           title     = hovertext,
+                                           placement = "top")
     }
-    output
+    file_button_ui
 }
 
 
@@ -203,29 +203,37 @@ downloadFile <- function(id,
             output$csv  <- shiny::downloadHandler(
                 filename = shiny::reactive({paste(rootname(), "csv", sep = ".")}),
                 content  = function(file) {
-                    writeFile("csv", datafxns$csv(), file, logger,
-                              shiny::reactive({paste(rootname(), "csv", sep = ".")}))
+                    if (!is.null(datafxns)) {
+                        writeFile("csv", datafxns$csv(), file, logger,
+                                  shiny::reactive({paste(rootname(), "csv", sep = ".")}))
+                    }
                 })
 
             output$xlsx <- shiny::downloadHandler(
                 filename = shiny::reactive({paste(rootname(), "xlsx", sep = ".")}),
                 content  = function(file) {
-                    writeFile("xlsx", datafxns$xlsx(), file, logger,
-                              shiny::reactive({paste(rootname(), "xlsx", sep = ".")}))
+                    if (!is.null(datafxns)) {
+                        writeFile("xlsx", datafxns$xlsx(), file, logger,
+                                  shiny::reactive({paste(rootname(), "xlsx", sep = ".")}))
+                    }
                 })
 
             output$tsv  <- shiny::downloadHandler(
                 filename = shiny::reactive({paste(rootname(), "tsv", sep = ".")}),
                 content = function(file) {
-                    writeFile("tsv", datafxns$tsv(), file, logger,
-                              shiny::reactive({paste(rootname(), "tsv", sep = ".")}))
+                    if (!is.null(datafxns)) {
+                        writeFile("tsv", datafxns$tsv(), file, logger,
+                                  shiny::reactive({paste(rootname(), "tsv", sep = ".")}))
+                    }
                 })
 
             output$txt  <- shiny::downloadHandler(
                 filename = shiny::reactive({paste(rootname(), "txt", sep = ".")}),
                 content = function(file) {
-                    writeFile("txt", datafxns$txt(), file, logger,
-                              shiny::reactive({paste(rootname(), "txt", sep = ".")}))
+                    if (!is.null(datafxns)) {
+                        writeFile("txt", datafxns$txt(), file, logger,
+                                  shiny::reactive({paste(rootname(), "txt", sep = ".")}))
+                    }
                 })
 
             # filename is expected to be a reactive expression

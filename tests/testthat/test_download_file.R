@@ -39,6 +39,13 @@ test_that("downloadFileButton", {
     expect_true(grepl('id="myid-csv"', file_btn, fixed = TRUE))
 })
 
+test_that("downloadFileButton - no download type", {
+    file_btn <- downloadFileButton(id            = "myid2",
+                                   downloadtypes = NULL,
+                                   hovertext     = "myhovertext")
+    expect_equal(file_btn, "")
+})
+
 test_that("downloadFileButton multiple types", {
     file_btn <- downloadFileButton(id            = "myid",
                                    downloadtypes = c("csv", "tsv"),
@@ -145,5 +152,13 @@ test_that("downloadFile - download txt numeric data", {
                            datafxns     = list(txt = function() {123})),
                expr = {
                    expect_warning(output$txt, "txt could not be processed")
+               })
+})
+
+test_that("downloadFile - default values", {
+    testServer(downloadFile,
+               args = list(datafxns = list(txt = function() {"123"})),
+               expr = {
+                   expect_snapshot_file(output$txt)
                })
 })
