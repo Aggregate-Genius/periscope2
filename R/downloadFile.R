@@ -186,10 +186,10 @@ downloadFileButton <- function(id,
 #'
 #' @export
 downloadFile <- function(id,
-                         logger,
-                         filenameroot,
-                         datafxns    = list(),
-                         aspectratio = 1) {
+                         logger       = NULL,
+                         filenameroot = "download",
+                         datafxns     = NULL,
+                         aspectratio  = 1) {
     shiny::moduleServer(
         id,
         function(input, output, session) {
