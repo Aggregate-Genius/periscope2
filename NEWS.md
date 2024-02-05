@@ -3,10 +3,11 @@
 ## Enhancements
 
 - Re-factored header layout to be more flexible with menu items
+- Updated modules default values
 
 ## Bug Fixes
 
-- Hide download button if `downloaddatafxn` or `downloadtypes` are empty and updated module default values
+- Hide download button if `downloaddatafxn` or `downloadtypes` are empty
 
 -----
 
