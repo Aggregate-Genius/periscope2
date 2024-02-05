@@ -147,3 +147,11 @@ test_that("downloadFile - download txt numeric data", {
                    expect_warning(output$txt, "txt could not be processed")
                })
 })
+
+test_that("downloadFile - default values", {
+    testServer(downloadFile,
+               args = list(datafxns = list(txt = function() {"123"})),
+               expr = {
+                   expect_snapshot_file(output$txt)
+               })
+})
