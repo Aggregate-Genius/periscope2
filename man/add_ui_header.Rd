@@ -61,8 +61,19 @@ Builds application header with given configurations and elements. It is called w
 These elements will be displayed in the header beside application title and application busy indicator.
 }
 \details{
-User can configure UI elements, application title and the busy indicator positions as well using this method.
+\subsection{Application header consists of three elements:}{
+   \describe{
+     \item{busy indicator}{An automatic wait indicator that are shown when the shiny server session is busy}
+     \item{application title}{Display application title}
+     \item{heade menu}{Optional header menu to switch between application different tabs}
+   }
+}
 
+Header elements can be arranged via \code{ui_position} and \code{title_position} parameters.
+\cr
+Header elements look and feel can also be configured in \bold{"www\\css\\custom.css"} file under
+\bold{"Application Header"} section.
+\cr
 Check example application for detailed example
 }
 \section{Shiny Usage}{
