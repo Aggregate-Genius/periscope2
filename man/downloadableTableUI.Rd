@@ -32,11 +32,15 @@ Creates a custom high-functionality table paired with a linked downloadFile
 button.  The table has search and highlight functionality, infinite scrolling,
 sorting by columns and returns a reactive dataset of selected items.
 }
+\details{
+downloadFile button will be hidden if \code{downloadableTable} parameter \code{downloaddatafxn} or
+\code{downloadableTableUI} parameter \code{downloadtypes} is empty
+}
 \section{Table Features}{
 
 \itemize{
     \item Consistent styling of the table
-    \item downloadFile module button functionality built-in to the table
+    \item downloadFile module button functionality built-in to the table (it will be shown only if downloadtypes is defined)
     \item Ability to show different data from the download data
     \item Table is automatically fit to the window size with infinite
     y-scrolling

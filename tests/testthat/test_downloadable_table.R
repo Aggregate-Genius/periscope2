@@ -9,7 +9,16 @@ test_that("downloadableTableUI", {
     expect_true(grepl('id="myid-dtableButtonDiv"', table_ui[[1]], fixed = TRUE))
     expect_true(grepl('title="myHoverText"', table_ui[[1]], fixed = TRUE))
     expect_true(grepl('id="myid-dtableButtonID-csv"', table_ui[[1]], fixed = TRUE))
+    expect_false(grepl('style="display:none">', table_ui[[1]], fixed = TRUE))
     expect_true(grepl('id="myid-dtableOutputID"', table_ui[[2]], fixed = TRUE))
+})
+
+test_that("downloadableTableUI - no download types", {
+    table_ui <- downloadableTableUI(id = "myid2")
+    expect_equal(length(table_ui), 4)
+    expect_true(grepl('id="myid2-dtableButtonDiv"', table_ui[[1]], fixed = TRUE))
+    expect_true(grepl('style="display:none">', table_ui[[1]], fixed = TRUE))
+    expect_true(grepl('id="myid2-dtableOutputID"', table_ui[[2]], fixed = TRUE))
 })
 
 # helper functions
@@ -111,6 +120,13 @@ test_that("downloadableTable - invalid_selection", {
                                           downloaddatafxns = list(csv = data, tsv = data),
                                           tabledata        = data,
                                           selection        = "single"),
+                              expr = {}), "")
+})
+
+test_that("downloadableTable - no downloads", {
+    expect_message(testServer(downloadableTable,
+                              args = list(tabledata = data,
+                                          selection = "single"),
                               expr = {}), "")
 })
 
