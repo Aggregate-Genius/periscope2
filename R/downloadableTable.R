@@ -85,7 +85,7 @@
 #'
 #' @export
 downloadableTableUI <- function(id,
-                                downloadtypes = c(),
+                                downloadtypes = NULL,
                                 hovertext     = NULL,
                                 contentHeight = "200px",
                                 singleSelect  = FALSE) {
@@ -214,9 +214,9 @@ downloadableTableUI <- function(id,
 #'
 #' @export
 downloadableTable <- function(id,
-                              logger,
-                              filenameroot     = "",
-                              downloaddatafxns = list(),
+                              logger           = NULL,
+                              filenameroot     = "download",
+                              downloaddatafxns = NULL,
                               tabledata,
                               selection        = NULL,
                               table_options    = list()) {
