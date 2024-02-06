@@ -123,6 +123,37 @@ test_that("downloadableTable - invalid_selection", {
                               expr = {}), "")
 })
 
+
+test_that("downloadableTable - filename and filenameroot", {
+    testServer(downloadableTable,
+               args = list(filename         = "test",
+                           downloaddatafxns = list(csv = data),
+                           tabledata        = data),
+               expr = {
+                   selected <- '"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}'
+                   expect_true(grepl(selected, output$dtableOutputID, fixed = TRUE))
+               })
+
+    testServer(downloadableTable,
+               args = list(filename         = reactiveVal("test"),
+                           downloaddatafxns = list(csv = data),
+                           tabledata        = data),
+               expr = {
+                   selected <- '"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}'
+                   expect_true(grepl(selected, output$dtableOutputID, fixed = TRUE))
+               })
+
+    testServer(downloadableTable,
+               args = list(filename         = function(){"test"},
+                           filenameroot     = NULL,
+                           downloaddatafxns = list(csv = data),
+                           tabledata        = data),
+               expr = {
+                   selected <- '"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}'
+                   expect_true(grepl(selected, output$dtableOutputID, fixed = TRUE))
+               })
+})
+
 test_that("downloadableTable - no downloads", {
     expect_message(testServer(downloadableTable,
                               args = list(tabledata = data,
