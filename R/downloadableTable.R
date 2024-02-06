@@ -141,6 +141,9 @@ downloadableTableUI <- function(id,
 #'
 #' @param id  the ID of the Module's UI element
 #' @param logger logger to use
+#' @param filename function or reactive expression providing downloadable file name. \cr
+#'        \code{filename} is optional and will be appended to \code{filenameroot} \cr
+#'        in format of \bold{filenameroot + filename}
 #' @param filenameroot the base text used for user-downloaded file - can be
 #' either a character string or a reactive expression returning a character
 #' string
@@ -215,6 +218,7 @@ downloadableTableUI <- function(id,
 #' @export
 downloadableTable <- function(id,
                               logger           = NULL,
+                              filename         = NULL,
                               filenameroot     = "download",
                               downloaddatafxns = NULL,
                               tabledata,
@@ -227,6 +231,14 @@ downloadableTable <- function(id,
                                     is.character(selection))) {
                                 message("'selection' parameter must be a function or reactive expression. Setting default value NULL.")
                                 selection <- NULL
+                            }
+
+                            if (is.null(filenameroot)) {
+                                filenameroot <- ""
+                            }
+
+                            if (is.reactive(filename) || is.function(filename)) {
+                                filenameroot <- paste0(filenameroot, isolate(filename()))
                             }
 
                             downloadFile("dtableButtonID", logger, filenameroot, downloaddatafxns)

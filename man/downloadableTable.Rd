@@ -7,6 +7,7 @@
 downloadableTable(
   id,
   logger = NULL,
+  filename = NULL,
   filenameroot = "download",
   downloaddatafxns = NULL,
   tabledata,
@@ -18,6 +19,10 @@ downloadableTable(
 \item{id}{the ID of the Module's UI element}
 
 \item{logger}{logger to use}
+
+\item{filename}{function or reactive expression providing downloadable file name. \cr
+\code{filename} is optional and will be appended to \code{filenameroot} \cr
+in format of \bold{filenameroot + filename}}
 
 \item{filenameroot}{the base text used for user-downloaded file - can be
 either a character string or a reactive expression returning a character
