@@ -7,7 +7,8 @@
 
 ## Bug Fixes
 
-- Hide download button if `downloaddatafxn` or `downloadtypes` are empty for `downloadableTable` and `downloadablePlot` modules
+- Hide download button if `downloaddatafxn` or `downloadtypes` are empty for `downloadableTable` module
+- Hide download button if `downloadfxns` or `downloadtypes` are empty for `downloadablePlot` module
 
 -----
 

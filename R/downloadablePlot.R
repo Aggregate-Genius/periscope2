@@ -9,6 +9,9 @@
 #' button.  This module is compatible with ggplot2, grob and lattice
 #' produced graphics.
 #'
+#' downloadFile button will be hidden if \code{downloadablePlot} parameter \code{downloadfxns} or
+#' \code{downloadablePlotUI} parameter \code{downloadtypes} is empty
+#'
 #' @param id character id for the object
 #' @param downloadtypes vector of values for download types
 #' @param download_hovertext download button tooltip hover text
@@ -160,6 +163,9 @@ downloadablePlotUI <- function(id,
 #'
 #' Server-side function for the downloadablePlotUI.  This is a custom
 #' plot output paired with a linked downloadFile button.
+#'
+#' downloadFile button will be hidden if \code{downloadablePlot} parameter \code{downloadfxns} or
+#' \code{downloadablePlotUI} parameter \code{downloadtypes} is empty
 #'
 #' @param id the ID of the Module's UI element
 #' @param logger logger to use

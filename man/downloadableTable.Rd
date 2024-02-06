@@ -6,9 +6,9 @@
 \usage{
 downloadableTable(
   id,
-  logger,
-  filenameroot = "",
-  downloaddatafxns = list(),
+  logger = NULL,
+  filenameroot = "download",
+  downloaddatafxns = NULL,
   tabledata,
   selection = NULL,
   table_options = list()
