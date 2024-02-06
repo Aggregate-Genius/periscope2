@@ -35,6 +35,8 @@ highlighting
 scrolling (no paging by default)
 * Supports rownames and a table caption
 * Requires minimal code (see the Usage section for details)
+* **downloadFile** button will be hidden if `downloadableTable` parameter `downloaddatafxn` or
+`downloadableTableUI` parameter `downloadtypes` is empty
 
 <br>
 

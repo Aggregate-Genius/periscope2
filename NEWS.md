@@ -4,6 +4,10 @@
 
 - Re-factored header layout to be more flexible with menu items
 
+## Bug Fixes
+
+- Hide download button if `downloaddatafxn` or `downloadtypes` are empty and updated module default values
+
 -----
 
 # periscope2 0.2.2

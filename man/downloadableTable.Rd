@@ -7,7 +7,7 @@
 downloadableTable(
   id,
   logger,
-  filenameroot,
+  filenameroot = "",
   downloaddatafxns = list(),
   tabledata,
   selection = NULL,
@@ -46,6 +46,9 @@ high-functionality table paired with a linked downloadFile
 button.
 }
 \details{
+downloadFile button will be hidden if \code{downloadableTable} parameter \code{downloaddatafxn} or
+\code{downloadableTableUI} parameter \code{downloadtypes} is empty
+
 Generated table can highly customized using function \code{?DT::datatable} same arguments
  except for `options` and `selection` parameters.
 
