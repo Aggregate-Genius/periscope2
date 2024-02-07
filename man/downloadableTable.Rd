@@ -7,7 +7,6 @@
 downloadableTable(
   id,
   logger = NULL,
-  filename = NULL,
   filenameroot = "download",
   downloaddatafxns = NULL,
   tabledata,
@@ -20,12 +19,8 @@ downloadableTable(
 
 \item{logger}{logger to use}
 
-\item{filename}{function or reactive expression providing downloadable file name. \cr
-\code{filename} is optional and will be appended to \code{filenameroot} \cr
-in format of \bold{filenameroot + filename}}
-
-\item{filenameroot}{the base text used for user-downloaded file - can be
-either a character string or a reactive expression returning a character
+\item{filenameroot}{the text used for user-downloaded file - can be
+either a character string, a reactive expression or a function returning a character
 string}
 
 \item{downloaddatafxns}{a \strong{named} list of functions providing the data as
