@@ -4,7 +4,7 @@
 
 - Re-factored header layout to be more flexible with menu items
 - Updated modules default values
-- Added optional`filename` parameter into **downloadableTable** module server parameters list (refer to `vignette("downloadableTable-module", package = "periscope2")` for more info)
+- **downloadableTable** module server parameters "filenameroot" can now support character,  reactive expression or a function to return file name
 
 ## Bug Fixes
 
