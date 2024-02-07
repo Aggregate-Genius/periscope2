@@ -124,9 +124,9 @@ test_that("downloadableTable - invalid_selection", {
 })
 
 
-test_that("downloadableTable - filename and filenameroot", {
+test_that("downloadableTable - filenameroot", {
     testServer(downloadableTable,
-               args = list(filename         = "test",
+               args = list(filenameroot     = "test",
                            downloaddatafxns = list(csv = data),
                            tabledata        = data),
                expr = {
@@ -135,7 +135,7 @@ test_that("downloadableTable - filename and filenameroot", {
                })
 
     testServer(downloadableTable,
-               args = list(filename         = reactiveVal("test"),
+               args = list(filenameroot     = reactiveVal("test"),
                            downloaddatafxns = list(csv = data),
                            tabledata        = data),
                expr = {
@@ -144,8 +144,16 @@ test_that("downloadableTable - filename and filenameroot", {
                })
 
     testServer(downloadableTable,
-               args = list(filename         = function(){"test"},
-                           filenameroot     = NULL,
+               args = list(filenameroot     = function(){"test"},
+                           downloaddatafxns = list(csv = data),
+                           tabledata        = data),
+               expr = {
+                   selected <- '"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}'
+                   expect_true(grepl(selected, output$dtableOutputID, fixed = TRUE))
+               })
+
+    testServer(downloadableTable,
+               args = list(filenameroot     = NULL,
                            downloaddatafxns = list(csv = data),
                            tabledata        = data),
                expr = {
