@@ -416,7 +416,7 @@ test_that("set_app_parameters update values", {
     expect_snapshot(shiny::isolate(periscope2:::.g_opts$loading_indicator))
     expect_equal(shiny::isolate(periscope2:::.g_opts$announcements_file), announcements_file)
     expect_equal(load_announcements(), 30000)
-    expect_equal( periscope2:::fw_get_loglevel(), log_level)
+    expect_equal(periscope2:::fw_get_loglevel(), log_level)
     expect_equal(periscope2:::fw_get_title(), title)
     expect_equal(periscope2:::fw_get_version(), app_version)
 })
