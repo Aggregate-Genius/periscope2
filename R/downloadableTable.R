@@ -231,8 +231,8 @@ downloadableTable <- function(id,
 
                             if (is.null(filenameroot)) {
                                 filenameroot <- ""
-                            } else if (is.reactive(filenameroot) || is.function(filenameroot)) {
-                                filenameroot <- isolate(filenameroot())
+                            } else if (shiny::is.reactive(filenameroot) || is.function(filenameroot)) {
+                                filenameroot <- shiny::isolate(filenameroot())
                             }
 
                             downloadFile("dtableButtonID", logger, filenameroot, downloaddatafxns)
@@ -277,8 +277,8 @@ downloadableTable <- function(id,
                                                               message = list(btn  = session$ns("dtableButtonDiv"),
                                                                              rows = sum(unlist(rowct))))
                                 }
-                                output$displayButton <- reactive(length(downloaddatafxns) > 0)
-                                outputOptions(output, "displayButton", suspendWhenHidden = FALSE)
+                                output$displayButton <- shiny::reactive(length(downloaddatafxns) > 0)
+                                shiny::outputOptions(output, "displayButton", suspendWhenHidden = FALSE)
                             })
 
 
