@@ -9,6 +9,9 @@
 #' button.  This module is compatible with ggplot2, grob and lattice
 #' produced graphics.
 #'
+#' downloadFile button will be hidden if \code{downloadablePlot} parameter \code{downloadfxns} or
+#' \code{downloadablePlotUI} parameter \code{downloadtypes} is empty
+#'
 #' @param id character id for the object
 #' @param downloadtypes vector of values for download types
 #' @param download_hovertext download button tooltip hover text
@@ -131,12 +134,15 @@ downloadablePlotUI <- function(id,
 
     }
 
-    btn_item <- shiny::span(id    = ns("dplotButtonDiv"),
-                            class = "periscope-downloadable-plot-button",
-                            style = styleval,
-                            periscope2::downloadFileButton(ns("dplotButtonID"),
-                                                           downloadtypes,
-                                                           download_hovertext))
+    btn_item <- shiny::conditionalPanel(
+        condition = "output.displayButton",
+        ns        = ns,
+        shiny::span(id    = ns("dplotButtonDiv"),
+                    class = "periscope-downloadable-plot-button",
+                    style = styleval,
+                    periscope2::downloadFileButton(ns("dplotButtonID"),
+                                                   downloadtypes,
+                                                   download_hovertext)))
 
     plot_item <- shiny::plotOutput(outputId = ns("dplotOutputID"),
                                    width    = width,
@@ -157,6 +163,9 @@ downloadablePlotUI <- function(id,
 #'
 #' Server-side function for the downloadablePlotUI.  This is a custom
 #' plot output paired with a linked downloadFile button.
+#'
+#' downloadFile button will be hidden if \code{downloadablePlot} parameter \code{downloadfxns} or
+#' \code{downloadablePlotUI} parameter \code{downloadtypes} is empty
 #'
 #' @param id the ID of the Module's UI element
 #' @param logger logger to use
@@ -226,10 +235,10 @@ downloadablePlotUI <- function(id,
 #'
 #' @export
 downloadablePlot <- function(id,
-                             logger,
-                             filenameroot,
+                             logger       = NULL,
+                             filenameroot = "download",
                              aspectratio  = 1,
-                             downloadfxns = list(),
+                             downloadfxns = NULL,
                              visibleplot) {
     shiny::moduleServer(
         id,
@@ -250,14 +259,17 @@ downloadablePlot <- function(id,
             })
 
             shiny::observe({
-                if (!is.null(downloadfxns) && (length(downloadfxns) > 0)) {
+                if (length(downloadfxns) > 0) {
                     dpInfo$downloadfxns <- lapply(downloadfxns, do.call, list())
-                    rowct <- lapply(dpInfo$downloadfxns, is.null)
+                    rowct               <- lapply(dpInfo$downloadfxns, is.null)
                     session$sendCustomMessage(
                         "downloadbutton_toggle",
                         message = list(btn  = session$ns("dplotButtonDiv"),
                                        rows = sum(unlist(rowct) == FALSE)) )
                 }
+
+                output$displayButton <- reactive(length(downloadfxns) > 0)
+                outputOptions(output, "displayButton", suspendWhenHidden = FALSE)
             })
         })
 }

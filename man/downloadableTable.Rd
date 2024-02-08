@@ -6,9 +6,9 @@
 \usage{
 downloadableTable(
   id,
-  logger,
-  filenameroot = "",
-  downloaddatafxns = list(),
+  logger = NULL,
+  filenameroot = "download",
+  downloaddatafxns = NULL,
   tabledata,
   selection = NULL,
   table_options = list()
@@ -19,8 +19,8 @@ downloadableTable(
 
 \item{logger}{logger to use}
 
-\item{filenameroot}{the base text used for user-downloaded file - can be
-either a character string or a reactive expression returning a character
+\item{filenameroot}{the text used for user-downloaded file - can be
+either a character string, a reactive expression or a function returning a character
 string}
 
 \item{downloaddatafxns}{a \strong{named} list of functions providing the data as

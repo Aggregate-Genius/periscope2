@@ -52,6 +52,10 @@ Creates a custom plot output that is paired with a linked downloadFile
 button.  This module is compatible with ggplot2, grob and lattice
 produced graphics.
 }
+\details{
+downloadFile button will be hidden if \code{downloadablePlot} parameter \code{downloadfxns} or
+\code{downloadablePlotUI} parameter \code{downloadtypes} is empty
+}
 \section{Example}{
 
 \code{downloadablePlotUI("myplotID", c("png", "csv"),

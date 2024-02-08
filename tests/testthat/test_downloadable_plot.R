@@ -1,5 +1,26 @@
 context("periscope2 - downloadablePlot")
 
+test_that("downloadablePlotUI - default values", {
+    plot_ui <- downloadablePlotUI(id = "myid")
+    expect_equal(length(plot_ui), 2)
+    expect_true(grepl('id="myid-dplotOutputID"', plot_ui[[1]], fixed = TRUE))
+    expect_true(grepl('style="width:100%;height:400px;"', plot_ui[[1]], fixed = TRUE))
+    expect_true(grepl('id="myid-dplotButtonDiv"', plot_ui[[2]], fixed = TRUE))
+    expect_false(grepl('title="myhovertext"', plot_ui[[2]], fixed = TRUE))
+    expect_true(grepl('"myid-dplotButtonID-png"', plot_ui[[2]], fixed = TRUE))
+})
+
+test_that("downloadablePlotUI - no downloadable types", {
+    plot_ui <- downloadablePlotUI(id            = "myid",
+                                  downloadtypes = NULL)
+    expect_equal(length(plot_ui), 2)
+    expect_true(grepl('id="myid-dplotOutputID"', plot_ui[[1]], fixed = TRUE))
+    expect_true(grepl('style="width:100%;height:400px;"', plot_ui[[1]], fixed = TRUE))
+    expect_true(grepl('id="myid-dplotButtonDiv"', plot_ui[[2]], fixed = TRUE))
+    expect_false(grepl('title="myhovertext"', plot_ui[[2]], fixed = TRUE))
+    expect_false(grepl('"myid-dplotButtonID"', plot_ui[[2]], fixed = TRUE))
+})
+
 test_that("downloadablePlotUI btn_overlap=true btn_halign=left btn_valign=bottom", {
     plot_ui <- downloadablePlotUI(id                 = "myid",
                                   downloadtypes      = c("png"),
@@ -80,22 +101,23 @@ test_that("downloadablePlotUI invalid btn_valign", {
     expect_true(grepl('id="myid-dplotButtonID-png"', plot_ui[[2]], fixed = TRUE))
 })
 
+
+download_plot <- function() {
+    ggplot2::ggplot(data = download_data(), aes(x = wt, y = mpg)) +
+        geom_point(aes(color = cyl)) +
+        theme(legend.justification = c(1, 1),
+              legend.position      = c(1, 1),
+              legend.title         = element_blank()) +
+        ggtitle("GGPlot Example w/Hover") +
+        xlab("wt") +
+        ylab("mpg")
+}
+
+download_data <- function() {
+    head(mtcars)
+}
+
 test_that("downloadablePlot", {
-    download_plot <- function() {
-        ggplot2::ggplot(data = download_data(), aes(x = wt, y = mpg)) +
-            geom_point(aes(color = cyl)) +
-            theme(legend.justification = c(1, 1),
-                  legend.position      = c(1, 1),
-                  legend.title         = element_blank()) +
-            ggtitle("GGPlot Example w/Hover") +
-            xlab("wt") +
-            ylab("mpg")
-    }
-
-    download_data <- function() {
-        head(mtcars)
-    }
-
    testServer(downloadablePlot,
                args = list(logger = periscope2:::fw_get_user_log(),
                            filenameroot = "mydownload1",
@@ -113,6 +135,16 @@ test_that("downloadablePlot", {
                                                          tiff = download_plot,
                                                          txt  = download_data,
                                                          tsv  = download_data))
+                   expect_equal(output$dplotOutputID$width, 600)
+               })
+})
+
+
+test_that("downloadablePlot- default values", {
+    testServer(downloadablePlot,
+               args = list(visibleplot = download_plot),
+               expr = {
+                   session$setInputs(visibleplot = download_plot)
                    expect_equal(output$dplotOutputID$width, 600)
                })
 })

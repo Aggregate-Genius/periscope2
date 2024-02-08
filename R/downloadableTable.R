@@ -85,7 +85,7 @@
 #'
 #' @export
 downloadableTableUI <- function(id,
-                                downloadtypes = c(),
+                                downloadtypes = NULL,
                                 hovertext     = NULL,
                                 contentHeight = "200px",
                                 singleSelect  = FALSE) {
@@ -141,8 +141,8 @@ downloadableTableUI <- function(id,
 #'
 #' @param id  the ID of the Module's UI element
 #' @param logger logger to use
-#' @param filenameroot the base text used for user-downloaded file - can be
-#' either a character string or a reactive expression returning a character
+#' @param filenameroot the text used for user-downloaded file - can be
+#' either a character string, a reactive expression or a function returning a character
 #' string
 #' @param downloaddatafxns a \strong{named} list of functions providing the data as
 #' return values.  The names for the list should be the same names that were used
@@ -214,9 +214,9 @@ downloadableTableUI <- function(id,
 #'
 #' @export
 downloadableTable <- function(id,
-                              logger,
-                              filenameroot     = "",
-                              downloaddatafxns = list(),
+                              logger           = NULL,
+                              filenameroot     = "download",
+                              downloaddatafxns = NULL,
                               tabledata,
                               selection        = NULL,
                               table_options    = list()) {
@@ -227,6 +227,12 @@ downloadableTable <- function(id,
                                     is.character(selection))) {
                                 message("'selection' parameter must be a function or reactive expression. Setting default value NULL.")
                                 selection <- NULL
+                            }
+
+                            if (is.null(filenameroot)) {
+                                filenameroot <- ""
+                            } else if (is.reactive(filenameroot) || is.function(filenameroot)) {
+                                filenameroot <- isolate(filenameroot())
                             }
 
                             downloadFile("dtableButtonID", logger, filenameroot, downloaddatafxns)

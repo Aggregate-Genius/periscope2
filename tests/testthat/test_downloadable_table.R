@@ -123,6 +123,45 @@ test_that("downloadableTable - invalid_selection", {
                               expr = {}), "")
 })
 
+
+test_that("downloadableTable - filenameroot", {
+    testServer(downloadableTable,
+               args = list(filenameroot     = "test",
+                           downloaddatafxns = list(csv = data),
+                           tabledata        = data),
+               expr = {
+                   selected <- '"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}'
+                   expect_true(grepl(selected, output$dtableOutputID, fixed = TRUE))
+               })
+
+    testServer(downloadableTable,
+               args = list(filenameroot     = reactiveVal("test"),
+                           downloaddatafxns = list(csv = data),
+                           tabledata        = data),
+               expr = {
+                   selected <- '"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}'
+                   expect_true(grepl(selected, output$dtableOutputID, fixed = TRUE))
+               })
+
+    testServer(downloadableTable,
+               args = list(filenameroot     = function(){"test"},
+                           downloaddatafxns = list(csv = data),
+                           tabledata        = data),
+               expr = {
+                   selected <- '"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}'
+                   expect_true(grepl(selected, output$dtableOutputID, fixed = TRUE))
+               })
+
+    testServer(downloadableTable,
+               args = list(filenameroot     = NULL,
+                           downloaddatafxns = list(csv = data),
+                           tabledata        = data),
+               expr = {
+                   selected <- '"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}'
+                   expect_true(grepl(selected, output$dtableOutputID, fixed = TRUE))
+               })
+})
+
 test_that("downloadableTable - no downloads", {
     expect_message(testServer(downloadableTable,
                               args = list(tabledata = data,

@@ -6,10 +6,10 @@
 \usage{
 downloadablePlot(
   id,
-  logger,
-  filenameroot,
+  logger = NULL,
+  filenameroot = "download",
   aspectratio = 1,
-  downloadfxns = list(),
+  downloadfxns = NULL,
   visibleplot
 )
 }
@@ -39,6 +39,10 @@ Reactive expression containing the currently selected plot to be available for d
 \description{
 Server-side function for the downloadablePlotUI.  This is a custom
 plot output paired with a linked downloadFile button.
+}
+\details{
+downloadFile button will be hidden if \code{downloadablePlot} parameter \code{downloadfxns} or
+\code{downloadablePlotUI} parameter \code{downloadtypes} is empty
 }
 \section{Notes}{
 
