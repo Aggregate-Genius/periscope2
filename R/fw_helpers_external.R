@@ -158,8 +158,11 @@ load_announcements <- function(announcements_file_path  = NULL,
     announce_setup     <- NULL
     auto_close         <- NULL
     announcements_file <- announcements_file_path
+
+    # use configured 'set_app_parameters' parameter 'announcements_file' value
+    # to support backward compatibility
     if (is.null(announcements_file)) {
-        shiny::isolate(.g_opts$announcements_file)
+        announcements_file <- shiny::isolate(.g_opts$announcements_file)
     }
 
     if ((!is.null(announcements_file)) &&
@@ -242,7 +245,7 @@ load_announcements <- function(announcements_file_path  = NULL,
             }
 
             if (valid) {
-                createPSAlert(id      = "announceAlert",
+                createPSAlert(id      = announcement_location_id,
                               options = list(title    = title,
                                              status   = style,
                                              closable = TRUE,

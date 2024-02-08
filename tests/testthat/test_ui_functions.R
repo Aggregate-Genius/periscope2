@@ -23,7 +23,7 @@ create_announcements <- function(start_date        = NULL,
     yaml::read_yaml(announcements_file)
     periscope2::set_app_parameters(title              = "title",
                                    announcements_file = announcements_file)
-    announce_output <- periscope2:::load_announcements()
+    announce_output <- load_announcements()
     unlink(announcements_file, TRUE)
     announce_output
 }
@@ -41,7 +41,7 @@ test_that("set_app_parameters default values", {
     expect_equal(shiny::isolate(periscope2:::.g_opts$app_version), "1.0.0")
     expect_null(shiny::isolate(periscope2:::.g_opts$loading_indicator))
     expect_null(shiny::isolate(periscope2:::.g_opts$announcements_file))
-    expect_null(periscope2:::load_announcements())
+    expect_null(load_announcements())
 })
 
 test_that("add_ui_header - ui element", {
@@ -415,11 +415,17 @@ test_that("set_app_parameters update values", {
     expect_equal(shiny::isolate(periscope2:::.g_opts$app_version), app_version)
     expect_snapshot(shiny::isolate(periscope2:::.g_opts$loading_indicator))
     expect_equal(shiny::isolate(periscope2:::.g_opts$announcements_file), announcements_file)
-    expect_equal(periscope2:::load_announcements(), 30000)
+    expect_equal(load_announcements(), 30000)
     expect_equal( periscope2:::fw_get_loglevel(), log_level)
     expect_equal(periscope2:::fw_get_title(), title)
     expect_equal(periscope2:::fw_get_version(), app_version)
 })
+
+
+test_that("load_announcements function params", {
+    expect_equal(load_announcements(announcements_file_path = system.file("fw_templ", "announce.yaml", package = "periscope2")), 30000)
+})
+
 
 test_that("load_announcements empty file", {
     # test empty announcement
@@ -430,7 +436,7 @@ test_that("load_announcements empty file", {
 
     periscope2::set_app_parameters(title              = "title",
                                    announcements_file = announcements_file)
-    expect_null(periscope2:::load_announcements())
+    expect_null(load_announcements())
     unlink(announcements_file, TRUE)
 })
 
@@ -444,7 +450,7 @@ test_that("load_announcements - parsing error", {
 
     periscope2::set_app_parameters(title              = "title",
                                    announcements_file = announcements_file)
-    expect_warning(periscope2:::load_announcements(), regexp = "[(Could not parse TestThatApp)]")
+    expect_warning(load_announcements(), regexp = "[(Could not parse TestThatApp)]")
     unlink(announcements_file, TRUE)
 })
 
