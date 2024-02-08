@@ -142,14 +142,25 @@ is_valid_color <- function(color) {
 #' If announce.yaml does not exist or contains invalid configurations. Nothing will be displayed.
 #' Closing announcements is caller application responsibility
 #'
+#' @param announcements_file_path   The path to announcements configuration file.\cr
+#'                                  Use \link[periscope2]{announcementConfigurationsAddin} to generate that file.
+#' @param announcement_location_id  Announcement target location div id (default = "announceAlert")
+#'
 #' @return number of seconds an announcement should be staying in caller application
 #'
-#' @keywords internal
-#' @noRd
-load_announcements <- function() {
+#' @examples
+#'     load_announcements(system.file("fw_templ/announce.yaml", package = "periscope2"))
+#'
+#' @seealso \link[periscope2:announcementConfigurationsAddin]{periscope2:announcementConfigurationsAddin()}
+#' @export
+load_announcements <- function(announcements_file_path  = NULL,
+                               announcement_location_id = "announceAlert") {
     announce_setup     <- NULL
     auto_close         <- NULL
-    announcements_file <- shiny::isolate(.g_opts$announcements_file)
+    announcements_file <- announcements_file_path
+    if (is.null(announcements_file)) {
+        shiny::isolate(.g_opts$announcements_file)
+    }
 
     if ((!is.null(announcements_file)) &&
         (file.exists(announcements_file))) {
