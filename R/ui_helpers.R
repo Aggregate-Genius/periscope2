@@ -612,6 +612,13 @@ set_app_parameters <- function(title,
                                app_version        = "1.0.0",
                                loading_indicator  = NULL,
                                announcements_file = NULL) {
+    if (!is.null(announcements_file)) {
+        lifecycle::deprecate_warn(
+            when    = "0.2.3",
+            what    = "set_app_parameters(announcements_file)",
+            details = "Please use `periscope2::load_announcements` instead"
+        )
+    }
     .g_opts$app_title          <- title
     .g_opts$app_info           <- app_info
     .g_opts$loglevel           <- log_level

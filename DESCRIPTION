@@ -31,7 +31,8 @@ Imports:
     shinyWidgets,
     utils,
     writexl,
-    yaml
+    yaml,
+    lifecycle
 RoxygenNote: 7.2.3
 Suggests:
     assertthat,
