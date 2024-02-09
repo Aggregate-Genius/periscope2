@@ -49,3 +49,4 @@ Suggests:
     testthat,
     waiter
 VignetteBuilder: knitr
+Roxygen: list(markdown = TRUE)

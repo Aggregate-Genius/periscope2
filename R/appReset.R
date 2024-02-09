@@ -82,10 +82,10 @@ appResetButton <- function(id) {
 #' high-functionality button for session reload. The server function is used to
 #'  provide module configurations.
 #'
-#' @param id             - Character represents the ID of the Module's UI element (the same id used in \code{appResetButton}
-#' @param reset_wait     - Integer represents the period to wait before session reload in milliseconds (default = 5000)
-#' @param alert_location - Character represents div ID or selector to display module related messages (default = "bodyAlert")
-#' @param logger         - logger to use
+#' @param id             Character represents the ID of the Module's UI element (the same id used in \code{appResetButton}
+#' @param reset_wait     Integer represents the period to wait before session reload in milliseconds (default = 5000)
+#' @param alert_location Character represents div ID or selector to display module related messages (default = "bodyAlert")
+#' @param logger         logger to use
 #'
 #' @return nothing, function will display a warning message in the app then reload the whole application
 #'
