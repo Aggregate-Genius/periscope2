@@ -33,135 +33,135 @@ test_that("add_ui_header - no header", {
     expect_null(shiny::isolate(periscope2:::.g_opts$header))
 })
 
-# test_that("set_app_parameters default values", {
-#     expect_equal(shiny::isolate(periscope2:::.g_opts$app_title), "Set using set_app_parameters() in program/global.R")
-#     expect_null(shiny::isolate(periscope2:::.g_opts$app_info), NULL)
-#     expect_equal(shiny::isolate(periscope2:::.g_opts$loglevel), "DEBUG")
-#     expect_equal(shiny::isolate(periscope2:::.g_opts$app_version), "1.0.0")
-#     expect_null(shiny::isolate(periscope2:::.g_opts$loading_indicator))
-#     expect_null(shiny::isolate(periscope2:::.g_opts$announcements_file))
-#     expect_null(load_announcements())
-# })
+test_that("set_app_parameters default values", {
+    expect_equal(shiny::isolate(periscope2:::.g_opts$app_title), "Set using set_app_parameters() in program/global.R")
+    expect_null(shiny::isolate(periscope2:::.g_opts$app_info), NULL)
+    expect_equal(shiny::isolate(periscope2:::.g_opts$loglevel), "DEBUG")
+    expect_equal(shiny::isolate(periscope2:::.g_opts$app_version), "1.0.0")
+    expect_null(shiny::isolate(periscope2:::.g_opts$loading_indicator))
+    expect_null(shiny::isolate(periscope2:::.g_opts$announcements_file))
+    expect_null(load_announcements())
+})
 
-# test_that("add_ui_header - ui element", {
-#     menu <-   navbarMenu(
-#         id = "navmenu",
-#         navbarTab(tabName = "Tab1", text = "Tab 1"),
-#         navbarTab(tabName = "Tab2", text = "Tab 2"),
-#         navbarTab(
-#             text = "Menu",
-#             dropdownHeader("Dropdown header"),
-#             navbarTab(tabName = "Tab3", text = "Tab 3")
-#         )
-#     )
-#
-#     # busy indicator - title - UI elements
-#     periscope2::add_ui_header(ui_elements = menu)
-#     header <- shiny::isolate(periscope2:::.g_opts$header)
-#     expect_equal(length(header), 2)
-#     expect_equal(length(header[[1]]), 3)
-#     expect_equal(length(header[[1]]$children), 3)
-#     expect_true(grepl('periscope-busy-ind.*Set using set_app_parameters.*Tab1', header[[1]]$children[[2]]))
-#
-#     # busy indicator - UI elements - title
-#     periscope2::add_ui_header(ui_elements    = menu,
-#                               ui_position    = "center",
-#                               title_position = "right")
-#     header <- shiny::isolate(periscope2:::.g_opts$header)
-#     expect_true(grepl('periscope-busy-ind.*Tab1.*Set using set_app_parameters', header[[1]]$children[[2]]))
-#
-#     # UI elements - busy indicator - title
-#     periscope2::add_ui_header(ui_elements    = menu,
-#                               ui_position    = "left",
-#                               title_position = "right")
-#     header <- shiny::isolate(periscope2:::.g_opts$header)
-#     expect_true(grepl('Tab1.*periscope-busy-ind.*Set using set_app_parameters', header[[1]]$children[[2]]))
-#
-#     # UI elements - title - busy indicator
-#     periscope2::add_ui_header(ui_elements    = menu,
-#                               ui_position    = "left",
-#                               title_position = "center")
-#     header <- shiny::isolate(periscope2:::.g_opts$header)
-#     expect_true(grepl('Tab1.*Set using set_app_parameters.*periscope-busy-ind', header[[1]]$children[[2]]))
-#
-#     # title - UI elements - busy indicator
-#     periscope2::add_ui_header(ui_elements    = menu,
-#                               ui_position    = "center",
-#                               title_position = "left")
-#     header <- shiny::isolate(periscope2:::.g_opts$header)
-#     expect_true(grepl('Set using set_app_parameters.*Tab1.*periscope-busy-ind', header[[1]]$children[[2]]))
-#
-#     # title - busy indicator - UI elements
-#     periscope2::add_ui_header(ui_elements    = menu,
-#                               ui_position    = "right",
-#                               title_position = "left")
-#     header <- shiny::isolate(periscope2:::.g_opts$header)
-#     expect_true(grepl('Set using set_app_parameters.*periscope-busy-ind.*Tab1', header[[1]]$children[[2]]))
-#
-#     # busy indicator - title - UI elements (center as well)
-#     expect_warning(periscope2::add_ui_header(ui_elements = menu,
-#                                                     ui_position = "center"),
-#                    regexp = "title_position cannot be equal to ui_position")
-#
-#     header <- shiny::isolate(periscope2:::.g_opts$header)
-#     expect_true(grepl('periscope-busy-ind.*Set using set_app_parameters.*Tab1', header[[1]]$children[[2]]))
-#
-#     # busy indicator - title - UI elements positions is NULL
-#     expect_warning(periscope2::add_ui_header(ui_elements = menu,
-#                                              ui_position = NULL),
-#                    regexp = "ui_position must be on of 'left', 'center'or 'right' values. Setting default value 'right'")
-#
-#     header <- shiny::isolate(periscope2:::.g_opts$header)
-#     expect_true(grepl('periscope-busy-ind.*Set using set_app_parameters.*Tab1', header[[1]]$children[[2]]))
-#
-#     # busy indicator - title - UI elements positions is wrong
-#     expect_warning(periscope2::add_ui_header(ui_elements = menu,
-#                                              ui_position = "abc"),
-#                    regexp = "ui_position must be on of 'left', 'center'or 'right' values. Setting default value 'right'")
-#
-#     header <- shiny::isolate(periscope2:::.g_opts$header)
-#     expect_true(grepl('periscope-busy-ind.*Set using set_app_parameters.*Tab1', header[[1]]$children[[2]]))
-#
-#     # busy indicator - title positions is wrong- UI elements
-#     expect_warning(periscope2::add_ui_header(ui_elements    = menu,
-#                                              title_position = "abc"),
-#                    regexp = "title_position must be on of 'left', 'center'or 'right' values. Setting default value 'center'")
-#
-#     header <- shiny::isolate(periscope2:::.g_opts$header)
-#     expect_true(grepl('periscope-busy-ind.*Set using set_app_parameters.*Tab1', header[[1]]$children[[2]]))
-#
-#     # busy indicator - title positions is NULL- UI elements
-#     expect_warning(periscope2::add_ui_header(ui_elements    = menu,
-#                                              title_position = NULL),
-#                    regexp = "title_position must be on of 'left', 'center'or 'right' values. Setting default value 'center'")
-#
-#     header <- shiny::isolate(periscope2:::.g_opts$header)
-#     expect_true(grepl('periscope-busy-ind.*Set using set_app_parameters.*Tab1', header[[1]]$children[[2]]))
-#
-#     # busy indicator - title positions is NULL- UI elements position is center
-#     warn_msgs <- capture_warnings(periscope2::add_ui_header(ui_elements    = menu,
-#                                              ui_position    = "center",
-#                                              title_position = NULL))
-#     expect_equal("title_position must be on of 'left', 'center'or 'right' values. Setting default value 'center'",
-#                  warn_msgs[1])
-#     expect_equal("title_position cannot be equal to ui_position. Setting default values",
-#                  warn_msgs[2])
-#     header <- shiny::isolate(periscope2:::.g_opts$header)
-#     expect_true(grepl('periscope-busy-ind.*Set using set_app_parameters.*Tab1', header[[1]]$children[[2]]))
-#
-#     # busy indicator - title positions is right- UI elements position is NULL
-#     warn_msgs <- capture_warnings(periscope2::add_ui_header(ui_elements    = menu,
-#                                                             ui_position    = NULL,
-#                                                             title          = "Header Title",
-#                                                             title_position = "right"))
-#     expect_equal(shiny::isolate(periscope2:::.g_opts$app_title), "Header Title")
-#     expect_equal("ui_position must be on of 'left', 'center'or 'right' values. Setting default value 'right'",
-#                  warn_msgs[1])
-#     expect_equal("title_position cannot be equal to ui_position. Setting default values",
-#                  warn_msgs[2])
-#     header <- shiny::isolate(periscope2:::.g_opts$header)
-#     expect_true(grepl('periscope-busy-ind.*Header Title.*Tab1', header[[1]]$children[[2]]))
-# })
+test_that("add_ui_header - ui element", {
+    menu <-   navbarMenu(
+        id = "navmenu",
+        navbarTab(tabName = "Tab1", text = "Tab 1"),
+        navbarTab(tabName = "Tab2", text = "Tab 2"),
+        navbarTab(
+            text = "Menu",
+            dropdownHeader("Dropdown header"),
+            navbarTab(tabName = "Tab3", text = "Tab 3")
+        )
+    )
+
+    # busy indicator - title - UI elements
+    periscope2::add_ui_header(ui_elements = menu)
+    header <- shiny::isolate(periscope2:::.g_opts$header)
+    expect_equal(length(header), 2)
+    expect_equal(length(header[[1]]), 3)
+    expect_equal(length(header[[1]]$children), 3)
+    expect_true(grepl('periscope-busy-ind.*Set using set_app_parameters.*Tab1', header[[1]]$children[[2]]))
+
+    # busy indicator - UI elements - title
+    periscope2::add_ui_header(ui_elements    = menu,
+                              ui_position    = "center",
+                              title_position = "right")
+    header <- shiny::isolate(periscope2:::.g_opts$header)
+    expect_true(grepl('periscope-busy-ind.*Tab1.*Set using set_app_parameters', header[[1]]$children[[2]]))
+
+    # UI elements - busy indicator - title
+    periscope2::add_ui_header(ui_elements    = menu,
+                              ui_position    = "left",
+                              title_position = "right")
+    header <- shiny::isolate(periscope2:::.g_opts$header)
+    expect_true(grepl('Tab1.*periscope-busy-ind.*Set using set_app_parameters', header[[1]]$children[[2]]))
+
+    # UI elements - title - busy indicator
+    periscope2::add_ui_header(ui_elements    = menu,
+                              ui_position    = "left",
+                              title_position = "center")
+    header <- shiny::isolate(periscope2:::.g_opts$header)
+    expect_true(grepl('Tab1.*Set using set_app_parameters.*periscope-busy-ind', header[[1]]$children[[2]]))
+
+    # title - UI elements - busy indicator
+    periscope2::add_ui_header(ui_elements    = menu,
+                              ui_position    = "center",
+                              title_position = "left")
+    header <- shiny::isolate(periscope2:::.g_opts$header)
+    expect_true(grepl('Set using set_app_parameters.*Tab1.*periscope-busy-ind', header[[1]]$children[[2]]))
+
+    # title - busy indicator - UI elements
+    periscope2::add_ui_header(ui_elements    = menu,
+                              ui_position    = "right",
+                              title_position = "left")
+    header <- shiny::isolate(periscope2:::.g_opts$header)
+    expect_true(grepl('Set using set_app_parameters.*periscope-busy-ind.*Tab1', header[[1]]$children[[2]]))
+
+    # busy indicator - title - UI elements (center as well)
+    expect_warning(periscope2::add_ui_header(ui_elements = menu,
+                                                    ui_position = "center"),
+                   regexp = "title_position cannot be equal to ui_position")
+
+    header <- shiny::isolate(periscope2:::.g_opts$header)
+    expect_true(grepl('periscope-busy-ind.*Set using set_app_parameters.*Tab1', header[[1]]$children[[2]]))
+
+    # busy indicator - title - UI elements positions is NULL
+    expect_warning(periscope2::add_ui_header(ui_elements = menu,
+                                             ui_position = NULL),
+                   regexp = "ui_position must be on of 'left', 'center'or 'right' values. Setting default value 'right'")
+
+    header <- shiny::isolate(periscope2:::.g_opts$header)
+    expect_true(grepl('periscope-busy-ind.*Set using set_app_parameters.*Tab1', header[[1]]$children[[2]]))
+
+    # busy indicator - title - UI elements positions is wrong
+    expect_warning(periscope2::add_ui_header(ui_elements = menu,
+                                             ui_position = "abc"),
+                   regexp = "ui_position must be on of 'left', 'center'or 'right' values. Setting default value 'right'")
+
+    header <- shiny::isolate(periscope2:::.g_opts$header)
+    expect_true(grepl('periscope-busy-ind.*Set using set_app_parameters.*Tab1', header[[1]]$children[[2]]))
+
+    # busy indicator - title positions is wrong- UI elements
+    expect_warning(periscope2::add_ui_header(ui_elements    = menu,
+                                             title_position = "abc"),
+                   regexp = "title_position must be on of 'left', 'center'or 'right' values. Setting default value 'center'")
+
+    header <- shiny::isolate(periscope2:::.g_opts$header)
+    expect_true(grepl('periscope-busy-ind.*Set using set_app_parameters.*Tab1', header[[1]]$children[[2]]))
+
+    # busy indicator - title positions is NULL- UI elements
+    expect_warning(periscope2::add_ui_header(ui_elements    = menu,
+                                             title_position = NULL),
+                   regexp = "title_position must be on of 'left', 'center'or 'right' values. Setting default value 'center'")
+
+    header <- shiny::isolate(periscope2:::.g_opts$header)
+    expect_true(grepl('periscope-busy-ind.*Set using set_app_parameters.*Tab1', header[[1]]$children[[2]]))
+
+    # busy indicator - title positions is NULL- UI elements position is center
+    warn_msgs <- capture_warnings(periscope2::add_ui_header(ui_elements    = menu,
+                                             ui_position    = "center",
+                                             title_position = NULL))
+    expect_equal("title_position must be on of 'left', 'center'or 'right' values. Setting default value 'center'",
+                 warn_msgs[1])
+    expect_equal("title_position cannot be equal to ui_position. Setting default values",
+                 warn_msgs[2])
+    header <- shiny::isolate(periscope2:::.g_opts$header)
+    expect_true(grepl('periscope-busy-ind.*Set using set_app_parameters.*Tab1', header[[1]]$children[[2]]))
+
+    # busy indicator - title positions is right- UI elements position is NULL
+    warn_msgs <- capture_warnings(periscope2::add_ui_header(ui_elements    = menu,
+                                                            ui_position    = NULL,
+                                                            title          = "Header Title",
+                                                            title_position = "right"))
+    expect_equal(shiny::isolate(periscope2:::.g_opts$app_title), "Header Title")
+    expect_equal("ui_position must be on of 'left', 'center'or 'right' values. Setting default value 'right'",
+                 warn_msgs[1])
+    expect_equal("title_position cannot be equal to ui_position. Setting default values",
+                 warn_msgs[2])
+    header <- shiny::isolate(periscope2:::.g_opts$header)
+    expect_true(grepl('periscope-busy-ind.*Header Title.*Tab1', header[[1]]$children[[2]]))
+})
 
 
 test_that("add_ui_header - no ui element", {
@@ -394,34 +394,34 @@ test_that("add_ui_body append", {
 })
 
 
-# test_that("load_announcements function params", {
-#     expect_equal(load_announcements(announcements_file_path = system.file("fw_templ", "announce.yaml", package = "periscope2")), 30000)
-# })
+test_that("load_announcements function params", {
+    expect_equal(load_announcements(announcements_file_path = system.file("fw_templ", "announce.yaml", package = "periscope2")), 30000)
+})
 
 
-# test_that("load_announcements empty file", {
-#     # test empty announcement
-#     appTemp_dir        <- tempdir()
-#     appTemp            <- tempfile(pattern = "TestThatApp", tmpdir = appTemp_dir)
-#     announcements_file <- paste0(gsub('\\\\|/', '', (gsub(appTemp_dir, "", appTemp, fixed = TRUE))), ".yaml")
-#     yaml::write_yaml("", announcements_file)
-#
-#     expect_null(load_announcements(announcements_file_path = announcements_file))
-#     unlink(announcements_file, TRUE)
-# })
-#
-# test_that("load_announcements - parsing error", {
-#     # test empty announcement
-#     appTemp_dir        <- tempdir()
-#     appTemp            <- tempfile(pattern = "TestThatApp", tmpdir = appTemp_dir)
-#     announcements_file <- paste0(gsub('\\\\|/', '', (gsub(appTemp_dir, "", appTemp, fixed = TRUE))), ".yaml")
-#     cat(":", file = (con <- file(announcements_file, "w", encoding = "UTF-8")))
-#     close(con)
-#
-#     expect_warning(load_announcements(announcements_file_path = announcements_file),
-#                    regexp                                     = "[(Could not parse TestThatApp)]")
-#     unlink(announcements_file, TRUE)
-# })
+test_that("load_announcements empty file", {
+    # test empty announcement
+    appTemp_dir        <- tempdir()
+    appTemp            <- tempfile(pattern = "TestThatApp", tmpdir = appTemp_dir)
+    announcements_file <- paste0(gsub('\\\\|/', '', (gsub(appTemp_dir, "", appTemp, fixed = TRUE))), ".yaml")
+    yaml::write_yaml("", announcements_file)
+
+    expect_null(load_announcements(announcements_file_path = announcements_file))
+    unlink(announcements_file, TRUE)
+})
+
+test_that("load_announcements - parsing error", {
+    # test empty announcement
+    appTemp_dir        <- tempdir()
+    appTemp            <- tempfile(pattern = "TestThatApp", tmpdir = appTemp_dir)
+    announcements_file <- paste0(gsub('\\\\|/', '', (gsub(appTemp_dir, "", appTemp, fixed = TRUE))), ".yaml")
+    cat(":", file = (con <- file(announcements_file, "w", encoding = "UTF-8")))
+    close(con)
+
+    expect_warning(load_announcements(announcements_file_path = announcements_file),
+                   regexp                                     = "[(Could not parse TestThatApp)]")
+    unlink(announcements_file, TRUE)
+})
 
 test_that("load_announcements function parameters", {
     expect_null(create_announcements(start_date = "2222-11-26",
@@ -508,19 +508,19 @@ test_that("theme - parsing error", {
 })
 
 
-# test_that("theme - invalid theme settings", {
-#     theme_settings <- yaml::read_yaml(system.file("fw_templ", "p_example", "periscope_style.yaml", package = "periscope2"))
-#     dir.create("www")
-#     theme_settings[["primary"]]             <- "not color"
-#     theme_settings[["sidebar_width"]]       <- "300"
-#     theme_settings[["right_sidebar_width"]] <- "-300"
-#
-#     yaml::write_yaml(theme_settings, "www/periscope_style.yaml")
-#     expect_warning(nchar(create_theme()),
-#                    regexp = "primary has invalid color value. Setting default color")
-#     unlink("www/periscope_style.yaml")
-#     unlink("www", recursive = TRUE)
-# })
+test_that("theme - invalid theme settings", {
+    theme_settings <- yaml::read_yaml(system.file("fw_templ", "p_example", "periscope_style.yaml", package = "periscope2"))
+    dir.create("www")
+    theme_settings[["primary"]]             <- "not color"
+    theme_settings[["sidebar_width"]]       <- "300"
+    theme_settings[["right_sidebar_width"]] <- "-300"
+
+    yaml::write_yaml(theme_settings, "www/periscope_style.yaml")
+    expect_warning(nchar(create_theme()),
+                   regexp = "primary has invalid color value. Setting default color")
+    unlink("www/periscope_style.yaml")
+    unlink("www", recursive = TRUE)
+})
 
 
 test_that("dashboard - create default dashboard", {
@@ -528,84 +528,84 @@ test_that("dashboard - create default dashboard", {
 })
 
 
-# test_that("add_ui_header - html title", {
-#     title              <- "periscope Example Application"
-#     app_info           <- HTML("Demonstrate periscope features and generated application layout")
-#     log_level          <- "INFO"
-#     app_version        <- "2.3.1"
-#     loading_indicator  <- list(html = tagList(div("Loading ...")))
-#
-#     periscope2::set_app_parameters(title              = title,
-#                                    app_info           = app_info,
-#                                    log_level          = log_level,
-#                                    app_version        = app_version,
-#                                    loading_indicator  = loading_indicator)
-#     # normal header
-#     skin               <- "light"
-#     status             <- "white"
-#     border             <- TRUE
-#     compact            <- FALSE
-#     left_sidebar_icon  <- shiny::icon("bars")
-#     right_sidebar_icon <- shiny::icon("th")
-#     fixed              <- FALSE
-#     left_menu          <- NULL
-#     right_menu         <- NULL
-#
-#     periscope2::add_ui_header(left_menu          = left_menu,
-#                               right_menu         = right_menu,
-#                               skin               = skin,
-#                               status             = status,
-#                               border             = border,
-#                               compact            = compact,
-#                               left_sidebar_icon  = left_sidebar_icon,
-#                               right_sidebar_icon = right_sidebar_icon,
-#                               fixed              = fixed)
-#
-#
-#     expect_snapshot(shiny::isolate(periscope2:::.g_opts$app_info))
-#     header <- shiny::isolate(periscope2:::.g_opts$header)
-#     expect_snapshot(header[[1]])
-# })
+test_that("add_ui_header - html title", {
+    title              <- "periscope Example Application"
+    app_info           <- HTML("Demonstrate periscope features and generated application layout")
+    log_level          <- "INFO"
+    app_version        <- "2.3.1"
+    loading_indicator  <- list(html = tagList(div("Loading ...")))
+
+    periscope2::set_app_parameters(title              = title,
+                                   app_info           = app_info,
+                                   log_level          = log_level,
+                                   app_version        = app_version,
+                                   loading_indicator  = loading_indicator)
+    # normal header
+    skin               <- "light"
+    status             <- "white"
+    border             <- TRUE
+    compact            <- FALSE
+    left_sidebar_icon  <- shiny::icon("bars")
+    right_sidebar_icon <- shiny::icon("th")
+    fixed              <- FALSE
+    left_menu          <- NULL
+    right_menu         <- NULL
+
+    periscope2::add_ui_header(left_menu          = left_menu,
+                              right_menu         = right_menu,
+                              skin               = skin,
+                              status             = status,
+                              border             = border,
+                              compact            = compact,
+                              left_sidebar_icon  = left_sidebar_icon,
+                              right_sidebar_icon = right_sidebar_icon,
+                              fixed              = fixed)
 
 
-# test_that("add_ui_header - url title", {
-#     announcements_file <- system.file("fw_templ", "announce.yaml", package = "periscope2")
-#     title              <- "periscope Example Application"
-#     app_info           <- "https://cran.r-project.org/web/packages/periscope2/index.html"
-#     log_level          <- "DEBUG"
-#     app_version        <- "2.3.1"
-#     loading_indicator  <- list(html = tagList(div("Loading ...")))
-#
-#     set_app_parameters(title              = title,
-#                        app_info           = app_info,
-#                        log_level          = log_level,
-#                        app_version        = app_version,
-#                        loading_indicator  = loading_indicator)
-#     # normal header
-#     skin               <- "light"
-#     status             <- "white"
-#     border             <- TRUE
-#     compact            <- FALSE
-#     left_sidebar_icon  <- shiny::icon("bars")
-#     right_sidebar_icon <- shiny::icon("th")
-#     fixed              <- FALSE
-#     left_menu          <- NULL
-#     right_menu         <- NULL
-#
-#     periscope2::add_ui_header(left_menu          = left_menu,
-#                               right_menu         = right_menu,
-#                               skin               = skin,
-#                               status             = status,
-#                               border             = border,
-#                               compact            = compact,
-#                               left_sidebar_icon  = left_sidebar_icon,
-#                               right_sidebar_icon = right_sidebar_icon,
-#                               fixed              = fixed)
-#
-#     expect_snapshot(shiny::isolate(periscope2:::.g_opts$app_info))
-#     header <- shiny::isolate(periscope2:::.g_opts$header)
-#     expect_snapshot(header[[1]])
-# })
+    expect_snapshot(shiny::isolate(periscope2:::.g_opts$app_info))
+    header <- shiny::isolate(periscope2:::.g_opts$header)
+    expect_snapshot(header[[1]])
+})
+
+
+test_that("add_ui_header - url title", {
+    announcements_file <- system.file("fw_templ", "announce.yaml", package = "periscope2")
+    title              <- "periscope Example Application"
+    app_info           <- "https://cran.r-project.org/web/packages/periscope2/index.html"
+    log_level          <- "DEBUG"
+    app_version        <- "2.3.1"
+    loading_indicator  <- list(html = tagList(div("Loading ...")))
+
+    set_app_parameters(title              = title,
+                       app_info           = app_info,
+                       log_level          = log_level,
+                       app_version        = app_version,
+                       loading_indicator  = loading_indicator)
+    # normal header
+    skin               <- "light"
+    status             <- "white"
+    border             <- TRUE
+    compact            <- FALSE
+    left_sidebar_icon  <- shiny::icon("bars")
+    right_sidebar_icon <- shiny::icon("th")
+    fixed              <- FALSE
+    left_menu          <- NULL
+    right_menu         <- NULL
+
+    periscope2::add_ui_header(left_menu          = left_menu,
+                              right_menu         = right_menu,
+                              skin               = skin,
+                              status             = status,
+                              border             = border,
+                              compact            = compact,
+                              left_sidebar_icon  = left_sidebar_icon,
+                              right_sidebar_icon = right_sidebar_icon,
+                              fixed              = fixed)
+
+    expect_snapshot(shiny::isolate(periscope2:::.g_opts$app_info))
+    header <- shiny::isolate(periscope2:::.g_opts$header)
+    expect_snapshot(header[[1]])
+})
 
 
 test_that("create alert - id and target error", {
