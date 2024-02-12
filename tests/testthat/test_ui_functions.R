@@ -401,20 +401,17 @@ test_that("set_app_parameters update values", {
     app_version        <- "2.3.1"
     loading_indicator  <- list(html = tagList(div("Loading ...")))
 
-    expect_warning(set_app_parameters(title              = title,
-                                      app_info           = app_info,
-                                      log_level          = log_level,
-                                      app_version        = app_version,
-                                      loading_indicator  = loading_indicator,
-                                      announcements_file = announcements_file),
-    regexp = "Please use `periscope2::load_announcements` instead")
+    set_app_parameters(title              = title,
+                       app_info           = app_info,
+                       log_level          = log_level,
+                       app_version        = app_version,
+                       loading_indicator  = loading_indicator)
 
     expect_equal(shiny::isolate(periscope2:::.g_opts$app_title), title)
     expect_snapshot(shiny::isolate(periscope2:::.g_opts$app_info))
     expect_equal(shiny::isolate(periscope2:::.g_opts$loglevel), log_level)
     expect_equal(shiny::isolate(periscope2:::.g_opts$app_version), app_version)
     expect_snapshot(shiny::isolate(periscope2:::.g_opts$loading_indicator))
-    expect_equal(shiny::isolate(periscope2:::.g_opts$announcements_file), announcements_file)
     expect_equal(load_announcements(), 30000)
     expect_equal(periscope2:::fw_get_loglevel(), log_level)
     expect_equal(periscope2:::fw_get_title(), title)
