@@ -9,7 +9,7 @@
 #' logged. The id must match the same id configured in \bold{server.R} file upon calling \code{fw_server_setup} method
 #'
 #'
-#' @param id - character id for the object(default = "logViewer")
+#' @param id character id for the object(default = "logViewer")
 #'
 #' @return shiny tableOutput instance
 #'
