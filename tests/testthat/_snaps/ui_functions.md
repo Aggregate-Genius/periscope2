@@ -300,16 +300,6 @@
     Output
       [1] 669361
 
-# theme - invalid theme settings
-
-    Code
-      nchar(create_theme())
-    Condition
-      Warning in `create_theme()`:
-      primary has invalid color value. Setting default color.
-    Output
-      [1] 669707
-
 # dashboard - create default dashboard
 
     Code

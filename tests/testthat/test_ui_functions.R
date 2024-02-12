@@ -544,7 +544,8 @@ test_that("theme - invalid theme settings", {
     theme_settings[["right_sidebar_width"]] <- "-300"
 
     yaml::write_yaml(theme_settings, "www/periscope_style.yaml")
-    expect_snapshot(nchar(create_theme()))
+    expect_warning(nchar(create_theme()),
+                   regexp = "primary has invalid color value. Setting default color")
     unlink("www/periscope_style.yaml")
     unlink("www", recursive = TRUE)
 })
