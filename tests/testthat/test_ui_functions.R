@@ -393,34 +393,6 @@ test_that("add_ui_body append", {
     expect_true(grepl('id="footerAlert"' , dashboard_ui[[3]], fixed = TRUE))
 })
 
-# test_that("set_app_parameters update values", {
-#     announcements_file <- system.file("fw_templ", "announce.yaml", package = "periscope2")
-#     title              <- "periscope Example Application"
-#     app_info           <- HTML("Demonstrate periscope features and generated application layout")
-#     log_level          <- "INFO"
-#     app_version        <- "2.3.1"
-#     loading_indicator  <- list(html = tagList(div("Loading ...")))
-#
-#     expect_warning(set_app_parameters(title              = title,
-#                                       app_info           = app_info,
-#                                       log_level          = log_level,
-#                                       app_version        = app_version,
-#                                       loading_indicator  = loading_indicator,
-#                                       announcements_file = announcements_file),
-#     regexp = "Please use `periscope2::load_announcements` instead")
-#
-#     expect_equal(shiny::isolate(periscope2:::.g_opts$app_title), title)
-#     expect_snapshot(shiny::isolate(periscope2:::.g_opts$app_info))
-#     expect_equal(shiny::isolate(periscope2:::.g_opts$loglevel), log_level)
-#     expect_equal(shiny::isolate(periscope2:::.g_opts$app_version), app_version)
-#     expect_snapshot(shiny::isolate(periscope2:::.g_opts$loading_indicator))
-#     expect_equal(shiny::isolate(periscope2:::.g_opts$announcements_file), announcements_file)
-#     expect_equal(load_announcements(), 30000)
-#     expect_equal(periscope2:::fw_get_loglevel(), log_level)
-#     expect_equal(periscope2:::fw_get_title(), title)
-#     expect_equal(periscope2:::fw_get_version(), app_version)
-# })
-
 
 # test_that("load_announcements function params", {
 #     expect_equal(load_announcements(announcements_file_path = system.file("fw_templ", "announce.yaml", package = "periscope2")), 30000)
@@ -644,4 +616,33 @@ test_that("create alert - id and target error", {
 
 test_that("create alert - id", {
     expect_snapshot_output(createPSAlert(id = "test_id", session = MockShinySession$new(), options = NULL))
+})
+
+
+test_that("set_app_parameters update values", {
+    announcements_file <- system.file("fw_templ", "announce.yaml", package = "periscope2")
+    title              <- "periscope Example Application"
+    app_info           <- HTML("Demonstrate periscope features and generated application layout")
+    log_level          <- "INFO"
+    app_version        <- "2.3.1"
+    loading_indicator  <- list(html = tagList(div("Loading ...")))
+
+    expect_warning(set_app_parameters(title              = title,
+                                      app_info           = app_info,
+                                      log_level          = log_level,
+                                      app_version        = app_version,
+                                      loading_indicator  = loading_indicator,
+                                      announcements_file = announcements_file),
+                   regexp = "Please use `periscope2::load_announcements` instead")
+
+    expect_equal(shiny::isolate(periscope2:::.g_opts$app_title), title)
+    expect_snapshot(shiny::isolate(periscope2:::.g_opts$app_info))
+    expect_equal(shiny::isolate(periscope2:::.g_opts$loglevel), log_level)
+    expect_equal(shiny::isolate(periscope2:::.g_opts$app_version), app_version)
+    expect_snapshot(shiny::isolate(periscope2:::.g_opts$loading_indicator))
+    expect_equal(shiny::isolate(periscope2:::.g_opts$announcements_file), announcements_file)
+    expect_equal(load_announcements(), 30000)
+    expect_equal(periscope2:::fw_get_loglevel(), log_level)
+    expect_equal(periscope2:::fw_get_title(), title)
+    expect_equal(periscope2:::fw_get_version(), app_version)
 })
