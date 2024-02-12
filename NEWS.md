@@ -5,6 +5,7 @@
 - Re-factored header layout to be more flexible with menu items
 - Updated modules default values
 - **downloadableTable** module server parameters "filenameroot" can now support character,  reactive expression or a function to return file name
+- Introduced `load_announcements` method to create announcement alert at predefined generated app ui div
 
 ## Bug Fixes
 
