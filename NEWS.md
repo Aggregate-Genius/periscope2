@@ -7,6 +7,7 @@
 ## Bug Fixes
 
 - Hide download button if `downloaddatafxn` or `downloadtypes` are empty and updated module default values
+- Capitalized left tooltip text
 
 -----
 
