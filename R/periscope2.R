@@ -56,6 +56,7 @@
 #'
 #' @docType package
 #'
+#' @importFrom lifecycle deprecate_warn deprecated
 #' @name periscope2
 NULL
 

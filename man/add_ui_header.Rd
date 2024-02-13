@@ -21,37 +21,37 @@ add_ui_header(
 )
 }
 \arguments{
-\item{ui_elements}{- It can be any UI element but mostly used for navbarMenu. NULL by default.
+\item{ui_elements}{It can be any UI element but mostly used for navbarMenu. NULL by default.
 Check \code{?bs4Dash::navbarMenu()}}
 
-\item{ui_position}{- Location of UI elements in the header. Must be either of 'center', 'left' or 'right'
+\item{ui_position}{Location of UI elements in the header. Must be either of 'center', 'left' or 'right'
 Default value is 'right'.}
 
-\item{title}{- Sets application title. If it is not NULL, it will override "title" value that is set in
+\item{title}{Sets application title. If it is not NULL, it will override "title" value that is set in
 \code{?periscope2::set_app_parameters()} (default = NULL)}
 
-\item{title_position}{- Location of the title in the header. Must be either of 'center', 'left' or 'right'
+\item{title_position}{Location of the title in the header. Must be either of 'center', 'left' or 'right'
 Default value is 'Center'. If there are no UI elements, this param will be ignored.}
 
-\item{left_menu}{- Left menu. bs4DropdownMenu object (or similar dropdown menu).
+\item{left_menu}{Left menu. bs4DropdownMenu object (or similar dropdown menu).
 Check \code{?bs4Dash::bs4DropdownMenu()}}
 
-\item{right_menu}{- Right menu. bs4DropdownMenu object (or similar dropdown menu).
+\item{right_menu}{Right menu. bs4DropdownMenu object (or similar dropdown menu).
 Check \code{?bs4Dash::bs4DropdownMenu()}}
 
-\item{border}{- Whether to separate the navbar and body by a border. TRUE by default}
+\item{border}{Whether to separate the navbar and body by a border. TRUE by default}
 
-\item{compact}{- Whether items should be compacted. FALSE by default}
+\item{compact}{Whether items should be compacted. FALSE by default}
 
-\item{right_sidebar_icon}{- Right sidebar toggle icon}
+\item{right_sidebar_icon}{Right sidebar toggle icon}
 
-\item{fixed}{- Whether to fix the navbar to the top. FALSE by default}
+\item{fixed}{Whether to fix the navbar to the top. FALSE by default}
 
-\item{left_sidebar_icon}{- Left sidebar toggle icon}
+\item{left_sidebar_icon}{Left sidebar toggle icon}
 
-\item{skin}{- Sidebar skin. "dark" or "light"}
+\item{skin}{Sidebar skin. "dark" or "light"}
 
-\item{status}{- Sidebar status. Check \code{?bs4Dash::bs4DashNavbar()} for list of valid values}
+\item{status}{Sidebar status. Check \code{?bs4Dash::bs4DashNavbar()} for list of valid values}
 }
 \value{
 list of both shiny UI elements and named header properties
@@ -62,11 +62,11 @@ These elements will be displayed in the header beside application title and appl
 }
 \details{
 \subsection{Application header consists of three elements:}{
-   \describe{
-     \item{busy indicator}{An automatic wait indicator that are shown when the shiny server session is busy}
-     \item{application title}{Display application title}
-     \item{heade menu}{Optional header menu to switch between application different tabs}
-   }
+\describe{
+\item{busy indicator}{An automatic wait indicator that are shown when the shiny server session is busy}
+\item{application title}{Display application title}
+\item{heade menu}{Optional header menu to switch between application different tabs}
+}
 }
 
 Header elements can be arranged via \code{ui_position} and \code{title_position} parameters.

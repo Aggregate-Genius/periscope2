@@ -25,9 +25,9 @@ for the button.
 \section{Button Features}{
 
 \itemize{
-    \item Consistent styling of the button, including a hover tooltip
-    \item Single or multiple types of downloads
-    \item Ability to download different data for each type of download
+\item Consistent styling of the button, including a hover tooltip
+\item Single or multiple types of downloads
+\item Ability to download different data for each type of download
 }
 }
 

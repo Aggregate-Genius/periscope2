@@ -6,7 +6,7 @@
 \usage{
 downloadableTableUI(
   id,
-  downloadtypes = c(),
+  downloadtypes = NULL,
   hovertext = NULL,
   contentHeight = "200px",
   singleSelect = FALSE
@@ -39,14 +39,14 @@ downloadFile button will be hidden if \code{downloadableTable} parameter \code{d
 \section{Table Features}{
 
 \itemize{
-    \item Consistent styling of the table
-    \item downloadFile module button functionality built-in to the table (it will be shown only if downloadtypes is defined)
-    \item Ability to show different data from the download data
-    \item Table is automatically fit to the window size with infinite
-    y-scrolling
-    \item Table search functionality including highlighting built-in
-    \item Multi-select built in, including reactive feedback on which table
-    items are selected
+\item Consistent styling of the table
+\item downloadFile module button functionality built-in to the table (it will be shown only if downloadtypes is defined)
+\item Ability to show different data from the download data
+\item Table is automatically fit to the window size with infinite
+y-scrolling
+\item Table search functionality including highlighting built-in
+\item Multi-select built in, including reactive feedback on which table
+items are selected
 }
 }
 

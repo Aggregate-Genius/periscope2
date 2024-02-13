@@ -4,7 +4,13 @@
 \alias{downloadFile}
 \title{downloadFile module server function}
 \usage{
-downloadFile(id, logger, filenameroot, datafxns = list(), aspectratio = 1)
+downloadFile(
+  id,
+  logger = NULL,
+  filenameroot = "download",
+  datafxns = NULL,
+  aspectratio = 1
+)
 }
 \arguments{
 \item{id}{ID of the Module's UI element}

@@ -91,6 +91,7 @@ The **downloadableTable** function is called directly. The call consists of the 
 * the unique object ID that was provided to downloadableTableUI when creating 
 the UI object
 * the logging logger to be used
+* **filenameroot** is an optional character, function or reactive expression providing downloadable file name
 * the root (prefix) of the downloaded file name to be used in the browser as a character string or a reactive expression that returns a character string
 * a **named list** of functions or reactive expressions that provide the data to the downloadFileButton (see below).  
   * It is important that the types of files to be downloaded are matched to the correct data function in the list.  

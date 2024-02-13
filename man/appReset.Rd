@@ -7,13 +7,13 @@
 appReset(id, reset_wait = 5000, alert_location = "bodyAlert", logger)
 }
 \arguments{
-\item{id}{- Character represents the ID of the Module's UI element (the same id used in \code{appResetButton}}
+\item{id}{Character represents the ID of the Module's UI element (the same id used in \code{appResetButton}}
 
-\item{reset_wait}{- Integer represents the period to wait before session reload in milliseconds (default = 5000)}
+\item{reset_wait}{Integer represents the period to wait before session reload in milliseconds (default = 5000)}
 
-\item{alert_location}{- Character represents div ID or selector to display module related messages (default = "bodyAlert")}
+\item{alert_location}{Character represents div ID or selector to display module related messages (default = "bodyAlert")}
 
-\item{logger}{- logger to use}
+\item{logger}{logger to use}
 }
 \value{
 nothing, function will display a warning message in the app then reload the whole application
@@ -21,7 +21,7 @@ nothing, function will display a warning message in the app then reload the whol
 \description{
 Server-side function for the appResetButton  This is a custom
 high-functionality button for session reload. The server function is used to
- provide module configurations.
+provide module configurations.
 }
 \section{Shiny Usage}{
 

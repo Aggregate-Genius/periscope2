@@ -14,21 +14,21 @@ an html div with prettyToggle button
 }
 \description{
 Creates a toggle button to reset application session. Upon pressing on the
- button, its state is flipped to cancel application reload with application
- and console warning messages indicating that the application will be
- reloaded.
+button, its state is flipped to cancel application reload with application
+and console warning messages indicating that the application will be
+reloaded.
 }
 \details{
 User can either resume reloading application session or cancel reloading
- process which will also generate application and console messages to
- indicate reloading status and result.
+process which will also generate application and console messages to
+indicate reloading status and result.
 }
 \section{Button Features}{
 
 \itemize{
-    \item Initial state label is "Application Reset" with warning status
-    \item Reloading state label is "Cancel Application Reset" with danger
-          status
+\item Initial state label is "Application Reset" with warning status
+\item Reloading state label is "Cancel Application Reset" with danger
+status
 }
 }
 
