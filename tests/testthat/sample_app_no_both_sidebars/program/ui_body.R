@@ -386,7 +386,7 @@ tooltips_box <- box(
                text  = "Top tooltip"),
     ui_tooltip(id        = "left_tip",
                label     = "Left Tooltips",
-               text      = "left tooltip",
+               text      = "Left tooltip",
                placement = "left"),
     ui_tooltip(id        = "bottom_tip",
                label     = "Bottom Tooltips",

@@ -11,6 +11,7 @@
 
 - Hide download button if `downloaddatafxn` or `downloadtypes` are empty for `downloadableTable` module
 - Hide download button if `downloadfxns` or `downloadtypes` are empty for `downloadablePlot` module
+- Capitalized left tooltip text
 
 -----
 
