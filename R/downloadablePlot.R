@@ -268,8 +268,8 @@ downloadablePlot <- function(id,
                                        rows = sum(unlist(rowct) == FALSE)) )
                 }
 
-                output$displayButton <- reactive(length(downloadfxns) > 0)
-                outputOptions(output, "displayButton", suspendWhenHidden = FALSE)
+                output$displayButton <- shiny::reactive(length(downloadfxns) > 0)
+                shiny::outputOptions(output, "displayButton", suspendWhenHidden = FALSE)
             })
         })
 }

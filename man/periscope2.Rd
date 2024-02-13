@@ -14,14 +14,13 @@ regardless of application or developer.
 \details{
 'periscope2' differs from the 'periscope' package as follows:
 \itemize{
- \item Upgraded dependency on bootstrap v4 instead of bootstrap v3
- \item New user modules (i.e. announcements)
- \item More functionality and finer control over existing modules such as
- \link[periscope2:createPSAlert]{alert} and \link[periscope2:appResetButton]{reset}
- \item More control over customizing different application parts (header, footer, left sidebar, right sidebar and body)
- \item Enhanced file structure to organize application UI, shiny modules, app configuration, .. etc
+\item Upgraded dependency on bootstrap v4 instead of bootstrap v3
+\item New user modules (i.e. announcements)
+\item More functionality and finer control over existing modules such as
+\link[periscope2:createPSAlert]{alert} and \link[periscope2:appResetButton]{reset}
+\item More control over customizing different application parts (header, footer, left sidebar, right sidebar and body)
+\item Enhanced file structure to organize application UI, shiny modules, app configuration, .. etc
 }
-
 
 A gallery of 'periscope' and 'periscope2' example apps is hosted at \href{http://periscopeapps.org:3838}{http://periscopeapps.org}
 }

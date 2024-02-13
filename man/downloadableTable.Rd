@@ -50,12 +50,12 @@ downloadFile button will be hidden if \code{downloadableTable} parameter \code{d
 \code{downloadableTableUI} parameter \code{downloadtypes} is empty
 
 Generated table can highly customized using function \code{?DT::datatable} same arguments
- except for `options` and `selection` parameters.
+except for \code{options} and \code{selection} parameters.
 
-For `options` user can pass the same \code{?DT::datatable} options using the same names and
+For \code{options} user can pass the same \code{?DT::datatable} options using the same names and
 values one by one separated by comma.
 
-For `selection` parameter it can be either a function or reactive expression providing the row_ids of the
+For \code{selection} parameter it can be either a function or reactive expression providing the row_ids of the
 rows that should be selected.
 
 Also, user can apply the same provided \code{?DT::formatCurrency} columns formats on passed
@@ -63,12 +63,12 @@ dataset using format functions names as keys and their options as a list.
 }
 \section{Notes}{
 
- \itemize{
-  \item When there are no rows to download in any of the linked downloaddatafxns
-  the button will be hidden as there is nothing to download.
-  \item \code{selection} parameter has different usage than DT::datatable \code{selection} option.
-  See parameters usage section.
-  \item DT::datatable options \code{editable}, \code{width} and \code{height} are not supported
+\itemize{
+\item When there are no rows to download in any of the linked downloaddatafxns
+the button will be hidden as there is nothing to download.
+\item \code{selection} parameter has different usage than DT::datatable \code{selection} option.
+See parameters usage section.
+\item DT::datatable options \code{editable}, \code{width} and \code{height} are not supported
 }
 }
 

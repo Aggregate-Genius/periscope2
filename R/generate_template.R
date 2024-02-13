@@ -6,11 +6,11 @@
 #' framework. The application can be created either empty (default) or with a
 #' sample/documented example application.\cr \cr
 #'
-#' @param name          - name for the new application and directory
-#' @param location      - base path for creation of \code{name}
-#' @param sample_app    - whether to create a sample shiny application
-#' @param left_sidebar  - whether the left sidebar should be enabled. It can be TRUE/FALSE
-#' @param right_sidebar - parameter to set the right sidebar. It can be TRUE/FALSE
+#' @param name          name for the new application and directory
+#' @param location      base path for creation of \code{name}
+#' @param sample_app    whether to create a sample shiny application
+#' @param left_sidebar  whether the left sidebar should be enabled. It can be TRUE/FALSE
+#' @param right_sidebar parameter to set the right sidebar. It can be TRUE/FALSE
 #'
 #' @return no return value, creates application folder structure and files
 #'

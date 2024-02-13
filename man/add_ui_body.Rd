@@ -7,9 +7,9 @@
 add_ui_body(body_elements = NULL, append = FALSE)
 }
 \arguments{
-\item{body_elements}{- List of UI elements to be displayed in application body}
+\item{body_elements}{List of UI elements to be displayed in application body}
 
-\item{append}{- Add elements to current body elements or remove previous body elements (default = FALSE)}
+\item{append}{Add elements to current body elements or remove previous body elements (default = FALSE)}
 }
 \value{
 list of both shiny UI elements and html div tags for alert and linking app JS and CSS files

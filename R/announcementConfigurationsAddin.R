@@ -12,7 +12,7 @@
 #'    periscope2:::announcementConfigurationsAddin()
 #' }
 #'
-#' @seealso \link[periscope2:set_app_parameters]{periscope2:set_app_parameters()}
+#' @seealso \link[periscope2:load_announcements]{periscope2:load_announcements()}
 #'
 #' @export
 announcementConfigurationsAddin <- function() {

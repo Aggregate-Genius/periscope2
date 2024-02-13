@@ -25,8 +25,7 @@ set_app_parameters(title              = "periscope2 Example Application",
                    app_info           = HTML("Demonstrate periscope features and generated application layout"),
                    log_level          = "DEBUG",
                    app_version        = "1.0.0",
-                   loading_indicator  = list(html = tagList(spin_1(), "Loading ..."), color = "rgba(22, 65, 124, 0.3)"),
-                   announcements_file = "./program/config/announce.yaml")
+                   loading_indicator  = list(html = tagList(spin_1(), "Loading ..."), color = "rgba(22, 65, 124, 0.3)"))
 
 # -- PROGRAM --
 

@@ -13,15 +13,15 @@ create_application(
 )
 }
 \arguments{
-\item{name}{- name for the new application and directory}
+\item{name}{name for the new application and directory}
 
-\item{location}{- base path for creation of \code{name}}
+\item{location}{base path for creation of \code{name}}
 
-\item{sample_app}{- whether to create a sample shiny application}
+\item{sample_app}{whether to create a sample shiny application}
 
-\item{left_sidebar}{- whether the left sidebar should be enabled. It can be TRUE/FALSE}
+\item{left_sidebar}{whether the left sidebar should be enabled. It can be TRUE/FALSE}
 
-\item{right_sidebar}{- parameter to set the right sidebar. It can be TRUE/FALSE}
+\item{right_sidebar}{parameter to set the right sidebar. It can be TRUE/FALSE}
 }
 \value{
 no return value, creates application folder structure and files

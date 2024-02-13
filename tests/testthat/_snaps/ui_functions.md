@@ -300,16 +300,6 @@
     Output
       [1] 669361
 
-# theme - invalid theme settings
-
-    Code
-      nchar(create_theme())
-    Condition
-      Warning in `create_theme()`:
-      primary has invalid color value. Setting default color.
-    Output
-      [1] 669707
-
 # dashboard - create default dashboard
 
     Code
@@ -332,7 +322,12 @@
       [[3]]
       <div class="row">
         <div class="col-sm-12">
-          <body data-help="0" data-fullscreen="0" data-dark="0" data-scrollToTop="0">
+          <body data-help="0" data-fullscreen="0" data-dark="0" data-scrollToTop="0" onload="window.ran = false;$(document).on(&#39;shiny:idle&#39;, function(event){&#10;            if(!window.ran){&#10;              $(&#39;.waiter-overlay&#39;).fadeOut(1000);&#10;              setTimeout(function(){&#10;                $(&#39;.waiter-overlay&#39;).remove();&#10;              }, 1200);&#10;            }&#10;            window.ran = true;&#10;          });">
+            <script>waiter.show({
+            id: null,
+            html: '<div>Loading ...</div>', 
+            color: '#333e48'
+          });</script>
             <div class="wrapper">
               <nav data-fixed="false" class="main-header navbar navbar-expand navbar-white navbar-light">
                 <ul class="navbar-nav">
