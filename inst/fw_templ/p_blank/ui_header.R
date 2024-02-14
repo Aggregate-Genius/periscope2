@@ -52,7 +52,8 @@ left_menu <- NULL
 right_menu <- NULL
 
 # -- Register Header Elements in the ORDER SHOWN in the UI
-add_ui_header(left_menu          = left_menu,
+add_ui_header(title              = "Set title in global.R using set_app_parameters()",
+              left_menu          = left_menu,
               right_menu         = right_menu,
               skin               = skin,
               status             = status,
