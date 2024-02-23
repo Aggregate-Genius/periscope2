@@ -224,22 +224,6 @@
     
     
 
-# set_app_parameters update values
-
-    Code
-      shiny::isolate(periscope2:::.g_opts$app_info)
-    Output
-      Demonstrate periscope features and generated application layout
-
----
-
-    Code
-      shiny::isolate(periscope2:::.g_opts$loading_indicator)
-    Output
-      $html
-      <div>Loading ...</div>
-      
-
 # load_theme_settings - null settings
 
     Code
@@ -322,12 +306,7 @@
       [[3]]
       <div class="row">
         <div class="col-sm-12">
-          <body data-help="0" data-fullscreen="0" data-dark="0" data-scrollToTop="0" onload="window.ran = false;$(document).on(&#39;shiny:idle&#39;, function(event){&#10;            if(!window.ran){&#10;              $(&#39;.waiter-overlay&#39;).fadeOut(1000);&#10;              setTimeout(function(){&#10;                $(&#39;.waiter-overlay&#39;).remove();&#10;              }, 1200);&#10;            }&#10;            window.ran = true;&#10;          });">
-            <script>waiter.show({
-            id: null,
-            html: '<div>Loading ...</div>', 
-            color: '#333e48'
-          });</script>
+          <body data-help="0" data-fullscreen="0" data-dark="0" data-scrollToTop="0">
             <div class="wrapper">
               <nav data-fixed="false" class="main-header navbar navbar-expand navbar-white navbar-light">
                 <ul class="navbar-nav">
@@ -520,4 +499,28 @@
 # create alert - id
 
     
+
+# set_app_parameters update values
+
+    Code
+      deprecated_flds_warn
+    Output
+      [1] "The `announcements_file` argument of `set_app_parameters()` is deprecated as of periscope2 0.2.3.\ni Please use `periscope2::load_announcements` instead"
+      [2] "The `title` argument of `set_app_parameters()` is deprecated as of periscope2 0.2.3.\ni Please use `periscope2::add_ui_header(title)` instead"           
+
+---
+
+    Code
+      shiny::isolate(periscope2:::.g_opts$app_info)
+    Output
+      Demonstrate periscope features and generated application layout
+
+---
+
+    Code
+      shiny::isolate(periscope2:::.g_opts$loading_indicator)
+    Output
+      $html
+      <div>Loading ...</div>
+      
 
