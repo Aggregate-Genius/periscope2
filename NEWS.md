@@ -6,6 +6,7 @@
 - Updated modules default values
 - **downloadableTable** module server parameters "filenameroot" can now support character,  reactive expression or a function to return file name
 - Introduced `load_announcements` method to create announcement alert at predefined generated app ui div
+- Deprecated `title` parameter in `set_app_parameters`, use `periscope2::add_ui_header(title)` instead
 
 ## Bug Fixes
 

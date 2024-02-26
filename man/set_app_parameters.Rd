@@ -5,7 +5,7 @@
 \title{Set Application Parameters}
 \usage{
 set_app_parameters(
-  title,
+  title = NULL,
   app_info = NULL,
   log_level = "DEBUG",
   app_version = "1.0.0",
@@ -14,7 +14,7 @@ set_app_parameters(
 )
 }
 \arguments{
-\item{title}{Application title text}
+\item{title}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} Use \link[periscope2]{add_ui_header} to configure application title text}
 
 \item{app_info}{Application detailed information. It can be character string, HTML value or NULL
 \itemize{
@@ -57,12 +57,10 @@ parameters.
   library(periscope2)
 
   # Inside program/global.R
-  set_app_parameters(title              = "periscope Example Application",
-                     app_info           = HTML("Example info"),
-                     log_level          = "DEBUG",
-                     app_version        = "1.0.0",
-                     loading_indicator  = list(html = tagList(spin_1(), "Loading ...")),
-                     announcements_file = "./program/config/announce.yaml")
+  set_app_parameters(app_info          = HTML("Example info"),
+                     log_level         = "DEBUG",
+                     app_version       = "1.0.0",
+                     loading_indicator = list(html = tagList(spin_1(), "Loading ...")))
 
 
 }

@@ -554,7 +554,7 @@ ui_tooltip <- function(id,
 #'
 #' This function sets global parameters customizing the shiny application.
 #'
-#' @param title              Application title text
+#' @param title              `r lifecycle::badge("deprecated")` Use \link[periscope2]{add_ui_header} to configure application title text
 #' @param app_info           Application detailed information. It can be character string, HTML value or NULL
 #'                             \itemize{
 #'                                      \item{A \strong{character} string will be used to set a link target.
@@ -586,12 +586,10 @@ ui_tooltip <- function(id,
 #'   library(periscope2)
 #'
 #'   # Inside program/global.R
-#'   set_app_parameters(title              = "periscope Example Application",
-#'                      app_info           = HTML("Example info"),
-#'                      log_level          = "DEBUG",
-#'                      app_version        = "1.0.0",
-#'                      loading_indicator  = list(html = tagList(spin_1(), "Loading ...")),
-#'                      announcements_file = "./program/config/announce.yaml")
+#'   set_app_parameters(app_info          = HTML("Example info"),
+#'                      log_level         = "DEBUG",
+#'                      app_version       = "1.0.0",
+#'                      loading_indicator = list(html = tagList(spin_1(), "Loading ...")))
 #'
 #'
 #' @seealso \link[periscope2:announcementConfigurationsAddin]{periscope2:announcementConfigurationsAddin()}
@@ -606,7 +604,7 @@ ui_tooltip <- function(id,
 #' @seealso \link[periscope2:get_url_parameters]{periscope2:get_url_parameters()}
 #'
 #' @export
-set_app_parameters <- function(title,
+set_app_parameters <- function(title              = NULL,
                                app_info           = NULL,
                                log_level          = "DEBUG",
                                app_version        = "1.0.0",
@@ -619,6 +617,15 @@ set_app_parameters <- function(title,
             details = "Please use `periscope2::load_announcements` instead"
         )
     }
+
+    if (!is.null(title)) {
+        lifecycle::deprecate_warn(
+            when    = "0.2.3",
+            what    = "set_app_parameters(title)",
+            details = "Please use `periscope2::add_ui_header(title)` instead"
+        )
+    }
+
     .g_opts$app_title          <- title
     .g_opts$app_info           <- app_info
     .g_opts$loglevel           <- log_level

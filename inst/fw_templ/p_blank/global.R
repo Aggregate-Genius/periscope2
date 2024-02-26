@@ -17,11 +17,10 @@ library(shinyjs)
 
 
 # -- Setup your Application --
-set_app_parameters(title              = "Set title in global.R using set_app_parameters()",
-                   app_info           = NULL,
-                   log_level          = "DEBUG",
-                   app_version        = "1.0.0",
-                   loading_indicator  = list(html = tagList(spin_1(), "Loading ..."), color = "rgba(22, 65, 124, 0.3)"))
+set_app_parameters(app_info          = NULL,
+                   log_level         = "DEBUG",
+                   app_version       = "1.0.0",
+                   loading_indicator = list(html = tagList(spin_1(), "Loading ..."), color = "rgba(22, 65, 124, 0.3)"))
 
 # -- PROGRAM --
 
