@@ -30,6 +30,13 @@ download_string_list <- function() {
     c("test1", "test2", "tests")
 }
 
+download_char_data <- function() {
+    "A123B"
+}
+download_numeric_data <- function() {
+    "123"
+}
+
 # UI Testing
 test_that("downloadFileButton", {
     file_btn <- downloadFileButton(id            = "myid",
@@ -139,9 +146,13 @@ test_that("downloadFile - download char data", {
     testServer(downloadFile,
                args = list(logger       = periscope2:::fw_get_user_log(),
                            filenameroot = "my_char_download",
-                           datafxns     = list(txt = function() {"123"})),
+                           datafxns     = list(txt = download_char_data,
+                                               tsv = download_char_data,
+                                               csv = download_char_data)),
                expr = {
                    expect_snapshot_file(output$txt)
+                   expect_snapshot_file(output$tsv)
+                   expect_snapshot_file(output$csv)
                })
 })
 
