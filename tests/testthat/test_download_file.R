@@ -33,9 +33,6 @@ download_string_list <- function() {
 download_char_data <- function() {
     "A123B"
 }
-download_numeric_data <- function() {
-    "123"
-}
 
 # UI Testing
 test_that("downloadFileButton", {
@@ -171,5 +168,17 @@ test_that("downloadFile - default values", {
                args = list(datafxns = list(txt = function() {"123"})),
                expr = {
                    expect_snapshot_file(output$txt)
+               })
+})
+
+test_that("downloadFile - invalid type", {
+    testServer(downloadFile,
+               args = list(datafxns = list(ttt = function() {"123"},
+                                           jeg = download_lattice_plot,
+                                           tff = download_plot)),
+               expr = {
+                   expect_error(output$ttt)
+                   expect_error(output$jeg)
+                   expect_error(output$tff)
                })
 })
