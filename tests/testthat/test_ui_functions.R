@@ -451,30 +451,6 @@ test_that("load_theme_settings - null settings", {
     expect_snapshot(load_theme_settings())
 })
 
-test_that("create_theme - full settings", {
-    theme_settings                  <- yaml::read_yaml(system.file("fw_templ", "p_example", "periscope_style.yaml",
-                                                                   package = "periscope2"))
-    theme_settings["sidebar_width"] <- 300
-
-    expect_snapshot(nchar(create_theme()))
-})
-
-test_that("create_theme - invalid color settings", {
-    theme_settings <- yaml::read_yaml(system.file("fw_templ", "p_example", "periscope_style.yaml", package = "periscope2"))
-
-    theme_settings["primary"] <- "not color"
-
-    expect_snapshot(nchar(create_theme()))
-})
-
-test_that("create_theme - invalid measure settings", {
-    theme_settings <- yaml::read_yaml(system.file("fw_templ", "p_example", "periscope_style.yaml", package = "periscope2"))
-
-    theme_settings["sidebar_horizontal_padding"] <- "3oo"
-    theme_settings["sidebar_mini_width"]         <- -2
-
-    expect_snapshot(nchar(create_theme()))
-})
 
 test_that("ui_tooltip", {
     expect_snapshot_output(ui_tooltip(id = "id", label = "mylabel", text = "mytext"))
@@ -508,19 +484,34 @@ test_that("theme - parsing error", {
 })
 
 
-test_that("theme - invalid theme settings", {
+test_that("theme - invalid color", {
+    local_edition(3)
     theme_settings <- yaml::read_yaml(system.file("fw_templ", "p_example", "periscope_style.yaml", package = "periscope2"))
     dir.create("www")
-    theme_settings[["primary"]]             <- "not color"
-    theme_settings[["sidebar_width"]]       <- "300"
-    theme_settings[["right_sidebar_width"]] <- "-300"
+    theme_settings[["primary"]]               <- "not color"
+    theme_settings[["sidebar_width"]]         <- "300"
+    theme_settings[["control_sidebar_width"]] <- "-300"
 
     yaml::write_yaml(theme_settings, "www/periscope_style.yaml")
-    expect_warning(nchar(create_theme()),
-                   regexp = "primary has invalid color value. Setting default color")
+    theme_warnings <- capture_warnings(create_theme())
+    expect_snapshot(theme_warnings)
     unlink("www/periscope_style.yaml")
     unlink("www", recursive = TRUE)
 })
+
+
+# test_that("theme - invalid width", {
+#     theme_settings <- yaml::read_yaml(system.file("fw_templ", "p_example", "periscope_style.yaml", package = "periscope2"))
+#     dir.create("www")
+#     theme_settings[["sidebar_width"]]         <- "300"
+#     theme_settings[["control_sidebar_width"]] <- "-300"
+#
+#     yaml::write_yaml(theme_settings, "www/periscope_style.yaml")
+#     expect_warning(nchar(create_theme()),
+#                    regexp = "invalid theme settings -300 must be positive value. Setting default value")
+#     unlink("www/periscope_style.yaml")
+#     unlink("www", recursive = TRUE)
+# })
 
 
 test_that("dashboard - create default dashboard", {

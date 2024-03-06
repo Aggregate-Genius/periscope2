@@ -231,27 +231,6 @@
     Output
       NULL
 
-# create_theme - full settings
-
-    Code
-      nchar(create_theme())
-    Output
-      [1] 669361
-
-# create_theme - invalid color settings
-
-    Code
-      nchar(create_theme())
-    Output
-      [1] 669361
-
-# create_theme - invalid measure settings
-
-    Code
-      nchar(create_theme())
-    Output
-      [1] 669361
-
 # ui_tooltip
 
     <span class="periscope-input-label-with-tt">
@@ -283,6 +262,14 @@
       nchar(suppressWarnings(periscope2:::create_theme()))
     Output
       [1] 669361
+
+# theme - invalid color
+
+    Code
+      theme_warnings
+    Output
+      [1] "primary has invalid color value. Setting default color."
+      [2] "-300 must be positive value. Setting default value."    
 
 # dashboard - create default dashboard
 

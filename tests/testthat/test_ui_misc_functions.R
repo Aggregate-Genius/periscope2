@@ -48,5 +48,6 @@ test_that("is_valid_format - valid format", {
     expect_true(periscope2:::is_valid_format("2023-07-07"))
 })
 
+
 # clean up
 unlink("log", TRUE)
