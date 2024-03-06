@@ -18,7 +18,7 @@ These elements will be displayed in the header beside application title and appl
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">periscope2</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.3</span>
       </span>
     </div>
 
@@ -112,61 +112,61 @@ These elements will be displayed in the header beside application title and appl
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>ui_elements</dt>
-<dd><p>- It can be any UI element but mostly used for navbarMenu. NULL by default.
+<dd><p>It can be any UI element but mostly used for navbarMenu. NULL by default.
 Check <code>?bs4Dash::navbarMenu()</code></p></dd>
 
 
 <dt>ui_position</dt>
-<dd><p>- Location of UI elements in the header. Must be either of 'center', 'left' or 'right'
+<dd><p>Location of UI elements in the header. Must be either of 'center', 'left' or 'right'
 Default value is 'right'.</p></dd>
 
 
 <dt>title</dt>
-<dd><p>- Sets application title. If it is not NULL, it will override "title" value that is set in
+<dd><p>Sets application title. If it is not NULL, it will override "title" value that is set in
 <code>?periscope2::set_app_parameters()</code> (default = NULL)</p></dd>
 
 
 <dt>title_position</dt>
-<dd><p>- Location of the title in the header. Must be either of 'center', 'left' or 'right'
+<dd><p>Location of the title in the header. Must be either of 'center', 'left' or 'right'
 Default value is 'Center'. If there are no UI elements, this param will be ignored.</p></dd>
 
 
 <dt>left_menu</dt>
-<dd><p>- Left menu. bs4DropdownMenu object (or similar dropdown menu).
+<dd><p>Left menu. bs4DropdownMenu object (or similar dropdown menu).
 Check <code>?bs4Dash::bs4DropdownMenu()</code></p></dd>
 
 
 <dt>right_menu</dt>
-<dd><p>- Right menu. bs4DropdownMenu object (or similar dropdown menu).
+<dd><p>Right menu. bs4DropdownMenu object (or similar dropdown menu).
 Check <code>?bs4Dash::bs4DropdownMenu()</code></p></dd>
 
 
 <dt>border</dt>
-<dd><p>- Whether to separate the navbar and body by a border. TRUE by default</p></dd>
+<dd><p>Whether to separate the navbar and body by a border. TRUE by default</p></dd>
 
 
 <dt>compact</dt>
-<dd><p>- Whether items should be compacted. FALSE by default</p></dd>
+<dd><p>Whether items should be compacted. FALSE by default</p></dd>
 
 
 <dt>right_sidebar_icon</dt>
-<dd><p>- Right sidebar toggle icon</p></dd>
+<dd><p>Right sidebar toggle icon</p></dd>
 
 
 <dt>fixed</dt>
-<dd><p>- Whether to fix the navbar to the top. FALSE by default</p></dd>
+<dd><p>Whether to fix the navbar to the top. FALSE by default</p></dd>
 
 
 <dt>left_sidebar_icon</dt>
-<dd><p>- Left sidebar toggle icon</p></dd>
+<dd><p>Left sidebar toggle icon</p></dd>
 
 
 <dt>skin</dt>
-<dd><p>- Sidebar skin. "dark" or "light"</p></dd>
+<dd><p>Sidebar skin. "dark" or "light"</p></dd>
 
 
 <dt>status</dt>
-<dd><p>- Sidebar status. Check <code>?bs4Dash::bs4DashNavbar()</code> for list of valid values</p></dd>
+<dd><p>Sidebar status. Check <code>?bs4Dash::bs4DashNavbar()</code> for list of valid values</p></dd>
 
 </dl></div>
     <div id="value">
@@ -177,8 +177,28 @@ Check <code>?bs4Dash::bs4DropdownMenu()</code></p></dd>
     </div>
     <div id="details">
     <h2>Details</h2>
-    <p>User can configure UI elements, application title and the busy indicator positions as well using this method.</p>
-<p>Check example application for detailed example</p>
+    
+<div class="section">
+<h3 id="application-header-consists-of-three-elements-">Application header consists of three elements:<a class="anchor" aria-label="anchor" href="#application-header-consists-of-three-elements-"></a></h3>
+
+<dl><dt>busy indicator</dt>
+<dd><p>An automatic wait indicator that are shown when the shiny server session is busy</p></dd>
+
+<dt>application title</dt>
+<dd><p>Display application title</p></dd>
+
+<dt>heade menu</dt>
+<dd><p>Optional header menu to switch between application different tabs</p></dd>
+
+
+</dl></div>
+
+<p>Header elements can be arranged via <code>ui_position</code> and <code>title_position</code> parameters.
+<br>
+Header elements look and feel can also be configured in <b>"www\css\custom.css"</b> file under
+<b>"Application Header"</b> section.
+<br>
+Check example application for detailed example</p>
     </div>
     <div id="shiny-usage">
     <h2>Shiny Usage</h2>

@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">periscope2</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.3</span>
       </span>
     </div>
 
@@ -85,14 +85,32 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="0.2.1" id="periscope2-021">periscope2 0.2.1<a class="anchor" aria-label="anchor" href="#periscope2-021"></a></h2>
+<h2 class="page-header" data-toc-text="0.2.3" id="periscope2-023">periscope2 0.2.3<a class="anchor" aria-label="anchor" href="#periscope2-023"></a></h2>
 <div class="section level3">
-<h3 id="new-features-0-2-1">New Features<a class="anchor" aria-label="anchor" href="#new-features-0-2-1"></a></h3>
+<h3 id="enhancements-0-2-3">Enhancements<a class="anchor" aria-label="anchor" href="#enhancements-0-2-3"></a></h3>
+<ul><li>Re-factored header layout to be more flexible with menu items</li>
+<li>Updated modules default values</li>
+<li>
+<strong>downloadableTable</strong> module server parameters “filenameroot” can now support character, reactive expression or a function to return file name</li>
+<li>Introduced <code>load_announcements</code> method to create announcement alert at predefined generated app ui div</li>
+<li>Deprecated <code>title</code> parameter in <code>set_app_parameters</code>, use <code>periscope2::add_ui_header(title)</code> instead</li>
+</ul></div>
+<div class="section level3">
+<h3 id="bug-fixes-0-2-3">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-2-3"></a></h3>
+<ul><li>Hide download button if <code>downloaddatafxn</code> or <code>downloadtypes</code> are empty for <code>downloadableTable</code> module</li>
+<li>Hide download button if <code>downloadfxns</code> or <code>downloadtypes</code> are empty for <code>downloadablePlot</code> module</li>
+<li>Capitalized left tooltip text</li>
+</ul><hr></div>
+</div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.2.2" id="periscope2-022">periscope2 0.2.2<small>2024-01-08</small><a class="anchor" aria-label="anchor" href="#periscope2-022"></a></h2>
+<div class="section level3">
+<h3 id="new-features-0-2-2">New Features<a class="anchor" aria-label="anchor" href="#new-features-0-2-2"></a></h3>
 <ul><li>Introduced application theme configuration file generator RStudio add-in</li>
 <li>Enabled full usage of bootstrap4 variables customization in <code>periscope_style.yaml</code> (refer to <code><a href="../articles/migrate_to_v0_2_0.html">vignette("migrate_to_v0_2_0", package = "periscope2")</a></code>)</li>
 </ul></div>
 <div class="section level3">
-<h3 id="enhancements-0-2-1">Enhancements<a class="anchor" aria-label="anchor" href="#enhancements-0-2-1"></a></h3>
+<h3 id="enhancements-0-2-2">Enhancements<a class="anchor" aria-label="anchor" href="#enhancements-0-2-2"></a></h3>
 <ul><li>Allowed header to have navbar menu</li>
 <li>Renamed <code>createAlert</code> method to be <code>createPSAlert</code> to avoid confusion with <code><a href="https://rdrr.io/pkg/bs4Dash/man/alert.html" class="external-link">bs4Dash::createAlert</a></code> (refer to <code><a href="../articles/migrate_to_v0_2_0.html">vignette("migrate_to_v0_2_0", package = "periscope2")</a></code>)</li>
 <li>Display alert with status icon correctly when there is no alert title</li>
