@@ -80,7 +80,7 @@ While periscope2 is dependent only on bootstrap 4 supported shiny package to bri
 
 - Left sidebar
 - Right sidebar
-- Header (only can update title)
+- Header
 - Body
 
 periscope2 full generated app layouts:

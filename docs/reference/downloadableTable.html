@@ -19,7 +19,7 @@ button."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mat
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">periscope2</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.3</span>
       </span>
     </div>
 
@@ -96,9 +96,9 @@ button.</p>
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">downloadableTable</span><span class="op">(</span></span>
 <span>  <span class="va">id</span>,</span>
-<span>  <span class="va">logger</span>,</span>
-<span>  <span class="va">filenameroot</span>,</span>
-<span>  downloaddatafxns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  logger <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  filenameroot <span class="op">=</span> <span class="st">"download"</span>,</span>
+<span>  downloaddatafxns <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">tabledata</span>,</span>
 <span>  selection <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  table_options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -116,8 +116,8 @@ button.</p>
 
 
 <dt>filenameroot</dt>
-<dd><p>the base text used for user-downloaded file - can be
-either a character string or a reactive expression returning a character
+<dd><p>the text used for user-downloaded file - can be
+either a character string, a reactive expression or a function returning a character
 string</p></dd>
 
 
@@ -151,11 +151,13 @@ display table</p>
     </div>
     <div id="details">
     <h2>Details</h2>
-    <p>Generated table can highly customized using function <code><a href="https://rdrr.io/pkg/DT/man/datatable.html" class="external-link">?DT::datatable</a></code> same arguments
- except for `options` and `selection` parameters.</p>
-<p>For `options` user can pass the same <code><a href="https://rdrr.io/pkg/DT/man/datatable.html" class="external-link">?DT::datatable</a></code> options using the same names and
+    <p>downloadFile button will be hidden if <code>downloadableTable</code> parameter <code>downloaddatafxn</code> or
+<code>downloadableTableUI</code> parameter <code>downloadtypes</code> is empty</p>
+<p>Generated table can highly customized using function <code><a href="https://rdrr.io/pkg/DT/man/datatable.html" class="external-link">?DT::datatable</a></code> same arguments
+except for <code>options</code> and <code>selection</code> parameters.</p>
+<p>For <code>options</code> user can pass the same <code><a href="https://rdrr.io/pkg/DT/man/datatable.html" class="external-link">?DT::datatable</a></code> options using the same names and
 values one by one separated by comma.</p>
-<p>For `selection` parameter it can be either a function or reactive expression providing the row_ids of the
+<p>For <code>selection</code> parameter it can be either a function or reactive expression providing the row_ids of the
 rows that should be selected.</p>
 <p>Also, user can apply the same provided <code><a href="https://rdrr.io/pkg/DT/man/formatCurrency.html" class="external-link">?DT::formatCurrency</a></code> columns formats on passed
 dataset using format functions names as keys and their options as a list.</p>
@@ -164,10 +166,10 @@ dataset using format functions names as keys and their options as a list.</p>
     <h2>Notes</h2>
     
 
-<p></p><ul><li><p>When there are no rows to download in any of the linked downloaddatafxns
-  the button will be hidden as there is nothing to download.</p></li>
+<ul><li><p>When there are no rows to download in any of the linked downloaddatafxns
+the button will be hidden as there is nothing to download.</p></li>
 <li><p><code>selection</code> parameter has different usage than DT::datatable <code>selection</code> option.
-  See parameters usage section.</p></li>
+See parameters usage section.</p></li>
 <li><p>DT::datatable options <code>editable</code>, <code>width</code> and <code>height</code> are not supported</p></li>
 </ul></div>
     <div id="shiny-usage">

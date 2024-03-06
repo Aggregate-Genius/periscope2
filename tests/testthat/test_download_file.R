@@ -30,6 +30,10 @@ download_string_list <- function() {
     c("test1", "test2", "tests")
 }
 
+download_char_data <- function() {
+    "A123B"
+}
+
 # UI Testing
 test_that("downloadFileButton", {
     file_btn <- downloadFileButton(id            = "myid",
@@ -139,9 +143,13 @@ test_that("downloadFile - download char data", {
     testServer(downloadFile,
                args = list(logger       = periscope2:::fw_get_user_log(),
                            filenameroot = "my_char_download",
-                           datafxns     = list(txt = function() {"123"})),
+                           datafxns     = list(txt = download_char_data,
+                                               tsv = download_char_data,
+                                               csv = download_char_data)),
                expr = {
                    expect_snapshot_file(output$txt)
+                   expect_snapshot_file(output$tsv)
+                   expect_snapshot_file(output$csv)
                })
 })
 
@@ -160,5 +168,17 @@ test_that("downloadFile - default values", {
                args = list(datafxns = list(txt = function() {"123"})),
                expr = {
                    expect_snapshot_file(output$txt)
+               })
+})
+
+test_that("downloadFile - invalid type", {
+    testServer(downloadFile,
+               args = list(datafxns = list(ttt = function() {"123"},
+                                           jeg = download_lattice_plot,
+                                           tff = download_plot)),
+               expr = {
+                   expect_error(output$ttt)
+                   expect_error(output$jeg)
+                   expect_error(output$tff)
                })
 })
