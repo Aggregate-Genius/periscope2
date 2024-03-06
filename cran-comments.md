@@ -1,30 +1,19 @@
-# Round 2
-
-## Reviewer comments
-
-  `Found the following (possibly) invalid file URI:`<br/>
-   `  URI: migrate_to_v0_2_0.html`<br/>
-    `   From: NEWS.md`<br/>
-    
-## Comments from Maintainer
-- Replaced the document url with instructions on how to find it using R commands 
-
 ## Test Environments
     
 
 RStudio Server Pro (Ubuntu 20.04.6 LTS)  
 
 * R 4.2.3
-* R 4.3.1
+* R 4.3.2
 
 RStudio 2023.06.1+524 (Windows 11 x64 (build 22621))
 
-* R 4.3.0
+* R 4.3.2
 
 CircleCI
 
 * R 4.0.5
-* R 4.3.1
+* R 4.3.2
 
 devtools
 
