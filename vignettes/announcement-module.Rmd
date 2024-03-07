@@ -63,17 +63,12 @@ The **announcements** Shiny Module is a part of the *periscope2* package and doe
   <figcaption>Announcements Banner Configuration File</figcaption>
 </figure>
 
-* The announcements configuration file location should be passed to `set_app_parameters` function in `program\global.R`
+* The announcements configuration file location should be passed to `load_announcements` function in `server.R`
 
 ```{r, eval=F}
 # Inside program\global.R
 
-set_app_parameters(title              = "periscope Example Application",
-                   app_info           = HTML("Demonstrate periscope features and generated application layout"),
-                   log_level          = "DEBUG",
-                   app_version        = "1.0.0",
-                   loading_indicator  = list(html = spin_1(), color = 'rgba(22, 65, 124, 0.3)'),
-                   announcements_file = "./program/config/announce.yaml")
+load_announcements(announcement_location_id = "./program/config/announce.yaml")
 ```
 
 

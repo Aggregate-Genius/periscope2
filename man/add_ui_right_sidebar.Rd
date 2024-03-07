@@ -14,17 +14,17 @@ add_ui_right_sidebar(
 )
 }
 \arguments{
-\item{sidebar_elements}{- List of regular shiny UI elements (inputText, textArea, etc..)}
+\item{sidebar_elements}{List of regular shiny UI elements (inputText, textArea, etc..)}
 
-\item{sidebar_menu}{- \code{?bs4Dash::controlbarMenu()} object to created a menu inside right sidebar}
+\item{sidebar_menu}{\code{?bs4Dash::controlbarMenu()} object to created a menu inside right sidebar}
 
-\item{collapsed}{- If TRUE, the sidebar will be collapsed on app startup (default = TRUE)}
+\item{collapsed}{If TRUE, the sidebar will be collapsed on app startup (default = TRUE)}
 
-\item{overlay}{- Whether the sidebar covers the content when expanded (default = TRUE)}
+\item{overlay}{Whether the sidebar covers the content when expanded (default = TRUE)}
 
-\item{pinned}{- If TRUE, allows right sidebar to remain open even after a click outside (default = FALSE)}
+\item{pinned}{If TRUE, allows right sidebar to remain open even after a click outside (default = FALSE)}
 
-\item{skin}{- Sidebar skin. "dark" or "light" (default = "light")}
+\item{skin}{Sidebar skin. "dark" or "light" (default = "light")}
 }
 \value{
 list of both shiny UI elements and named right sidebar properties

@@ -7,7 +7,7 @@
 logViewerOutput(id = "logViewer")
 }
 \arguments{
-\item{id}{- character id for the object(default = "logViewer")}
+\item{id}{character id for the object(default = "logViewer")}
 }
 \value{
 shiny tableOutput instance
@@ -19,8 +19,8 @@ logged. The id must match the same id configured in \bold{server.R} file upon ca
 \section{Table columns}{
 
 \itemize{
-    \item action - the action that id logged in any place in app
-    \item time   - action time
+\item action - the action that id logged in any place in app
+\item time   - action time
 }
 }
 

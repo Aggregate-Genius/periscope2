@@ -12,14 +12,14 @@ createPSAlert(
 )
 }
 \arguments{
-\item{session}{- Shiny session object}
+\item{session}{Shiny session object}
 
-\item{id}{- Anchor id (either id or selector only should be set)}
+\item{id}{Anchor id (either id or selector only should be set)}
 
-\item{selector}{- Character vector represents jQuery selector to add the alert to is
+\item{selector}{Character vector represents jQuery selector to add the alert to is
 (i.e ".alertClass", div.badge-danger.navbar-badge). If 'id' is specified, this parameter will be neglected}
 
-\item{options}{- List of options to pass to the alert}
+\item{options}{List of options to pass to the alert}
 }
 \value{
 html div and inserts it in the app DOM

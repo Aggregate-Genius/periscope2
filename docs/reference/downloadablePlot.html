@@ -18,7 +18,7 @@ plot output paired with a linked downloadFile button."><!-- mathjax --><script s
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">periscope2</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.3</span>
       </span>
     </div>
 
@@ -94,10 +94,10 @@ plot output paired with a linked downloadFile button.</p>
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">downloadablePlot</span><span class="op">(</span></span>
 <span>  <span class="va">id</span>,</span>
-<span>  <span class="va">logger</span>,</span>
-<span>  <span class="va">filenameroot</span>,</span>
+<span>  logger <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  filenameroot <span class="op">=</span> <span class="st">"download"</span>,</span>
 <span>  aspectratio <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>  downloadfxns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  downloadfxns <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">visibleplot</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -140,6 +140,11 @@ display as a return value.  This function should require no input parameters.</p
     
 
 <p>Reactive expression containing the currently selected plot to be available for display and download</p>
+    </div>
+    <div id="details">
+    <h2>Details</h2>
+    <p>downloadFile button will be hidden if <code>downloadablePlot</code> parameter <code>downloadfxns</code> or
+<code>downloadablePlotUI</code> parameter <code>downloadtypes</code> is empty</p>
     </div>
     <div id="notes">
     <h2>Notes</h2>

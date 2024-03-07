@@ -1,7 +1,7 @@
 Package: periscope2
 Type: Package
 Title: Enterprise Streamlined 'shiny' Application Framework Using 'bs4Dash'
-Version: 0.2.2
+Version: 0.2.3
 Authors@R: c(
     person("Mohammed", "Ali",      role = c("aut", "cre"), email   = "mohammed@aggregate-genius.com"),
     person("Constance", "Brett",   role = c("ctb")),
@@ -31,7 +31,8 @@ Imports:
     shinyWidgets,
     utils,
     writexl,
-    yaml
+    yaml,
+    lifecycle
 RoxygenNote: 7.2.3
 Suggests:
     assertthat,
@@ -48,3 +49,4 @@ Suggests:
     testthat,
     waiter
 VignetteBuilder: knitr
+Roxygen: list(markdown = TRUE)

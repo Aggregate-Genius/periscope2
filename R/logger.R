@@ -300,7 +300,7 @@ levellog <- function(level, msg, ..., logger = "") {
 }
 
 .levellog <- function(level, msg, ..., logger = "") {
-    if (is.character(logger)) {
+    if ((is.null(logger)) || (is.character(logger))) {
         logger <- getLogger(logger)
     }
     logger$log(level, msg, ...)
@@ -321,8 +321,9 @@ levellog <- function(level, msg, ..., logger = "") {
 ##
 ## @return The logger retrieved or registered.
 getLogger <- function(name = "", ...) {
-    if (name == "") {
+    if ((is.null(name)) || (name == "")) {
         fullname <- "logging.ROOT"
+        name     <- ""
     } else {
         fullname <- paste("logging.ROOT", name, sep = ".")
     }

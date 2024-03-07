@@ -1,4 +1,22 @@
-# periscope2 0.2.1
+# periscope2 0.2.3
+
+## Enhancements
+
+- Re-factored header layout to be more flexible with menu items
+- Updated modules default values
+- **downloadableTable** module server parameters "filenameroot" can now support character,  reactive expression or a function to return file name
+- Introduced `load_announcements` method to create announcement alert at predefined generated app ui div
+- Deprecated `title` parameter in `set_app_parameters`, use `periscope2::add_ui_header(title)` instead
+
+## Bug Fixes
+
+- Hide download button if `downloaddatafxn` or `downloadtypes` are empty for `downloadableTable` module
+- Hide download button if `downloadfxns` or `downloadtypes` are empty for `downloadablePlot` module
+- Capitalized left tooltip text
+
+-----
+
+# periscope2 0.2.2
 
 ## New Features
 

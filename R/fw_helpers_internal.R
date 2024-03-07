@@ -11,7 +11,7 @@
                                                    " [", record$timestamp, "] ",
                                                    record$msg) },
     loglevel            = "DEBUG",
-    app_title           = "Set using set_app_parameters() in program/global.R",
+    app_title           = "Set using add_ui_header() in program/ui_header.R",
     app_info            = NULL,
     app_version         = "1.0.0",
     loading_indicator   = NULL,

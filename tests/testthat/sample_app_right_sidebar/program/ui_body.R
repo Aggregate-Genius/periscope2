@@ -67,8 +67,8 @@ announcements_box <- box(
                             tags$li("Default feature generated configuration file is called ", tags$b("announce.yaml")),
                             tags$li("Default configuration file path is: ", tags$i("'program/config/announce.yaml'")),
                             tags$li("Configuration file path can be changed based on admin preference. Only update ",
-                                    tags$b("'announcements_file'"), " parameter in ", tags$b("'set_app_parameters'"), " method in ",
-                                    tags$b("'program/global.R'"), " file with the new config file path"),
+                                    tags$b("'announcements_file_path'"), " parameter in ", tags$b("'load_announcements'"), " method in ",
+                                    tags$b("'server.R'"), " file with the new config file path"),
                             tags$li("Check generated configuration file self-documentation for each config variable usage details"),
                             tags$li("Review current application example configuration for more details on how to configure/disable announcements`"))))
 )
@@ -392,7 +392,7 @@ tooltips_box <- box(
                text  = "Top tooltip"),
     ui_tooltip(id        = "left_tip",
                label     = "Left Tooltips",
-               text      = "left tooltip",
+               text      = "Left tooltip",
                placement = "left"),
     ui_tooltip(id        = "bottom_tip",
                label     = "Bottom Tooltips",

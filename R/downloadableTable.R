@@ -9,6 +9,9 @@
 #' button.  The table has search and highlight functionality, infinite scrolling,
 #' sorting by columns and returns a reactive dataset of selected items.
 #'
+#' downloadFile button will be hidden if \code{downloadableTable} parameter \code{downloaddatafxn} or
+#' \code{downloadableTableUI} parameter \code{downloadtypes} is empty
+#'
 #' @param id character id for the object
 #' @param downloadtypes vector of values for data download types
 #' @param hovertext download button tooltip hover text
@@ -21,7 +24,7 @@
 #' @section Table Features:
 #' \itemize{
 #'     \item Consistent styling of the table
-#'     \item downloadFile module button functionality built-in to the table
+#'     \item downloadFile module button functionality built-in to the table (it will be shown only if downloadtypes is defined)
 #'     \item Ability to show different data from the download data
 #'     \item Table is automatically fit to the window size with infinite
 #'     y-scrolling
@@ -82,20 +85,23 @@
 #'
 #' @export
 downloadableTableUI <- function(id,
-                                downloadtypes = c("csv"),
+                                downloadtypes = NULL,
                                 hovertext     = NULL,
                                 contentHeight = "200px",
                                 singleSelect  = FALSE) {
     ns <- shiny::NS(id)
 
     list(
-        shiny::span(
-            id    = ns("dtableButtonDiv"),
-            class = "periscope-downloadable-table-button",
-            style = ifelse(length(downloadtypes) > 0, "", "display:none"),
-            downloadFileButton(ns("dtableButtonID"),
-                               downloadtypes,
-                               hovertext)),
+        shiny::conditionalPanel(
+            condition = "output.displayButton",
+            ns        = ns,
+            shiny::span(
+                id    = ns("dtableButtonDiv"),
+                class = "periscope-downloadable-table-button",
+                style = ifelse(length(downloadtypes) > 0, "", "display:none"),
+                downloadFileButton(ns("dtableButtonID"),
+                                   downloadtypes,
+                                   hovertext))),
         DT::dataTableOutput(ns("dtableOutputID")),
         shiny::tags$input(
             id    = ns("dtableOutputHeight"),
@@ -117,6 +123,9 @@ downloadableTableUI <- function(id,
 #' high-functionality table paired with a linked downloadFile
 #' button.
 #'
+#' downloadFile button will be hidden if \code{downloadableTable} parameter \code{downloaddatafxn} or
+#' \code{downloadableTableUI} parameter \code{downloadtypes} is empty
+#'
 #' Generated table can highly customized using function \code{?DT::datatable} same arguments
 #'  except for `options` and `selection` parameters.
 #'
@@ -132,8 +141,8 @@ downloadableTableUI <- function(id,
 #'
 #' @param id  the ID of the Module's UI element
 #' @param logger logger to use
-#' @param filenameroot the base text used for user-downloaded file - can be
-#' either a character string or a reactive expression returning a character
+#' @param filenameroot the text used for user-downloaded file - can be
+#' either a character string, a reactive expression or a function returning a character
 #' string
 #' @param downloaddatafxns a \strong{named} list of functions providing the data as
 #' return values.  The names for the list should be the same names that were used
@@ -205,18 +214,25 @@ downloadableTableUI <- function(id,
 #'
 #' @export
 downloadableTable <- function(id,
-                              logger,
-                              filenameroot,
-                              downloaddatafxns = list(),
+                              logger           = NULL,
+                              filenameroot     = "download",
+                              downloaddatafxns = NULL,
                               tabledata,
                               selection        = NULL,
                               table_options    = list()) {
     shiny::moduleServer(id,
                         function(input, output, session) {
+
                             if (all(!is.null(selection),
                                     is.character(selection))) {
                                 message("'selection' parameter must be a function or reactive expression. Setting default value NULL.")
                                 selection <- NULL
+                            }
+
+                            if (is.null(filenameroot)) {
+                                filenameroot <- ""
+                            } else if (shiny::is.reactive(filenameroot) || is.function(filenameroot)) {
+                                filenameroot <- shiny::isolate(filenameroot())
                             }
 
                             downloadFile("dtableButtonID", logger, filenameroot, downloaddatafxns)
@@ -253,13 +269,18 @@ downloadableTable <- function(id,
                             })
 
                             shiny::observe({
-                                dtInfo$downloaddatafxns <- lapply(downloaddatafxns, do.call, list())
+                                if (length(downloaddatafxns) > 0) {
+                                    dtInfo$downloaddatafxns <- lapply(downloaddatafxns, do.call, list())
 
-                                rowct <- lapply(dtInfo$downloaddatafxns, NROW)
-                                session$sendCustomMessage("downloadbutton_toggle",
-                                                          message = list(btn  = session$ns("dtableButtonDiv"),
-                                                                         rows = sum(unlist(rowct))))
+                                    rowct <- lapply(dtInfo$downloaddatafxns, NROW)
+                                    session$sendCustomMessage("downloadbutton_toggle",
+                                                              message = list(btn  = session$ns("dtableButtonDiv"),
+                                                                             rows = sum(unlist(rowct))))
+                                }
+                                output$displayButton <- shiny::reactive(length(downloaddatafxns) > 0)
+                                shiny::outputOptions(output, "displayButton", suspendWhenHidden = FALSE)
                             })
+
 
                             output$dtableOutputID <- DT::renderDataTable({
                                 sourcedata <- dtInfo$tabledata
@@ -320,6 +341,7 @@ downloadableTable <- function(id,
                             shiny::reactive({
                                 shiny::isolate(dtInfo$tabledata)[dtInfo$selected, ]
                             })
+
                         })
 }
 

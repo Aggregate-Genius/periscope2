@@ -18,26 +18,26 @@ add_ui_left_sidebar(
 )
 }
 \arguments{
-\item{sidebar_elements}{- List of regular shiny UI elements (inputText, textArea, etc..)}
+\item{sidebar_elements}{List of regular shiny UI elements (inputText, textArea, etc..)}
 
-\item{sidebar_menu}{- \code{?bs4Dash::bs4SidebarMenu()} object to created a menu inside left sidebar}
+\item{sidebar_menu}{\code{?bs4Dash::bs4SidebarMenu()} object to created a menu inside left sidebar}
 
-\item{collapsed}{- If TRUE, the sidebar will be collapsed on app start up}
+\item{collapsed}{If TRUE, the sidebar will be collapsed on app start up}
 
-\item{custom_area}{- List of regular shiny UI elements but for sidebar bottom space area only.
+\item{custom_area}{List of regular shiny UI elements but for sidebar bottom space area only.
 Only works if sidebar is fixed}
 
-\item{elevation}{- A number between 0 and 5, which applies a shadow to the sidebar to add a shadow effect.}
+\item{elevation}{A number between 0 and 5, which applies a shadow to the sidebar to add a shadow effect.}
 
-\item{expand_on_hover}{- When \code{minified} is TRUE, if this property is TRUE, the sidebar opens when hovering but re-collapses as soon as the focus is lost (default = TRUE)}
+\item{expand_on_hover}{When \code{minified} is TRUE, if this property is TRUE, the sidebar opens when hovering but re-collapses as soon as the focus is lost (default = TRUE)}
 
-\item{fixed}{- Whether to see all menus at once without scrolling up and down.(default = TRUE)}
+\item{fixed}{Whether to see all menus at once without scrolling up and down.(default = TRUE)}
 
-\item{minified}{- Whether to slightly close the sidebar but still show item icons (default = FALSE)}
+\item{minified}{Whether to slightly close the sidebar but still show item icons (default = FALSE)}
 
-\item{status}{- Determines which color menu items (if exist) will have Check \code{?bs4Dash::dashboardSidebar()} for list of valid values}
+\item{status}{Determines which color menu items (if exist) will have Check \code{?bs4Dash::dashboardSidebar()} for list of valid values}
 
-\item{skin}{- Sidebar skin. "dark" or "light" (default = "light")}
+\item{skin}{Sidebar skin. "dark" or "light" (default = "light")}
 }
 \value{
 list of both shiny UI elements and named left sidebar properties

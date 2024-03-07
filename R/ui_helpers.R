@@ -3,17 +3,17 @@
 #' This function adds left sidebar configurations and UI elements. It is called within "ui_left_sidebar.R".
 #' Check example application for detailed example
 #'
-#' @param sidebar_elements - List of regular shiny UI elements (inputText, textArea, etc..)
-#' @param sidebar_menu     - \code{?bs4Dash::bs4SidebarMenu()} object to created a menu inside left sidebar
-#' @param collapsed        - If TRUE, the sidebar will be collapsed on app start up
-#' @param custom_area      - List of regular shiny UI elements but for sidebar bottom space area only.
-#'                           Only works if sidebar is fixed
-#' @param elevation        - A number between 0 and 5, which applies a shadow to the sidebar to add a shadow effect.
-#' @param expand_on_hover  - When \code{minified} is TRUE, if this property is TRUE, the sidebar opens when hovering but re-collapses as soon as the focus is lost (default = TRUE)
-#' @param fixed            - Whether to see all menus at once without scrolling up and down.(default = TRUE)
-#' @param minified         - Whether to slightly close the sidebar but still show item icons (default = FALSE)
-#' @param skin             - Sidebar skin. "dark" or "light" (default = "light")
-#' @param status           - Determines which color menu items (if exist) will have Check \code{?bs4Dash::dashboardSidebar()} for list of valid values
+#' @param sidebar_elements List of regular shiny UI elements (inputText, textArea, etc..)
+#' @param sidebar_menu     \code{?bs4Dash::bs4SidebarMenu()} object to created a menu inside left sidebar
+#' @param collapsed        If TRUE, the sidebar will be collapsed on app start up
+#' @param custom_area      List of regular shiny UI elements but for sidebar bottom space area only.
+#'                         Only works if sidebar is fixed
+#' @param elevation        A number between 0 and 5, which applies a shadow to the sidebar to add a shadow effect.
+#' @param expand_on_hover  When \code{minified} is TRUE, if this property is TRUE, the sidebar opens when hovering but re-collapses as soon as the focus is lost (default = TRUE)
+#' @param fixed            Whether to see all menus at once without scrolling up and down.(default = TRUE)
+#' @param minified         Whether to slightly close the sidebar but still show item icons (default = FALSE)
+#' @param skin             Sidebar skin. "dark" or "light" (default = "light")
+#' @param status           Determines which color menu items (if exist) will have Check \code{?bs4Dash::dashboardSidebar()} for list of valid values
 #'
 #' @return list of both shiny UI elements and named left sidebar properties
 #'
@@ -71,29 +71,40 @@ add_ui_left_sidebar <- function(sidebar_elements = NULL,
 #' Builds application header with given configurations and elements. It is called within "ui_header.R".
 #' These elements will be displayed in the header beside application title and application busy indicator.
 #'
-#' User can configure UI elements, application title and the busy indicator positions as well using this method.
+#' \subsection{Application header consists of three elements:}{
+#'    \describe{
+#'      \item{busy indicator}{An automatic wait indicator that are shown when the shiny server session is busy}
+#'      \item{application title}{Display application title}
+#'      \item{heade menu}{Optional header menu to switch between application different tabs}
+#'    }
+#' }
 #'
+#' Header elements can be arranged via \code{ui_position} and \code{title_position} parameters.
+#' \cr
+#' Header elements look and feel can also be configured in \bold{"www\\css\\custom.css"} file under
+#' \bold{"Application Header"} section.
+#' \cr
 #' Check example application for detailed example
 #'
-#' @param ui_elements        - It can be any UI element but mostly used for navbarMenu. NULL by default.
-#'                             Check \code{?bs4Dash::navbarMenu()}
-#' @param ui_position        - Location of UI elements in the header. Must be either of 'center', 'left' or 'right'
-#'                             Default value is 'right'.
-#' @param title              - Sets application title. If it is not NULL, it will override "title" value that is set in
-#'                             \code{?periscope2::set_app_parameters()} (default = NULL)
-#' @param title_position     - Location of the title in the header. Must be either of 'center', 'left' or 'right'
-#'                             Default value is 'Center'. If there are no UI elements, this param will be ignored.
-#' @param left_menu          - Left menu. bs4DropdownMenu object (or similar dropdown menu).
-#'                             Check \code{?bs4Dash::bs4DropdownMenu()}
-#' @param right_menu         - Right menu. bs4DropdownMenu object (or similar dropdown menu).
-#'                             Check \code{?bs4Dash::bs4DropdownMenu()}
-#' @param border             - Whether to separate the navbar and body by a border. TRUE by default
-#' @param compact            - Whether items should be compacted. FALSE by default
-#' @param fixed              - Whether to fix the navbar to the top. FALSE by default
-#' @param left_sidebar_icon  - Left sidebar toggle icon
-#' @param right_sidebar_icon - Right sidebar toggle icon
-#' @param skin               - Sidebar skin. "dark" or "light"
-#' @param status             - Sidebar status. Check \code{?bs4Dash::bs4DashNavbar()} for list of valid values
+#' @param ui_elements        It can be any UI element but mostly used for navbarMenu. NULL by default.
+#'                           Check \code{?bs4Dash::navbarMenu()}
+#' @param ui_position        Location of UI elements in the header. Must be either of 'center', 'left' or 'right'
+#'                           Default value is 'right'.
+#' @param title              Sets application title. If it is not NULL, it will override "title" value that is set in
+#'                           \code{?periscope2::set_app_parameters()} (default = NULL)
+#' @param title_position     Location of the title in the header. Must be either of 'center', 'left' or 'right'
+#'                           Default value is 'Center'. If there are no UI elements, this param will be ignored.
+#' @param left_menu          Left menu. bs4DropdownMenu object (or similar dropdown menu).
+#'                           Check \code{?bs4Dash::bs4DropdownMenu()}
+#' @param right_menu         Right menu. bs4DropdownMenu object (or similar dropdown menu).
+#'                           Check \code{?bs4Dash::bs4DropdownMenu()}
+#' @param border             Whether to separate the navbar and body by a border. TRUE by default
+#' @param compact            Whether items should be compacted. FALSE by default
+#' @param fixed              Whether to fix the navbar to the top. FALSE by default
+#' @param left_sidebar_icon  Left sidebar toggle icon
+#' @param right_sidebar_icon Right sidebar toggle icon
+#' @param skin               Sidebar skin. "dark" or "light"
+#' @param status             Sidebar status. Check \code{?bs4Dash::bs4DashNavbar()} for list of valid values
 #'
 #' @return list of both shiny UI elements and named header properties
 #'
@@ -176,13 +187,13 @@ add_ui_header <- function(ui_elements        = NULL,
                                  shiny::img(alt = "Working...",
                                             hspace = "5px",
                                             src = "img/loader.gif"))
+    if (length(ui_elements) > 0) {
+        ui_elements <- shiny::div(id = "header_menu", ui_elements)
+    }
+
     header_left   <- busy_indicator
     header_center <- title
     header_right  <- ui_elements
-
-    left_width   <- 4
-    right_width  <- 4
-    center_width <- 4
 
     if (!is.null(ui_elements)) {
         if (!is.null(title_position)) {
@@ -209,20 +220,6 @@ add_ui_header <- function(ui_elements        = NULL,
             warning("title_position cannot be equal to ui_position. Setting default values")
             title_position <- "center"
             ui_position    <- "right"
-        }
-
-        left_width   <- 3
-        center_width <- 3
-        right_width  <- 6
-
-        if (ui_position == "left") {
-            left_width   <- 6
-            center_width <- 3
-            right_width  <- 3
-        } else if (ui_position == "center") {
-            left_width   <- 3
-            center_width <- 6
-            right_width  <- 3
         }
 
         if (title_position == "center") {
@@ -255,10 +252,10 @@ add_ui_header <- function(ui_elements        = NULL,
 
     }
 
-    header <- shiny::fluidRow(style = "width:100%",
-                              shiny::column(width = left_width, header_left),
-                              shiny::column(width = center_width, header_center),
-                              shiny::column(width = right_width, header_right))
+    header <- shiny::div(class = "app_header_container",
+                         header_left,
+                         header_center,
+                         header_right)
 
     .g_opts$header <- bs4Dash::bs4DashNavbar(header,
                                              skin           = skin,
@@ -278,8 +275,8 @@ add_ui_header <- function(ui_elements        = NULL,
 #' Builds application body with given configurations and elements. It is called within "ui_body.R".
 #' Check example application for detailed example
 #'
-#' @param body_elements - List of UI elements to be displayed in application body
-#' @param append        - Add elements to current body elements or remove previous body elements (default = FALSE)
+#' @param body_elements List of UI elements to be displayed in application body
+#' @param append        Add elements to current body elements or remove previous body elements (default = FALSE)
 #'
 #' @return list of both shiny UI elements and html div tags for alert and linking app JS and CSS files
 #'
@@ -330,11 +327,11 @@ add_ui_body <- function(body_elements = NULL, append = FALSE) {
 #'
 #' Create an alert panel in server code to be displayed in the specified UI selector location
 #'
-#' @param session  - Shiny session object
-#' @param id       - Anchor id (either id or selector only should be set)
-#' @param selector - Character vector represents jQuery selector to add the alert to is
-#'                   (i.e ".alertClass", div.badge-danger.navbar-badge). If 'id' is specified, this parameter will be neglected
-#' @param options  - List of options to pass to the alert
+#' @param session  Shiny session object
+#' @param id       Anchor id (either id or selector only should be set)
+#' @param selector Character vector represents jQuery selector to add the alert to is
+#'                 (i.e ".alertClass", div.badge-danger.navbar-badge). If 'id' is specified, this parameter will be neglected
+#' @param options  List of options to pass to the alert
 #'
 #' @return html div and inserts it in the app DOM
 #'
@@ -401,12 +398,12 @@ closeResetAlert <- function(id, session = shiny::getDefaultReactiveDomain()) {
 #' Builds application right sidebar with given configurations and elements. It is called within "ui_right_sidebar.R".
 #' Check example application for detailed example
 #'
-#' @param sidebar_elements - List of regular shiny UI elements (inputText, textArea, etc..)
-#' @param sidebar_menu     - \code{?bs4Dash::controlbarMenu()} object to created a menu inside right sidebar
-#' @param collapsed        - If TRUE, the sidebar will be collapsed on app startup (default = TRUE)
-#' @param overlay          - Whether the sidebar covers the content when expanded (default = TRUE)
-#' @param pinned           - If TRUE, allows right sidebar to remain open even after a click outside (default = FALSE)
-#' @param skin             - Sidebar skin. "dark" or "light" (default = "light")
+#' @param sidebar_elements List of regular shiny UI elements (inputText, textArea, etc..)
+#' @param sidebar_menu     \code{?bs4Dash::controlbarMenu()} object to created a menu inside right sidebar
+#' @param collapsed        If TRUE, the sidebar will be collapsed on app startup (default = TRUE)
+#' @param overlay          Whether the sidebar covers the content when expanded (default = TRUE)
+#' @param pinned           If TRUE, allows right sidebar to remain open even after a click outside (default = FALSE)
+#' @param skin             Sidebar skin. "dark" or "light" (default = "light")
 #'
 #' @return list of both shiny UI elements and named right sidebar properties
 #'
@@ -456,9 +453,9 @@ add_ui_right_sidebar <- function(sidebar_elements = NULL,
 #' Builds application footer with given configurations and elements. It is called within "ui_footer.R".
 #' Check example application for detailed example
 #'
-#' @param left  - Left side UI elements
-#' @param right - Right side UI elements
-#' @param fixed - Always show footer at page bottom regardless page scroll location (default = FALSE).
+#' @param left  Left side UI elements
+#' @param right Right side UI elements
+#' @param fixed Always show footer at page bottom regardless page scroll location (default = FALSE).
 #'
 #' @return list of both shiny UI elements and named footer properties
 #'
@@ -505,10 +502,10 @@ add_ui_footer <- function(left  = NULL,
 #' This function inserts a standardized tooltip image, label (optional),
 #' and hovertext into the application UI
 #'
-#' @param id        - The id for the tooltip object
-#' @param label     - Text label to appear to the left of the tooltip image
-#' @param text      - Tooltip text shown when the user hovers over the image
-#' @param placement - Where to display tooltip label. Available places are "top", "bottom", "left", "right" (default is "top")
+#' @param id        The id for the tooltip object
+#' @param label     Text label to appear to the left of the tooltip image
+#' @param text      Tooltip text shown when the user hovers over the image
+#' @param placement Where to display tooltip label. Available places are "top", "bottom", "left", "right" (default is "top")
 #'
 #' @return html span with the label, tooltip image and tooltip text
 #'
@@ -557,26 +554,25 @@ ui_tooltip <- function(id,
 #'
 #' This function sets global parameters customizing the shiny application.
 #'
-#' @param title              - Application title text
-#' @param app_info           - Application detailed information. It can be character string, HTML value or NULL
+#' @param title              `r lifecycle::badge("deprecated")` Use \link[periscope2]{add_ui_header} to configure application title text
+#' @param app_info           Application detailed information. It can be character string, HTML value or NULL
 #'                             \itemize{
 #'                                      \item{A \strong{character} string will be used to set a link target.
 #'                                            This means the user will be able to click on the application title and be
 #'                                            redirected in a new window to whatever value is given in the string.
 #'                                            Any valid URL, File, or other script functionality that would normally be
-#'                                            accepted in an <a href=...>  tag is allowed.}
+#'                                            accepted in an <a href=...></a>  tag is allowed.}
 #'                                      \item{An \strong{HTML} value will be used to as the HTML content for a modal pop-up
 #'                                            window that will appear on-top of the application when the user clicks on the
 #'                                            application title.}
 #'                                      \item{Supplying \strong{NULL} will disable the title link functionality.}
 #'                             }
-#' @param log_level          - Designating the log level to use for the user log as 'DEBUG','INFO', 'WARN' or 'ERROR' (default = 'DEBUG')
-#' @param app_version        - Character string designating the application version (default = '1.0.0')
-#' @param loading_indicator  - It uses waiter (see https://waiter.john-coene.com/#/).\cr
+#' @param log_level          Designating the log level to use for the user log as 'DEBUG','INFO', 'WARN' or 'ERROR' (default = 'DEBUG')
+#' @param app_version        Character string designating the application version (default = '1.0.0')
+#' @param loading_indicator  It uses waiter (see https://waiter.john-coene.com/#/).\cr
 #'                             Pass a list like list(html = spin_1(), color = "#333e48") to \cr configure
 #'                             waiterShowOnLoad (refer to the package help for all styles).
-#' @param announcements_file - The path to announcements configuration file.
-#'                             Use \link[periscope2]{announcementConfigurationsAddin} to generate that file.
+#' @param announcements_file `r lifecycle::badge("deprecated")`. Use \link[periscope2]{load_announcements} to configure announcement.
 #'
 #' @return no return value, called for setting new application global properties
 #'
@@ -590,15 +586,14 @@ ui_tooltip <- function(id,
 #'   library(periscope2)
 #'
 #'   # Inside program/global.R
-#'   set_app_parameters(title              = "periscope Example Application",
-#'                      app_info           = HTML("Example info"),
-#'                      log_level          = "DEBUG",
-#'                      app_version        = "1.0.0",
-#'                      loading_indicator  = list(html = tagList(spin_1(), "Loading ...")),
-#'                      announcements_file = "./program/config/announce.yaml")
+#'   set_app_parameters(app_info          = HTML("Example info"),
+#'                      log_level         = "DEBUG",
+#'                      app_version       = "1.0.0",
+#'                      loading_indicator = list(html = tagList(spin_1(), "Loading ...")))
 #'
 #'
 #' @seealso \link[periscope2:announcementConfigurationsAddin]{periscope2:announcementConfigurationsAddin()}
+#' @seealso \link[periscope2:load_announcements]{periscope2:load_announcements()}
 #' @seealso \link[waiter:waiter]{waiter:waiter_show()}
 #' @seealso \link[periscope2:add_ui_footer]{periscope2:add_ui_footer()}
 #' @seealso \link[periscope2:add_ui_left_sidebar]{periscope2:add_ui_left_sidebar()}
@@ -609,12 +604,28 @@ ui_tooltip <- function(id,
 #' @seealso \link[periscope2:get_url_parameters]{periscope2:get_url_parameters()}
 #'
 #' @export
-set_app_parameters <- function(title,
+set_app_parameters <- function(title              = NULL,
                                app_info           = NULL,
                                log_level          = "DEBUG",
                                app_version        = "1.0.0",
                                loading_indicator  = NULL,
                                announcements_file = NULL) {
+    if (!is.null(announcements_file)) {
+        lifecycle::deprecate_warn(
+            when    = "0.2.3",
+            what    = "set_app_parameters(announcements_file)",
+            details = "Please use `periscope2::load_announcements` instead"
+        )
+    }
+
+    if (!is.null(title)) {
+        lifecycle::deprecate_warn(
+            when    = "0.2.3",
+            what    = "set_app_parameters(title)",
+            details = "Please use `periscope2::add_ui_header(title)` instead"
+        )
+    }
+
     .g_opts$app_title          <- title
     .g_opts$app_info           <- app_info
     .g_opts$loglevel           <- log_level

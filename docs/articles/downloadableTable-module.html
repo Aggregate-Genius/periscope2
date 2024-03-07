@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">periscope2</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.3</span>
       </span>
     </div>
 
@@ -109,7 +109,7 @@
                         <h4 data-toc-skip class="author">Dr. Connie
 Brett</h4>
             
-            <h4 data-toc-skip class="date">2023-12-21</h4>
+            <h4 data-toc-skip class="date">2024-03-06</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/Aggregate-Genius/periscope2/blob/HEAD/vignettes/downloadableTable-module.Rmd" class="external-link"><code>vignettes/downloadableTable-module.Rmd</code></a></small>
       <div class="hidden name"><code>downloadableTable-module.Rmd</code></div>
@@ -148,6 +148,11 @@ search highlighting</li>
 vertical scrolling (no paging by default)</li>
 <li>Supports rownames and a table caption</li>
 <li>Requires minimal code (see the Usage section for details)</li>
+<li>
+<strong>downloadFile</strong> button will be hidden if
+<code>downloadableTable</code> parameter <code>downloaddatafxn</code> or
+<code>downloadableTableUI</code> parameter <code>downloadtypes</code> is
+empty</li>
 </ul>
 <p><br></p>
 </div>
@@ -218,6 +223,9 @@ The call consists of the following:</p>
 <li>the unique object ID that was provided to downloadableTableUI when
 creating the UI object</li>
 <li>the logging logger to be used</li>
+<li>
+<strong>filenameroot</strong> is an optional character, function or
+reactive expression providing downloadable file name</li>
 <li>the root (prefix) of the downloaded file name to be used in the
 browser as a character string or a reactive expression that returns a
 character string</li>

@@ -11,10 +11,10 @@ launch gadget window
 }
 \description{
 Call this as an addin to build valid yaml file that is needed for running
-announcements module. The generated file can be used in periscope2 app using \link[periscope2]{set_app_parameters}.
+announcements module. The generated file can be used in periscope2 app using \link[periscope2]{load_announcements}.
 }
 \details{
-The method can be called directly via `R` console or via RStudio addins menu
+The method can be called directly via \code{R} console or via RStudio addins menu
 }
 \examples{
 if (interactive()) {
@@ -23,5 +23,5 @@ if (interactive()) {
 
 }
 \seealso{
-\link[periscope2:set_app_parameters]{periscope2:set_app_parameters()}
+\link[periscope2:load_announcements]{periscope2:load_announcements()}
 }

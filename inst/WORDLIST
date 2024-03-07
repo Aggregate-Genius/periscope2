@@ -21,6 +21,7 @@ actionButton
 addin
 addins
 alertClass
+announceAlert
 announcementConfigurationsAddin
 appReset
 appResetButton
@@ -51,6 +52,7 @@ downloaddatafxns
 downloadfxns
 downloadtypes
 dropdown
+filenameroot
 filesystem
 fxn
 ggplot

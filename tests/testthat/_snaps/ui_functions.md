@@ -224,49 +224,12 @@
     
     
 
-# set_app_parameters update values
-
-    Code
-      shiny::isolate(periscope2:::.g_opts$app_info)
-    Output
-      Demonstrate periscope features and generated application layout
-
----
-
-    Code
-      shiny::isolate(periscope2:::.g_opts$loading_indicator)
-    Output
-      $html
-      <div>Loading ...</div>
-      
-
 # load_theme_settings - null settings
 
     Code
       load_theme_settings()
     Output
       NULL
-
-# create_theme - full settings
-
-    Code
-      nchar(create_theme())
-    Output
-      [1] 669361
-
-# create_theme - invalid color settings
-
-    Code
-      nchar(create_theme())
-    Output
-      [1] 669361
-
-# create_theme - invalid measure settings
-
-    Code
-      nchar(create_theme())
-    Output
-      [1] 669361
 
 # ui_tooltip
 
@@ -300,15 +263,13 @@
     Output
       [1] 669361
 
-# theme - invalid theme settings
+# theme - invalid color
 
     Code
-      nchar(create_theme())
-    Condition
-      Warning in `create_theme()`:
-      primary has invalid color value. Setting default color.
+      theme_warnings
     Output
-      [1] 669707
+      [1] "primary has invalid color value. Setting default color."
+      [2] "-300 must be positive value. Setting default value."    
 
 # dashboard - create default dashboard
 
@@ -342,17 +303,12 @@
                     </a>
                   </li>
                 </ul>
-                <div class="row" style="width:100%">
-                  <div class="col-sm-4">
-                    <div class="periscope-busy-ind">
-                      Working
-                      <img alt="Working..." hspace="5px" src="img/loader.gif"/>
-                    </div>
+                <div class="app_header_container">
+                  <div class="periscope-busy-ind">
+                    Working
+                    <img alt="Working..." hspace="5px" src="img/loader.gif"/>
                   </div>
-                  <div class="col-sm-4">
-                    <div id="app_header">good title</div>
-                  </div>
-                  <div class="col-sm-4"></div>
+                  <div id="app_header">good title</div>
                 </div>
                 <ul class="navbar-nav ml-auto navbar-right">
                   <li class="nav-item">
@@ -471,19 +427,14 @@
             </a>
           </li>
         </ul>
-        <div class="row" style="width:100%">
-          <div class="col-sm-4">
-            <div class="periscope-busy-ind">
-              Working
-              <img alt="Working..." hspace="5px" src="img/loader.gif"/>
-            </div>
+        <div class="app_header_container">
+          <div class="periscope-busy-ind">
+            Working
+            <img alt="Working..." hspace="5px" src="img/loader.gif"/>
           </div>
-          <div class="col-sm-4">
-            <div id="app_header">
-              <a id="app_info" href="#" class="action-button">periscope Example Application</a>
-            </div>
+          <div id="app_header">
+            <a id="app_info" href="#" class="action-button">periscope Example Application</a>
           </div>
-          <div class="col-sm-4"></div>
         </div>
         <ul class="navbar-nav ml-auto navbar-right">
           <li class="nav-item">
@@ -514,19 +465,14 @@
             </a>
           </li>
         </ul>
-        <div class="row" style="width:100%">
-          <div class="col-sm-4">
-            <div class="periscope-busy-ind">
-              Working
-              <img alt="Working..." hspace="5px" src="img/loader.gif"/>
-            </div>
+        <div class="app_header_container">
+          <div class="periscope-busy-ind">
+            Working
+            <img alt="Working..." hspace="5px" src="img/loader.gif"/>
           </div>
-          <div class="col-sm-4">
-            <div id="app_header">
-              <a id="app_info" href="https://cran.r-project.org/web/packages/periscope2/index.html" target="_blank">periscope Example Application</a>
-            </div>
+          <div id="app_header">
+            <a id="app_info" href="https://cran.r-project.org/web/packages/periscope2/index.html" target="_blank">periscope Example Application</a>
           </div>
-          <div class="col-sm-4"></div>
         </div>
         <ul class="navbar-nav ml-auto navbar-right">
           <li class="nav-item">
@@ -540,4 +486,28 @@
 # create alert - id
 
     
+
+# set_app_parameters update values
+
+    Code
+      deprecated_flds_warn
+    Output
+      [1] "The `announcements_file` argument of `set_app_parameters()` is deprecated as of periscope2 0.2.3.\ni Please use `periscope2::load_announcements` instead"
+      [2] "The `title` argument of `set_app_parameters()` is deprecated as of periscope2 0.2.3.\ni Please use `periscope2::add_ui_header(title)` instead"           
+
+---
+
+    Code
+      shiny::isolate(periscope2:::.g_opts$app_info)
+    Output
+      Demonstrate periscope features and generated application layout
+
+---
+
+    Code
+      shiny::isolate(periscope2:::.g_opts$loading_indicator)
+    Output
+      $html
+      <div>Loading ...</div>
+      
 

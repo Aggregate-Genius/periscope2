@@ -23,7 +23,7 @@ shinyServer(function(input, output, session) {
                                  logger           = ss_userAction.Log,
                                  logger_viewer_id = "logViewerId")
 
-    announce_close_time <- periscope2:::load_announcements()
+    announce_close_time <- load_announcements(announcements_file_path = "./program/config/announce.yaml")
     if (!is.null(announce_close_time)) {
         shinyjs::delay(announce_close_time,{
             bs4Dash::closeAlert("announceAlert")

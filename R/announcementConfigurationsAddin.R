@@ -1,7 +1,7 @@
 #' Build Announcement Module Configuration YAML File
 #'
 #' Call this as an addin to build valid yaml file that is needed for running
-#' announcements module. The generated file can be used in periscope2 app using \link[periscope2]{set_app_parameters}.
+#' announcements module. The generated file can be used in periscope2 app using \link[periscope2]{load_announcements}.
 #'
 #' The method can be called directly via `R` console or via RStudio addins menu
 #'
@@ -12,7 +12,7 @@
 #'    periscope2:::announcementConfigurationsAddin()
 #' }
 #'
-#' @seealso \link[periscope2:set_app_parameters]{periscope2:set_app_parameters()}
+#' @seealso \link[periscope2:load_announcements]{periscope2:load_announcements()}
 #'
 #' @export
 announcementConfigurationsAddin <- function() {

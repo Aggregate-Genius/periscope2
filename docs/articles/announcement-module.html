@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">periscope2</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.3</span>
       </span>
     </div>
 
@@ -109,7 +109,7 @@
                         <h4 data-toc-skip class="author">Mohammed
 Ali</h4>
             
-            <h4 data-toc-skip class="date">2023-12-21</h4>
+            <h4 data-toc-skip class="date">2024-03-06</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/Aggregate-Genius/periscope2/blob/HEAD/vignettes/announcement-module.Rmd" class="external-link"><code>vignettes/announcement-module.Rmd</code></a></small>
       <div class="hidden name"><code>announcement-module.Rmd</code></div>
@@ -214,19 +214,13 @@ parameter possible value and how it can be used including:
 Announcements Banner Configuration File
 </figcaption></figure><ul>
 <li>The announcements configuration file location should be passed to
-<code>set_app_parameters</code> function in
-<code>program\global.R</code>
+<code>load_announcements</code> function in <code>server.R</code>
 </li>
 </ul>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Inside program\global.R</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/set_app_parameters.html">set_app_parameters</a></span><span class="op">(</span>title              <span class="op">=</span> <span class="st">"periscope Example Application"</span>,</span>
-<span>                   app_info           <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/HTML.html" class="external-link">HTML</a></span><span class="op">(</span><span class="st">"Demonstrate periscope features and generated application layout"</span><span class="op">)</span>,</span>
-<span>                   log_level          <span class="op">=</span> <span class="st">"DEBUG"</span>,</span>
-<span>                   app_version        <span class="op">=</span> <span class="st">"1.0.0"</span>,</span>
-<span>                   loading_indicator  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>html <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/waiter/man/spinners.html" class="external-link">spin_1</a></span><span class="op">(</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">'rgba(22, 65, 124, 0.3)'</span><span class="op">)</span>,</span>
-<span>                   announcements_file <span class="op">=</span> <span class="st">"./program/config/announce.yaml"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/load_announcements.html">load_announcements</a></span><span class="op">(</span>announcement_location_id <span class="op">=</span> <span class="st">"./program/config/announce.yaml"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="sample-application">Sample Application<a class="anchor" aria-label="anchor" href="#sample-application"></a>
