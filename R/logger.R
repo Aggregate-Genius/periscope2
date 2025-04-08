@@ -35,13 +35,16 @@ loglevels <- c(NOTSET = 0,
                CRITICAL = 50,
                FATAL = 50)
 
-namedLevel <- function(value)
+namedLevel <- function(value) {
     UseMethod("namedLevel")
+}
 
+#' @keywords internal
 namedLevel.default <- function(value) {
     loglevels[1]
 }
 
+#' @keywords internal
 namedLevel.character <- function(value) {
     position <- which(names(loglevels) == value)
     if (length(position) == 0) {
@@ -50,6 +53,7 @@ namedLevel.character <- function(value) {
     loglevels[position][1]
 }
 
+#' @keywords internal
 namedLevel.numeric <- function(value) {
     position <- which(loglevels == value)
     if (length(position) == 0) {
@@ -576,11 +580,13 @@ resetMsgComposer <- function(container = "") {
 ## @param container a logger, its name or a handler.
 ## @param ... options to set for the container.
 ##
-updateOptions <- function(container, ...)
+updateOptions <- function(container, ...) {
     UseMethod("updateOptions")
+}
 
 ## @describeIn updateOptions Update options for logger identified by name.
 ##
+#' @keywords internal
 updateOptions.character <- function(container, ...) {
     ## container is really just the name of the container
     updateOptions(getLogger(container), ...)
@@ -588,6 +594,7 @@ updateOptions.character <- function(container, ...) {
 
 ## @describeIn updateOptions Update options of logger or handler passed by reference.
 ##
+#' @keywords internal
 updateOptions.environment <- function(container, ...) {
     ## the container is a logger
     config <- list(...)
@@ -610,6 +617,7 @@ updateOptions.environment <- function(container, ...) {
 
 ## @describeIn updateOptions Update options of logger or handler passed by reference.
 ##
+#' @keywords internal
 updateOptions.Logger <- function(container, ...) {
     updateOptions.environment(container, ...)
 }
