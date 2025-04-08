@@ -249,20 +249,6 @@
 
     'arg' should be one of "top", "bottom", "left", "right"
 
-# theme - valid theme
-
-    Code
-      nchar(create_theme())
-    Output
-      [1] 669733
-
-# theme - parsing error
-
-    Code
-      nchar(suppressWarnings(periscope2:::create_theme()))
-    Output
-      [1] 669361
-
 # theme - invalid color
 
     Code
