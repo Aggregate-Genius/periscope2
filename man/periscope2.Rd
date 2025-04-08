@@ -2,6 +2,7 @@
 % Please edit documentation in R/periscope2.R
 \docType{package}
 \name{periscope2}
+\alias{periscope2-package}
 \alias{periscope2}
 \title{Periscope2 Shiny Application Framework}
 \description{
@@ -63,3 +64,22 @@ A gallery of 'periscope' and 'periscope2' example apps is hosted at \href{http:/
 \code{browseVignettes(package = 'periscope2')}
 }
 
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/Aggregate-Genius/periscope2}
+  \item \url{http://periscopeapps.org:3838}
+  \item Report bugs at \url{https://github.com/Aggregate-Genius/periscope2/issues}
+}
+
+}
+\author{
+\strong{Maintainer}: Mohammed Ali \email{mohammed@aggregate-genius.com}
+
+Other contributors:
+\itemize{
+  \item Constance Brett [contributor]
+  \item Aggregate Genius Inc [sponsor]
+}
+
+}

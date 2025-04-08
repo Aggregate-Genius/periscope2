@@ -561,7 +561,7 @@ ui_tooltip <- function(id,
 #'                                            This means the user will be able to click on the application title and be
 #'                                            redirected in a new window to whatever value is given in the string.
 #'                                            Any valid URL, File, or other script functionality that would normally be
-#'                                            accepted in an <a href=...></a>  tag is allowed.}
+#'                                            accepted in an \code{<a href=...></a>}  tag is allowed.}
 #'                                      \item{An \strong{HTML} value will be used to as the HTML content for a modal pop-up
 #'                                            window that will appear on-top of the application when the user clicks on the
 #'                                            application title.}
