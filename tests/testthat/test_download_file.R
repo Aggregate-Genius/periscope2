@@ -5,9 +5,9 @@ local_edition(3)
 download_plot <- function() {
     ggplot2::ggplot(data = mtcars, aes(x = wt, y = mpg)) +
         geom_point(aes(color = cyl)) +
-        theme(legend.justification = c(1, 1),
-              legend.position      = c(1, 1),
-              legend.title         = element_blank()) +
+        theme(legend.justification   = c(1, 1),
+              legend.position.inside = c(1, 1),
+              legend.title           = element_blank()) +
         ggtitle("GGPlot Example w/Hover") +
         xlab("wt") +
         ylab("mpg")
