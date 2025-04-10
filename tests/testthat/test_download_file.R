@@ -87,46 +87,46 @@ test_that("downloadFile_AvailableTypes", {
 })
 
 test_that("downloadFile - all download types", {
-    skip()
-    testServer(downloadFile,
-               args = list(logger       = periscope2:::fw_get_user_log(),
-                           filenameroot = "mydownload1",
-                           datafxns     = list(csv   = download_data,
-                                               xlsx  = download_data,
-                                               tsv   = download_data,
-                                               txt   = download_data,
-                                               png   = download_plot,
-                                               jpeg  = download_plot,
-                                               tiff  = download_plot,
-                                               bmp   = download_plot)),
-               expr = {
-                   expect_snapshot_file(output$csv)
-                   expect_snapshot_file(output$tsv)
-                   expect_snapshot_file(output$txt)
-                   expect_true(file.exists(output$xlsx))
-                   expect_true(file.exists(output$png))
-                   expect_true(file.exists(output$jpeg))
-                   expect_true(file.exists(output$tiff))
-                   expect_true(file.exists(output$bmp))
-               })
+    # skip()
+    # testServer(downloadFile,
+    #            args = list(logger       = periscope2:::fw_get_user_log(),
+    #                        filenameroot = "mydownload1",
+    #                        datafxns     = list(csv   = download_data,
+    #                                            xlsx  = download_data,
+    #                                            tsv   = download_data,
+    #                                            txt   = download_data,
+    #                                            png   = download_plot,
+    #                                            jpeg  = download_plot,
+    #                                            tiff  = download_plot,
+    #                                            bmp   = download_plot)),
+    #            expr = {
+    #                expect_snapshot_file(output$csv)
+    #                expect_snapshot_file(output$tsv)
+    #                expect_snapshot_file(output$txt)
+    #                expect_true(file.exists(output$xlsx))
+    #                expect_true(file.exists(output$png))
+    #                expect_true(file.exists(output$jpeg))
+    #                expect_true(file.exists(output$tiff))
+    #                expect_true(file.exists(output$bmp))
+    #            })
 
 })
 
 test_that("downloadFile - lattice plot", {
-    skip()
-    testServer(downloadFile,
-               args = list(logger       = periscope2:::fw_get_user_log(),
-                           filenameroot = "mydownload1",
-                           datafxns     = list(png   = download_lattice_plot,
-                                               jpeg  = download_lattice_plot,
-                                               tiff  = download_plot,
-                                               bmp   = download_lattice_plot)),
-               expr = {
-                   expect_true(file.exists(output$png))
-                   expect_true(file.exists(output$jpeg))
-                   expect_true(file.exists(output$tiff))
-                   expect_true(file.exists(output$bmp))
-               })
+    # skip()
+    # testServer(downloadFile,
+    #            args = list(logger       = periscope2:::fw_get_user_log(),
+    #                        filenameroot = "mydownload1",
+    #                        datafxns     = list(png   = download_lattice_plot,
+    #                                            jpeg  = download_lattice_plot,
+    #                                            tiff  = download_plot,
+    #                                            bmp   = download_lattice_plot)),
+    #            expr = {
+    #                expect_true(file.exists(output$png))
+    #                expect_true(file.exists(output$jpeg))
+    #                expect_true(file.exists(output$tiff))
+    #                expect_true(file.exists(output$bmp))
+    #            })
 
 })
 
@@ -174,14 +174,14 @@ test_that("downloadFile - default values", {
 })
 
 test_that("downloadFile - invalid type", {
-    skip()
-    testServer(downloadFile,
-               args = list(datafxns = list(ttt = function() {"123"},
-                                           jeg = download_lattice_plot,
-                                           tff = download_plot)),
-               expr = {
-                   expect_error(output$ttt)
-                   expect_error(output$jeg)
-                   expect_error(output$tff)
-               })
+    # skip()
+    # testServer(downloadFile,
+    #            args = list(datafxns = list(ttt = function() {"123"},
+    #                                        jeg = download_lattice_plot,
+    #                                        tff = download_plot)),
+    #            expr = {
+    #                expect_error(output$ttt)
+    #                expect_error(output$jeg)
+    #                expect_error(output$tff)
+    #            })
 })
