@@ -497,7 +497,7 @@ test_that("theme - invalid color", {
     theme_settings[["control_sidebar_width"]] <- "-300"
 
     yaml::write_yaml(theme_settings, "www/periscope_style.yaml")
-    theme_warnings <- capture_warnings(create_theme())
+    theme_warnings <- capture_warnings(periscope2:::create_theme())
     expect_snapshot(theme_warnings)
     unlink("www/periscope_style.yaml")
     unlink("www", recursive = TRUE)
