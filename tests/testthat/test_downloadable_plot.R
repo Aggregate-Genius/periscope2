@@ -106,7 +106,7 @@ download_plot <- function() {
     ggplot2::ggplot(data = as.data.frame(download_data()), aes(x = wt, y = mpg)) +
         ggplot2::geom_point(aes(color = cyl)) +
         ggplot2::theme(legend.justification   = c(1, 1),
-                       legend.position = c(1, 1),
+                       legend.position.inside = c(1, 1),
                        legend.title           = element_blank()) +
         ggplot2::ggtitle("GGPlot Example w/Hover") +
         ggplot2::xlab("wt") +
@@ -118,6 +118,7 @@ download_data <- function() {
 }
 
 test_that("downloadablePlot", {
+    download_plot <- as.data.frame(download_plot)
     testServer(downloadablePlot,
                args = list(logger = periscope2:::fw_get_user_log(),
                            filenameroot = "mydownload1",
