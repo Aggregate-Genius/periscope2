@@ -118,26 +118,25 @@ download_data <- function() {
 }
 
 test_that("downloadablePlot", {
-    # skip()
-    # testServer(downloadablePlot,
-    #            args = list(logger = periscope2:::fw_get_user_log(),
-    #                        filenameroot = "mydownload1",
-    #                        aspectratio  = 2,
-    #                        downloadfxns = list(png  = download_plot,
-    #                                            png2 = download_plot,
-    #                                            tiff = download_plot,
-    #                                            txt  = download_data,
-    #                                            tsv  = download_data),
-    #                        visibleplot  = download_plot),
-    #            expr = {
-    #                session$setInputs(visibleplot = download_plot)
-    #                session$setInputs(downloadfxns = list(png  = download_plot,
-    #                                                      png2 = download_plot,
-    #                                                      tiff = download_plot,
-    #                                                      txt  = download_data,
-    #                                                      tsv  = download_data))
-    #                expect_equal(output$dplotOutputID$width, 600)
-    #            })
+    testServer(downloadablePlot,
+               args = list(logger = periscope2:::fw_get_user_log(),
+                           filenameroot = "mydownload1",
+                           aspectratio  = 2,
+                           downloadfxns = list(png  = download_plot,
+                                               png2 = download_plot,
+                                               tiff = download_plot,
+                                               txt  = download_data,
+                                               tsv  = download_data),
+                           visibleplot  = download_plot),
+               expr = {
+                   session$setInputs(visibleplot = download_plot)
+                   session$setInputs(downloadfxns = list(png  = download_plot,
+                                                         png2 = download_plot,
+                                                         tiff = download_plot,
+                                                         txt  = download_data,
+                                                         tsv  = download_data))
+                   expect_equal(output$dplotOutputID$width, 600)
+               })
 })
 
 
