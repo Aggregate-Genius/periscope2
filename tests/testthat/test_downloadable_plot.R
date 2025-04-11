@@ -103,10 +103,10 @@ test_that("downloadablePlotUI invalid btn_valign", {
 
 
 download_plot <- function() {
-    ggplot2::ggplot(data = download_data(), aes(x = wt, y = mpg)) +
+    ggplot2::ggplot(data = as.data.frame(download_data()), aes(x = wt, y = mpg)) +
         ggplot2::geom_point(aes(color = cyl)) +
         ggplot2::theme(legend.justification   = c(1, 1),
-                       legend.position.inside = c(1, 1),
+                       legend.position = c(1, 1),
                        legend.title           = element_blank()) +
         ggplot2::ggtitle("GGPlot Example w/Hover") +
         ggplot2::xlab("wt") +
