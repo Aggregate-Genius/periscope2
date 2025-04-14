@@ -35,7 +35,7 @@ vignette: >
 
 ## UI Sections
 
-periscope2 layout depends on [bs4Dash](https://rinterface.github.io/bs4Dash/index.html) layout as each application can have up to 5 different sections.
+periscope2 layout depends on [bs4Dash](https://bs4dash.rinterface.com/index.html) layout as each application can have up to 5 different sections.
 
 <center><img src="figures/new-application-1.jpg" width="800px"></center>
 
@@ -374,7 +374,7 @@ add_ui_right_sidebar(sidebar_elements = list(sidebar_element))
 
 ### program/ui_body.R
 
-Create UI components for the body and register them with the framework using a call to *add_ui_body()*.  Use box elements for consistent presentation of your UI sections.  Remember that different layout options and different box types configured in [bs4Dash](https://rinterface.github.io/bs4Dash/index.html) can be used.
+Create UI components for the body and register them with the framework using a call to *add_ui_body()*.  Use box elements for consistent presentation of your UI sections.  Remember that different layout options and different box types configured in [bs4Dash](https://bs4dash.rinterface.com/index.html) can be used.
 
 ```{r, eval=F}
 body1 <- box(id          = "bodyElement1",
