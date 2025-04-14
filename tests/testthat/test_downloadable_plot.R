@@ -118,7 +118,7 @@ download_data <- function() {
 }
 
 test_that("downloadablePlot", {
-   testServer(downloadablePlot,
+    testServer(downloadablePlot,
                args = list(logger = periscope2:::fw_get_user_log(),
                            filenameroot = "mydownload1",
                            aspectratio  = 2,
