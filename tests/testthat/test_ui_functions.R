@@ -291,9 +291,9 @@ test_that("add_ui_right_sidebar empty right sidebar", {
                          skin             = skin,
                          pinned           = pinned,
                          sidebar_menu     = sidebar_menu)
-    righ_sidebar <- shiny::isolate(periscope2:::.g_opts$right_sidebar)
-    expect_true(grepl('id="controlbarId"' , righ_sidebar, fixed = TRUE))
-    expect_true(grepl('id="sidebarRightAlert"' , righ_sidebar, fixed = TRUE))
+    right_sidebar <- shiny::isolate(periscope2:::.g_opts$right_sidebar)
+    expect_true(grepl('id="controlbarId"', right_sidebar, fixed = TRUE))
+    expect_true(grepl('id="sidebarRightAlert"', right_sidebar, fixed = TRUE))
 })
 
 
@@ -311,11 +311,11 @@ test_that("add_ui_right_sidebar example right sidebar", {
                          skin             = skin,
                          pinned           = pinned,
                          sidebar_menu     = sidebar_menu)
-    righ_sidebar <- shiny::isolate(periscope2:::.g_opts$right_sidebar)
-    expect_true(grepl('id="controlbarId"' , righ_sidebar, fixed = TRUE))
-    expect_true(grepl('id="sidebarRightAlert"' , righ_sidebar, fixed = TRUE))
-    expect_true(grepl('id="hideFileOrganization"' , righ_sidebar, fixed = TRUE))
-    expect_true(grepl('Show Files Organization' , righ_sidebar, fixed = TRUE))
+    right_sidebar <- shiny::isolate(periscope2:::.g_opts$right_sidebar)
+    expect_true(grepl('id="controlbarId"', right_sidebar, fixed = TRUE))
+    expect_true(grepl('id="sidebarRightAlert"', right_sidebar, fixed = TRUE))
+    expect_true(grepl('id="hideFileOrganization"', right_sidebar, fixed = TRUE))
+    expect_true(grepl('Show Files Organization', right_sidebar, fixed = TRUE))
 })
 
 
