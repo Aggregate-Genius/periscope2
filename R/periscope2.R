@@ -54,11 +54,9 @@
 #' @section More Information:
 #' \code{browseVignettes(package = 'periscope2')}
 #'
-#' @docType package
-#'
 #' @importFrom lifecycle deprecate_warn deprecated
 #' @name periscope2
-NULL
+"_PACKAGE"
 
 
 .onAttach <- function(libname, pkgname) {

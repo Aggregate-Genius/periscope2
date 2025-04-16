@@ -1,3 +1,13 @@
+# periscope2 0.2.4
+
+## Enhancements
+
+- Updated `set_app_parameters` method documentation to displayed html tags correctly
+- Updated package documentation to fix `docType` deprecation warning
+- Updated `logger` module internal documentation
+
+-----
+
 # periscope2 0.2.3
 
 ## Enhancements

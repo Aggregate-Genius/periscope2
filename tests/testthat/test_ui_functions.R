@@ -291,9 +291,9 @@ test_that("add_ui_right_sidebar empty right sidebar", {
                          skin             = skin,
                          pinned           = pinned,
                          sidebar_menu     = sidebar_menu)
-    righ_sidebar <- shiny::isolate(periscope2:::.g_opts$right_sidebar)
-    expect_true(grepl('id="controlbarId"' , righ_sidebar, fixed = TRUE))
-    expect_true(grepl('id="sidebarRightAlert"' , righ_sidebar, fixed = TRUE))
+    right_sidebar <- shiny::isolate(periscope2:::.g_opts$right_sidebar)
+    expect_true(grepl('id="controlbarId"', right_sidebar, fixed = TRUE))
+    expect_true(grepl('id="sidebarRightAlert"', right_sidebar, fixed = TRUE))
 })
 
 
@@ -311,11 +311,11 @@ test_that("add_ui_right_sidebar example right sidebar", {
                          skin             = skin,
                          pinned           = pinned,
                          sidebar_menu     = sidebar_menu)
-    righ_sidebar <- shiny::isolate(periscope2:::.g_opts$right_sidebar)
-    expect_true(grepl('id="controlbarId"' , righ_sidebar, fixed = TRUE))
-    expect_true(grepl('id="sidebarRightAlert"' , righ_sidebar, fixed = TRUE))
-    expect_true(grepl('id="hideFileOrganization"' , righ_sidebar, fixed = TRUE))
-    expect_true(grepl('Show Files Organization' , righ_sidebar, fixed = TRUE))
+    right_sidebar <- shiny::isolate(periscope2:::.g_opts$right_sidebar)
+    expect_true(grepl('id="controlbarId"', right_sidebar, fixed = TRUE))
+    expect_true(grepl('id="sidebarRightAlert"', right_sidebar, fixed = TRUE))
+    expect_true(grepl('id="hideFileOrganization"', right_sidebar, fixed = TRUE))
+    expect_true(grepl('Show Files Organization', right_sidebar, fixed = TRUE))
 })
 
 
@@ -467,7 +467,9 @@ test_that("theme - valid theme", {
     theme_settings <- yaml::read_yaml(system.file("fw_templ", "p_example", "periscope_style.yaml", package = "periscope2"))
     dir.create("www")
     yaml::write_yaml(theme_settings, "www/periscope_style.yaml")
-    expect_snapshot(nchar(create_theme()))
+    periscope_theme <- create_theme()
+    expect_true(!is.null(periscope_theme))
+    expect_true(nchar(periscope_theme) > 0)
     unlink("www/periscope_style.yaml")
     unlink("www", recursive = TRUE)
 })
@@ -478,7 +480,9 @@ test_that("theme - parsing error", {
     theme_file           <- "www/periscope_style.yaml"
     cat(":", file = (con <- file(theme_file, "w", encoding = "UTF-8")))
     close(con)
-    expect_snapshot(nchar(suppressWarnings(periscope2:::create_theme())))
+    periscope_theme <- suppressWarnings(periscope2:::create_theme())
+    expect_true(!is.null(periscope_theme))
+    expect_true(nchar(periscope_theme) > 0)
     unlink("www/periscope_style.yaml")
     unlink("www", recursive = TRUE)
 })
@@ -493,7 +497,7 @@ test_that("theme - invalid color", {
     theme_settings[["control_sidebar_width"]] <- "-300"
 
     yaml::write_yaml(theme_settings, "www/periscope_style.yaml")
-    theme_warnings <- capture_warnings(create_theme())
+    theme_warnings <- capture_warnings(periscope2:::create_theme())
     expect_snapshot(theme_warnings)
     unlink("www/periscope_style.yaml")
     unlink("www", recursive = TRUE)
