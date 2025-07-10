@@ -27,6 +27,7 @@ Imports:
     grDevices,
     lubridate,
     methods,
+    reactable,
     shinyFeedback,
     shinyWidgets,
     utils,
