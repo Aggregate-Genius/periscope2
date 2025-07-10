@@ -96,20 +96,20 @@ downloadableReactTableUI <- function(id,
             condition = "output.displayButton",
             ns        = ns,
             shiny::span(
-                id    = ns("dtableButtonDiv"),
+                id    = ns("reactTableButtonDiv"),
                 class = "periscope-downloadable-table-button",
                 style = ifelse(length(downloadtypes) > 0, "", "display:none"),
-                downloadFileButton(ns("dtableButtonID"),
+                downloadFileButton(ns("reactTtableButtonID"),
                                    downloadtypes,
                                    hovertext))),
-        DT::dataTableOutput(ns("dtableOutputID")),
+        reactable::reactableOutput(ns("reactTableOutputID")),
         shiny::tags$input(
-            id    = ns("dtableOutputHeight"),
+            id    = ns("reactTableOutputHeight"),
             type  = "text",
             class = "shiny-input-container hidden",
             value = contentHeight),
         shiny::tags$input(
-            id    = ns("dtableSingleSelect"),
+            id    = ns("reactTableSingleSelect"),
             type  = "text",
             class = "shiny-input-container hidden",
             value = singleSelect)
@@ -222,7 +222,9 @@ downloadableReactTable <- function(id,
                               table_options    = list()) {
         shiny::moduleServer(id,
                         function(input, output, session) {
-                            shiny::reactive(iris)
+                            output$reactTableOutputID <- reactable::renderReactable({
+                                reactable::reactable(iris)
+                            })
                         }
         )
 }
