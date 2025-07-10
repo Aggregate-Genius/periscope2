@@ -90,7 +90,6 @@ downloadableReactTableUI <- function(id,
                                 contentHeight = "200px",
                                 singleSelect  = FALSE) {
     ns <- shiny::NS(id)
-
     list(
         shiny::conditionalPanel(
             condition = "output.displayButton",
@@ -99,7 +98,7 @@ downloadableReactTableUI <- function(id,
                 id    = ns("reactTableButtonDiv"),
                 class = "periscope-downloadable-table-button",
                 style = ifelse(length(downloadtypes) > 0, "", "display:none"),
-                downloadFileButton(ns("reactTtableButtonID"),
+                downloadFileButton(ns("reactTableButtonID"),
                                    downloadtypes,
                                    hovertext))),
         reactable::reactableOutput(ns("reactTableOutputID")),
@@ -113,7 +112,7 @@ downloadableReactTableUI <- function(id,
             type  = "text",
             class = "shiny-input-container hidden",
             value = singleSelect)
-    )
+        )
 }
 
 
