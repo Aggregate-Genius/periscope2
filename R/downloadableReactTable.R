@@ -88,7 +88,8 @@ downloadableReactTableUI <- function(id,
             shiny::span(
                 id    = ns("reactTableButtonDiv"),
                 # TODO: Review this style class when
-                # download function is active
+                # download function is active to make sure it is consistent with
+                # the table look and feel
                 class = "periscope-downloadable-table-button",
                 style = ifelse(length(downloadtypes) > 0, "", "display:none"),
                 # TODO: Review download button styles and make sure it is
