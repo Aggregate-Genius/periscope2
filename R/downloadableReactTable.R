@@ -1,16 +1,17 @@
-# -------------------------------------------
+# -------------------------------------------------
 # -- Application Downloadable React Table Module --
-# -------------------------------------------
+# -------------------------------------------------
 
 
 #' downloadableReactTable module UI function
 #'
-#' Creates a custom high-functionality table paired with a linked downloadFile
-#' button.  The table has search and highlight functionality, infinite scrolling,
-#' sorting by columns and returns a reactive dataset of selected items.
+#' downloadableReactTable module is extending \code{?reactable} package table functions by creating
+#' a custom high-functionality table paired with \link[periscope2]{downloadFile} button.
+#' The table has search and highlight functionality, infinite scrolling, sorting by columns and
+#' returns a reactive dataset of selected items.
 #'
-#' downloadFile button will be hidden if \code{downloadableReactTable} parameter \code{downloaddatafxn} or
-#' \code{downloadableReactTableUI} parameter \code{downloadtypes} is empty
+#' \link[periscope2]{downloadFile} button will be hidden if \code{downloadableReactTableUI} parameter
+#' \code{downloadtypes} is empty
 #'
 #' @param id character id for the object
 #' @param downloadtypes vector of values for data download types
@@ -19,7 +20,7 @@
 #' @param singleSelect whether the table should only allow a single row to be
 #' selected at a time (FALSE by default allows multi-select).
 #'
-#' @return list of downloadFileButton UI and DT datatable
+#' @return list of downloadFileButton UI and reactable table and hidden inputs for contentHeight and singleSelect options
 #'
 #' @section Table Features:
 #' \itemize{
@@ -48,7 +49,9 @@
 #' in server.R
 #'
 #' @seealso \link[periscope2]{downloadableReactTable}
-#' @seealso \link[periscope2]{downloadFileButton}
+#' @seealso \link[periscope2]{downloadableTableUI}
+#' @seealso \link[periscope2]{downloadableTable}
+#' @seealso \link[periscope2]{downloadFile}
 #' @seealso \link[periscope2]{logViewerOutput}
 #' @seealso \link[periscope2]{downloadFile}
 #' @seealso \link[periscope2]{downloadFile_ValidateTypes}
@@ -61,52 +64,48 @@
 #'  library(periscope2)
 #'  shinyApp(ui = fluidPage(fluidRow(column(width = 12,
 #'    downloadableReactTableUI("object_id1",
-#'                        downloadtypes = c("csv", "tsv"),
-#'                        hovertext     = "Download the data here!",
-#'                        contentHeight = "300px",
-#'                        singleSelect  = FALSE)))),
+#'                             downloadtypes = c("csv", "tsv"),
+#'                             hovertext     = "Download the data here!",
+#'                             contentHeight = "300px",
+#'                             singleSelect  = FALSE)))),
 #'    server = function(input, output) {
-#'      mydataRowIds <- function(){
-#'        rownames(head(mtcars))[c(2, 5)]
-#'      }
-#'      selectedrows <- downloadableReactTable(
-#'        id               = "object_id1",
-#'        logger           = "",
-#'        filenameroot     = "mydownload1",
-#'        downloaddatafxns = list(csv = reactiveVal(mtcars), tsv = reactiveVal(mtcars)),
-#'        tabledata        = reactiveVal(mtcars),
-#'        selection        = mydataRowIds,
-#'        table_options    = list(rownames = TRUE,
-#'                             caption  = "This is a great table!"))
-#'      observeEvent(selectedrows(), {
-#'        print(selectedrows())
-#'      })})
+#'      downloadableReactTable("object_id1"))})
 #'}
 #'
 #' @export
 downloadableReactTableUI <- function(id,
-                                downloadtypes = NULL,
-                                hovertext     = NULL,
-                                contentHeight = "200px",
-                                singleSelect  = FALSE) {
+                                     downloadtypes = NULL,
+                                     hovertext     = NULL,
+                                     contentHeight = "200px",
+                                     singleSelect  = FALSE) {
     ns <- shiny::NS(id)
     list(
         shiny::conditionalPanel(
+            # TODO: this condition should be set in the server when
+            # download function is active
             condition = "output.displayButton",
             ns        = ns,
             shiny::span(
                 id    = ns("reactTableButtonDiv"),
+                # TODO: Review this style class when
+                # download function is active
                 class = "periscope-downloadable-table-button",
                 style = ifelse(length(downloadtypes) > 0, "", "display:none"),
+                # TODO: Review download button styles and make sure it is
+                # consistent with the new table when download function is active
                 downloadFileButton(ns("reactTableButtonID"),
                                    downloadtypes,
                                    hovertext))),
         reactable::reactableOutput(ns("reactTableOutputID")),
+        # TODO: test this function when table options are passed to
+        # server function
         shiny::tags$input(
             id    = ns("reactTableOutputHeight"),
             type  = "text",
             class = "shiny-input-container hidden",
             value = contentHeight),
+        # TODO: test this function when table selection options is active in
+        # server function
         shiny::tags$input(
             id    = ns("reactTableSingleSelect"),
             type  = "text",
@@ -118,64 +117,22 @@ downloadableReactTableUI <- function(id,
 
 #' downloadableReactTable module server function
 #'
-#' Server-side function for the downloadableReactTableUI.  This is a custom
-#' high-functionality table paired with a linked downloadFile
-#' button.
-#'
-#' downloadFile button will be hidden if \code{downloadableReactTable} parameter \code{downloaddatafxn} or
-#' \code{downloadableReactTableUI} parameter \code{downloadtypes} is empty
-#'
-#' Generated table can highly customized using function \code{?DT::datatable} same arguments
-#'  except for `options` and `selection` parameters.
-#'
-#' For `options` user can pass the same \code{?DT::datatable} options using the same names and
-#' values one by one separated by comma.
-#'
-#' For `selection` parameter it can be either a function or reactive expression providing the row_ids of the
-#' rows that should be selected.
-#'
-#' Also, user can apply the same provided \code{?DT::formatCurrency} columns formats on passed
-#' dataset using format functions names as keys and their options as a list.
+#' Server-side function for the downloadableReactTableUI.
 #'
 #'
 #' @param id  the ID of the Module's UI element
-#' @param logger logger to use
-#' @param filenameroot the text used for user-downloaded file - can be
-#' either a character string, a reactive expression or a function returning a character
-#' string
-#' @param downloaddatafxns a \strong{named} list of functions providing the data as
-#' return values.  The names for the list should be the same names that were used
-#' when the table UI was created.
-#' @param tabledata function or reactive expression providing the table display
-#' data as a return value. This function should require no input parameters.
-#' @param selection function or reactive expression providing the row_ids of the
-#' rows that should be selected
-#' @param table_options optional table formatting parameters check \code{?DT::datatable} for options full list.
-#' Also see example below to see how to pass options
 #'
-#' @return Reactive expression containing the currently selected rows in the
-#' display table
-#'
-#' @section Notes:
-#'  \itemize{
-#'   \item When there are no rows to download in any of the linked downloaddatafxns
-#'   the button will be hidden as there is nothing to download.
-#'   \item \code{selection} parameter has different usage than DT::datatable \code{selection} option.
-#'   See parameters usage section.
-#'   \item DT::datatable options \code{editable}, \code{width} and \code{height} are not supported
-#' }
+#' @return Rendered react table
 #'
 #' @section Shiny Usage:
 #' This function is not called directly by consumers - it is accessed in
 #' server.R using the same id provided in \code{downloadableReactTableUI}:
 #'
-#' \strong{\code{downloadableReactTable(id, logger, filenameroot,
-#' downloaddatafxns, tabledata, rownames, caption, selection)}}
-#'
-#' \emph{Note}: calling module server returns the reactive expression containing the
-#' currently selected rows in the display table.
+#' \strong{\code{downloadableReactTable(id)}}
 #'
 #' @seealso \link[periscope2]{downloadableReactTableUI}
+#' @seealso \link[periscope2]{downloadableTableUI}
+#' @seealso \link[periscope2]{downloadableTable}
 #' @seealso \link[periscope2]{downloadFileButton}
 #' @seealso \link[periscope2]{logViewerOutput}
 #' @seealso \link[periscope2]{downloadFile}
@@ -189,41 +146,20 @@ downloadableReactTableUI <- function(id,
 #'  library(periscope2)
 #'  shinyApp(ui = fluidPage(fluidRow(column(width = 12,
 #'    downloadableReactTableUI("object_id1",
-#'                        downloadtypes = c("csv", "tsv"),
-#'                        hovertext     = "Download the data here!",
-#'                        contentHeight = "300px",
-#'                        singleSelect  = FALSE)))),
+#'                             downloadtypes = c("csv", "tsv"),
+#'                             hovertext     = "Download the data here!",
+#'                             contentHeight = "300px",
+#'                             singleSelect  = FALSE)))),
 #'    server = function(input, output) {
-#'      mydataRowIds <- function(){
-#'        rownames(head(mtcars))[c(2, 5)]
-#'      }
-#'      selectedrows <- downloadableReactTable(
-#'        id               = "object_id1",
-#'        logger           = "",
-#'        filenameroot     = "mydownload1",
-#'        downloaddatafxns = list(csv = reactiveVal(mtcars), tsv = reactiveVal(mtcars)),
-#'        tabledata        = reactiveVal(mtcars),
-#'        selection        = mydataRowIds,
-#'        table_options    = list(rownames = TRUE,
-#'                             caption  = "This is a great table!"))
-#'      observeEvent(selectedrows(), {
-#'        print(selectedrows())
-#'      })})
+#'      downloadableReactTable("object_id1"))})
 #'}
 #'
 #' @export
-downloadableReactTable <- function(id,
-                              logger           = NULL,
-                              filenameroot     = "download",
-                              downloaddatafxns = NULL,
-                              tabledata,
-                              selection        = NULL,
-                              table_options    = list()) {
+downloadableReactTable <- function(id) {
         shiny::moduleServer(id,
-                        function(input, output, session) {
-                            output$reactTableOutputID <- reactable::renderReactable({
-                                reactable::reactable(iris)
-                            })
-                        }
+             function(input, output, session) {
+                 output$reactTableOutputID <- reactable::renderReactable({
+                     reactable::reactable(iris)})
+            }
         )
 }

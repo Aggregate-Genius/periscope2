@@ -25,16 +25,17 @@ downloadableReactTableUI(
 selected at a time (FALSE by default allows multi-select).}
 }
 \value{
-list of downloadFileButton UI and DT datatable
+list of downloadFileButton UI and reactable table and hidden inputs for contentHeight and singleSelect options
 }
 \description{
-Creates a custom high-functionality table paired with a linked downloadFile
-button.  The table has search and highlight functionality, infinite scrolling,
-sorting by columns and returns a reactive dataset of selected items.
+downloadableReactTable module is extending \code{?reactable} package table functions by creating
+a custom high-functionality table paired with \link[periscope2]{downloadFile} button.
+The table has search and highlight functionality, infinite scrolling, sorting by columns and
+returns a reactive dataset of selected items.
 }
 \details{
-downloadFile button will be hidden if \code{downloadableReactTable} parameter \code{downloaddatafxn} or
-\code{downloadableReactTableUI} parameter \code{downloadtypes} is empty
+\link[periscope2]{downloadFile} button will be hidden if \code{downloadableReactTableUI} parameter
+\code{downloadtypes} is empty
 }
 \section{Table Features}{
 
@@ -76,33 +77,23 @@ if (interactive()) {
  library(periscope2)
  shinyApp(ui = fluidPage(fluidRow(column(width = 12,
    downloadableReactTableUI("object_id1",
-                       downloadtypes = c("csv", "tsv"),
-                       hovertext     = "Download the data here!",
-                       contentHeight = "300px",
-                       singleSelect  = FALSE)))),
+                            downloadtypes = c("csv", "tsv"),
+                            hovertext     = "Download the data here!",
+                            contentHeight = "300px",
+                            singleSelect  = FALSE)))),
    server = function(input, output) {
-     mydataRowIds <- function(){
-       rownames(head(mtcars))[c(2, 5)]
-     }
-     selectedrows <- downloadableReactTable(
-       id               = "object_id1",
-       logger           = "",
-       filenameroot     = "mydownload1",
-       downloaddatafxns = list(csv = reactiveVal(mtcars), tsv = reactiveVal(mtcars)),
-       tabledata        = reactiveVal(mtcars),
-       selection        = mydataRowIds,
-       table_options    = list(rownames = TRUE,
-                            caption  = "This is a great table!"))
-     observeEvent(selectedrows(), {
-       print(selectedrows())
-     })})
+     downloadableReactTable("object_id1"))})
 }
 
 }
 \seealso{
 \link[periscope2]{downloadableReactTable}
 
-\link[periscope2]{downloadFileButton}
+\link[periscope2]{downloadableTableUI}
+
+\link[periscope2]{downloadableTable}
+
+\link[periscope2]{downloadFile}
 
 \link[periscope2]{logViewerOutput}
 
