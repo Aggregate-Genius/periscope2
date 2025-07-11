@@ -69,7 +69,7 @@
 #'                             contentHeight = "300px",
 #'                             singleSelect  = FALSE)))),
 #'    server = function(input, output) {
-#'      downloadableReactTable("object_id1"))})
+#'      downloadableReactTable("object_id1")})
 #'}
 #'
 #' @export
@@ -152,7 +152,7 @@ downloadableReactTableUI <- function(id,
 #'                             contentHeight = "300px",
 #'                             singleSelect  = FALSE)))),
 #'    server = function(input, output) {
-#'      downloadableReactTable("object_id1"))})
+#'      downloadableReactTable("object_id1")})
 #'}
 #'
 #' @export
