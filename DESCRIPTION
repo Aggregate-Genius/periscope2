@@ -43,6 +43,7 @@ Suggests:
     lattice,
     miniUI,
     openxlsx,
+    openxlsx2,
     rmarkdown,
     shinyjs,
     spelling,
