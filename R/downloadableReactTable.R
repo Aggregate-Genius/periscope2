@@ -156,11 +156,12 @@ downloadableReactTableUI <- function(id,
 #'}
 #'
 #' @export
-downloadableReactTable <- function(id) {
+downloadableReactTable <- function(id,
+                                   table_data) {
         shiny::moduleServer(id,
              function(input, output, session) {
                  output$reactTableOutputID <- reactable::renderReactable({
-                     reactable::reactable(iris)})
+                     reactable::reactable(data = table_data)})
             }
         )
 }
