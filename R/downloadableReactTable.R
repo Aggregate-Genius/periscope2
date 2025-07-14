@@ -160,8 +160,12 @@ downloadableReactTable <- function(id,
                                    table_data) {
         shiny::moduleServer(id,
              function(input, output, session) {
+                 table_react_params <- shiny::reactiveValues(table_data = NULL)
+                 shiny::observe({
+                     table_react_params$table_data <- table_data()
+                 })
                  output$reactTableOutputID <- reactable::renderReactable({
-                     reactable::reactable(data = table_data)})
+                     reactable::reactable(data = table_react_params$table_data)})
             }
         )
 }
