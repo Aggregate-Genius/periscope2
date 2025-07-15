@@ -265,20 +265,26 @@ downloadFile <- function(id,
                                                   file,
                                                   asTable   = TRUE,
                                                   row_names = !is.null(show_rownames) && show_rownames)
-                            } else if (length(find.package("openxlsx", quiet = TRUE) > 0)) {
+                        }
+                    } else {
+                        tryCatch({
+                            if (length(find.package("openxlsx", quiet = TRUE) > 0)) {
                                 if ((inherits(data, "Workbook")) && ("openxlsx" %in% attributes(class(data)))) {
                                     openxlsx::saveWorkbook(data, file)
-                                    } else {
-                                        show_rownames <- attr(data, "show_rownames")
-                                        openxlsx::write.xlsx(data,
-                                                             file,
-                                                             asTable  = TRUE,
-                                                             rowNames = !is.null(show_rownames) && show_rownames)
-                                        }
                                 } else {
-                                    writexl::write_xlsx(data, file)
+                                    show_rownames <- attr(data, "show_rownames")
+                                    openxlsx::write.xlsx(data,
+                                                         file,
+                                                         asTable  = TRUE,
+                                                         rowNames = !is.null(show_rownames) && show_rownames)
                                 }
-                        }
+                            }
+                        },
+                        error = function(e) {
+                            writexl::write_xlsx(data, file)
+                        })
+                    }
+                }
                 # text file processing
                 else if (type == "txt") {
                     if (inherits(data, "character")) {
