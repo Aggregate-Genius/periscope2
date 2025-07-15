@@ -1,8 +1,7 @@
 # periscope2 0.3.0.9000
 
 ## Enhancements
-- Adding openxlsx2 support while keeping openxlsx to support legacy apps and backwards compatiblity then writexl package as the resort
-
+- Adding openxlsx2 support while keeping openxlsx to support legacy apps and backwards compatibility. writexl package is used as last resort.
 -----
 
 # periscope2 0.2.4
