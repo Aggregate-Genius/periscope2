@@ -261,7 +261,8 @@ downloadFile <- function(id,
                             openxlsx2::saveWorkbook(data, file)
                         } else {
                             show_rownames <- attr(data, "show_rownames")
-                            openxlsx2::write_xlsx(data, file,
+                            openxlsx2::write_xlsx(data,
+                                                  file,
                                                   asTable   = TRUE,
                                                   row_names = !is.null(show_rownames) && show_rownames)
                             } else if (length(find.package("openxlsx", quiet = TRUE) > 0)) {
@@ -269,7 +270,8 @@ downloadFile <- function(id,
                                     openxlsx::saveWorkbook(data, file)
                                     } else {
                                         show_rownames <- attr(data, "show_rownames")
-                                        openxlsx::write.xlsx(data, file,
+                                        openxlsx::write.xlsx(data,
+                                                             file,
                                                              asTable  = TRUE,
                                                              rowNames = !is.null(show_rownames) && show_rownames)
                                         }
