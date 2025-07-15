@@ -88,3 +88,18 @@ test_that("downloadableReactTable - single values", {
                    expect_true(grepl('"table_data..":[5]', output$reactTableOutputID, fixed = TRUE))
                })
 })
+
+
+test_that("downloadableReactTable - empty data.frame", {
+    testServer(downloadableReactTable,
+               args = list(table_data = data.frame(5)),
+               expr = {
+                   expect_true(grepl('"x":null', output$reactTableOutputID, fixed = TRUE))
+               })
+
+    testServer(downloadableReactTable,
+               args = list(table_data = function() {data.frame(5)}),
+               expr = {
+                   expect_true(grepl('data":{"X5":[5]}', output$reactTableOutputID, fixed = TRUE))
+               })
+})
