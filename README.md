@@ -120,7 +120,7 @@ User can adapt layout for both packages generated apps easily via related functi
 
 - Both packages share the following modules:
   - downloadable file
-    - Use openxlsx2 to download .xlsx files, openxlsx for legacy apps and backwards compatiblity, and writexl as a fallback incase openxlsx2 or openxlsx not.
+    - Use openxlsx2 to download .xlsx files, openxlsx for legacy apps and backwards compatiblity, and writexl as a fallback incase openxlsx2 or openxlsx not installed.
   - downloadable plot 
   - downloadable table
 - However, periscope2 has more modules (more to come with each new version) as Announcements module
