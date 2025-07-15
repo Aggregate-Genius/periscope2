@@ -82,7 +82,8 @@ if (interactive()) {
                             contentHeight = "300px",
                             singleSelect  = FALSE)))),
    server = function(input, output) {
-     downloadableReactTable("object_id1")})
+       downloadableReactTable(id         = "object_id1",
+                              table_data = reactiveVal(mtcars))})
 }
 
 }

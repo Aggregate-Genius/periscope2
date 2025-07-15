@@ -69,7 +69,8 @@
 #'                             contentHeight = "300px",
 #'                             singleSelect  = FALSE)))),
 #'    server = function(input, output) {
-#'      downloadableReactTable("object_id1")})
+#'        downloadableReactTable(id         = "object_id1",
+#'                               table_data = reactiveVal(mtcars))})
 #'}
 #'
 #' @export
@@ -122,6 +123,7 @@ downloadableReactTableUI <- function(id,
 #'
 #'
 #' @param id  the ID of the Module's UI element
+#' @param table_data reactive expression (or parameter-less function) that acts as table data source
 #'
 #' @return Rendered react table
 #'
@@ -152,7 +154,8 @@ downloadableReactTableUI <- function(id,
 #'                             contentHeight = "300px",
 #'                             singleSelect  = FALSE)))),
 #'    server = function(input, output) {
-#'      downloadableReactTable("object_id1")})
+#'        downloadableReactTable(id         = "object_id1",
+#'                               table_data = reactiveVal(mtcars))})
 #'}
 #'
 #' @export

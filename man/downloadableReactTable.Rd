@@ -4,10 +4,12 @@
 \alias{downloadableReactTable}
 \title{downloadableReactTable module server function}
 \usage{
-downloadableReactTable(id)
+downloadableReactTable(id, table_data)
 }
 \arguments{
 \item{id}{the ID of the Module's UI element}
+
+\item{table_data}{reactive expression (or parameter-less function) that acts as table data source}
 }
 \value{
 Rendered react table
@@ -34,7 +36,8 @@ if (interactive()) {
                             contentHeight = "300px",
                             singleSelect  = FALSE)))),
    server = function(input, output) {
-     downloadableReactTable("object_id1")})
+       downloadableReactTable(id         = "object_id1",
+                              table_data = reactiveVal(mtcars))})
 }
 
 }
