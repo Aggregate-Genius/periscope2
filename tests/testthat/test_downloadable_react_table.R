@@ -46,3 +46,18 @@ test_that("downloadableReactTable - valid data", {
                    expect_true(grepl(paste0(get_mtcars_data()$carb, collapse = "|"), output$reactTableOutputID))
                })
 })
+
+
+
+test_that("downloadableReactTable - null or empty data.frame", {
+    testServer(downloadableReactTable,
+               args = list(table_data = NULL),
+               expr = {
+                   expect_true(grepl('"x":null', output$reactTableOutputID, fixed = TRUE))
+               })
+    testServer(downloadableReactTable,
+               args = list(table_data = data.frame()),
+               expr = {
+                   expect_true(grepl('"x":null', output$reactTableOutputID, fixed = TRUE))
+               })
+})
