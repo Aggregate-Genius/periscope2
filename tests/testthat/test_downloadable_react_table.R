@@ -60,4 +60,21 @@ test_that("downloadableReactTable - null or empty data.frame", {
                expr = {
                    expect_true(grepl('"x":null', output$reactTableOutputID, fixed = TRUE))
                })
+
+    testServer(downloadableReactTable,
+               args = list(table_data = function() { NULL }),
+               expr = {
+                   expect_true(grepl('"x":null', output$reactTableOutputID, fixed = TRUE))
+               })
+
+    testServer(downloadableReactTable,
+               args = list(table_data = function() { data.frame() }),
+               expr = {
+                   expect_true(grepl('"x":null', output$reactTableOutputID, fixed = TRUE))
+               })
+    # testServer(downloadableReactTable,
+    #            args = list(table_data = 5),
+    #            expr = {
+    #                expect_true(grepl('"x":null', output$reactTableOutputID, fixed = TRUE))
+    #            })
 })

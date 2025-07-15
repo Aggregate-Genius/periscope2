@@ -163,11 +163,16 @@ downloadableReactTable <- function(id,
                                    table_data) {
         shiny::moduleServer(id,
              function(input, output, session) {
-                 if (is.null(table_data) || (NCOL(table_data) == 0)) {
+                 if (is.null(table_data) ||
+                     ((!is.function(table_data) && (NCOL(table_data) == 0))) ||
+                     ((is.function(table_data) && (is.null(table_data()) || NCOL(table_data()) == 0)))) {
                      output$reactTableOutputID <- reactable::renderReactable({ NULL })
                  } else {
                      table_react_params <- shiny::reactiveValues(table_data = NULL)
                      shiny::observe({
+                         if (!is.data.frame(table_data())) {
+                             table_data <- shiny::reactiveVal(data.frame(table_data()))
+                         }
                          table_react_params$table_data <- table_data()
                      })
                      output$reactTableOutputID <- reactable::renderReactable({
