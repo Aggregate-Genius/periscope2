@@ -17,10 +17,8 @@
 #' @param downloadtypes vector of values for data download types
 #' @param hovertext download button tooltip hover text
 #' @param contentHeight viewable height of the table (any valid css size value)
-#' @param singleSelect whether the table should only allow a single row to be
-#' selected at a time (FALSE by default allows multi-select).
 #'
-#' @return list of downloadFileButton UI and reactable table and hidden inputs for contentHeight and singleSelect options
+#' @return list of downloadFileButton UI and reactable table and hidden inputs for contentHeight option
 #'
 #' @section Table Features:
 #' \itemize{
@@ -64,8 +62,7 @@
 #'    downloadableReactTableUI("object_id1",
 #'                             downloadtypes = c("csv", "tsv"),
 #'                             hovertext     = "Download the data here!",
-#'                             contentHeight = "300px",
-#'                             singleSelect  = TRUE)))),
+#'                             contentHeight = "300px"))),
 #'    server = function(input, output) {
 #'        downloadableReactTable(id         = "object_id1",
 #'                               table_data = reactiveVal(mtcars))})
@@ -75,8 +72,7 @@
 downloadableReactTableUI <- function(id,
                                      downloadtypes = NULL,
                                      hovertext     = NULL,
-                                     contentHeight = "200px",
-                                     singleSelect  = FALSE) {
+                                     contentHeight = "200px") {
     ns <- shiny::NS(id)
     list(
         shiny::conditionalPanel(
@@ -103,14 +99,7 @@ downloadableReactTableUI <- function(id,
             id    = ns("reactTableOutputHeight"),
             type  = "text",
             class = "shiny-input-container hidden",
-            value = contentHeight),
-        # TODO: test this function when table selection options is active in
-        # server function
-        shiny::tags$input(
-            id    = ns("reactTableSingleSelect"),
-            type  = "text",
-            class = "shiny-input-container hidden",
-            value = singleSelect)
+            value = contentHeight)
         )
 }
 
@@ -146,9 +135,7 @@ downloadableReactTableUI <- function(id,
 #'  shinyApp(ui = fluidPage(fluidRow(column(width = 12,
 #'    downloadableReactTableUI("object_id1",
 #'                             downloadtypes = c("csv", "tsv"),
-#'                             hovertext     = "Download the data here!",
-#'                             contentHeight = "300px",
-#'                             singleSelect  = TRUE)))),
+#'                             hovertext     = "Download the data here!")))),
 #'    server = function(input, output) {
 #'        downloadableReactTable(id         = "object_id1",
 #'                               table_data = reactiveVal(mtcars))})

@@ -32,9 +32,7 @@ if (interactive()) {
  shinyApp(ui = fluidPage(fluidRow(column(width = 12,
    downloadableReactTableUI("object_id1",
                             downloadtypes = c("csv", "tsv"),
-                            hovertext     = "Download the data here!",
-                            contentHeight = "300px",
-                            singleSelect  = TRUE)))),
+                            hovertext     = "Download the data here!")))),
    server = function(input, output) {
        downloadableReactTable(id         = "object_id1",
                               table_data = reactiveVal(mtcars))})
