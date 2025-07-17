@@ -30,7 +30,7 @@ list of downloadFileButton UI and reactable table and hidden inputs for contentH
 \description{
 downloadableReactTable module is extending \code{?reactable} package table functions by creating
 a custom high-functionality table paired with \link[periscope2]{downloadFile} button.
-The table has search and highlight functionality, infinite scrolling, sorting by columns and
+The table has the following default functionality:search, highlight functionality, infinite scrolling, sorting by columns and
 returns a reactive dataset of selected items.
 }
 \details{
@@ -80,7 +80,7 @@ if (interactive()) {
                             downloadtypes = c("csv", "tsv"),
                             hovertext     = "Download the data here!",
                             contentHeight = "300px",
-                            singleSelect  = FALSE)))),
+                            singleSelect  = TRUE)))),
    server = function(input, output) {
        downloadableReactTable(id         = "object_id1",
                               table_data = reactiveVal(mtcars))})
@@ -89,10 +89,6 @@ if (interactive()) {
 }
 \seealso{
 \link[periscope2]{downloadableReactTable}
-
-\link[periscope2]{downloadableTableUI}
-
-\link[periscope2]{downloadableTable}
 
 \link[periscope2]{downloadFile}
 

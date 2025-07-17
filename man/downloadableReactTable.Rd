@@ -34,7 +34,7 @@ if (interactive()) {
                             downloadtypes = c("csv", "tsv"),
                             hovertext     = "Download the data here!",
                             contentHeight = "300px",
-                            singleSelect  = FALSE)))),
+                            singleSelect  = TRUE)))),
    server = function(input, output) {
        downloadableReactTable(id         = "object_id1",
                               table_data = reactiveVal(mtcars))})
@@ -43,10 +43,6 @@ if (interactive()) {
 }
 \seealso{
 \link[periscope2]{downloadableReactTableUI}
-
-\link[periscope2]{downloadableTableUI}
-
-\link[periscope2]{downloadableTable}
 
 \link[periscope2]{downloadFileButton}
 
