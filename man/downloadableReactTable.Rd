@@ -40,8 +40,9 @@ if (interactive()) {
                             downloadtypes = c("csv", "tsv"),
                             hovertext     = "Download the data here!")))),
    server = function(input, output) {
-       downloadableReactTable(id         = "object_id1",
-                              table_data = reactiveVal(mtcars))})
+       downloadableReactTable(id             = "object_id1",
+                              table_data     = reactiveVal(mtcars),
+                              selection_mode = "multiple")})
 }
 
 }

@@ -77,8 +77,9 @@ if (interactive()) {
                             hovertext     = "Download the data here!",
                             contentHeight = "300px"))),
    server = function(input, output) {
-       downloadableReactTable(id         = "object_id1",
-                              table_data = reactiveVal(mtcars))})
+       downloadableReactTable(id             = "object_id1",
+                              table_datam    = reactiveVal(mtcars),
+                              selection_mode = "multiple")})
 }
 
 }

@@ -64,8 +64,9 @@
 #'                             hovertext     = "Download the data here!",
 #'                             contentHeight = "300px"))),
 #'    server = function(input, output) {
-#'        downloadableReactTable(id         = "object_id1",
-#'                               table_data = reactiveVal(mtcars))})
+#'        downloadableReactTable(id             = "object_id1",
+#'                               table_datam    = reactiveVal(mtcars),
+#'                               selection_mode = "multiple")})
 #'}
 #'
 #' @export
@@ -142,8 +143,9 @@ downloadableReactTableUI <- function(id,
 #'                             downloadtypes = c("csv", "tsv"),
 #'                             hovertext     = "Download the data here!")))),
 #'    server = function(input, output) {
-#'        downloadableReactTable(id         = "object_id1",
-#'                               table_data = reactiveVal(mtcars))})
+#'        downloadableReactTable(id             = "object_id1",
+#'                               table_data     = reactiveVal(mtcars),
+#'                               selection_mode = "multiple")})
 #'}
 #'
 #' @export
@@ -165,8 +167,12 @@ downloadableReactTable <- function(id,
                      output$reactTableOutputID <- reactable::renderReactable({
                          table_output <- NULL
                          if (!is.null(table_react_params$table_data) && (NCOL(table_react_params$table_data) > 0)) {
-                             table_output <- reactable::reactable(data = table_react_params$table_data,
-                                                                  selection = "multiple",
+                             row_selection_mode <- NULL
+                             if (!is.null(selection_mode) && (tolower(selection_mode) %in% c("single", "multiple"))) {
+                                 row_selection_mode <- tolower(selection_mode)
+                             }
+                             table_output <- reactable::reactable(data      = table_react_params$table_data,
+                                                                  selection = row_selection_mode,
                                                                   defaultSelected = c(1:3))
                          }
                          table_output
