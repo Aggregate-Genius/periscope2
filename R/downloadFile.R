@@ -269,7 +269,7 @@ downloadFile <- function(id,
                     } else {
                         tryCatch({
                             if (length(find.package("openxlsx", quiet = TRUE) > 0)) {
-                                if ((inherits(data, "Workbook")) && ("openxlsx" %in% attributes(class(data)))) {
+                                if (inherits(data, "wbWorkbook")) {
                                     openxlsx::saveWorkbook(data, file)
                                 } else {
                                     show_rownames <- attr(data, "show_rownames")
