@@ -127,3 +127,30 @@ test_that("downloadableReactTable - empty data.frame", {
                    expect_true(grepl('data":{"X5":[5]}', output$reactTableOutputID, fixed = TRUE))
                })
 })
+
+
+test_that("downloadableReactTable - selection_mode", {
+    testServer(downloadableReactTable,
+               args = list(table_data     = get_mtcars_data,
+                           selection_mode = "Single"),
+               expr = {
+                   expect_true(grepl('"id":".selection"', output$reactTableOutputID, fixed = TRUE))
+                   expect_true(grepl('"selection":"single"', output$reactTableOutputID, fixed = TRUE))
+               })
+
+    testServer(downloadableReactTable,
+               args = list(table_data     = get_mtcars_data,
+                           selection_mode = "multiple"),
+               expr = {
+                   expect_true(grepl('"id":".selection"', output$reactTableOutputID, fixed = TRUE))
+                   expect_true(grepl('"selection":"multiple"', output$reactTableOutputID, fixed = TRUE))
+               })
+
+    testServer(downloadableReactTable,
+               args = list(table_data     = get_mtcars_data,
+                           selection_mode = "not_valid_mode"),
+               expr = {
+                   expect_false(grepl('"id":".selection"', output$reactTableOutputID, fixed = TRUE))
+                   expect_false(grepl('"selection""', output$reactTableOutputID, fixed = TRUE))
+               })
+})

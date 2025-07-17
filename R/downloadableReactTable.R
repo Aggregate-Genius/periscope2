@@ -173,7 +173,7 @@ downloadableReactTable <- function(id,
                              }
                              table_output <- reactable::reactable(data      = table_react_params$table_data,
                                                                   selection = row_selection_mode,
-                                                                  defaultSelected = c(1:3))
+                                                                  defaultSelected = NULL)
                          }
                          table_output
                     })
