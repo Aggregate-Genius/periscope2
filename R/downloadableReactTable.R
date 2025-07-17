@@ -111,6 +111,11 @@ downloadableReactTableUI <- function(id,
 #'
 #' @param id  the ID of the Module's UI element
 #' @param table_data reactive expression (or parameter-less function) that acts as table data source
+#' @param selection_mode to enable row selection, set \code{selection_mode} value to either "single" for single row
+#'                       selection or "multiple" for multiple rows selection, case insensitive. Any other value will
+#'                       disable row selection, (default = NULL). An additional column will be added to the table if
+#'                       selection mode is enabled with rabio buttons for single row selection and checkboxes for
+#'                       "multiple" rows selection mode.
 #'
 #' @return Rendered react table
 #'
@@ -143,7 +148,8 @@ downloadableReactTableUI <- function(id,
 #'
 #' @export
 downloadableReactTable <- function(id,
-                                   table_data) {
+                                   table_data,
+                                   selection_mode = NULL) {
         shiny::moduleServer(id,
              function(input, output, session) {
                  if (is.null(table_data) || !is.function(table_data)) {
@@ -159,7 +165,9 @@ downloadableReactTable <- function(id,
                      output$reactTableOutputID <- reactable::renderReactable({
                          table_output <- NULL
                          if (!is.null(table_react_params$table_data) && (NCOL(table_react_params$table_data) > 0)) {
-                             table_output <- reactable::reactable(data = table_react_params$table_data)
+                             table_output <- reactable::reactable(data = table_react_params$table_data,
+                                                                  selection = "multiple",
+                                                                  defaultSelected = c(1:3))
                          }
                          table_output
                     })

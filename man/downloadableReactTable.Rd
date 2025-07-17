@@ -4,12 +4,18 @@
 \alias{downloadableReactTable}
 \title{downloadableReactTable module server function}
 \usage{
-downloadableReactTable(id, table_data)
+downloadableReactTable(id, table_data, selection_mode = NULL)
 }
 \arguments{
 \item{id}{the ID of the Module's UI element}
 
 \item{table_data}{reactive expression (or parameter-less function) that acts as table data source}
+
+\item{selection_mode}{to enable row selection, set \code{selection_mode} value to either "single" for single row
+selection or "multiple" for multiple rows selection, case insensitive. Any other value will
+disable row selection, (default = NULL). An additional column will be added to the table if
+selection mode is enabled with rabio buttons for single row selection and checkboxes for
+"multiple" rows selection mode.}
 }
 \value{
 Rendered react table
