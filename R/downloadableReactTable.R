@@ -117,7 +117,9 @@ downloadableReactTableUI <- function(id,
 #'                       disable row selection, (default = NULL). An additional column will be added to the table if
 #'                       selection mode is enabled with rabio buttons for single row selection and checkboxes for
 #'                       "multiple" rows selection mode.
-#'
+#' @param pre_selected_rows reactive expression (or parameter-less function) provides the rows indices of the rows to
+#'                          be selected when the table is rendered. If selection_mode is disabled, this parameter will
+#'                          have no effect.
 #' @return Rendered react table
 #'
 #' @section Shiny Usage:
