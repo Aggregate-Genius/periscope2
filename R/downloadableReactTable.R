@@ -120,7 +120,7 @@ downloadableReactTableUI <- function(id,
 #'                       "multiple" rows selection mode.
 #' @param pre_selected_rows reactive expression (or parameter-less function) provides the rows indices of the rows to
 #'                          be selected when the table is rendered. If selection_mode is disabled, this parameter will
-#'                          have no effect.
+#'                          have no effect. If selection_mode is "single" only first row index will be used.
 #' @return Rendered react table
 #'
 #' @section Shiny Usage:
@@ -160,6 +160,7 @@ downloadableReactTable <- function(id,
         shiny::moduleServer(id,
              function(input, output, session) {
                  if (is.null(table_data) || !is.function(table_data)) {
+                     message("'table_data' parameter must be a function or reactive expression. Setting default value NULL.")
                      output$reactTableOutputID <- reactable::renderReactable({ NULL })
                  } else {
                      table_react_params <- shiny::reactiveValues(table_data        = NULL,
@@ -178,7 +179,12 @@ downloadableReactTable <- function(id,
 
                      shiny::observe({
                          table_react_params$pre_selected_rows <- NULL
-                         if (!is.null(selection_mode) && !is.null(pre_selected_rows) && is.numeric(pre_selected_rows())) {
+                         if ((is.null(selection_mode) || !(tolower(selection_mode) %in% c("single", "multiple"))) &&
+                              !is.null(pre_selected_rows)) {
+                             message("'selection_mode' parameter must be either 'single'or 'multiple' to use 'pre_selected_rows' param. Setting default value NULL.")
+                         } else if (!is.null(pre_selected_rows) && !is.numeric(pre_selected_rows())) {
+                             message("'pre_selected_rows' parameter must function or reactive expression must return numeric vector. Setting default value NULL.")
+                         } else if (!is.null(pre_selected_rows)) {
                              table_react_params$pre_selected_rows <- pre_selected_rows()
                          }
 
@@ -191,6 +197,7 @@ downloadableReactTable <- function(id,
                                  row_selection_mode <- tolower(selection_mode)
 
                                  if ((row_selection_mode == "single") && (length(table_react_params$pre_selected_rows) > 1)) {
+                                     message("'selection_mode' is 'single' only first value of 'pre_selected_rows' will be used")
                                      table_react_params$pre_selected_rows <- table_react_params$pre_selected_rows[1]
                                  }
                              }
