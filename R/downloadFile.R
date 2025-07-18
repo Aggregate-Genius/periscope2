@@ -257,7 +257,7 @@ downloadFile <- function(id,
                 # excel file
                 else if (type == "xlsx") {
                     if (length(find.package("openxlsx2", quiet = TRUE) > 0)) {
-                        if ((inherits(data, "Workbook")) && ("openxlsx2" %in% attributes(class(data)))) {
+                        if (inherits(data, "wbWorkbook")) {
                             openxlsx2::wb_save(data, file)
                         } else {
                             show_rownames <- attr(data, "show_rownames")
@@ -269,7 +269,7 @@ downloadFile <- function(id,
                     } else {
                         tryCatch({
                             if (length(find.package("openxlsx", quiet = TRUE) > 0)) {
-                                if (inherits(data, "wbWorkbook")) {
+                                if ((inherits(data, "Workbook")) && ("openxlsx" %in% attributes(class(data)))) {
                                     openxlsx::saveWorkbook(data, file)
                                 } else {
                                     show_rownames <- attr(data, "show_rownames")
@@ -278,10 +278,12 @@ downloadFile <- function(id,
                                                          asTable  = TRUE,
                                                          rowNames = !is.null(show_rownames) && show_rownames)
                                 }
+                            } else {
+                                writexl::write_xlsx(data, file)
                             }
                         },
                         error = function(e) {
-                            writexl::write_xlsx(data, file)
+                            warning("No supported library found, consider installing openxlsx2 or openxlsx or writexl")
                         })
                     }
                 }
