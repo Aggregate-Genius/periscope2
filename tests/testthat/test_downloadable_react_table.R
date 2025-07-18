@@ -13,6 +13,7 @@ test_that("downloadableReactTableUI", {
     expect_true(grepl('id="myid-reactTableOutputID"', table_ui[[2]], fixed = TRUE))
 })
 
+
 test_that("downloadableReactTableUI - no download types", {
     table_ui <- downloadableReactTableUI(id = "myid2")
     expect_equal(length(table_ui), 3)
@@ -20,6 +21,7 @@ test_that("downloadableReactTableUI - no download types", {
     expect_true(grepl('style="display:none">', table_ui[[1]], fixed = TRUE))
     expect_true(grepl('id="myid2-reactTableOutputID"', table_ui[[2]], fixed = TRUE))
 })
+
 
 # helper functions
 get_mtcars_data <- reactive({
@@ -48,18 +50,21 @@ test_that("downloadableReactTable - valid data", {
 })
 
 
-
 test_that("downloadableReactTable - null or empty data.frame", {
-    testServer(downloadableReactTable,
-               args = list(table_data = NULL),
-               expr = {
-                   expect_true(grepl('"x":null', output$reactTableOutputID, fixed = TRUE))
-               })
-    testServer(downloadableReactTable,
-               args = list(table_data = data.frame()),
-               expr = {
-                   expect_true(grepl('"x":null', output$reactTableOutputID, fixed = TRUE))
-               })
+    expect_message(
+        testServer(downloadableReactTable,
+                   args = list(table_data = NULL),
+                   expr = {
+                       expect_true(grepl('"x":null', output$reactTableOutputID, fixed = TRUE))
+                  }),
+        "'table_data' parameter must be a function or reactive expression. Setting default value NULL.")
+    expect_message(
+        testServer(downloadableReactTable,
+                   args = list(table_data = data.frame()),
+                   expr = {
+                       expect_true(grepl('"x":null', output$reactTableOutputID, fixed = TRUE))
+                }),
+        "'table_data' parameter must be a function or reactive expression. Setting default value NULL.")
 
     testServer(downloadableReactTable,
                args = list(table_data = function() { NULL }),
@@ -88,11 +93,13 @@ test_that("downloadableReactTable - null or empty data.frame", {
 
 
 test_that("downloadableReactTable - single values", {
-    testServer(downloadableReactTable,
-               args = list(table_data = 5),
-               expr = {
-                   expect_true(grepl('"x":null', output$reactTableOutputID, fixed = TRUE))
-               })
+    expect_message(
+        testServer(downloadableReactTable,
+                   args = list(table_data = 5),
+                   expr = {
+                       expect_true(grepl('"x":null', output$reactTableOutputID, fixed = TRUE))
+                  }),
+        "'table_data' parameter must be a function or reactive expression. Setting default value NULL.")
 
     testServer(downloadableReactTable,
                args = list(table_data = function() {5}),
@@ -109,11 +116,13 @@ test_that("downloadableReactTable - single values", {
 
 
 test_that("downloadableReactTable - empty data.frame", {
-    testServer(downloadableReactTable,
-               args = list(table_data = data.frame(5)),
-               expr = {
-                   expect_true(grepl('"x":null', output$reactTableOutputID, fixed = TRUE))
-               })
+    expect_message(
+        testServer(downloadableReactTable,
+                   args = list(table_data = data.frame(5)),
+                   expr = {
+                       expect_true(grepl('"x":null', output$reactTableOutputID, fixed = TRUE))
+                  }),
+        "'table_data' parameter must be a function or reactive expression. Setting default value NULL.")
 
     testServer(downloadableReactTable,
                args = list(table_data = function() {data.frame(5)}),
@@ -152,5 +161,61 @@ test_that("downloadableReactTable - selection_mode", {
                expr = {
                    expect_false(grepl('"id":".selection"', output$reactTableOutputID, fixed = TRUE))
                    expect_false(grepl('"selection""', output$reactTableOutputID, fixed = TRUE))
+               })
+})
+
+
+test_that("downloadableReactTable - pre_selected_rows", {
+    testServer(downloadableReactTable,
+               args = list(table_data        = get_mtcars_data,
+                           pre_selected_rows = function() {c(1, 3)}),
+               expr = {
+                   msg <- "'selection_mode' parameter must be either 'single'or 'multiple' to use 'pre_selected_rows' param. Setting default value NULL"
+                   expect_message(output$reactTableOutputID, msg)
+               })
+
+    expect_message(
+        testServer(downloadableReactTable,
+                   args = list(table_data        = get_mtcars_data,
+                               selection_mode    = "multiple",
+                               pre_selected_rows = c(1, 3)),
+                   expr = {
+                       output$reactTableOutputID
+                       }),
+        "'pre_selected_rows' parameter must be a function or reactive expression. Setting default value NULL.")
+
+    testServer(downloadableReactTable,
+               args = list(table_data        = get_mtcars_data,
+                           selection_mode    = "multiple",
+                           pre_selected_rows = function() {c(1, 3, "a")}),
+               expr = {
+                   msg <- "'pre_selected_rows' parameter must function or reactive expression must return numeric vector. Setting default value NULL."
+                   expect_message(output$reactTableOutputID, msg)
+               })
+
+    testServer(downloadableReactTable,
+               args = list(table_data        = get_mtcars_data,
+                           selection_mode    = "single",
+                           pre_selected_rows = function() {c(1, 3)}),
+               expr = {
+                   msg <- "'selection_mode' is 'single' only first value of 'pre_selected_rows' will be used"
+                   expect_message(output$reactTableOutputID, msg)
+                   expect_true(grepl('"defaultSelected":[0]', output$reactTableOutputID, fixed = TRUE))
+               })
+
+    testServer(downloadableReactTable,
+               args = list(table_data        = get_mtcars_data,
+                           selection_mode    = "single",
+                           pre_selected_rows = function() {c(1)}),
+               expr = {
+                   expect_true(grepl('"defaultSelected":[0]', output$reactTableOutputID, fixed = TRUE))
+               })
+
+    testServer(downloadableReactTable,
+               args = list(table_data        = get_mtcars_data,
+                           selection_mode    = "multiple",
+                           pre_selected_rows = function() {c(1, 3)}),
+               expr = {
+                   expect_true(grepl('"defaultSelected":[0,2]', output$reactTableOutputID, fixed = TRUE))
                })
 })
