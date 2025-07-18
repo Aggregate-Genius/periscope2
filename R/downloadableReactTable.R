@@ -64,9 +64,10 @@
 #'                             hovertext     = "Download the data here!",
 #'                             contentHeight = "300px"))),
 #'    server = function(input, output) {
-#'        downloadableReactTable(id             = "object_id1",
-#'                               table_datam    = reactiveVal(mtcars),
-#'                               selection_mode = "multiple")})
+#'        downloadableReactTable(id                = "object_id1",
+#'                               table_datam       = reactiveVal(mtcars),
+#'                               selection_mode    = "multiple",
+#'                               pre_selected_rows = function() {c(1, 3, 5)})})
 #'}
 #'
 #' @export
@@ -145,9 +146,10 @@ downloadableReactTableUI <- function(id,
 #'                             downloadtypes = c("csv", "tsv"),
 #'                             hovertext     = "Download the data here!")))),
 #'    server = function(input, output) {
-#'        downloadableReactTable(id             = "object_id1",
-#'                               table_data     = reactiveVal(mtcars),
-#'                               selection_mode = "multiple")})
+#'        downloadableReactTable(id                = "object_id1",
+#'                               table_data        = reactiveVal(mtcars),
+#'                               selection_mode    = "multiple",
+#'                               pre_selected_rows = function() {c(1, 3, 5)})})
 #'}
 #'
 #' @export

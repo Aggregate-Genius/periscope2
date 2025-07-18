@@ -4,7 +4,12 @@
 \alias{downloadableReactTable}
 \title{downloadableReactTable module server function}
 \usage{
-downloadableReactTable(id, table_data, selection_mode = NULL)
+downloadableReactTable(
+  id,
+  table_data,
+  selection_mode = NULL,
+  pre_selected_rows = NULL
+)
 }
 \arguments{
 \item{id}{the ID of the Module's UI element}
@@ -44,9 +49,10 @@ if (interactive()) {
                             downloadtypes = c("csv", "tsv"),
                             hovertext     = "Download the data here!")))),
    server = function(input, output) {
-       downloadableReactTable(id             = "object_id1",
-                              table_data     = reactiveVal(mtcars),
-                              selection_mode = "multiple")})
+       downloadableReactTable(id                = "object_id1",
+                              table_data        = reactiveVal(mtcars),
+                              selection_mode    = "multiple",
+                              pre_selected_rows = function() {c(1, 3, 5)})})
 }
 
 }
