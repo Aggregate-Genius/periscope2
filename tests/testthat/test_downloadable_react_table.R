@@ -139,6 +139,7 @@ test_that("downloadableReactTable - empty data.frame", {
 
 
 test_that("downloadableReactTable - selection_mode", {
+    skip_if(getRversion() < "4.1.0", "Skipping due to lifecycle warnings in R < 4.1.0")
     testServer(downloadableReactTable,
                args = list(table_data     = get_mtcars_data,
                            selection_mode = "Single"),
@@ -166,6 +167,8 @@ test_that("downloadableReactTable - selection_mode", {
 
 
 test_that("downloadableReactTable - pre_selected_rows", {
+    skip_if(getRversion() < "4.1.0", "Skipping due to lifecycle warnings in R < 4.1.0")
+
     testServer(downloadableReactTable,
                args = list(table_data        = get_mtcars_data,
                            pre_selected_rows = function() {c(1, 3)}),
