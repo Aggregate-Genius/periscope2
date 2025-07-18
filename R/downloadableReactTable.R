@@ -153,18 +153,33 @@ downloadableReactTableUI <- function(id,
 #' @export
 downloadableReactTable <- function(id,
                                    table_data,
-                                   selection_mode = NULL) {
+                                   selection_mode    = NULL,
+                                   pre_selected_rows = NULL) {
         shiny::moduleServer(id,
              function(input, output, session) {
                  if (is.null(table_data) || !is.function(table_data)) {
                      output$reactTableOutputID <- reactable::renderReactable({ NULL })
                  } else {
-                     table_react_params <- shiny::reactiveValues(table_data = NULL)
+                     table_react_params <- shiny::reactiveValues(table_data        = NULL,
+                                                                 pre_selected_rows = NULL)
+                     if (!is.null(pre_selected_rows) && !is.function(pre_selected_rows)) {
+                         message("'pre_selected_rows' parameter must be a function or reactive expression. Setting default value NULL.")
+                         pre_selected_rows <- NULL
+                     }
+
                      shiny::observe({
                          if (!is.data.frame(table_data())) {
                              table_data <- shiny::reactiveVal(data.frame(table_data()))
                          }
                          table_react_params$table_data <- table_data()
+                     })
+
+                     shiny::observe({
+                         table_react_params$pre_selected_rows <- NULL
+                         if (!is.null(selection_mode) && !is.null(pre_selected_rows) && is.numeric(pre_selected_rows())) {
+                             table_react_params$pre_selected_rows <- pre_selected_rows()
+                         }
+
                      })
                      output$reactTableOutputID <- reactable::renderReactable({
                          table_output <- NULL
@@ -172,10 +187,14 @@ downloadableReactTable <- function(id,
                              row_selection_mode <- NULL
                              if (!is.null(selection_mode) && (tolower(selection_mode) %in% c("single", "multiple"))) {
                                  row_selection_mode <- tolower(selection_mode)
+
+                                 if ((row_selection_mode == "single") && (length(table_react_params$pre_selected_rows) > 1)) {
+                                     table_react_params$pre_selected_rows <- table_react_params$pre_selected_rows[1]
+                                 }
                              }
-                             table_output <- reactable::reactable(data      = table_react_params$table_data,
-                                                                  selection = row_selection_mode,
-                                                                  defaultSelected = NULL)
+                             table_output <- reactable::reactable(data            = table_react_params$table_data,
+                                                                  selection       = row_selection_mode,
+                                                                  defaultSelected = table_react_params$pre_selected_rows)
                          }
                          table_output
                     })
