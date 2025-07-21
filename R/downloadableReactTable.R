@@ -161,7 +161,7 @@ downloadableReactTable <- function(id,
         shiny::moduleServer(id,
              function(input, output, session) {
                  if (is.null(table_data) || !is.function(table_data)) {
-                     message("'table_data' parameter must be a function or reactive expression. Setting default value NULL.")
+                     message("'table_data' parameter must be a function or reactive expression.")
                      output$reactTableOutputID <- reactable::renderReactable({ NULL })
                  } else {
                      table_react_params <- shiny::reactiveValues(table_data        = NULL,

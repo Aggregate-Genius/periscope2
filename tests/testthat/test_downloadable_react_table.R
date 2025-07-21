@@ -57,14 +57,14 @@ test_that("downloadableReactTable - null or empty data.frame", {
                    expr = {
                        expect_true(grepl('"x":null', output$reactTableOutputID, fixed = TRUE))
                   }),
-        "'table_data' parameter must be a function or reactive expression. Setting default value NULL.")
+        "'table_data' parameter must be a function or reactive expression.")
     expect_message(
         testServer(downloadableReactTable,
                    args = list(table_data = data.frame()),
                    expr = {
                        expect_true(grepl('"x":null', output$reactTableOutputID, fixed = TRUE))
                 }),
-        "'table_data' parameter must be a function or reactive expression. Setting default value NULL.")
+        "'table_data' parameter must be a function or reactive expression.")
 
     expect_message(
         testServer(downloadableReactTable,
@@ -72,7 +72,7 @@ test_that("downloadableReactTable - null or empty data.frame", {
                    expr = {
                        expect_true(grepl('"x":null', output$reactTableOutputID, fixed = TRUE))
                        }),
-        "'table_data' parameter must be a function or reactive expression. Setting default value NULL.")
+        "'table_data' parameter must be a function or reactive expression.")
 
     testServer(downloadableReactTable,
                args = list(table_data = function() { NULL }),
@@ -113,7 +113,7 @@ test_that("downloadableReactTable - single values", {
                    expr = {
                        expect_true(grepl('"x":null', output$reactTableOutputID, fixed = TRUE))
                   }),
-        "'table_data' parameter must be a function or reactive expression. Setting default value NULL.")
+        "'table_data' parameter must be a function or reactive expression.")
 
     testServer(downloadableReactTable,
                args = list(table_data = function() {5}),
@@ -136,7 +136,7 @@ test_that("downloadableReactTable - empty data.frame", {
                    expr = {
                        expect_true(grepl('"x":null', output$reactTableOutputID, fixed = TRUE))
                   }),
-        "'table_data' parameter must be a function or reactive expression. Setting default value NULL.")
+        "'table_data' parameter must be a function or reactive expression.")
 
     testServer(downloadableReactTable,
                args = list(table_data = function() {data.frame(5)}),
