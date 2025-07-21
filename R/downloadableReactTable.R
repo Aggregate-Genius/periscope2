@@ -171,7 +171,9 @@ downloadableReactTable <- function(id,
                      })
                      output$reactTableOutputID <- reactable::renderReactable({
                          table_output <- NULL
-                         if (!is.null(table_react_params$table_data) && (NCOL(table_react_params$table_data) > 0)) {
+                         if (!all(is.na(table_react_params$table_data)) &&
+                             !is.null(table_react_params$table_data) &&
+                             (NCOL(table_react_params$table_data) > 0)) {
                              table_output <- reactable::reactable(data = table_react_params$table_data)
                          }
                          table_output

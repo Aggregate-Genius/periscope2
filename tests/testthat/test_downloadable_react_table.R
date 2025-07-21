@@ -55,6 +55,13 @@ test_that("downloadableReactTable - null or empty data.frame", {
                expr = {
                    expect_true(grepl('"x":null', output$reactTableOutputID, fixed = TRUE))
                })
+
+    testServer(downloadableReactTable,
+               args = list(table_data = NA),
+               expr = {
+                   expect_true(grepl('"x":null', output$reactTableOutputID, fixed = TRUE))
+               })
+
     testServer(downloadableReactTable,
                args = list(table_data = data.frame()),
                expr = {
@@ -69,6 +76,12 @@ test_that("downloadableReactTable - null or empty data.frame", {
 
     testServer(downloadableReactTable,
                args = list(table_data = shiny::reactiveVal(NULL)),
+               expr = {
+                   expect_true(grepl('"x":null', output$reactTableOutputID, fixed = TRUE))
+               })
+
+    testServer(downloadableReactTable,
+               args = list(table_data = shiny::reactiveVal(NA)),
                expr = {
                    expect_true(grepl('"x":null', output$reactTableOutputID, fixed = TRUE))
                })
