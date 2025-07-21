@@ -67,7 +67,8 @@
 #'                             contentHeight = "300px",
 #'                             singleSelect  = TRUE)))),
 #'    server = function(input, output) {
-#'      downloadableReactTable("object_id1")})
+#'        downloadableReactTable(id         = "object_id1",
+#'                               table_data = reactiveVal(mtcars))})
 #'}
 #'
 #' @export
@@ -120,6 +121,7 @@ downloadableReactTableUI <- function(id,
 #'
 #'
 #' @param id  the ID of the Module's UI element
+#' @param table_data reactive expression (or parameter-less function) that acts as table data source
 #'
 #' @return Rendered react table
 #'
@@ -148,15 +150,35 @@ downloadableReactTableUI <- function(id,
 #'                             contentHeight = "300px",
 #'                             singleSelect  = TRUE)))),
 #'    server = function(input, output) {
-#'      downloadableReactTable("object_id1")})
+#'        downloadableReactTable(id         = "object_id1",
+#'                               table_data = reactiveVal(mtcars))})
 #'}
 #'
 #' @export
-downloadableReactTable <- function(id) {
+downloadableReactTable <- function(id,
+                                   table_data) {
         shiny::moduleServer(id,
              function(input, output, session) {
-                 output$reactTableOutputID <- reactable::renderReactable({
-                     reactable::reactable(iris)})
+                 if (is.null(table_data) || !is.function(table_data)) {
+                     output$reactTableOutputID <- reactable::renderReactable({ NULL })
+                 } else {
+                     table_react_params <- shiny::reactiveValues(table_data = NULL)
+                     shiny::observe({
+                         if (!is.data.frame(table_data())) {
+                             table_data <- shiny::reactiveVal(data.frame(table_data()))
+                         }
+                         table_react_params$table_data <- table_data()
+                     })
+                     output$reactTableOutputID <- reactable::renderReactable({
+                         table_output <- NULL
+                         if (!all(is.na(table_react_params$table_data)) &&
+                             !is.null(table_react_params$table_data) &&
+                             (NCOL(table_react_params$table_data) > 0)) {
+                             table_output <- reactable::reactable(data = table_react_params$table_data)
+                         }
+                         table_output
+                    })
+                }
             }
         )
 }
