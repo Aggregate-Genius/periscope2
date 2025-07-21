@@ -121,6 +121,12 @@ downloadableReactTableUI <- function(id,
 #' @param pre_selected_rows reactive expression (or parameter-less function) provides the rows indices of the rows to
 #'                          be selected when the table is rendered. If selection_mode is disabled, this parameter will
 #'                          have no effect. If selection_mode is "single" only first row index will be used.
+#' @param file_name_root the text used for user-downloaded file - can be either a character string,
+#'                       a reactive expression or a function returning a character string
+#' @param download_data_fxns a \strong{named} list of functions providing the data as return values.
+#'                           The names for the list should be the same names that were used when the table UI was created
+#' @param logger logger to use
+#'
 #' @return Rendered react table
 #'
 #' @section Shiny Usage:
@@ -156,8 +162,11 @@ downloadableReactTableUI <- function(id,
 #' @export
 downloadableReactTable <- function(id,
                                    table_data,
-                                   selection_mode    = NULL,
-                                   pre_selected_rows = NULL) {
+                                   selection_mode      = NULL,
+                                   pre_selected_rows   = NULL,
+                                   file_name_root      = "download",
+                                   download_data_fxns  = NULL,
+                                   logger              = NULL) {
         shiny::moduleServer(id,
              function(input, output, session) {
                  if (is.null(table_data) || !is.function(table_data)) {

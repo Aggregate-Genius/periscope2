@@ -8,7 +8,10 @@ downloadableReactTable(
   id,
   table_data,
   selection_mode = NULL,
-  pre_selected_rows = NULL
+  pre_selected_rows = NULL,
+  file_name_root = "download",
+  download_data_fxns = NULL,
+  logger = NULL
 )
 }
 \arguments{
@@ -25,6 +28,14 @@ selection mode is enabled with radio buttons for single row selection and checkb
 \item{pre_selected_rows}{reactive expression (or parameter-less function) provides the rows indices of the rows to
 be selected when the table is rendered. If selection_mode is disabled, this parameter will
 have no effect. If selection_mode is "single" only first row index will be used.}
+
+\item{file_name_root}{the text used for user-downloaded file - can be either a character string,
+a reactive expression or a function returning a character string}
+
+\item{download_data_fxns}{a \strong{named} list of functions providing the data as return values.
+The names for the list should be the same names that were used when the table UI was created}
+
+\item{logger}{logger to use}
 }
 \value{
 Rendered react table
