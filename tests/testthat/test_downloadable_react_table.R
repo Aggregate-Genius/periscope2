@@ -66,6 +66,14 @@ test_that("downloadableReactTable - null or empty data.frame", {
                 }),
         "'table_data' parameter must be a function or reactive expression. Setting default value NULL.")
 
+    expect_message(
+        testServer(downloadableReactTable,
+                   args = list(table_data = NA),
+                   expr = {
+                       expect_true(grepl('"x":null', output$reactTableOutputID, fixed = TRUE))
+                       }),
+        "'table_data' parameter must be a function or reactive expression. Setting default value NULL.")
+
     testServer(downloadableReactTable,
                args = list(table_data = function() { NULL }),
                expr = {
@@ -74,6 +82,12 @@ test_that("downloadableReactTable - null or empty data.frame", {
 
     testServer(downloadableReactTable,
                args = list(table_data = shiny::reactiveVal(NULL)),
+               expr = {
+                   expect_true(grepl('"x":null', output$reactTableOutputID, fixed = TRUE))
+               })
+
+    testServer(downloadableReactTable,
+               args = list(table_data = shiny::reactiveVal(NA)),
                expr = {
                    expect_true(grepl('"x":null', output$reactTableOutputID, fixed = TRUE))
                })
