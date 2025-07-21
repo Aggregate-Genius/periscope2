@@ -263,28 +263,21 @@ downloadFile <- function(id,
                             show_rownames <- attr(data, "show_rownames")
                             openxlsx2::write_xlsx(data,
                                                   file,
-                                                  asTable   = TRUE,
+                                                  as_table  = TRUE,
                                                   row_names = !is.null(show_rownames) && show_rownames)
                         }
+                    } else if (length(find.package("openxlsx", quiet = TRUE) > 0)) {
+                        if ((inherits(data, "Workbook")) && ("openxlsx" %in% attributes(class(data)))) {
+                            openxlsx::saveWorkbook(data, file)
+                        } else {
+                            show_rownames <- attr(data, "show_rownames")
+                            openxlsx::write.xlsx(data,
+                                                 file,
+                                                 asTable  = TRUE,
+                                                 rowNames = !is.null(show_rownames) && show_rownames)
+                        }
                     } else {
-                        tryCatch({
-                            if (length(find.package("openxlsx", quiet = TRUE) > 0)) {
-                                if ((inherits(data, "Workbook")) && ("openxlsx" %in% attributes(class(data)))) {
-                                    openxlsx::saveWorkbook(data, file)
-                                } else {
-                                    show_rownames <- attr(data, "show_rownames")
-                                    openxlsx::write.xlsx(data,
-                                                         file,
-                                                         asTable  = TRUE,
-                                                         rowNames = !is.null(show_rownames) && show_rownames)
-                                }
-                            } else {
-                                writexl::write_xlsx(data, file)
-                            }
-                        },
-                        error = function(e) {
-                            warning("No supported library found, consider installing openxlsx2 or openxlsx or writexl")
-                        })
+                        writexl::write_xlsx(data, file)
                     }
                 }
                 # text file processing
