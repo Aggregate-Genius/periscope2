@@ -182,9 +182,9 @@ downloadableReactTable <- function(id,
                          table_react_params$pre_selected_rows <- NULL
                          if ((is.null(selection_mode) || !(tolower(selection_mode) %in% c("single", "multiple"))) &&
                               !is.null(pre_selected_rows)) {
-                             message("'selection_mode' parameter must be either 'single'or 'multiple' to use 'pre_selected_rows' param. Setting default value NULL.")
+                             message("'selection_mode' parameter must be either 'single' or 'multiple' to use 'pre_selected_rows' param. Setting default value NULL.")
                          } else if (!is.null(pre_selected_rows) && !is.numeric(pre_selected_rows())) {
-                             message("'pre_selected_rows' parameter must function or reactive expression must return numeric vector. Setting default value NULL.")
+                             message("'pre_selected_rows' parameter must be a function or reactive expression that returns numeric vector. Setting default value NULL.")
                          } else if (!is.null(pre_selected_rows)) {
                              table_react_params$pre_selected_rows <- pre_selected_rows()
                          }
@@ -201,7 +201,7 @@ downloadableReactTable <- function(id,
                                  row_selection_mode <- tolower(selection_mode)
 
                                  if ((row_selection_mode == "single") && (length(table_react_params$pre_selected_rows) > 1)) {
-                                     message("'selection_mode' is 'single' only first value of 'pre_selected_rows' will be used")
+                                     message("when 'selection_mode' is 'single', only first value of 'pre_selected_rows' will be used")
                                      table_react_params$pre_selected_rows <- table_react_params$pre_selected_rows[1]
                                  }
                              }

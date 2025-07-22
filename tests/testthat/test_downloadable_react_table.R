@@ -187,7 +187,7 @@ test_that("downloadableReactTable - pre_selected_rows", {
                args = list(table_data        = get_mtcars_data,
                            pre_selected_rows = function() {c(1, 3)}),
                expr = {
-                   msg <- "'selection_mode' parameter must be either 'single'or 'multiple' to use 'pre_selected_rows' param. Setting default value NULL"
+                   msg <- "'selection_mode' parameter must be either 'single' or 'multiple' to use 'pre_selected_rows' param. Setting default value NULL"
                    expect_message(output$reactTableOutputID, msg)
                })
 
@@ -206,7 +206,7 @@ test_that("downloadableReactTable - pre_selected_rows", {
                            selection_mode    = "multiple",
                            pre_selected_rows = function() {c(1, 3, "a")}),
                expr = {
-                   msg <- "'pre_selected_rows' parameter must function or reactive expression must return numeric vector. Setting default value NULL."
+                   msg <- "'pre_selected_rows' parameter must be a function or reactive expression that returns numeric vector. Setting default value NULL."
                    expect_message(output$reactTableOutputID, msg)
                })
 
@@ -215,7 +215,7 @@ test_that("downloadableReactTable - pre_selected_rows", {
                            selection_mode    = "single",
                            pre_selected_rows = function() {c(1, 3)}),
                expr = {
-                   msg <- "'selection_mode' is 'single' only first value of 'pre_selected_rows' will be used"
+                   msg <- "when 'selection_mode' is 'single', only first value of 'pre_selected_rows' will be used"
                    expect_message(output$reactTableOutputID, msg)
                    expect_true(grepl('"defaultSelected":[0]', output$reactTableOutputID, fixed = TRUE))
                })
