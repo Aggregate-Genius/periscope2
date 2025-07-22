@@ -1,7 +1,7 @@
 Package: periscope2
 Type: Package
 Title: Enterprise Streamlined 'shiny' Application Framework Using 'bs4Dash'
-Version: 0.3.0.9002
+Version: 0.3.0.9003
 Authors@R: c(
     person("Mohammed", "Ali",      role = c("aut", "cre"), email   = "mohammed@aggregate-genius.com"),
     person("Constance", "Brett",   role = c("ctb")),

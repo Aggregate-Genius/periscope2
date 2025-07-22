@@ -8,8 +8,7 @@ downloadableReactTableUI(
   id,
   downloadtypes = NULL,
   hovertext = NULL,
-  contentHeight = "200px",
-  singleSelect = FALSE
+  contentHeight = "200px"
 )
 }
 \arguments{
@@ -20,12 +19,9 @@ downloadableReactTableUI(
 \item{hovertext}{download button tooltip hover text}
 
 \item{contentHeight}{viewable height of the table (any valid css size value)}
-
-\item{singleSelect}{whether the table should only allow a single row to be
-selected at a time (FALSE by default allows multi-select).}
 }
 \value{
-list of downloadFileButton UI and reactable table and hidden inputs for contentHeight and singleSelect options
+list of downloadFileButton UI and reactable table and hidden inputs for contentHeight option
 }
 \description{
 downloadableReactTable module is extending \code{?reactable} package table functions by creating
@@ -76,14 +72,15 @@ if (interactive()) {
  library(shiny)
  library(periscope2)
  shinyApp(ui = fluidPage(fluidRow(column(width = 12,
-   downloadableReactTableUI("object_id1",
-                            downloadtypes = c("csv", "tsv"),
-                            hovertext     = "Download the data here!",
-                            contentHeight = "300px",
-                            singleSelect  = TRUE)))),
-   server = function(input, output) {
-       downloadableReactTable(id         = "object_id1",
-                              table_data = reactiveVal(mtcars))})
+    downloadableReactTableUI("object_id1",
+                             downloadtypes = c("csv", "tsv"),
+                             hovertext     = "Download the data here!",
+                             contentHeight = "300px")))),
+         server = function(input, output) {
+           downloadableReactTable(id                = "object_id1",
+                                  table_data        = reactiveVal(mtcars),
+                                  selection_mode    = "multiple",
+                                  pre_selected_rows = function() {c(1, 3, 5)})})
 }
 
 }

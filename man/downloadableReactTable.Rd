@@ -4,12 +4,27 @@
 \alias{downloadableReactTable}
 \title{downloadableReactTable module server function}
 \usage{
-downloadableReactTable(id, table_data)
+downloadableReactTable(
+  id,
+  table_data,
+  selection_mode = NULL,
+  pre_selected_rows = NULL
+)
 }
 \arguments{
 \item{id}{the ID of the Module's UI element}
 
 \item{table_data}{reactive expression (or parameter-less function) that acts as table data source}
+
+\item{selection_mode}{to enable row selection, set \code{selection_mode} value to either "single" for single row
+selection or "multiple" for multiple rows selection, case insensitive. Any other value will
+disable row selection, (default = NULL). An additional column will be added to the table if
+selection mode is enabled with radio buttons for single row selection and checkboxes for
+"multiple" rows selection mode.}
+
+\item{pre_selected_rows}{reactive expression (or parameter-less function) provides the rows indices of the rows to
+be selected when the table is rendered. If selection_mode is disabled, this parameter will
+have no effect. If selection_mode is "single" only first row index will be used.}
 }
 \value{
 Rendered react table
@@ -30,14 +45,15 @@ if (interactive()) {
  library(shiny)
  library(periscope2)
  shinyApp(ui = fluidPage(fluidRow(column(width = 12,
-   downloadableReactTableUI("object_id1",
-                            downloadtypes = c("csv", "tsv"),
-                            hovertext     = "Download the data here!",
-                            contentHeight = "300px",
-                            singleSelect  = TRUE)))),
-   server = function(input, output) {
-       downloadableReactTable(id         = "object_id1",
-                              table_data = reactiveVal(mtcars))})
+    downloadableReactTableUI("object_id1",
+                             downloadtypes = c("csv", "tsv"),
+                             hovertext     = "Download the data here!",
+                             contentHeight = "300px")))),
+         server = function(input, output) {
+           downloadableReactTable(id                = "object_id1",
+                                  table_data        = reactiveVal(mtcars),
+                                  selection_mode    = "multiple",
+                                  pre_selected_rows = function() {c(1, 3, 5)})})
 }
 
 }

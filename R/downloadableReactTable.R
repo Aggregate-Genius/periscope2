@@ -17,10 +17,8 @@
 #' @param downloadtypes vector of values for data download types
 #' @param hovertext download button tooltip hover text
 #' @param contentHeight viewable height of the table (any valid css size value)
-#' @param singleSelect whether the table should only allow a single row to be
-#' selected at a time (FALSE by default allows multi-select).
 #'
-#' @return list of downloadFileButton UI and reactable table and hidden inputs for contentHeight and singleSelect options
+#' @return list of downloadFileButton UI and reactable table and hidden inputs for contentHeight option
 #'
 #' @section Table Features:
 #' \itemize{
@@ -61,22 +59,22 @@
 #'  library(shiny)
 #'  library(periscope2)
 #'  shinyApp(ui = fluidPage(fluidRow(column(width = 12,
-#'    downloadableReactTableUI("object_id1",
-#'                             downloadtypes = c("csv", "tsv"),
-#'                             hovertext     = "Download the data here!",
-#'                             contentHeight = "300px",
-#'                             singleSelect  = TRUE)))),
-#'    server = function(input, output) {
-#'        downloadableReactTable(id         = "object_id1",
-#'                               table_data = reactiveVal(mtcars))})
+#'     downloadableReactTableUI("object_id1",
+#'                              downloadtypes = c("csv", "tsv"),
+#'                              hovertext     = "Download the data here!",
+#'                              contentHeight = "300px")))),
+#'          server = function(input, output) {
+#'            downloadableReactTable(id                = "object_id1",
+#'                                   table_data        = reactiveVal(mtcars),
+#'                                   selection_mode    = "multiple",
+#'                                   pre_selected_rows = function() {c(1, 3, 5)})})
 #'}
 #'
 #' @export
 downloadableReactTableUI <- function(id,
                                      downloadtypes = NULL,
                                      hovertext     = NULL,
-                                     contentHeight = "200px",
-                                     singleSelect  = FALSE) {
+                                     contentHeight = "200px") {
     ns <- shiny::NS(id)
     list(
         shiny::conditionalPanel(
@@ -103,14 +101,7 @@ downloadableReactTableUI <- function(id,
             id    = ns("reactTableOutputHeight"),
             type  = "text",
             class = "shiny-input-container hidden",
-            value = contentHeight),
-        # TODO: test this function when table selection options is active in
-        # server function
-        shiny::tags$input(
-            id    = ns("reactTableSingleSelect"),
-            type  = "text",
-            class = "shiny-input-container hidden",
-            value = singleSelect)
+            value = contentHeight)
         )
 }
 
@@ -122,7 +113,14 @@ downloadableReactTableUI <- function(id,
 #'
 #' @param id  the ID of the Module's UI element
 #' @param table_data reactive expression (or parameter-less function) that acts as table data source
-#'
+#' @param selection_mode to enable row selection, set \code{selection_mode} value to either "single" for single row
+#'                       selection or "multiple" for multiple rows selection, case insensitive. Any other value will
+#'                       disable row selection, (default = NULL). An additional column will be added to the table if
+#'                       selection mode is enabled with radio buttons for single row selection and checkboxes for
+#'                       "multiple" rows selection mode.
+#' @param pre_selected_rows reactive expression (or parameter-less function) provides the rows indices of the rows to
+#'                          be selected when the table is rendered. If selection_mode is disabled, this parameter will
+#'                          have no effect. If selection_mode is "single" only first row index will be used.
 #' @return Rendered react table
 #'
 #' @section Shiny Usage:
@@ -144,37 +142,95 @@ downloadableReactTableUI <- function(id,
 #'  library(shiny)
 #'  library(periscope2)
 #'  shinyApp(ui = fluidPage(fluidRow(column(width = 12,
-#'    downloadableReactTableUI("object_id1",
-#'                             downloadtypes = c("csv", "tsv"),
-#'                             hovertext     = "Download the data here!",
-#'                             contentHeight = "300px",
-#'                             singleSelect  = TRUE)))),
-#'    server = function(input, output) {
-#'        downloadableReactTable(id         = "object_id1",
-#'                               table_data = reactiveVal(mtcars))})
+#'     downloadableReactTableUI("object_id1",
+#'                              downloadtypes = c("csv", "tsv"),
+#'                              hovertext     = "Download the data here!",
+#'                              contentHeight = "300px")))),
+#'          server = function(input, output) {
+#'            downloadableReactTable(id                = "object_id1",
+#'                                   table_data        = reactiveVal(mtcars),
+#'                                   selection_mode    = "multiple",
+#'                                   pre_selected_rows = function() {c(1, 3, 5)})})
 #'}
 #'
 #' @export
 downloadableReactTable <- function(id,
-                                   table_data) {
+                                   table_data,
+                                   selection_mode    = NULL,
+                                   pre_selected_rows = NULL) {
         shiny::moduleServer(id,
              function(input, output, session) {
                  if (is.null(table_data) || !is.function(table_data)) {
+                     message("'table_data' parameter must be a function or reactive expression.")
                      output$reactTableOutputID <- reactable::renderReactable({ NULL })
                  } else {
-                     table_react_params <- shiny::reactiveValues(table_data = NULL)
+                     table_react_params <- shiny::reactiveValues(table_data        = NULL,
+                                                                 pre_selected_rows = NULL)
+                     if (!is.null(pre_selected_rows) && !is.function(pre_selected_rows)) {
+                         message("'pre_selected_rows' parameter must be a function or reactive expression. Setting default value NULL.")
+                         pre_selected_rows <- NULL
+                     }
+
                      shiny::observe({
                          if (!is.data.frame(table_data())) {
                              table_data <- shiny::reactiveVal(data.frame(table_data()))
                          }
                          table_react_params$table_data <- table_data()
                      })
+
+                     shiny::observe({
+                         table_react_params$pre_selected_rows <- NULL
+                         if ((is.null(selection_mode) || !(tolower(selection_mode) %in% c("single", "multiple"))) &&
+                              !is.null(pre_selected_rows)) {
+                             message("'selection_mode' parameter must be either 'single' or 'multiple' to use 'pre_selected_rows' param. Setting default value NULL.")
+                         } else if (!is.null(pre_selected_rows) && !is.numeric(pre_selected_rows())) {
+                             message("'pre_selected_rows' parameter must be a function or reactive expression that returns numeric vector. Setting default value NULL.")
+                         } else if (!is.null(pre_selected_rows)) {
+                             table_react_params$pre_selected_rows <- pre_selected_rows()
+                         }
+
+                     })
                      output$reactTableOutputID <- reactable::renderReactable({
                          table_output <- NULL
+
                          if (!all(is.na(table_react_params$table_data)) &&
                              !is.null(table_react_params$table_data) &&
                              (NCOL(table_react_params$table_data) > 0)) {
-                             table_output <- reactable::reactable(data = table_react_params$table_data)
+                             row_selection_mode <- NULL
+                             if (!is.null(selection_mode) && (tolower(selection_mode) %in% c("single", "multiple"))) {
+                                 row_selection_mode <- tolower(selection_mode)
+
+                                 if ((row_selection_mode == "single") && (length(table_react_params$pre_selected_rows) > 1)) {
+                                     message("when 'selection_mode' is 'single', only first value of 'pre_selected_rows' will be used")
+                                     table_react_params$pre_selected_rows <- table_react_params$pre_selected_rows[1]
+                                 }
+
+                                 if (length(table_react_params$pre_selected_rows) > 0) {
+                                     excluded_indices <- table_react_params$pre_selected_rows[
+                                         sapply(table_react_params$pre_selected_rows,
+                                                function(x) {
+                                                    x < 1 || x > NROW(table_react_params$table_data)
+                                                    })]
+                                     if (length(excluded_indices) > 0) {
+                                         if (length(excluded_indices) == length(table_react_params$pre_selected_rows)) {
+                                             message("All 'pre_selected_rows' values are out of range. Setting default value NULL.")
+                                             table_react_params$pre_selected_rows <- NULL
+                                         } else {
+                                             value_msg <- paste("value:", excluded_indices[1] ,"as it is")
+                                             if (length(excluded_indices) > 1) {
+                                                 value_msg <- paste("values:", paste0(excluded_indices, collapse = ", "), "as they are")
+                                             }
+
+                                             message(paste("Excluding 'pre_selected_rows'" , value_msg, "out of range."))
+                                             table_react_params$pre_selected_rows <- table_react_params$pre_selected_rows[
+                                                 !(table_react_params$pre_selected_rows %in% excluded_indices)]
+                                         }
+                                     }
+                                 }
+                             }
+                             table_output <- reactable::reactable(data            = table_react_params$table_data,
+                                                                  selection       = row_selection_mode,
+                                                                  defaultSelected = table_react_params$pre_selected_rows)
                          }
                          table_output
                     })
