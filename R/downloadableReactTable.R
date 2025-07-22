@@ -121,7 +121,7 @@ downloadableReactTableUI <- function(id,
 #' @param pre_selected_rows reactive expression (or parameter-less function) provides the rows indices of the rows to
 #'                          be selected when the table is rendered. If selection_mode is disabled, this parameter will
 #'                          have no effect. If selection_mode is "single" only first row index will be used.
-#' @param file_name_root the text used for user-downloaded file - can be either a character string,
+#' @param file_name_root the base text used for user-downloaded file. It can be either a character string,
 #'                       a reactive expression or a function returning a character string
 #' @param download_data_fxns a \strong{named} list of functions providing the data as return values.
 #'                           The names for the list should be the same names that were used when the table UI was created
@@ -164,7 +164,7 @@ downloadableReactTable <- function(id,
                                    table_data,
                                    selection_mode      = NULL,
                                    pre_selected_rows   = NULL,
-                                   file_name_root      = "download",
+                                   file_name_root      = "",
                                    download_data_fxns  = NULL,
                                    logger              = NULL) {
         shiny::moduleServer(id,
@@ -173,8 +173,31 @@ downloadableReactTable <- function(id,
                      message("'table_data' parameter must be a function or reactive expression.")
                      output$reactTableOutputID <- reactable::renderReactable({ NULL })
                  } else {
-                     table_react_params <- shiny::reactiveValues(table_data        = NULL,
-                                                                 pre_selected_rows = NULL)
+                     table_react_params <- shiny::reactiveValues(table_data         = NULL,
+                                                                 pre_selected_rows  = NULL,
+                                                                 download_data_fxns = NULL)
+                     if (is.null(file_name_root)) {
+                         message("'file_name_root' parameter should not be NULL. Setting default value ''.")
+                         file_name_root <- ""
+                     }
+
+                     downloadFile(id           = "reactTableButtonID",
+                                  logger       = logger,
+                                  filenameroot = file_name_root,
+                                  datafxns     = download_data_fxns)
+                     session$sendCustomMessage("downloadbutton_toggle",
+                                               message = list(btn  = session$ns("reactTableButtonDiv"),
+                                                              rows = -1))
+                     shiny::observe({
+                         if (length(download_data_fxns) > 0) {
+                             session$sendCustomMessage("downloadbutton_toggle",
+                                                       message = list(btn  = session$ns("reactTableButtonDiv"),
+                                                                      rows = length(download_data_fxns) > 0))
+                         }
+                         output$displayButton <- shiny::reactive(length(download_data_fxns) > 0)
+                         shiny::outputOptions(output, "displayButton", suspendWhenHidden = FALSE)
+                    })
+
                      if (!is.null(pre_selected_rows) && !is.function(pre_selected_rows)) {
                          message("'pre_selected_rows' parameter must be a function or reactive expression. Setting default value NULL.")
                          pre_selected_rows <- NULL
