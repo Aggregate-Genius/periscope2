@@ -214,9 +214,9 @@ downloadableReactTable <- function(id,
                          table_react_params$pre_selected_rows <- NULL
                          if ((is.null(selection_mode) || !(tolower(selection_mode) %in% c("single", "multiple"))) &&
                               !is.null(pre_selected_rows)) {
-                             message("'selection_mode' parameter must be either 'single'or 'multiple' to use 'pre_selected_rows' param. Setting default value NULL.")
+                             message("'selection_mode' parameter must be either 'single' or 'multiple' to use 'pre_selected_rows' param. Setting default value NULL.")
                          } else if (!is.null(pre_selected_rows) && !is.numeric(pre_selected_rows())) {
-                             message("'pre_selected_rows' parameter must function or reactive expression must return numeric vector. Setting default value NULL.")
+                             message("'pre_selected_rows' parameter must be a function or reactive expression that returns numeric vector. Setting default value NULL.")
                          } else if (!is.null(pre_selected_rows)) {
                              table_react_params$pre_selected_rows <- pre_selected_rows()
                          }
@@ -233,8 +233,31 @@ downloadableReactTable <- function(id,
                                  row_selection_mode <- tolower(selection_mode)
 
                                  if ((row_selection_mode == "single") && (length(table_react_params$pre_selected_rows) > 1)) {
-                                     message("'selection_mode' is 'single' only first value of 'pre_selected_rows' will be used")
+                                     message("when 'selection_mode' is 'single', only first value of 'pre_selected_rows' will be used")
                                      table_react_params$pre_selected_rows <- table_react_params$pre_selected_rows[1]
+                                 }
+
+                                 if (length(table_react_params$pre_selected_rows) > 0) {
+                                     excluded_indices <- table_react_params$pre_selected_rows[
+                                         sapply(table_react_params$pre_selected_rows,
+                                                function(x) {
+                                                    x < 1 || x > NROW(table_react_params$table_data)
+                                                    })]
+                                     if (length(excluded_indices) > 0) {
+                                         if (length(excluded_indices) == length(table_react_params$pre_selected_rows)) {
+                                             message("All 'pre_selected_rows' values are out of range. Setting default value NULL.")
+                                             table_react_params$pre_selected_rows <- NULL
+                                         } else {
+                                             value_msg <- paste("value:", excluded_indices[1] ,"as it is")
+                                             if (length(excluded_indices) > 1) {
+                                                 value_msg <- paste("values:", paste0(excluded_indices, collapse = ", "), "as they are")
+                                             }
+
+                                             message(paste("Excluding 'pre_selected_rows'" , value_msg, "out of range."))
+                                             table_react_params$pre_selected_rows <- table_react_params$pre_selected_rows[
+                                                 !(table_react_params$pre_selected_rows %in% excluded_indices)]
+                                         }
+                                     }
                                  }
                              }
                              table_output <- reactable::reactable(data            = table_react_params$table_data,

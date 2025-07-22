@@ -187,7 +187,7 @@ test_that("downloadableReactTable - pre_selected_rows", {
                args = list(table_data        = get_mtcars_data,
                            pre_selected_rows = function() {c(1, 3)}),
                expr = {
-                   msg <- "'selection_mode' parameter must be either 'single'or 'multiple' to use 'pre_selected_rows' param. Setting default value NULL"
+                   msg <- "'selection_mode' parameter must be either 'single' or 'multiple' to use 'pre_selected_rows' param. Setting default value NULL"
                    expect_message(output$reactTableOutputID, msg)
                })
 
@@ -206,7 +206,7 @@ test_that("downloadableReactTable - pre_selected_rows", {
                            selection_mode    = "multiple",
                            pre_selected_rows = function() {c(1, 3, "a")}),
                expr = {
-                   msg <- "'pre_selected_rows' parameter must function or reactive expression must return numeric vector. Setting default value NULL."
+                   msg <- "'pre_selected_rows' parameter must be a function or reactive expression that returns numeric vector. Setting default value NULL."
                    expect_message(output$reactTableOutputID, msg)
                })
 
@@ -215,7 +215,7 @@ test_that("downloadableReactTable - pre_selected_rows", {
                            selection_mode    = "single",
                            pre_selected_rows = function() {c(1, 3)}),
                expr = {
-                   msg <- "'selection_mode' is 'single' only first value of 'pre_selected_rows' will be used"
+                   msg <- "when 'selection_mode' is 'single', only first value of 'pre_selected_rows' will be used"
                    expect_message(output$reactTableOutputID, msg)
                    expect_true(grepl('"defaultSelected":[0]', output$reactTableOutputID, fixed = TRUE))
                })
@@ -235,4 +235,53 @@ test_that("downloadableReactTable - pre_selected_rows", {
                expr = {
                    expect_true(grepl('"defaultSelected":[0,2]', output$reactTableOutputID, fixed = TRUE))
                })
+
+    testServer(downloadableReactTable,
+               args = list(table_data        = get_mtcars_data,
+                           selection_mode    = "multiple",
+                           pre_selected_rows = function() {c(1, 300)}),
+               expr = {
+                   expect_message(output$reactTableOutputID, "Excluding 'pre_selected_rows' value: 300 as it is out of range.")
+                   expect_true(grepl('"defaultSelected":[0]', output$reactTableOutputID, fixed = TRUE))
+               })
+
+    testServer(downloadableReactTable,
+               args = list(table_data        = get_mtcars_data,
+                           selection_mode    = "multiple",
+                           pre_selected_rows = function() {c(-1, 2)}),
+               expr = {
+                   expect_message(output$reactTableOutputID, "Excluding 'pre_selected_rows' value: -1 as it is out of range.")
+                   expect_true(grepl('"defaultSelected":[1]', output$reactTableOutputID, fixed = TRUE))
+               })
+
+    testServer(downloadableReactTable,
+               args = list(table_data        = get_mtcars_data,
+                           selection_mode    = "multiple",
+                           pre_selected_rows = function() {c(-1, 2, 4, 300)}),
+               expr = {
+                   expect_message(output$reactTableOutputID, "Excluding 'pre_selected_rows' values: -1, 300 as they are out of range.")
+                   expect_true(grepl('"defaultSelected":[1,3]', output$reactTableOutputID, fixed = TRUE))
+               })
+
+    expect_message(
+        testServer(downloadableReactTable,
+                   args = list(table_data        = get_mtcars_data,
+                               selection_mode    = "multiple",
+                               pre_selected_rows = function() {c(-1, 300)}),
+                   expr = {
+                       expect_false(grepl('"defaultSelected"', output$reactTableOutputID, fixed = TRUE))
+               }),
+        "All 'pre_selected_rows' values are out of range. Setting default value NULL.")
+
+        expect_message(
+        testServer(downloadableReactTable,
+                   args = list(table_data        = get_mtcars_data,
+                               selection_mode    = "single",
+                               pre_selected_rows = function() {c(-1, 300)}),
+                   expr = {
+                       msg <- "when 'selection_mode' is 'single', only first value of 'pre_selected_rows' will be used"
+                       expect_message(output$reactTableOutputID, msg)
+                       expect_false(grepl('"defaultSelected"', output$reactTableOutputID, fixed = TRUE))
+               }),
+        "All 'pre_selected_rows' values are out of range. Setting default value NULL.")
 })
