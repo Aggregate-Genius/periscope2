@@ -303,7 +303,7 @@ test_that("downloadableReactTable - pre_selected_rows", {
 })
 
 
-test_that("downloadableReactTable - file_name_root", {
+test_that("downloadableReactTable - file_name_root and download_data_fxns", {
     testServer(downloadableReactTable,
                    args = list(table_data         = get_mtcars_data,
                                download_data_fxns = list(csv = get_mtcars_data),
