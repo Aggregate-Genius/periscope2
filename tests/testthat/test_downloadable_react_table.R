@@ -301,3 +301,38 @@ test_that("downloadableReactTable - pre_selected_rows", {
                        expect_false(grepl('"defaultSelected"', output$reactTableOutputID, fixed = TRUE))
                })
 })
+
+
+test_that("downloadableReactTable - file_name_root", {
+    testServer(downloadableReactTable,
+                   args = list(table_data         = get_mtcars_data,
+                               download_data_fxns = list(csv = get_mtcars_data),
+                               file_name_root     = "test"),
+                   expr = {
+                       expect_true(grepl(paste0(names(get_mtcars_data()), collapse = "|"), output$reactTableOutputID))
+               })
+
+    testServer(downloadableReactTable,
+                   args = list(table_data         = get_mtcars_data,
+                               download_data_fxns = list(csv = get_mtcars_data),
+                               file_name_root     = reactiveVal("test")),
+                   expr = {
+                       expect_true(grepl(paste0(names(get_mtcars_data()), collapse = "|"), output$reactTableOutputID))
+               })
+
+    testServer(downloadableReactTable,
+                   args = list(table_data         = function(){"test"},
+                               download_data_fxns = list(csv = get_mtcars_data),
+                               file_name_root     = reactiveVal("test")),
+                   expr = {
+                       expect_true(grepl(paste0(names(get_mtcars_data()), collapse = "|"), output$reactTableOutputID))
+               })
+
+    testServer(downloadableReactTable,
+                   args = list(table_data         = function(){"test"},
+                               download_data_fxns = list(csv = get_mtcars_data),
+                               file_name_root     = reactiveVal("test")),
+                   expr = {
+                       expect_true(grepl(paste0(names(get_mtcars_data()), collapse = "|"), output$reactTableOutputID))
+               })
+})
