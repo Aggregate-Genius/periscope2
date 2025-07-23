@@ -122,7 +122,7 @@ downloadableReactTableUI <- function(id,
 #'                          be selected when the table is rendered. If selection_mode is disabled, this parameter will
 #'                          have no effect. If selection_mode is "single" only first row index will be used.
 #' @param file_name_root the base text used for user-downloaded file. It can be either a character string,
-#'                       a reactive expression or a function returning a character string
+#'                       a reactive expression or a function returning a character string (default = 'data_file')
 #' @param download_data_fxns a \strong{named} list of functions providing the data as return values.
 #'                           The names for the list should be the same names that were used when the table UI was created
 #' @param logger logger to use
@@ -164,7 +164,7 @@ downloadableReactTable <- function(id,
                                    table_data,
                                    selection_mode      = NULL,
                                    pre_selected_rows   = NULL,
-                                   file_name_root      = "",
+                                   file_name_root      = "data_file",
                                    download_data_fxns  = NULL,
                                    logger              = NULL) {
         shiny::moduleServer(id,
@@ -176,7 +176,7 @@ downloadableReactTable <- function(id,
                      table_react_params <- shiny::reactiveValues(table_data        = NULL,
                                                                  pre_selected_rows = NULL)
                      if (is.null(file_name_root)) {
-                         logwarn("'file_name_root' parameter should not be NULL. Setting default value ''.", logger = logger)
+                         logwarn("'file_name_root' parameter should not be NULL. Setting default value 'data_file'.", logger = logger)
                          file_name_root <- ""
                      }
 

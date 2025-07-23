@@ -9,7 +9,7 @@ downloadableReactTable(
   table_data,
   selection_mode = NULL,
   pre_selected_rows = NULL,
-  file_name_root = "download",
+  file_name_root = "data_file",
   download_data_fxns = NULL,
   logger = NULL
 )
@@ -29,8 +29,8 @@ selection mode is enabled with radio buttons for single row selection and checkb
 be selected when the table is rendered. If selection_mode is disabled, this parameter will
 have no effect. If selection_mode is "single" only first row index will be used.}
 
-\item{file_name_root}{the text used for user-downloaded file - can be either a character string,
-a reactive expression or a function returning a character string}
+\item{file_name_root}{the base text used for user-downloaded file. It can be either a character string,
+a reactive expression or a function returning a character string (default = 'data_file')}
 
 \item{download_data_fxns}{a \strong{named} list of functions providing the data as return values.
 The names for the list should be the same names that were used when the table UI was created}

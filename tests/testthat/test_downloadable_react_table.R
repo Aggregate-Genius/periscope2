@@ -323,16 +323,19 @@ test_that("downloadableReactTable - file_name_root and download_data_fxns", {
     testServer(downloadableReactTable,
                    args = list(table_data         = function(){"test"},
                                download_data_fxns = list(csv = get_mtcars_data),
-                               file_name_root     = reactiveVal("test")),
+                               file_name_root     = function() { "test" }),
                    expr = {
                        expect_true(grepl(paste0(names(get_mtcars_data()), collapse = "|"), output$reactTableOutputID))
                })
 
-    testServer(downloadableReactTable,
+    server_warning <- capture_output(testServer(downloadableReactTable,
                    args = list(table_data         = function(){"test"},
                                download_data_fxns = list(csv = get_mtcars_data),
-                               file_name_root     = reactiveVal("test")),
+                               file_name_root     = NULL),
                    expr = {
                        expect_true(grepl(paste0(names(get_mtcars_data()), collapse = "|"), output$reactTableOutputID))
-               })
+               }), print = TRUE)
+
+    warn_msg <- "file_name_root' parameter should not be NULL. Setting default value 'data_file'"
+    expect_true(grepl(warn_msg, server_warning))
 })
