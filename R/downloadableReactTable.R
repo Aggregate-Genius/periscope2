@@ -170,13 +170,13 @@ downloadableReactTable <- function(id,
         shiny::moduleServer(id,
              function(input, output, session) {
                  if (is.null(table_data) || !is.function(table_data)) {
-                     message("'table_data' parameter must be a function or reactive expression.")
+                     logerror("'table_data' parameter must be a function or reactive expression.", logger = logger)
                      output$reactTableOutputID <- reactable::renderReactable({ NULL })
                  } else {
                      table_react_params <- shiny::reactiveValues(table_data        = NULL,
                                                                  pre_selected_rows = NULL)
                      if (is.null(file_name_root)) {
-                         message("'file_name_root' parameter should not be NULL. Setting default value ''.")
+                         logwarn("'file_name_root' parameter should not be NULL. Setting default value ''.", logger = logger)
                          file_name_root <- ""
                      }
 
@@ -195,7 +195,7 @@ downloadableReactTable <- function(id,
                     })
 
                      if (!is.null(pre_selected_rows) && !is.function(pre_selected_rows)) {
-                         message("'pre_selected_rows' parameter must be a function or reactive expression. Setting default value NULL.")
+                         logwarn("'pre_selected_rows' parameter must be a function or reactive expression. Setting default value NULL.", logger = logger)
                          pre_selected_rows <- NULL
                      }
 
@@ -210,9 +210,11 @@ downloadableReactTable <- function(id,
                          table_react_params$pre_selected_rows <- NULL
                          if ((is.null(selection_mode) || !(tolower(selection_mode) %in% c("single", "multiple"))) &&
                               !is.null(pre_selected_rows)) {
-                             message("'selection_mode' parameter must be either 'single' or 'multiple' to use 'pre_selected_rows' param. Setting default value NULL.")
+                             logwarn("'selection_mode' parameter must be either 'single' or 'multiple' to use 'pre_selected_rows' param. Setting default value NULL.",
+                                     logger = logger)
                          } else if (!is.null(pre_selected_rows) && !is.numeric(pre_selected_rows())) {
-                             message("'pre_selected_rows' parameter must be a function or reactive expression that returns numeric vector. Setting default value NULL.")
+                             logwarn("'pre_selected_rows' parameter must be a function or reactive expression that returns numeric vector. Setting default value NULL.",
+                                     logger = logger)
                          } else if (!is.null(pre_selected_rows)) {
                              table_react_params$pre_selected_rows <- pre_selected_rows()
                          }
@@ -229,7 +231,8 @@ downloadableReactTable <- function(id,
                                  row_selection_mode <- tolower(selection_mode)
 
                                  if ((row_selection_mode == "single") && (length(table_react_params$pre_selected_rows) > 1)) {
-                                     message("when 'selection_mode' is 'single', only first value of 'pre_selected_rows' will be used")
+                                     logwarn("when 'selection_mode' is 'single', only first value of 'pre_selected_rows' will be used",
+                                             logger = logger)
                                      table_react_params$pre_selected_rows <- table_react_params$pre_selected_rows[1]
                                  }
 
@@ -241,7 +244,8 @@ downloadableReactTable <- function(id,
                                                     })]
                                      if (length(excluded_indices) > 0) {
                                          if (length(excluded_indices) == length(table_react_params$pre_selected_rows)) {
-                                             message("All 'pre_selected_rows' values are out of range. Setting default value NULL.")
+                                             logwarn("All 'pre_selected_rows' values are out of range. Setting default value NULL.",
+                                                     logger = logger)
                                              table_react_params$pre_selected_rows <- NULL
                                          } else {
                                              value_msg <- paste("value:", excluded_indices[1] ,"as it is")
@@ -249,7 +253,8 @@ downloadableReactTable <- function(id,
                                                  value_msg <- paste("values:", paste0(excluded_indices, collapse = ", "), "as they are")
                                              }
 
-                                             message(paste("Excluding 'pre_selected_rows'" , value_msg, "out of range."))
+                                             logwarn(paste("Excluding 'pre_selected_rows'" , value_msg, "out of range."),
+                                                     logger = logger)
                                              table_react_params$pre_selected_rows <- table_react_params$pre_selected_rows[
                                                  !(table_react_params$pre_selected_rows %in% excluded_indices)]
                                          }
