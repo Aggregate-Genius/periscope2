@@ -173,9 +173,8 @@ downloadableReactTable <- function(id,
                      message("'table_data' parameter must be a function or reactive expression.")
                      output$reactTableOutputID <- reactable::renderReactable({ NULL })
                  } else {
-                     table_react_params <- shiny::reactiveValues(table_data         = NULL,
-                                                                 pre_selected_rows  = NULL,
-                                                                 download_data_fxns = NULL)
+                     table_react_params <- shiny::reactiveValues(table_data        = NULL,
+                                                                 pre_selected_rows = NULL)
                      if (is.null(file_name_root)) {
                          message("'file_name_root' parameter should not be NULL. Setting default value ''.")
                          file_name_root <- ""
@@ -185,9 +184,6 @@ downloadableReactTable <- function(id,
                                   logger       = logger,
                                   filenameroot = file_name_root,
                                   datafxns     = download_data_fxns)
-                     session$sendCustomMessage("downloadbutton_toggle",
-                                               message = list(btn  = session$ns("reactTableButtonDiv"),
-                                                              rows = -1))
                      shiny::observe({
                          if (length(download_data_fxns) > 0) {
                              session$sendCustomMessage("downloadbutton_toggle",
