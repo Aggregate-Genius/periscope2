@@ -166,6 +166,8 @@ downloadableReactTable <- function(id,
                                    pre_selected_rows  = NULL,
                                    file_name_root     = "data_file",
                                    download_data_fxns = NULL,
+                                   pagination         = FALSE,
+                                   height             = 200,
                                    logger             = NULL) {
         shiny::moduleServer(id,
              function(input, output, session) {
@@ -258,7 +260,9 @@ downloadableReactTable <- function(id,
                              }
                              table_output <- reactable::reactable(data            = table_react_params$table_data,
                                                                   selection       = row_selection_mode,
-                                                                  defaultSelected = table_react_params$pre_selected_rows)
+                                                                  defaultSelected = table_react_params$pre_selected_rows,
+                                                                  pagination      = FALSE,
+                                                                  height          = 200)
                          }
                          table_output
                     })
