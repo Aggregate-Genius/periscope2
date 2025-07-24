@@ -119,6 +119,8 @@ downloadableReactTableUI <- function(id,
 #' @param enable_columns_filter enable each column own filter input in the table (default = FALSE)
 #' @param enable_global_search  enable table global searching input to search and filter in all columns at once
 #'                              (default = TRUE)
+#' @param row_highlight enable highlighting rows upon mouse hover
+#' @param striped add zebra-striped style to table rows
 #' @param logger logger to use
 #'
 #' @return Rendered react table
@@ -164,6 +166,8 @@ downloadableReactTable <- function(id,
                                    show_rownames         = FALSE,
                                    enable_columns_filter = FALSE,
                                    enable_global_search  = TRUE,
+                                   row_highlight         = TRUE,
+                                   striped               = TRUE,
                                    logger                = NULL) {
         shiny::moduleServer(id,
              function(input, output, session) {
@@ -261,7 +265,9 @@ downloadableReactTable <- function(id,
                                                                   height          = table_height,
                                                                   rownames        = show_rownames,
                                                                   filterable      = enable_columns_filter,
-                                                                  searchable      = enable_global_search)
+                                                                  searchable      = enable_global_search,
+                                                                  highlight       = row_highlight,
+                                                                  striped         = striped)
                          }
                          table_output
                     })

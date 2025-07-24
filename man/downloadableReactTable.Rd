@@ -16,6 +16,8 @@ downloadableReactTable(
   show_rownames = FALSE,
   enable_columns_filter = FALSE,
   enable_global_search = TRUE,
+  row_highlight = TRUE,
+  striped = TRUE,
   logger = NULL
 )
 }
@@ -50,6 +52,10 @@ The names for the list should be the same names that were used when the table UI
 
 \item{enable_global_search}{enable table global searching input to search and filter in all columns at once
 (default = TRUE)}
+
+\item{row_highlight}{enable highlighting rows upon mouse hover}
+
+\item{striped}{add zebra-striped style to table rows}
 
 \item{logger}{logger to use}
 }
