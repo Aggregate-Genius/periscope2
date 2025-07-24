@@ -162,11 +162,11 @@ downloadableReactTableUI <- function(id,
 #' @export
 downloadableReactTable <- function(id,
                                    table_data,
-                                   selection_mode      = NULL,
-                                   pre_selected_rows   = NULL,
-                                   file_name_root      = "data_file",
-                                   download_data_fxns  = NULL,
-                                   logger              = NULL) {
+                                   selection_mode     = NULL,
+                                   pre_selected_rows  = NULL,
+                                   file_name_root     = "data_file",
+                                   download_data_fxns = NULL,
+                                   logger             = NULL) {
         shiny::moduleServer(id,
              function(input, output, session) {
                  if (is.null(table_data) || !is.function(table_data)) {
@@ -177,7 +177,7 @@ downloadableReactTable <- function(id,
                                                                  pre_selected_rows = NULL)
                      if (is.null(file_name_root)) {
                          logwarn("'file_name_root' parameter should not be NULL. Setting default value 'data_file'.", logger = logger)
-                         file_name_root <- ""
+                         file_name_root <- "data_file"
                      }
 
                      downloadFile(id           = "reactTableButtonID",
