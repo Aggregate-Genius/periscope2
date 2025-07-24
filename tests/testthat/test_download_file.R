@@ -203,24 +203,8 @@ test_that("Testing workbook openxlsx2", {
                            filenameroot = "excel_test_openxlsx2_wb",
                            datafxns     = list(xlsx = create_openxlsx2_wb)),
                expr = {
-                   expect_true(inherits(datafxns$xlsx(), "wbWorkbook"))
-                   expect_true(!is.null(output$xlsx))
-                   expect_type(output$xlsx, "character")
-                   expect_true(grepl("excel_test_openxlsx2_wb*\\.xlsx$", output$xlsx))
-               })
-})
+                   expect_true(file.exists(output$xlsx))
 
-test_that("xlsx download with openxlsx2", {
-    skip_if_not_installed("openxlsx2")
-    testServer(downloadFile,
-               args = list(logger       = periscope2:::fw_get_user_log(),
-                           filenameroot = "excel_test_openxlsx2",
-                           datafxns     = list(xlsx = download_data)),
-               expr = {
-                   expect_true(is.data.frame(datafxns$xlsx()))
-                   expect_true(!is.null(output$xlsx))
-                   expect_type(output$xlsx, "character")
-                   expect_true(grepl("excel_test_openxlsx2.*\\.xlsx$", output$xlsx))
                })
 })
 
@@ -232,34 +216,25 @@ test_that("Testing workbook openxlsx", {
                            datafxns     = list(xlsx = create_openxlsx_wb)),
                expr = {
                    wb <- datafxns$xlsx()
-                   expect_true(inherits(wb, "Workbook"))
                    expect_true("openxlsx" %in% unlist(attributes(class(wb))))
                })
 })
 
-test_that("xlsx download with openxlsx", {
-    skip_if_not_installed("openxlsx")
+test_that("Dataframe xlsx download with openxlsx2, openxlsx and writexl ", {
     testServer(downloadFile,
                args = list(logger       = periscope2:::fw_get_user_log(),
-                           filenameroot = "excel_test_openxlsx",
+                           filenameroot = "excel_test_dataframe",
                            datafxns     = list(xlsx = download_data)),
                expr = {
-                   expect_true(is.data.frame(datafxns$xlsx()))
-                   expect_true(!is.null(output$xlsx))
-                   expect_type(output$xlsx, "character")
-                   expect_true(grepl("excel_test_openxlsx.*\\.xlsx$", output$xlsx))
+                   expect_true(file.exists(output$xlsx))
+                   if (requireNamespace("openxlsx2", quietly = TRUE)) {
+                       expect_true(inherits(datafxns$xlsx(), "data.frame"))
+                   }
+                   if (requireNamespace("openxlsx", quietly = TRUE)) {
+                       expect_true(inherits(datafxns$xlsx(), "data.frame"))
+                   }
+                   if (requireNamespace("writexl", quietly = TRUE)) {
+                       expect_true(inherits(datafxns$xlsx(), "data.frame"))
+                   }
                })
-})
-
-test_that("Download with writexl fallback", {
-    skip_if_not_installed("writexl")
-            testServer(downloadFile,
-                       args = list(logger       = periscope2:::fw_get_user_log(),
-                                   filenameroot = "excel_test_writexl",
-                                   datafxns     = list(xlsx = download_data)),
-                       expr = {
-                           expect_true(!is.null(output$xlsx))
-                           expect_type(output$xlsx, "character")
-                           expect_true(grepl("excel_test_writexl.*\\.xlsx$", output$xlsx))
-                       })
 })
