@@ -13,6 +13,9 @@ downloadableReactTable(
   download_data_fxns = NULL,
   enale_pagination = FALSE,
   table_height = 600,
+  show_rownames = FALSE,
+  enable_columns_filter = FALSE,
+  enable_global_search = TRUE,
   logger = NULL
 )
 }
@@ -41,6 +44,13 @@ The names for the list should be the same names that were used when the table UI
 
 \item{table_height}{max table height in pixels. Vertical scroll will be shown after that height value}
 
+\item{show_rownames}{enable displaying rownames as a separate column (default = FALSE)}
+
+\item{enable_columns_filter}{enable each column own filter input in the table (default = FALSE)}
+
+\item{enable_global_search}{enable table global searching input to search and filter in all columns at once
+(default = TRUE)}
+
 \item{logger}{logger to use}
 }
 \value{
@@ -64,8 +74,7 @@ if (interactive()) {
  shinyApp(ui = fluidPage(fluidRow(column(width = 12,
     downloadableReactTableUI("object_id1",
                              downloadtypes = c("csv", "tsv"),
-                             hovertext     = "Download the data here!",
-                             contentHeight = "300px")))),
+                             hovertext     = "Download the data here!")))),
          server = function(input, output) {
            downloadableReactTable(id                = "object_id1",
                                   table_data        = reactiveVal(mtcars),

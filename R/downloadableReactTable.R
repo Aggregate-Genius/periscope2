@@ -16,7 +16,6 @@
 #' @param id character id for the object
 #' @param downloadtypes vector of values for data download types
 #' @param hovertext download button tooltip hover text
-#' @param contentHeight viewable height of the table (any valid css size value)
 #'
 #' @return list of downloadFileButton UI and reactable table and hidden inputs for contentHeight option
 #'
@@ -34,7 +33,7 @@
 #'
 #' @section Example:
 #' \code{downloadableReactTableUI("mytableID", c("csv", "tsv"),
-#' "Click Here", "300px")}
+#' "Click Here")}
 #'
 #' @section Notes:
 #' When there are no rows to download in any of the linked downloaddatafxns the
@@ -61,8 +60,7 @@
 #'  shinyApp(ui = fluidPage(fluidRow(column(width = 12,
 #'     downloadableReactTableUI("object_id1",
 #'                              downloadtypes = c("csv", "tsv"),
-#'                              hovertext     = "Download the data here!",
-#'                              contentHeight = "300px")))),
+#'                              hovertext     = "Download the data here!")))),
 #'          server = function(input, output) {
 #'            downloadableReactTable(id                = "object_id1",
 #'                                   table_data        = reactiveVal(mtcars),
@@ -73,13 +71,10 @@
 #' @export
 downloadableReactTableUI <- function(id,
                                      downloadtypes = NULL,
-                                     hovertext     = NULL,
-                                     contentHeight = "200px") {
+                                     hovertext     = NULL) {
     ns <- shiny::NS(id)
     list(
         shiny::conditionalPanel(
-            # TODO: this condition should be set in the server when
-            # download function is active
             condition = "output.displayButton",
             ns        = ns,
             shiny::span(
@@ -94,15 +89,8 @@ downloadableReactTableUI <- function(id,
                 downloadFileButton(ns("reactTableButtonID"),
                                    downloadtypes,
                                    hovertext))),
-        reactable::reactableOutput(ns("reactTableOutputID")),
-        # TODO: test this function when table options are passed to
-        # server function
-        shiny::tags$input(
-            id    = ns("reactTableOutputHeight"),
-            type  = "text",
-            class = "shiny-input-container hidden",
-            value = contentHeight)
-        )
+        reactable::reactableOutput(ns("reactTableOutputID"))
+    )
 }
 
 
@@ -127,6 +115,10 @@ downloadableReactTableUI <- function(id,
 #'                           The names for the list should be the same names that were used when the table UI was created
 #' @param enale_pagination to enable table pagination (default = FALSE)
 #' @param table_height max table height in pixels. Vertical scroll will be shown after that height value
+#' @param show_rownames enable displaying rownames as a separate column (default = FALSE)
+#' @param enable_columns_filter enable each column own filter input in the table (default = FALSE)
+#' @param enable_global_search  enable table global searching input to search and filter in all columns at once
+#'                              (default = TRUE)
 #' @param logger logger to use
 #'
 #' @return Rendered react table
@@ -152,8 +144,7 @@ downloadableReactTableUI <- function(id,
 #'  shinyApp(ui = fluidPage(fluidRow(column(width = 12,
 #'     downloadableReactTableUI("object_id1",
 #'                              downloadtypes = c("csv", "tsv"),
-#'                              hovertext     = "Download the data here!",
-#'                              contentHeight = "300px")))),
+#'                              hovertext     = "Download the data here!")))),
 #'          server = function(input, output) {
 #'            downloadableReactTable(id                = "object_id1",
 #'                                   table_data        = reactiveVal(mtcars),
@@ -164,13 +155,16 @@ downloadableReactTableUI <- function(id,
 #' @export
 downloadableReactTable <- function(id,
                                    table_data,
-                                   selection_mode     = NULL,
-                                   pre_selected_rows  = NULL,
-                                   file_name_root     = "data_file",
-                                   download_data_fxns = NULL,
-                                   enale_pagination   = FALSE,
-                                   table_height       = 600,
-                                   logger             = NULL) {
+                                   selection_mode        = NULL,
+                                   pre_selected_rows     = NULL,
+                                   file_name_root        = "data_file",
+                                   download_data_fxns    = NULL,
+                                   enale_pagination      = FALSE,
+                                   table_height          = 600,
+                                   show_rownames         = FALSE,
+                                   enable_columns_filter = FALSE,
+                                   enable_global_search  = TRUE,
+                                   logger                = NULL) {
         shiny::moduleServer(id,
              function(input, output, session) {
                  if (is.null(table_data) || !is.function(table_data)) {
@@ -264,7 +258,10 @@ downloadableReactTable <- function(id,
                                                                   selection       = row_selection_mode,
                                                                   defaultSelected = table_react_params$pre_selected_rows,
                                                                   pagination      = enale_pagination,
-                                                                  height          = table_height)
+                                                                  height          = table_height,
+                                                                  rownames        = show_rownames,
+                                                                  filterable      = enable_columns_filter,
+                                                                  searchable      = enable_global_search)
                          }
                          table_output
                     })
