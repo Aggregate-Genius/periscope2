@@ -121,6 +121,8 @@ downloadableReactTableUI <- function(id,
 #'                              (default = TRUE)
 #' @param row_highlight enable highlighting rows upon mouse hover
 #' @param striped add zebra-striped style to table rows
+#' @param table_options optional table formatting parameters check \code{?reactable::reactable} for options full list.
+#'                      Also see example below to see how to pass options
 #' @param logger logger to use
 #'
 #' @return Rendered react table
@@ -168,6 +170,7 @@ downloadableReactTable <- function(id,
                                    enable_global_search  = TRUE,
                                    row_highlight         = TRUE,
                                    striped               = TRUE,
+                                   table_options         = list(),
                                    logger                = NULL) {
         shiny::moduleServer(id,
              function(input, output, session) {

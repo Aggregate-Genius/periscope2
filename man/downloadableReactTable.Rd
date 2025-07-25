@@ -18,6 +18,7 @@ downloadableReactTable(
   enable_global_search = TRUE,
   row_highlight = TRUE,
   striped = TRUE,
+  table_options = list(),
   logger = NULL
 )
 }
@@ -56,6 +57,9 @@ The names for the list should be the same names that were used when the table UI
 \item{row_highlight}{enable highlighting rows upon mouse hover}
 
 \item{striped}{add zebra-striped style to table rows}
+
+\item{table_options}{optional table formatting parameters check \code{?reactable::reactable} for options full list.
+Also see example below to see how to pass options}
 
 \item{logger}{logger to use}
 }
