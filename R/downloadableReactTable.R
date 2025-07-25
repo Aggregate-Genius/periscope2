@@ -258,7 +258,7 @@ downloadableReactTable <- function(id,
                                      }
                                  }
                              }
-                             table_output <- reactable::reactable(data            = table_react_params$table_data,
+                             table_arguments <- list(data            = table_react_params$table_data,
                                                                   selection       = row_selection_mode,
                                                                   defaultSelected = table_react_params$pre_selected_rows,
                                                                   pagination      = enale_pagination,
@@ -268,6 +268,8 @@ downloadableReactTable <- function(id,
                                                                   searchable      = enable_global_search,
                                                                   highlight       = row_highlight,
                                                                   striped         = striped)
+                             table_output <- do.call(reactable::reactable, table_arguments)
+
                          }
                          table_output
                     })

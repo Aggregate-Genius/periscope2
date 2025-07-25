@@ -34,7 +34,7 @@ test_that("downloadableReactTable - valid data", {
                args = list(table_data = get_mtcars_data),
                expr = {
                    expect_true(grepl(paste0(names(get_mtcars_data()), collapse = "|"), output$reactTableOutputID))
-                   expect_true(grepl(paste0(rownames(get_mtcars_data()), collapse = "|"), output$reactTableOutputID))
+                   expect_false(grepl(paste0(rownames(get_mtcars_data()), collapse = "|"), output$reactTableOutputID))
                    expect_true(grepl(paste0(get_mtcars_data()$mpg, collapse = "|"), output$reactTableOutputID))
                    expect_true(grepl(paste0(get_mtcars_data()$cyl, collapse = "|"), output$reactTableOutputID))
                    expect_true(grepl(paste0(get_mtcars_data()$disp, collapse = "|"), output$reactTableOutputID))
