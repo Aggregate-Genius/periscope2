@@ -274,11 +274,19 @@ downloadableReactTable <- function(id,
                                                      striped         = striped)
                              if (length(table_options) > 0) {
                                  all_options       <- methods::formalArgs(reactable::reactable)
+                                 unnamed_options   <- append(table_options[names(table_options) == ""],
+                                                             table_options[is.null(names(table_options))])
                                  not_valid_options <- table_options[!(names(table_options) %in% all_options)]
+                                 not_valid_options <- not_valid_options[!(not_valid_options %in% unnamed_options)]
                                  valid_options     <- table_options[names(table_options) %in% all_options]
 
+                                 if (length(unnamed_options) > 0) {
+                                     logwarn(paste("Excluding the following unnamed option(s):",
+                                                   paste(unnamed_options, collapse = ", ")), logger = logger)
+                                 }
+
                                  if (length(not_valid_options) > 0) {
-                                     logwarn(paste("The following invalid option(s) will be excluded:",
+                                     logwarn(paste("Excluding the following invalid option(s):",
                                                    paste(names(not_valid_options), collapse = ", ")), logger = logger)
                                  }
 
