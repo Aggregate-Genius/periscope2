@@ -57,16 +57,34 @@
 #' if (interactive()) {
 #'  library(shiny)
 #'  library(periscope2)
-#'  shinyApp(ui = fluidPage(fluidRow(column(width = 12,
-#'     downloadableReactTableUI("object_id1",
-#'                              downloadtypes = c("csv", "tsv"),
-#'                              hovertext     = "Download the data here!")))),
-#'          server = function(input, output) {
-#'            downloadableReactTable(id                = "object_id1",
-#'                                   table_data        = reactiveVal(mtcars),
-#'                                   selection_mode    = "multiple",
-#'                                   pre_selected_rows = function() {c(1, 3, 5)})})
-#'}
+#'  library(reactable)
+#'
+#'  shinyApp(
+#'      ui = fluidPage(fluidRow(column(
+#'          width = 12,
+#'          downloadableReactTableUI(
+#'              id            = "object_id1",
+#'              downloadtypes = c("csv", "tsv"),
+#'              hovertext     = "Download the data here!")))),
+#'      server = function(input, output) {
+#'          downloadableReactTable(
+#'              id                = "object_id1",
+#'              table_data        = reactiveVal(iris),
+#'              selection_mode    = "multiple",
+#'              pre_selected_rows = function() {c(1, 3, 5)},
+#'              table_options     = list(columns = list(
+#'                  Sepal.Length = colDef(name = "Sepal Length"),
+#'                  Sepal.Width  = colDef(filterable = TRUE),
+#'                  Petal.Length = colDef(show = FALSE),
+#'                  Petal.Width  = colDef(defaultSortOrder = "desc")),
+#'                  showSortable = TRUE,
+#'                  theme = reactableTheme(
+#'                      headerStyle = list(
+#'                          "&:hover[aria-sort]" = list(background = "hsl(0, 0%, 96%)"),
+#'                          "&[aria-sort='ascending'], &[aria-sort='descending']" = list(background = "hsl(0, 0%, 96%)"),
+#'                          borderColor = "#'555"))))
+#'     })
+#' }
 #'
 #' @export
 downloadableReactTableUI <- function(id,
@@ -145,16 +163,33 @@ downloadableReactTableUI <- function(id,
 #' if (interactive()) {
 #'  library(shiny)
 #'  library(periscope2)
-#'  shinyApp(ui = fluidPage(fluidRow(column(width = 12,
-#'     downloadableReactTableUI("object_id1",
-#'                              downloadtypes = c("csv", "tsv"),
-#'                              hovertext     = "Download the data here!")))),
-#'          server = function(input, output) {
-#'            downloadableReactTable(id                = "object_id1",
-#'                                   table_data        = reactiveVal(mtcars),
-#'                                   selection_mode    = "multiple",
-#'                                   pre_selected_rows = function() {c(1, 3, 5)})})
-#'}
+#'  library(reactable)
+#'
+#'  shinyApp(
+#'      ui = fluidPage(fluidRow(column(
+#'          width = 12,
+#'          downloadableReactTableUI(
+#'              id            = "object_id1",
+#'              downloadtypes = c("csv", "tsv"),
+#'              hovertext     = "Download the data here!")))),
+#'      server = function(input, output) {
+#'          downloadableReactTable(
+#'              id                = "object_id1",
+#'              table_data        = reactiveVal(iris),
+#'              selection_mode    = "multiple",
+#'              pre_selected_rows = function() {c(1, 3, 5)},
+#'              table_options     = list(columns = list(
+#'                  Sepal.Length = colDef(name = "Sepal Length"),
+#'                  Sepal.Width  = colDef(filterable = TRUE),
+#'                  Petal.Length = colDef(show = FALSE),
+#'                  Petal.Width  = colDef(defaultSortOrder = "desc")),
+#'                  theme = reactableTheme(
+#'                      headerStyle = list(
+#'                          "&:hover[aria-sort]" = list(background = "hsl(0, 0%, 96%)"),
+#'                          "&[aria-sort='ascending'], &[aria-sort='descending']" = list(background = "hsl(0, 0%, 96%)"),
+#'                          borderColor = "#'555"))))
+#'     })
+#' }
 #'
 #' @export
 downloadableReactTable <- function(id,
