@@ -261,16 +261,20 @@ downloadableReactTable <- function(id,
                                      }
                                  }
                              }
+
                              table_arguments <- list(data            = table_react_params$table_data,
-                                                                  selection       = row_selection_mode,
-                                                                  defaultSelected = table_react_params$pre_selected_rows,
-                                                                  pagination      = enale_pagination,
-                                                                  height          = table_height,
-                                                                  rownames        = show_rownames,
-                                                                  filterable      = enable_columns_filter,
-                                                                  searchable      = enable_global_search,
-                                                                  highlight       = row_highlight,
-                                                                  striped         = striped)
+                                                     selection       = row_selection_mode,
+                                                     defaultSelected = table_react_params$pre_selected_rows,
+                                                     pagination      = enale_pagination,
+                                                     height          = table_height,
+                                                     rownames        = show_rownames,
+                                                     filterable      = enable_columns_filter,
+                                                     searchable      = enable_global_search,
+                                                     highlight       = row_highlight,
+                                                     striped         = striped)
+                             if (length(table_options) > 0) {
+                                 table_arguments <- append(table_arguments, table_options)
+                             }
                              table_output <- do.call(reactable::reactable, table_arguments)
 
                          }
