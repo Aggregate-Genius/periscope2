@@ -120,6 +120,14 @@ downloadFileButton <- function(id,
 }
 
 
+check_openxlsx2 <- function () {
+    length(find.package("openxlsx2", quiet = TRUE)) > 0
+}
+check_openxlsx <- function () {
+    length(find.package("openxlsx", quiet = TRUE)) > 0
+}
+
+
 #' downloadFile module server function
 #'
 #' Server-side function for the downloadFileButton.  This is a custom
@@ -256,7 +264,8 @@ downloadFile <- function(id,
                 }
                 # excel file
                 else if (type == "xlsx") {
-                    if (length(find.package("openxlsx2", quiet = TRUE)) > 0) {
+
+                    if (check_openxlsx2()) {
                         if (inherits(data, "wbWorkbook")) {
                             openxlsx2::wb_save(data, file)
                         } else {
@@ -266,7 +275,7 @@ downloadFile <- function(id,
                                                   as_table  = TRUE,
                                                   row_names = !is.null(show_rownames) && show_rownames)
                         }
-                    } else if (length(find.package("openxlsx", quiet = TRUE)) > 0) {
+                    } else if (check_openxlsx()) {
                         if ((inherits(data, "Workbook")) && ("openxlsx" %in% attributes(class(data)))) {
                             openxlsx::saveWorkbook(data, file)
                         } else {
