@@ -240,7 +240,15 @@ downloadableReactTable <- function(id,
                          if (!is.data.frame(table_data())) {
                              table_data <- shiny::reactiveVal(data.frame(table_data()))
                          }
+
                          table_react_params$table_data <- table_data()
+                         output$displayButton <- shiny::reactive((length(download_data_fxns) > 0))
+
+                         if (NROW(table_react_params$table_data) == 0) {
+                            output$displayButton <- shiny::reactive(FALSE)
+
+                         }
+                         shiny::outputOptions(output, "displayButton", suspendWhenHidden = FALSE)
                      })
 
                      shiny::observe({
