@@ -211,9 +211,9 @@ test_that("Testing workbook openxlsx2", {
 test_that("Testing workbook openxlsx", {
     skip_if_not_installed("openxlsx")
     testServer(downloadFile,
-               args = list(logger = periscope2:::fw_get_user_log(),
+               args = list(logger       = periscope2:::fw_get_user_log(),
                            filenameroot = "excel_test_openxlsx_wb",
-                           datafxns = list(xlsx = create_openxlsx_wb)),
+                           datafxns     = list(xlsx = create_openxlsx_wb)),
                expr = {
                    expect_true(file.exists(output$xlsx))
                })
