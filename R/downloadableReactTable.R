@@ -68,11 +68,12 @@
 #'              hovertext     = "Download the data here!")))),
 #'      server = function(input, output) {
 #'          downloadableReactTable(
-#'              id                = "object_id1",
-#'              table_data        = reactiveVal(iris),
-#'              selection_mode    = "multiple",
-#'              pre_selected_rows = function() {c(1, 3, 5)},
-#'              table_options     = list(columns = list(
+#'              id                 = "object_id1",
+#'              table_data         = reactiveVal(iris),
+#'              download_data_fxns = list(csv = reactiveVal(iris), tsv = reactiveVal(iris)),
+#'              selection_mode     = "multiple",
+#'              pre_selected_rows  = function() {c(1, 3, 5)},
+#'              table_options      = list(columns = list(
 #'                  Sepal.Length = colDef(name = "Sepal Length"),
 #'                  Sepal.Width  = colDef(filterable = TRUE),
 #'                  Petal.Length = colDef(show = FALSE),
@@ -174,11 +175,12 @@ downloadableReactTableUI <- function(id,
 #'              hovertext     = "Download the data here!")))),
 #'      server = function(input, output) {
 #'          downloadableReactTable(
-#'              id                = "object_id1",
-#'              table_data        = reactiveVal(iris),
-#'              selection_mode    = "multiple",
-#'              pre_selected_rows = function() {c(1, 3, 5)},
-#'              table_options     = list(columns = list(
+#'              id                 = "object_id1",
+#'              table_data         = reactiveVal(iris),
+#'              download_data_fxns = list(csv = reactiveVal(iris), tsv = reactiveVal(iris)),
+#'              selection_mode     = "multiple",
+#'              pre_selected_rows  = function() {c(1, 3, 5)},
+#'              table_options      = list(columns = list(
 #'                  Sepal.Length = colDef(name = "Sepal Length"),
 #'                  Sepal.Width  = colDef(filterable = TRUE),
 #'                  Petal.Length = colDef(show = FALSE),
