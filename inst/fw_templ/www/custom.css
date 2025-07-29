@@ -174,4 +174,26 @@ div#swal2-html-container {
 }
 
 /* End of modal related CSS rules */
+
+/* downloadableReactTable Tooltip */
+.tooltip[data-tooltip-for="react-download-button"] .tooltip-inner {
+  background-color: #ffffff !important;
+  color: #212529 !important;
+  border: 1px solid #d1d5db !important;
+}
+
+.tooltip[data-tooltip-for="react-download-button"].bs-tooltip-top .arrow::before {
+  border-top-color: #d1d5db !important;
+}
+
+.tooltip[data-tooltip-for="react-download-button"].bs-tooltip-top .arrow::after {
+  content: '';
+  position: absolute;
+  bottom: 1px;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #ffffff transparent transparent transparent;
+}
 /* END of periscope2 basic CSS*/
