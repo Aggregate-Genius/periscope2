@@ -210,6 +210,7 @@ test_that("Testing workbook openxlsx2", {
 
 test_that("Testing workbook openxlsx", {
     skip_if_not_installed("openxlsx")
+    local_mocked_bindings(check_openxlsx2_availability = function() FALSE)
     testServer(downloadFile,
                args = list(logger       = periscope2:::fw_get_user_log(),
                            filenameroot = "excel_test_openxlsx_wb",
@@ -220,6 +221,8 @@ test_that("Testing workbook openxlsx", {
 })
 
 test_that("Dataframe xlsx download", {
+    local_mocked_bindings(check_openxlsx2_availability = function() FALSE)
+    local_mocked_bindings(check_openxlsx_availability = function() FALSE)
     testServer(downloadFile,
                args = list(logger       = periscope2:::fw_get_user_log(),
                            filenameroot = "excel_test_dataframe",

@@ -119,6 +119,13 @@ downloadFileButton <- function(id,
     file_button_ui
 }
 
+check_openxlsx2_availability <- function() {
+    length(find.package("openxlsx2", quiet = TRUE)) > 0
+}
+check_openxlsx_availability <- function() {
+    length(find.package("openxlsx", quiet = TRUE)) > 0
+}
+
 
 #' downloadFile module server function
 #'
@@ -256,7 +263,8 @@ downloadFile <- function(id,
                 }
                 # excel file
                 else if (type == "xlsx") {
-                    if (length(find.package("openxlsx2", quiet = TRUE)) > 0) {
+
+                    if (check_openxlsx2_availability()) {
                         if (inherits(data, "wbWorkbook")) {
                             openxlsx2::wb_save(data, file)
                         } else {
@@ -266,7 +274,7 @@ downloadFile <- function(id,
                                                   as_table  = TRUE,
                                                   row_names = !is.null(show_rownames) && show_rownames)
                         }
-                    } else if (length(find.package("openxlsx", quiet = TRUE)) > 0) {
+                    } else if (check_openxlsx_availability()) {
                         if ((inherits(data, "Workbook")) && ("openxlsx" %in% attributes(class(data)))) {
                             openxlsx::saveWorkbook(data, file)
                         } else {
