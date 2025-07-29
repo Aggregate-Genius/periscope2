@@ -22,7 +22,7 @@ setInterval(function() {
 
 
 function initializeReactTableTooltips() {
-    // Initialize all downloadable table tooltips
+    // Initialize all downloadable react table tooltips
     $('.periscope-downloadable-react-table-button span.btn-group')
     .tooltip()
     .attr('data-tooltip-for', 'react-download-button');
