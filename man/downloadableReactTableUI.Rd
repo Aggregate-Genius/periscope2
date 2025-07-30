@@ -4,12 +4,7 @@
 \alias{downloadableReactTableUI}
 \title{downloadableReactTable module UI function}
 \usage{
-downloadableReactTableUI(
-  id,
-  downloadtypes = NULL,
-  hovertext = NULL,
-  contentHeight = "200px"
-)
+downloadableReactTableUI(id, downloadtypes = NULL, hovertext = NULL)
 }
 \arguments{
 \item{id}{character id for the object}
@@ -17,8 +12,6 @@ downloadableReactTableUI(
 \item{downloadtypes}{vector of values for data download types}
 
 \item{hovertext}{download button tooltip hover text}
-
-\item{contentHeight}{viewable height of the table (any valid css size value)}
 }
 \value{
 list of downloadFileButton UI and reactable table and hidden inputs for contentHeight option
@@ -50,7 +43,7 @@ items are selected
 \section{Example}{
 
 \code{downloadableReactTableUI("mytableID", c("csv", "tsv"),
-"Click Here", "300px")}
+"Click Here")}
 }
 
 \section{Notes}{
@@ -71,16 +64,34 @@ in server.R
 if (interactive()) {
  library(shiny)
  library(periscope2)
- shinyApp(ui = fluidPage(fluidRow(column(width = 12,
-    downloadableReactTableUI("object_id1",
-                             downloadtypes = c("csv", "tsv"),
-                             hovertext     = "Download the data here!",
-                             contentHeight = "300px")))),
-         server = function(input, output) {
-           downloadableReactTable(id                = "object_id1",
-                                  table_data        = reactiveVal(mtcars),
-                                  selection_mode    = "multiple",
-                                  pre_selected_rows = function() {c(1, 3, 5)})})
+ library(reactable)
+
+ shinyApp(
+     ui = fluidPage(fluidRow(column(
+         width = 12,
+         downloadableReactTableUI(
+             id            = "object_id1",
+             downloadtypes = c("csv", "tsv"),
+             hovertext     = "Download the data here!")))),
+     server = function(input, output) {
+         downloadableReactTable(
+             id                 = "object_id1",
+             table_data         = reactiveVal(iris),
+             download_data_fxns = list(csv = reactiveVal(iris), tsv = reactiveVal(iris)),
+             selection_mode     = "multiple",
+             pre_selected_rows  = function() {c(1, 3, 5)},
+             table_options      = list(columns = list(
+                 Sepal.Length = colDef(name = "Sepal Length"),
+                 Sepal.Width  = colDef(filterable = TRUE),
+                 Petal.Length = colDef(show = FALSE),
+                 Petal.Width  = colDef(defaultSortOrder = "desc")),
+                 showSortable = TRUE,
+                 theme = reactableTheme(
+                     headerStyle = list(
+                         "&:hover[aria-sort]" = list(background = "hsl(0, 0\%, 96\%)"),
+                         "&[aria-sort='ascending'], &[aria-sort='descending']" = list(background = "hsl(0, 0\%, 96\%)"),
+                         borderColor = "#'555"))))
+    })
 }
 
 }

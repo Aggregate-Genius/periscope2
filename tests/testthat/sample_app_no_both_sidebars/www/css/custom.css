@@ -60,6 +60,11 @@ table.shiny-table {
     float: left;
 }
 
+/* Downloadable React Table */
+.periscope-downloadable-react-table-button {
+    display: inline-flex;
+}
+
 /* Downloadable Plot */
 .periscope-downloadable-plot { }
 .periscope-downloadable-plot-button {
@@ -117,6 +122,28 @@ a:focus:not(.nav-link) {
     color: #1F2D3D!important;
 }
 
+
+/* downloadableReactTable Tooltip */
+.tooltip[data-tooltip-for="react-download-button"] .tooltip-inner {
+  background-color: #ffffff !important;
+  color: #212529 !important;
+  border: 1px solid #d1d5db !important;
+}
+
+.tooltip[data-tooltip-for="react-download-button"].bs-tooltip-top .arrow::before {
+  border-top-color: #d1d5db !important;
+}
+
+.tooltip[data-tooltip-for="react-download-button"].bs-tooltip-top .arrow::after {
+  content: '';
+  position: absolute;
+  bottom: 1px;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #ffffff transparent transparent transparent;
+}
 /* END of periscope2 basic CSS*/
 
 /* ========================================================================== */

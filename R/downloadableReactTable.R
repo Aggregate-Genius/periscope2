@@ -16,7 +16,6 @@
 #' @param id character id for the object
 #' @param downloadtypes vector of values for data download types
 #' @param hovertext download button tooltip hover text
-#' @param contentHeight viewable height of the table (any valid css size value)
 #'
 #' @return list of downloadFileButton UI and reactable table and hidden inputs for contentHeight option
 #'
@@ -34,7 +33,7 @@
 #'
 #' @section Example:
 #' \code{downloadableReactTableUI("mytableID", c("csv", "tsv"),
-#' "Click Here", "300px")}
+#' "Click Here")}
 #'
 #' @section Notes:
 #' When there are no rows to download in any of the linked downloaddatafxns the
@@ -58,51 +57,54 @@
 #' if (interactive()) {
 #'  library(shiny)
 #'  library(periscope2)
-#'  shinyApp(ui = fluidPage(fluidRow(column(width = 12,
-#'     downloadableReactTableUI("object_id1",
-#'                              downloadtypes = c("csv", "tsv"),
-#'                              hovertext     = "Download the data here!",
-#'                              contentHeight = "300px")))),
-#'          server = function(input, output) {
-#'            downloadableReactTable(id                = "object_id1",
-#'                                   table_data        = reactiveVal(mtcars),
-#'                                   selection_mode    = "multiple",
-#'                                   pre_selected_rows = function() {c(1, 3, 5)})})
-#'}
+#'  library(reactable)
+#'
+#'  shinyApp(
+#'      ui = fluidPage(fluidRow(column(
+#'          width = 12,
+#'          downloadableReactTableUI(
+#'              id            = "object_id1",
+#'              downloadtypes = c("csv", "tsv"),
+#'              hovertext     = "Download the data here!")))),
+#'      server = function(input, output) {
+#'          downloadableReactTable(
+#'              id                 = "object_id1",
+#'              table_data         = reactiveVal(iris),
+#'              download_data_fxns = list(csv = reactiveVal(iris), tsv = reactiveVal(iris)),
+#'              selection_mode     = "multiple",
+#'              pre_selected_rows  = function() {c(1, 3, 5)},
+#'              table_options      = list(columns = list(
+#'                  Sepal.Length = colDef(name = "Sepal Length"),
+#'                  Sepal.Width  = colDef(filterable = TRUE),
+#'                  Petal.Length = colDef(show = FALSE),
+#'                  Petal.Width  = colDef(defaultSortOrder = "desc")),
+#'                  showSortable = TRUE,
+#'                  theme = reactableTheme(
+#'                      headerStyle = list(
+#'                          "&:hover[aria-sort]" = list(background = "hsl(0, 0%, 96%)"),
+#'                          "&[aria-sort='ascending'], &[aria-sort='descending']" = list(background = "hsl(0, 0%, 96%)"),
+#'                          borderColor = "#'555"))))
+#'     })
+#' }
 #'
 #' @export
 downloadableReactTableUI <- function(id,
                                      downloadtypes = NULL,
-                                     hovertext     = NULL,
-                                     contentHeight = "200px") {
+                                     hovertext     = NULL) {
     ns <- shiny::NS(id)
     list(
         shiny::conditionalPanel(
-            # TODO: this condition should be set in the server when
-            # download function is active
             condition = "output.displayButton",
             ns        = ns,
             shiny::span(
                 id    = ns("reactTableButtonDiv"),
-                # TODO: Review this style class when
-                # download function is active to make sure it is consistent with
-                # the table look and feel
-                class = "periscope-downloadable-table-button",
+                class = "periscope-downloadable-react-table-button",
                 style = ifelse(length(downloadtypes) > 0, "", "display:none"),
-                # TODO: Review download button styles and make sure it is
-                # consistent with the new table when download function is active
                 downloadFileButton(ns("reactTableButtonID"),
                                    downloadtypes,
                                    hovertext))),
-        reactable::reactableOutput(ns("reactTableOutputID")),
-        # TODO: test this function when table options are passed to
-        # server function
-        shiny::tags$input(
-            id    = ns("reactTableOutputHeight"),
-            type  = "text",
-            class = "shiny-input-container hidden",
-            value = contentHeight)
-        )
+        reactable::reactableOutput(ns("reactTableOutputID"))
+    )
 }
 
 
@@ -111,7 +113,7 @@ downloadableReactTableUI <- function(id,
 #' Server-side function for the downloadableReactTableUI.
 #'
 #'
-#' @param id  the ID of the Module's UI element
+#' @param id the ID of the Module's UI element
 #' @param table_data reactive expression (or parameter-less function) that acts as table data source
 #' @param selection_mode to enable row selection, set \code{selection_mode} value to either "single" for single row
 #'                       selection or "multiple" for multiple rows selection, case insensitive. Any other value will
@@ -121,6 +123,22 @@ downloadableReactTableUI <- function(id,
 #' @param pre_selected_rows reactive expression (or parameter-less function) provides the rows indices of the rows to
 #'                          be selected when the table is rendered. If selection_mode is disabled, this parameter will
 #'                          have no effect. If selection_mode is "single" only first row index will be used.
+#' @param file_name_root the base text used for user-downloaded file. It can be either a character string,
+#'                       a reactive expression or a function returning a character string (default = 'data_file')
+#' @param download_data_fxns a \strong{named} list of functions providing the data as return values.
+#'                           The names for the list should be the same names that were used when the table UI was created
+#' @param pagination to enable table pagination (default = FALSE)
+#' @param table_height max table height in pixels. Vertical scroll will be shown after that height value
+#' @param show_rownames enable displaying rownames as a separate column (default = FALSE)
+#' @param columns_filter enable the filtering input on each column in the table (default = FALSE)
+#' @param global_search enable table global searching input to search and filter in all columns at once
+#'                              (default = TRUE)
+#' @param row_highlight enable highlighting rows upon mouse hover (default = TRUE)
+#' @param row_striping add zebra-striped style to table rows (default = TRUE)
+#' @param table_options optional table formatting parameters check \code{?reactable::reactable} for options full list.
+#'                      Also see example below to see how to pass options (default = list())
+#' @param logger logger to use (default = NULL)
+#'
 #' @return Rendered react table
 #'
 #' @section Shiny Usage:
@@ -141,33 +159,75 @@ downloadableReactTableUI <- function(id,
 #' if (interactive()) {
 #'  library(shiny)
 #'  library(periscope2)
-#'  shinyApp(ui = fluidPage(fluidRow(column(width = 12,
-#'     downloadableReactTableUI("object_id1",
-#'                              downloadtypes = c("csv", "tsv"),
-#'                              hovertext     = "Download the data here!",
-#'                              contentHeight = "300px")))),
-#'          server = function(input, output) {
-#'            downloadableReactTable(id                = "object_id1",
-#'                                   table_data        = reactiveVal(mtcars),
-#'                                   selection_mode    = "multiple",
-#'                                   pre_selected_rows = function() {c(1, 3, 5)})})
-#'}
+#'  library(reactable)
+#'
+#'  shinyApp(
+#'      ui = fluidPage(fluidRow(column(
+#'          width = 12,
+#'          downloadableReactTableUI(
+#'              id            = "object_id1",
+#'              downloadtypes = c("csv", "tsv"),
+#'              hovertext     = "Download the data here!")))),
+#'      server = function(input, output) {
+#'          downloadableReactTable(
+#'              id                 = "object_id1",
+#'              table_data         = reactiveVal(iris),
+#'              download_data_fxns = list(csv = reactiveVal(iris), tsv = reactiveVal(iris)),
+#'              selection_mode     = "multiple",
+#'              pre_selected_rows  = function() {c(1, 3, 5)},
+#'              table_options      = list(columns = list(
+#'                  Sepal.Length = colDef(name = "Sepal Length"),
+#'                  Sepal.Width  = colDef(filterable = TRUE),
+#'                  Petal.Length = colDef(show = FALSE),
+#'                  Petal.Width  = colDef(defaultSortOrder = "desc")),
+#'                  theme = reactableTheme(
+#'                      headerStyle = list(
+#'                          "&:hover[aria-sort]" = list(background = "hsl(0, 0%, 96%)"),
+#'                          "&[aria-sort='ascending'], &[aria-sort='descending']" = list(background = "hsl(0, 0%, 96%)"),
+#'                          borderColor = "#'555"))))
+#'     })
+#' }
 #'
 #' @export
 downloadableReactTable <- function(id,
                                    table_data,
-                                   selection_mode    = NULL,
-                                   pre_selected_rows = NULL) {
+                                   selection_mode     = NULL,
+                                   pre_selected_rows  = NULL,
+                                   file_name_root     = "data_file",
+                                   download_data_fxns = NULL,
+                                   pagination         = FALSE,
+                                   table_height       = 600,
+                                   show_rownames      = FALSE,
+                                   columns_filter     = FALSE,
+                                   global_search      = TRUE,
+                                   row_highlight      = TRUE,
+                                   row_striping       = TRUE,
+                                   table_options      = list(),
+                                   logger             = NULL) {
         shiny::moduleServer(id,
              function(input, output, session) {
                  if (is.null(table_data) || !is.function(table_data)) {
-                     message("'table_data' parameter must be a function or reactive expression.")
+                     logerror("'table_data' parameter must be a function or reactive expression.", logger = logger)
                      output$reactTableOutputID <- reactable::renderReactable({ NULL })
                  } else {
                      table_react_params <- shiny::reactiveValues(table_data        = NULL,
                                                                  pre_selected_rows = NULL)
+                     if (is.null(file_name_root)) {
+                         logwarn("'file_name_root' parameter should not be NULL. Setting default value 'data_file'.", logger = logger)
+                         file_name_root <- "data_file"
+                     }
+
+                     downloadFile(id           = "reactTableButtonID",
+                                  logger       = logger,
+                                  filenameroot = file_name_root,
+                                  datafxns     = download_data_fxns)
+                     shiny::observe({
+                         output$displayButton <- shiny::reactive(length(download_data_fxns) > 0)
+                         shiny::outputOptions(output, "displayButton", suspendWhenHidden = FALSE)
+                    })
+
                      if (!is.null(pre_selected_rows) && !is.function(pre_selected_rows)) {
-                         message("'pre_selected_rows' parameter must be a function or reactive expression. Setting default value NULL.")
+                         logwarn("'pre_selected_rows' parameter must be a function or reactive expression. Setting default value NULL.", logger = logger)
                          pre_selected_rows <- NULL
                      }
 
@@ -175,16 +235,26 @@ downloadableReactTable <- function(id,
                          if (!is.data.frame(table_data())) {
                              table_data <- shiny::reactiveVal(data.frame(table_data()))
                          }
+
                          table_react_params$table_data <- table_data()
+                         output$displayButton <- shiny::reactive((length(download_data_fxns) > 0))
+
+                         if (NROW(table_react_params$table_data) == 0) {
+                            output$displayButton <- shiny::reactive(FALSE)
+
+                         }
+                         shiny::outputOptions(output, "displayButton", suspendWhenHidden = FALSE)
                      })
 
                      shiny::observe({
                          table_react_params$pre_selected_rows <- NULL
                          if ((is.null(selection_mode) || !(tolower(selection_mode) %in% c("single", "multiple"))) &&
                               !is.null(pre_selected_rows)) {
-                             message("'selection_mode' parameter must be either 'single' or 'multiple' to use 'pre_selected_rows' param. Setting default value NULL.")
+                             logwarn("'selection_mode' parameter must be either 'single' or 'multiple' to use 'pre_selected_rows' param. Setting default value NULL.",
+                                     logger = logger)
                          } else if (!is.null(pre_selected_rows) && !is.numeric(pre_selected_rows())) {
-                             message("'pre_selected_rows' parameter must be a function or reactive expression that returns numeric vector. Setting default value NULL.")
+                             logwarn("'pre_selected_rows' parameter must be a function or reactive expression that returns numeric vector. Setting default value NULL.",
+                                     logger = logger)
                          } else if (!is.null(pre_selected_rows)) {
                              table_react_params$pre_selected_rows <- pre_selected_rows()
                          }
@@ -201,7 +271,8 @@ downloadableReactTable <- function(id,
                                  row_selection_mode <- tolower(selection_mode)
 
                                  if ((row_selection_mode == "single") && (length(table_react_params$pre_selected_rows) > 1)) {
-                                     message("when 'selection_mode' is 'single', only first value of 'pre_selected_rows' will be used")
+                                     logwarn("when 'selection_mode' is 'single', only first value of 'pre_selected_rows' will be used",
+                                             logger = logger)
                                      table_react_params$pre_selected_rows <- table_react_params$pre_selected_rows[1]
                                  }
 
@@ -213,7 +284,8 @@ downloadableReactTable <- function(id,
                                                     })]
                                      if (length(excluded_indices) > 0) {
                                          if (length(excluded_indices) == length(table_react_params$pre_selected_rows)) {
-                                             message("All 'pre_selected_rows' values are out of range. Setting default value NULL.")
+                                             logwarn("All 'pre_selected_rows' values are out of range. Setting default value NULL.",
+                                                     logger = logger)
                                              table_react_params$pre_selected_rows <- NULL
                                          } else {
                                              value_msg <- paste("value:", excluded_indices[1] ,"as it is")
@@ -221,16 +293,48 @@ downloadableReactTable <- function(id,
                                                  value_msg <- paste("values:", paste0(excluded_indices, collapse = ", "), "as they are")
                                              }
 
-                                             message(paste("Excluding 'pre_selected_rows'" , value_msg, "out of range."))
+                                             logwarn(paste("Excluding 'pre_selected_rows'" , value_msg, "out of range."),
+                                                     logger = logger)
                                              table_react_params$pre_selected_rows <- table_react_params$pre_selected_rows[
                                                  !(table_react_params$pre_selected_rows %in% excluded_indices)]
                                          }
                                      }
                                  }
                              }
-                             table_output <- reactable::reactable(data            = table_react_params$table_data,
-                                                                  selection       = row_selection_mode,
-                                                                  defaultSelected = table_react_params$pre_selected_rows)
+
+                             table_arguments <- list(data            = table_react_params$table_data,
+                                                     selection       = row_selection_mode,
+                                                     defaultSelected = table_react_params$pre_selected_rows,
+                                                     pagination      = pagination,
+                                                     height          = table_height,
+                                                     rownames        = show_rownames,
+                                                     filterable      = columns_filter,
+                                                     searchable      = global_search,
+                                                     highlight       = row_highlight,
+                                                     striped         = row_striping)
+                             if (length(table_options) > 0) {
+                                 all_options       <- methods::formalArgs(reactable::reactable)
+                                 unnamed_options   <- append(table_options[names(table_options) == ""],
+                                                             table_options[is.null(names(table_options))])
+                                 invalid_options <- table_options[!(names(table_options) %in% all_options)]
+                                 invalid_options <- invalid_options[!(invalid_options %in% unnamed_options)]
+                                 valid_options   <- table_options[names(table_options) %in% all_options]
+
+                                 if (length(unnamed_options) > 0) {
+                                     logwarn(paste("Excluding the following unnamed option(s):",
+                                                   paste(unnamed_options, collapse = ", ")), logger = logger)
+                                 }
+
+                                 if (length(invalid_options) > 0) {
+                                     logwarn(paste("Excluding the following invalid option(s):",
+                                                   paste(names(invalid_options), collapse = ", ")), logger = logger)
+                                 }
+
+                                 table_arguments <- append(table_arguments, valid_options)
+                             }
+
+                             table_output <- do.call(reactable::reactable, table_arguments)
+
                          }
                          table_output
                     })
