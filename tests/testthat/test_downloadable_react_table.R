@@ -205,8 +205,8 @@ test_that("downloadableReactTable - pre_selected_rows", {
                                selection_mode    = "multiple",
                                pre_selected_rows = c(1, 3)),
                    expr = {
-                       print(output$reactTableOutputID)
-                       }))
+                       output$reactTableOutputID
+                   }))
     expect_true(grepl("'pre_selected_rows' parameter must be a function or reactive expression. Setting default value NULL.", server_error))
 
     server_error <- testServer(downloadableReactTable,
