@@ -388,6 +388,7 @@ test_that("downloadableReactTable - table_options", {
 
 
 test_that("downloadableReactTable - module return", {
+    skip_if(getRversion() < "4.1.0", "Skipping due to lifecycle warnings in R < 4.1.0")
     local_mocked_bindings(
         getReactableState = function(...) list(showSortable = TRUE),
         .package = "reactable")
