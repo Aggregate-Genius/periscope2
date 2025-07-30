@@ -205,7 +205,7 @@ test_that("downloadableReactTable - pre_selected_rows", {
                                selection_mode    = "multiple",
                                pre_selected_rows = c(1, 3)),
                    expr = {
-                       output$reactTableOutputID
+                       print(output$reactTableOutputID)
                        }))
     expect_true(grepl("'pre_selected_rows' parameter must be a function or reactive expression. Setting default value NULL.", server_error))
 
@@ -384,4 +384,20 @@ test_that("downloadableReactTable - table_options", {
     expect_true(grepl(warn_msg1, server_warning, fixed = TRUE))
     expect_true(grepl(warn_msg2, server_warning, fixed = TRUE))
 
+})
+
+
+test_that("downloadableReactTable - module return", {
+    local_mocked_bindings(
+        getReactableState = function(...) list(showSortable = TRUE),
+        .package = "reactable")
+
+    testServer(
+        downloadableReactTable,
+        args = list(table_data    = function() { "test" },
+                    table_options = list(showSortable = TRUE)),
+        expr = {
+            result <- session$returned()
+            expect_true(result$showSortable)
+  })
 })
