@@ -11,11 +11,11 @@ downloadableReactTable(
   pre_selected_rows = NULL,
   file_name_root = "data_file",
   download_data_fxns = NULL,
-  enable_pagination = FALSE,
+  pagination = FALSE,
   table_height = 600,
   show_rownames = FALSE,
-  enable_columns_filter = FALSE,
-  enable_global_search = TRUE,
+  columns_filter = FALSE,
+  global_search = TRUE,
   row_highlight = TRUE,
   striped = TRUE,
   table_options = list(),
@@ -43,15 +43,15 @@ a reactive expression or a function returning a character string (default = 'dat
 \item{download_data_fxns}{a \strong{named} list of functions providing the data as return values.
 The names for the list should be the same names that were used when the table UI was created}
 
-\item{enable_pagination}{to enable table pagination (default = FALSE)}
+\item{pagination}{to enable table pagination (default = FALSE)}
 
 \item{table_height}{max table height in pixels. Vertical scroll will be shown after that height value}
 
 \item{show_rownames}{enable displaying rownames as a separate column (default = FALSE)}
 
-\item{enable_columns_filter}{enable each column own filter input in the table (default = FALSE)}
+\item{columns_filter}{enable each column own filter input in the table (default = FALSE)}
 
-\item{enable_global_search}{enable table global searching input to search and filter in all columns at once
+\item{global_search}{enable table global searching input to search and filter in all columns at once
 (default = TRUE)}
 
 \item{row_highlight}{enable highlighting rows upon mouse hover}
