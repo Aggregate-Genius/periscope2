@@ -219,9 +219,34 @@ test_that("Testing workbook openxlsx", {
                })
 })
 
-test_that("Dataframe xlsx download", {
-    local_mocked_bindings(check_openxlsx2_availability = function() FALSE)
+test_that("Dataframe xlsx download works with openxlsx2", {
+    skip_if_not_installed("openxlsx2")
     local_mocked_bindings(check_openxlsx_availability = function() FALSE)
+    testServer(downloadFile,
+               args = list(logger       = periscope2:::fw_get_user_log(),
+                           filenameroot = "excel_test_dataframe",
+                           datafxns     = list(xlsx = download_data)),
+               expr = {
+                   expect_true(file.exists(output$xlsx))
+               })
+})
+
+test_that("Dataframe xlsx download works with openxlsx", {
+    skip_if_not_installed("openxlsx")
+    local_mocked_bindings(check_openxlsx2_availability = function() FALSE)
+    testServer(downloadFile,
+               args = list(logger       = periscope2:::fw_get_user_log(),
+                           filenameroot = "excel_test_dataframe",
+                           datafxns     = list(xlsx = download_data)),
+               expr = {
+                   expect_true(file.exists(output$xlsx))
+               })
+})
+
+test_that("Dataframe xlsx download works with writexl", {
+    skip_if_not_installed("writexl")
+    local_mocked_bindings(check_openxlsx2_availability = function() FALSE)
+    local_mocked_bindings(check_openxlsx_availability  = function() FALSE)
     testServer(downloadFile,
                args = list(logger       = periscope2:::fw_get_user_log(),
                            filenameroot = "excel_test_dataframe",
