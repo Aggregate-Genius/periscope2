@@ -122,6 +122,7 @@ downloadFileButton <- function(id,
 check_openxlsx2_availability <- function() {
     length(find.package("openxlsx2", quiet = TRUE)) > 0
 }
+
 check_openxlsx_availability <- function() {
     length(find.package("openxlsx", quiet = TRUE)) > 0
 }

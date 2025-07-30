@@ -204,7 +204,6 @@ test_that("Testing workbook openxlsx2", {
                            datafxns     = list(xlsx = create_openxlsx2_wb)),
                expr = {
                    expect_true(file.exists(output$xlsx))
-
                })
 })
 
