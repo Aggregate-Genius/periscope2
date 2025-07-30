@@ -113,7 +113,7 @@ downloadableReactTableUI <- function(id,
 #' Server-side function for the downloadableReactTableUI.
 #'
 #'
-#' @param id  the ID of the Module's UI element
+#' @param id the ID of the Module's UI element
 #' @param table_data reactive expression (or parameter-less function) that acts as table data source
 #' @param selection_mode to enable row selection, set \code{selection_mode} value to either "single" for single row
 #'                       selection or "multiple" for multiple rows selection, case insensitive. Any other value will
@@ -127,17 +127,17 @@ downloadableReactTableUI <- function(id,
 #'                       a reactive expression or a function returning a character string (default = 'data_file')
 #' @param download_data_fxns a \strong{named} list of functions providing the data as return values.
 #'                           The names for the list should be the same names that were used when the table UI was created
-#' @param enale_pagination to enable table pagination (default = FALSE)
+#' @param pagination to enable table pagination (default = FALSE)
 #' @param table_height max table height in pixels. Vertical scroll will be shown after that height value
 #' @param show_rownames enable displaying rownames as a separate column (default = FALSE)
-#' @param enable_columns_filter enable each column own filter input in the table (default = FALSE)
-#' @param enable_global_search  enable table global searching input to search and filter in all columns at once
+#' @param columns_filter enable the filtering input on each column in the table (default = FALSE)
+#' @param global_search enable table global searching input to search and filter in all columns at once
 #'                              (default = TRUE)
-#' @param row_highlight enable highlighting rows upon mouse hover
-#' @param striped add zebra-striped style to table rows
+#' @param row_highlight enable highlighting rows upon mouse hover (default = TRUE)
+#' @param row_striping add zebra-striped style to table rows (default = TRUE)
 #' @param table_options optional table formatting parameters check \code{?reactable::reactable} for options full list.
-#'                      Also see example below to see how to pass options
-#' @param logger logger to use
+#'                      Also see example below to see how to pass options (default = list())
+#' @param logger logger to use (default = NULL)
 #'
 #' @return Rendered react table
 #'
@@ -191,19 +191,19 @@ downloadableReactTableUI <- function(id,
 #' @export
 downloadableReactTable <- function(id,
                                    table_data,
-                                   selection_mode        = NULL,
-                                   pre_selected_rows     = NULL,
-                                   file_name_root        = "data_file",
-                                   download_data_fxns    = NULL,
-                                   enale_pagination      = FALSE,
-                                   table_height          = 600,
-                                   show_rownames         = FALSE,
-                                   enable_columns_filter = FALSE,
-                                   enable_global_search  = TRUE,
-                                   row_highlight         = TRUE,
-                                   striped               = TRUE,
-                                   table_options         = list(),
-                                   logger                = NULL) {
+                                   selection_mode     = NULL,
+                                   pre_selected_rows  = NULL,
+                                   file_name_root     = "data_file",
+                                   download_data_fxns = NULL,
+                                   pagination         = FALSE,
+                                   table_height       = 600,
+                                   show_rownames      = FALSE,
+                                   columns_filter     = FALSE,
+                                   global_search      = TRUE,
+                                   row_highlight      = TRUE,
+                                   row_striping       = TRUE,
+                                   table_options      = list(),
+                                   logger             = NULL) {
         shiny::moduleServer(id,
              function(input, output, session) {
                  if (is.null(table_data) || !is.function(table_data)) {
@@ -305,29 +305,29 @@ downloadableReactTable <- function(id,
                              table_arguments <- list(data            = table_react_params$table_data,
                                                      selection       = row_selection_mode,
                                                      defaultSelected = table_react_params$pre_selected_rows,
-                                                     pagination      = enale_pagination,
+                                                     pagination      = pagination,
                                                      height          = table_height,
                                                      rownames        = show_rownames,
-                                                     filterable      = enable_columns_filter,
-                                                     searchable      = enable_global_search,
+                                                     filterable      = columns_filter,
+                                                     searchable      = global_search,
                                                      highlight       = row_highlight,
-                                                     striped         = striped)
+                                                     striped         = row_striping)
                              if (length(table_options) > 0) {
                                  all_options       <- methods::formalArgs(reactable::reactable)
                                  unnamed_options   <- append(table_options[names(table_options) == ""],
                                                              table_options[is.null(names(table_options))])
-                                 not_valid_options <- table_options[!(names(table_options) %in% all_options)]
-                                 not_valid_options <- not_valid_options[!(not_valid_options %in% unnamed_options)]
-                                 valid_options     <- table_options[names(table_options) %in% all_options]
+                                 invalid_options <- table_options[!(names(table_options) %in% all_options)]
+                                 invalid_options <- invalid_options[!(invalid_options %in% unnamed_options)]
+                                 valid_options   <- table_options[names(table_options) %in% all_options]
 
                                  if (length(unnamed_options) > 0) {
                                      logwarn(paste("Excluding the following unnamed option(s):",
                                                    paste(unnamed_options, collapse = ", ")), logger = logger)
                                  }
 
-                                 if (length(not_valid_options) > 0) {
+                                 if (length(invalid_options) > 0) {
                                      logwarn(paste("Excluding the following invalid option(s):",
-                                                   paste(names(not_valid_options), collapse = ", ")), logger = logger)
+                                                   paste(names(invalid_options), collapse = ", ")), logger = logger)
                                  }
 
                                  table_arguments <- append(table_arguments, valid_options)

@@ -329,7 +329,7 @@ test_that("downloadableReactTable - file_name_root and download_data_fxns", {
                })
 
     server_warning <- capture_output(testServer(downloadableReactTable,
-                   args = list(table_data         = function(){"test"},
+                   args = list(table_data         = function() { "test" },
                                download_data_fxns = list(csv = get_mtcars_data),
                                file_name_root     = NULL),
                    expr = {
@@ -343,14 +343,14 @@ test_that("downloadableReactTable - file_name_root and download_data_fxns", {
 
 test_that("downloadableReactTable - table_options", {
     testServer(downloadableReactTable,
-               args = list(table_data    = function(){"test"},
+               args = list(table_data    = function() { "test" },
                            table_options = list(showSortable = TRUE)),
                expr = {
                    expect_true(grepl('"showSortable":true', output$reactTableOutputID))
     })
 
     testServer(downloadableReactTable,
-                   args = list(table_data    = function() {"test"},
+                   args = list(table_data    = function() { "test" },
                                table_options = list("unnamed_option")),
                    expr = {
                        server_warning <- capture_output(output$reactTableOutputID, print = TRUE)
@@ -359,7 +359,7 @@ test_that("downloadableReactTable - table_options", {
     })
 
     testServer(downloadableReactTable,
-                   args = list(table_data    = function() {"test"},
+                   args = list(table_data    = function() { "test" },
                                table_options = list(not_valid = "option")),
                    expr = {
                        server_warning <- capture_output(output$reactTableOutputID, print = TRUE)
@@ -367,23 +367,19 @@ test_that("downloadableReactTable - table_options", {
                        expect_true(grepl(warn_msg, server_warning, fixed = TRUE))
     })
 
-    server_warning <- capture_output(testServer(downloadableReactTable,
-                   args = list(table_data    = function() {"test"},
-                               table_options = list(not_valid    = "option",
-                                                    showSortable = TRUE,
-                                                    not_valid_2  = "option2",
-                                                    "unnamed_option")),
-                   expr = {
-                       expect_true(grepl('"showSortable":true', output$reactTableOutputID))
-                       server_warning <- capture_output(output$reactTableOutputID, print = TRUE)
-                       warn_msg2      <- "Excluding the following invalid option(s): not_valid, not_valid_2"
-                       warn_msg1      <- "Excluding the following unnamed option(s): unnamed_option"
-                       #print(server_warning)
-                       #expect_true(grepl(paste(warn_msg1, warn_msg2, collapse = "|"), server_warning, fixed = TRUE))
+    server_warning <- capture_output(testServer(
+        downloadableReactTable,
+        args = list(table_data    = function() { "test" },
+                    table_options = list(invalid      = "option",
+                                         showSortable = TRUE,
+                                         invalid_2    = "option2",
+                                         "unnamed_option")),
+        expr = {
+            expect_true(grepl('"showSortable":true', output$reactTableOutputID))
     }), print = TRUE)
 
     warn_msg1 <- "Excluding the following unnamed option(s): unnamed_option"
-    warn_msg2 <- "Excluding the following invalid option(s): not_valid, not_valid_2"
+    warn_msg2 <- "Excluding the following invalid option(s): invalid, invalid_2"
 
     expect_true(grepl(warn_msg1, server_warning, fixed = TRUE))
     expect_true(grepl(warn_msg2, server_warning, fixed = TRUE))
