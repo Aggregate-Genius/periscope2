@@ -64,7 +64,9 @@ Also see example below to see how to pass options (default = list())}
 \item{logger}{logger to use (default = NULL)}
 }
 \value{
-Rendered react table
+A named list of current rendered table state values. The list keys are
+("page", "pageSize", "pages", "sorted" and "selected").
+Review \code{?reactable::getReactableState} for more info.
 }
 \description{
 Server-side function for the downloadableReactTableUI.
@@ -91,7 +93,7 @@ if (interactive()) {
              downloadtypes = c("csv", "tsv"),
              hovertext     = "Download the data here!")))),
      server = function(input, output) {
-         downloadableReactTable(
+         table_state <- downloadableReactTable(
              id                 = "object_id1",
              table_data         = reactiveVal(iris),
              download_data_fxns = list(csv = reactiveVal(iris), tsv = reactiveVal(iris)),
@@ -107,6 +109,7 @@ if (interactive()) {
                          "&:hover[aria-sort]" = list(background = "hsl(0, 0\%, 96\%)"),
                          "&[aria-sort='ascending'], &[aria-sort='descending']" = list(background = "hsl(0, 0\%, 96\%)"),
                          borderColor = "#'555"))))
+        observeEvent(table_state(), { print(table_state()) })
     })
 }
 

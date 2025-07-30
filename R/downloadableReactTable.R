@@ -139,7 +139,9 @@ downloadableReactTableUI <- function(id,
 #'                      Also see example below to see how to pass options (default = list())
 #' @param logger logger to use (default = NULL)
 #'
-#' @return Rendered react table
+#' @return A named list of current rendered table state values. The list keys are
+#'         ("page", "pageSize", "pages", "sorted" and "selected").
+#'          Review \code{?reactable::getReactableState} for more info.
 #'
 #' @section Shiny Usage:
 #' This function is not called directly by consumers - it is accessed in
@@ -169,7 +171,7 @@ downloadableReactTableUI <- function(id,
 #'              downloadtypes = c("csv", "tsv"),
 #'              hovertext     = "Download the data here!")))),
 #'      server = function(input, output) {
-#'          downloadableReactTable(
+#'          table_state <- downloadableReactTable(
 #'              id                 = "object_id1",
 #'              table_data         = reactiveVal(iris),
 #'              download_data_fxns = list(csv = reactiveVal(iris), tsv = reactiveVal(iris)),
@@ -185,6 +187,7 @@ downloadableReactTableUI <- function(id,
 #'                          "&:hover[aria-sort]" = list(background = "hsl(0, 0%, 96%)"),
 #'                          "&[aria-sort='ascending'], &[aria-sort='descending']" = list(background = "hsl(0, 0%, 96%)"),
 #'                          borderColor = "#'555"))))
+#'         observeEvent(table_state(), { print(table_state()) })
 #'     })
 #' }
 #'
@@ -338,7 +341,8 @@ downloadableReactTable <- function(id,
                          }
                          table_output
                     })
-                }
+                 }
+                 shiny::reactive({reactable::getReactableState("reactTableOutputID")})
             }
         )
 }
