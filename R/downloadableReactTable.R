@@ -139,7 +139,7 @@ downloadableReactTableUI <- function(id,
 #' @param global_search  enable table global searching input to search and filter in all columns at once
 #'                              (default = TRUE)
 #' @param row_highlight enable highlighting rows upon mouse hover
-#' @param striped add zebra-striped style to table rows
+#' @param row_striping add zebra-striped style to table rows
 #' @param table_options optional table formatting parameters check \code{?reactable::reactable} for options full list.
 #'                      Also see example below to see how to pass options
 #' @param logger logger to use
@@ -206,7 +206,7 @@ downloadableReactTable <- function(id,
                                    columns_filter     = FALSE,
                                    global_search      = TRUE,
                                    row_highlight      = TRUE,
-                                   striped            = TRUE,
+                                   row_striping       = TRUE,
                                    table_options      = list(),
                                    logger             = NULL) {
         shiny::moduleServer(id,
@@ -316,7 +316,7 @@ downloadableReactTable <- function(id,
                                                      filterable      = columns_filter,
                                                      searchable      = global_search,
                                                      highlight       = row_highlight,
-                                                     striped         = striped)
+                                                     striped         = row_striping)
                              if (length(table_options) > 0) {
                                  all_options       <- methods::formalArgs(reactable::reactable)
                                  unnamed_options   <- append(table_options[names(table_options) == ""],
