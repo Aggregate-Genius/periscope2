@@ -132,7 +132,7 @@ downloadableReactTableUI <- function(id,
 #'                       a reactive expression or a function returning a character string (default = 'data_file')
 #' @param download_data_fxns a \strong{named} list of functions providing the data as return values.
 #'                           The names for the list should be the same names that were used when the table UI was created
-#' @param enale_pagination to enable table pagination (default = FALSE)
+#' @param enable_pagination to enable table pagination (default = FALSE)
 #' @param table_height max table height in pixels. Vertical scroll will be shown after that height value
 #' @param show_rownames enable displaying rownames as a separate column (default = FALSE)
 #' @param enable_columns_filter enable each column own filter input in the table (default = FALSE)
@@ -200,7 +200,7 @@ downloadableReactTable <- function(id,
                                    pre_selected_rows     = NULL,
                                    file_name_root        = "data_file",
                                    download_data_fxns    = NULL,
-                                   enale_pagination      = FALSE,
+                                   enable_pagination     = FALSE,
                                    table_height          = 600,
                                    show_rownames         = FALSE,
                                    enable_columns_filter = FALSE,
@@ -310,7 +310,7 @@ downloadableReactTable <- function(id,
                              table_arguments <- list(data            = table_react_params$table_data,
                                                      selection       = row_selection_mode,
                                                      defaultSelected = table_react_params$pre_selected_rows,
-                                                     pagination      = enale_pagination,
+                                                     pagination      = enable_pagination,
                                                      height          = table_height,
                                                      rownames        = show_rownames,
                                                      filterable      = enable_columns_filter,

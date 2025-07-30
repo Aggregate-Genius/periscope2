@@ -11,7 +11,7 @@ downloadableReactTable(
   pre_selected_rows = NULL,
   file_name_root = "data_file",
   download_data_fxns = NULL,
-  enale_pagination = FALSE,
+  enable_pagination = FALSE,
   table_height = 600,
   show_rownames = FALSE,
   enable_columns_filter = FALSE,
@@ -43,7 +43,7 @@ a reactive expression or a function returning a character string (default = 'dat
 \item{download_data_fxns}{a \strong{named} list of functions providing the data as return values.
 The names for the list should be the same names that were used when the table UI was created}
 
-\item{enale_pagination}{to enable table pagination (default = FALSE)}
+\item{enable_pagination}{to enable table pagination (default = FALSE)}
 
 \item{table_height}{max table height in pixels. Vertical scroll will be shown after that height value}
 
