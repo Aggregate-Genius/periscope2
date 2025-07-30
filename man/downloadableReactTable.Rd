@@ -11,6 +11,14 @@ downloadableReactTable(
   pre_selected_rows = NULL,
   file_name_root = "data_file",
   download_data_fxns = NULL,
+  pagination = FALSE,
+  table_height = 600,
+  show_rownames = FALSE,
+  columns_filter = FALSE,
+  global_search = TRUE,
+  row_highlight = TRUE,
+  row_striping = TRUE,
+  table_options = list(),
   logger = NULL
 )
 }
@@ -35,7 +43,25 @@ a reactive expression or a function returning a character string (default = 'dat
 \item{download_data_fxns}{a \strong{named} list of functions providing the data as return values.
 The names for the list should be the same names that were used when the table UI was created}
 
-\item{logger}{logger to use}
+\item{pagination}{to enable table pagination (default = FALSE)}
+
+\item{table_height}{max table height in pixels. Vertical scroll will be shown after that height value}
+
+\item{show_rownames}{enable displaying rownames as a separate column (default = FALSE)}
+
+\item{columns_filter}{enable the filtering input on each column in the table (default = FALSE)}
+
+\item{global_search}{enable table global searching input to search and filter in all columns at once
+(default = TRUE)}
+
+\item{row_highlight}{enable highlighting rows upon mouse hover (default = TRUE)}
+
+\item{row_striping}{add zebra-striped style to table rows (default = TRUE)}
+
+\item{table_options}{optional table formatting parameters check \code{?reactable::reactable} for options full list.
+Also see example below to see how to pass options (default = list())}
+
+\item{logger}{logger to use (default = NULL)}
 }
 \value{
 Rendered react table
@@ -55,16 +81,33 @@ server.R using the same id provided in \code{downloadableReactTableUI}:
 if (interactive()) {
  library(shiny)
  library(periscope2)
- shinyApp(ui = fluidPage(fluidRow(column(width = 12,
-    downloadableReactTableUI("object_id1",
-                             downloadtypes = c("csv", "tsv"),
-                             hovertext     = "Download the data here!",
-                             contentHeight = "300px")))),
-         server = function(input, output) {
-           downloadableReactTable(id                = "object_id1",
-                                  table_data        = reactiveVal(mtcars),
-                                  selection_mode    = "multiple",
-                                  pre_selected_rows = function() {c(1, 3, 5)})})
+ library(reactable)
+
+ shinyApp(
+     ui = fluidPage(fluidRow(column(
+         width = 12,
+         downloadableReactTableUI(
+             id            = "object_id1",
+             downloadtypes = c("csv", "tsv"),
+             hovertext     = "Download the data here!")))),
+     server = function(input, output) {
+         downloadableReactTable(
+             id                 = "object_id1",
+             table_data         = reactiveVal(iris),
+             download_data_fxns = list(csv = reactiveVal(iris), tsv = reactiveVal(iris)),
+             selection_mode     = "multiple",
+             pre_selected_rows  = function() {c(1, 3, 5)},
+             table_options      = list(columns = list(
+                 Sepal.Length = colDef(name = "Sepal Length"),
+                 Sepal.Width  = colDef(filterable = TRUE),
+                 Petal.Length = colDef(show = FALSE),
+                 Petal.Width  = colDef(defaultSortOrder = "desc")),
+                 theme = reactableTheme(
+                     headerStyle = list(
+                         "&:hover[aria-sort]" = list(background = "hsl(0, 0\%, 96\%)"),
+                         "&[aria-sort='ascending'], &[aria-sort='descending']" = list(background = "hsl(0, 0\%, 96\%)"),
+                         borderColor = "#'555"))))
+    })
 }
 
 }
