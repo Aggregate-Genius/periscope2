@@ -329,7 +329,7 @@ test_that("downloadableReactTable - file_name_root and download_data_fxns", {
                })
 
     server_warning <- capture_output(testServer(downloadableReactTable,
-                   args = list(table_data         = function(){"test"},
+                   args = list(table_data         = function() { "test" },
                                download_data_fxns = list(csv = get_mtcars_data),
                                file_name_root     = NULL),
                    expr = {
@@ -343,14 +343,14 @@ test_that("downloadableReactTable - file_name_root and download_data_fxns", {
 
 test_that("downloadableReactTable - table_options", {
     testServer(downloadableReactTable,
-               args = list(table_data    = function(){"test"},
+               args = list(table_data    = function() { "test" },
                            table_options = list(showSortable = TRUE)),
                expr = {
                    expect_true(grepl('"showSortable":true', output$reactTableOutputID))
     })
 
     testServer(downloadableReactTable,
-                   args = list(table_data    = function() {"test"},
+                   args = list(table_data    = function() { "test" },
                                table_options = list("unnamed_option")),
                    expr = {
                        server_warning <- capture_output(output$reactTableOutputID, print = TRUE)
@@ -359,7 +359,7 @@ test_that("downloadableReactTable - table_options", {
     })
 
     testServer(downloadableReactTable,
-                   args = list(table_data    = function() {"test"},
+                   args = list(table_data    = function() { "test" },
                                table_options = list(not_valid = "option")),
                    expr = {
                        server_warning <- capture_output(output$reactTableOutputID, print = TRUE)
