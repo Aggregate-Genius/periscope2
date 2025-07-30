@@ -244,7 +244,6 @@ test_that("Dataframe xlsx download works with openxlsx", {
 })
 
 test_that("Dataframe xlsx download works with writexl", {
-    skip_if_not_installed("writexl")
     local_mocked_bindings(check_openxlsx2_availability = function() FALSE)
     local_mocked_bindings(check_openxlsx_availability  = function() FALSE)
     testServer(downloadFile,
