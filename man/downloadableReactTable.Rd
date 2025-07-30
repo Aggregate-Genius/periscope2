@@ -54,12 +54,12 @@ The names for the list should be the same names that were used when the table UI
 \item{global_search}{enable table global searching input to search and filter in all columns at once
 (default = TRUE)}
 
-\item{row_highlight}{enable highlighting rows upon mouse hover}
+\item{row_highlight}{enable highlighting rows upon mouse hover (default = TRUE)}
 
-\item{row_striping}{add zebra-striped style to table rows}
+\item{row_striping}{add zebra-striped style to table rows (default = TRUE)}
 
 \item{table_options}{optional table formatting parameters check \code{?reactable::reactable} for options full list.
-Also see example below to see how to pass options}
+Also see example below to see how to pass options (default = NULL)}
 
 \item{logger}{logger to use}
 }

@@ -138,11 +138,11 @@ downloadableReactTableUI <- function(id,
 #' @param columns_filter enable each column own filter input in the table (default = FALSE)
 #' @param global_search  enable table global searching input to search and filter in all columns at once
 #'                              (default = TRUE)
-#' @param row_highlight enable highlighting rows upon mouse hover
-#' @param row_striping add zebra-striped style to table rows
+#' @param row_highlight enable highlighting rows upon mouse hover (default = TRUE)
+#' @param row_striping add zebra-striped style to table rows (default = TRUE)
 #' @param table_options optional table formatting parameters check \code{?reactable::reactable} for options full list.
-#'                      Also see example below to see how to pass options
-#' @param logger logger to use
+#'                      Also see example below to see how to pass options (default = list())
+#' @param logger logger to use (default = NULL)
 #'
 #' @return Rendered react table
 #'
