@@ -135,8 +135,8 @@ downloadableReactTableUI <- function(id,
 #' @param pagination to enable table pagination (default = FALSE)
 #' @param table_height max table height in pixels. Vertical scroll will be shown after that height value
 #' @param show_rownames enable displaying rownames as a separate column (default = FALSE)
-#' @param columns_filter enable each column own filter input in the table (default = FALSE)
-#' @param global_search  enable table global searching input to search and filter in all columns at once
+#' @param columns_filter enable the filtering input on each column in the table (default = FALSE)
+#' @param global_search enable table global searching input to search and filter in all columns at once
 #'                              (default = TRUE)
 #' @param row_highlight enable highlighting rows upon mouse hover (default = TRUE)
 #' @param row_striping add zebra-striped style to table rows (default = TRUE)

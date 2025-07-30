@@ -49,7 +49,7 @@ The names for the list should be the same names that were used when the table UI
 
 \item{show_rownames}{enable displaying rownames as a separate column (default = FALSE)}
 
-\item{columns_filter}{enable each column own filter input in the table (default = FALSE)}
+\item{columns_filter}{enable the filtering input on each column in the table (default = FALSE)}
 
 \item{global_search}{enable table global searching input to search and filter in all columns at once
 (default = TRUE)}
@@ -59,9 +59,9 @@ The names for the list should be the same names that were used when the table UI
 \item{row_striping}{add zebra-striped style to table rows (default = TRUE)}
 
 \item{table_options}{optional table formatting parameters check \code{?reactable::reactable} for options full list.
-Also see example below to see how to pass options (default = NULL)}
+Also see example below to see how to pass options (default = list())}
 
-\item{logger}{logger to use}
+\item{logger}{logger to use (default = NULL)}
 }
 \value{
 Rendered react table
