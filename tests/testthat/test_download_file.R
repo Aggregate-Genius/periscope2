@@ -209,6 +209,7 @@ test_that("Testing workbook openxlsx2", {
 })
 
 test_that("Testing workbook openxlsx", {
+    skip_if(getRversion() < "4.1.0", "Skipping due to lifecycle warnings in R < 4.1.0")
     skip_if_not_installed("openxlsx")
     local_mocked_bindings(check_openxlsx2_availability = function() FALSE)
     testServer(downloadFile,
@@ -234,6 +235,7 @@ test_that("Dataframe xlsx download works with openxlsx2", {
 })
 
 test_that("Dataframe xlsx download works with openxlsx", {
+    skip_if(getRversion() < "4.1.0", "Skipping due to lifecycle warnings in R < 4.1.0")
     skip_if_not_installed("openxlsx")
     local_mocked_bindings(check_openxlsx2_availability = function() FALSE)
     testServer(downloadFile,
@@ -246,6 +248,7 @@ test_that("Dataframe xlsx download works with openxlsx", {
 })
 
 test_that("Dataframe xlsx download works with writexl", {
+    skip_if(getRversion() < "4.1.0", "Skipping due to lifecycle warnings in R < 4.1.0")
     local_mocked_bindings(check_openxlsx2_availability = function() FALSE)
     local_mocked_bindings(check_openxlsx_availability  = function() FALSE)
     testServer(downloadFile,
