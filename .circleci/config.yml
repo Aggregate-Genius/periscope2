@@ -39,14 +39,17 @@ jobs:
             R -e 'install.packages(c("shinyWidgets", "yaml", "DT", "writexl", "fresh", "miniUI", "shinyFeedback"))'
             R -e 'install.packages(c("canvasXpress", "waiter", "shinyjs", "openxlsx", "spelling", "colourpicker", "lifecycle"))'
             R -e 'install.packages("reactable")'
+            R -e 'install.packages("openxlsx2", repos = "https://cloud.r-project.org'")'
 
       - run:
-          name: Install openxlsx2 with updated snapshot
+          name: Install openxlsx2 from GitHub
           command: |
              Rscript -e "
-             # Use a later snapshot that includes openxlsx2
-             options(repos = c(CRAN = 'https://packagemanager.posit.co/cran/__linux__/focal/2022-01-01'))
-             install.packages('openxlsx2')"
+             if (!require('remotes')) {
+                 options(repos = c(CRAN = 'https://cloud.r-project.org'))
+                 install.packages('remotes')
+            }
+            remotes::install_github('JanMarvin/openxlsx2@v0.7.0')"
 
       - run:
           name: Session information and installed package versions
