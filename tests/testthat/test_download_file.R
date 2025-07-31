@@ -35,15 +35,15 @@ download_char_data <- function() {
 }
 
 create_openxlsx2_wb <- function() {
-    wb <- openxlsx2::wb_workbook()$add_worksheet("openxlsx2_workbook")$add_data(x = download_data())
+    openxlsx2::wb_workbook()$add_worksheet("openxlsx2_workbook")$add_data(x = download_data())
 }
 
 create_openxlsx_wb <- function() {
-    wb <- openxlsx::createWorkbook()
+    wb   <- openxlsx::createWorkbook()
     openxlsx::addWorksheet(wb, "openxlsx_workbook")
     data <- as.data.frame(download_data())
     openxlsx::writeData(wb, "openxlsx_workbook", data)
-    return(wb)
+    wb
 }
 
 # UI Testing
