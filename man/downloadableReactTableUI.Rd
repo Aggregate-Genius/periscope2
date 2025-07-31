@@ -74,7 +74,7 @@ if (interactive()) {
              downloadtypes = c("csv", "tsv"),
              hovertext     = "Download the data here!")))),
      server = function(input, output) {
-         downloadableReactTable(
+         table_state <- downloadableReactTable(
              id                 = "object_id1",
              table_data         = reactiveVal(iris),
              download_data_fxns = list(csv = reactiveVal(iris), tsv = reactiveVal(iris)),
@@ -87,10 +87,12 @@ if (interactive()) {
                  Petal.Width  = colDef(defaultSortOrder = "desc")),
                  showSortable = TRUE,
                  theme = reactableTheme(
-                     headerStyle = list(
-                         "&:hover[aria-sort]" = list(background = "hsl(0, 0\%, 96\%)"),
-                         "&[aria-sort='ascending'], &[aria-sort='descending']" = list(background = "hsl(0, 0\%, 96\%)"),
-                         borderColor = "#'555"))))
+                     borderColor = "#dfe2e5",
+                     stripedColor = "#f6f8fa",
+                     highlightColor = "#f0f5f9",
+                     cellPadding = "8px 12px")))
+
+        observeEvent(table_state(), { print(table_state()) })
     })
 }
 

@@ -105,10 +105,11 @@ if (interactive()) {
                  Petal.Length = colDef(show = FALSE),
                  Petal.Width  = colDef(defaultSortOrder = "desc")),
                  theme = reactableTheme(
-                     headerStyle = list(
-                         "&:hover[aria-sort]" = list(background = "hsl(0, 0\%, 96\%)"),
-                         "&[aria-sort='ascending'], &[aria-sort='descending']" = list(background = "hsl(0, 0\%, 96\%)"),
-                         borderColor = "#'555"))))
+                     borderColor = "#dfe2e5",
+                     stripedColor = "#f6f8fa",
+                     highlightColor = "#f0f5f9",
+                     cellPadding = "8px 12px")))
+
         observeEvent(table_state(), { print(table_state()) })
     })
 }
