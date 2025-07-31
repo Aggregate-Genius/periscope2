@@ -64,9 +64,13 @@ Also see example below to see how to pass options (default = list())}
 \item{logger}{logger to use (default = NULL)}
 }
 \value{
-A named list of current rendered table state values. The list keys are
+A named list of two elements:
+\itemize{
+\item selected_rows: data.frame of current selected rows
+\item table_state:   a list of current rendered table state values. The list keys are
 ("page", "pageSize", "pages", "sorted" and "selected").
 Review \code{?reactable::getReactableState} for more info.
+}
 }
 \description{
 Server-side function for the downloadableReactTableUI.

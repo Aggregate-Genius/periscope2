@@ -20,7 +20,7 @@ list of downloadFileButton UI and reactable table and hidden inputs for contentH
 downloadableReactTable module is extending \code{?reactable} package table functions by creating
 a custom high-functionality table paired with \link[periscope2]{downloadFile} button.
 The table has the following default functionality:search, highlight functionality, infinite scrolling, sorting by columns and
-returns a reactive dataset of selected items.
+returns a reactive dataset of selected items and table current state.
 }
 \details{
 \link[periscope2]{downloadFile} button will be hidden if \code{downloadableReactTableUI} parameter

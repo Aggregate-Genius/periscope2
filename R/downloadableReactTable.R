@@ -8,7 +8,7 @@
 #' downloadableReactTable module is extending \code{?reactable} package table functions by creating
 #' a custom high-functionality table paired with \link[periscope2]{downloadFile} button.
 #' The table has the following default functionality:search, highlight functionality, infinite scrolling, sorting by columns and
-#' returns a reactive dataset of selected items.
+#' returns a reactive dataset of selected items and table current state.
 #'
 #' \link[periscope2]{downloadFile} button will be hidden if \code{downloadableReactTableUI} parameter
 #' \code{downloadtypes} is empty
@@ -141,9 +141,14 @@ downloadableReactTableUI <- function(id,
 #'                      Also see example below to see how to pass options (default = list())
 #' @param logger logger to use (default = NULL)
 #'
-#' @return A named list of current rendered table state values. The list keys are
+#' @return A named list of two elements:
+#'  \itemize{
+#'     \item selected_rows: data.frame of current selected rows
+#'     \item table_state:   a list of current rendered table state values. The list keys are
 #'         ("page", "pageSize", "pages", "sorted" and "selected").
 #'          Review \code{?reactable::getReactableState} for more info.
+#' }
+#'
 #'
 #' @section Shiny Usage:
 #' This function is not called directly by consumers - it is accessed in
@@ -345,7 +350,15 @@ downloadableReactTable <- function(id,
                          table_output
                     })
                  }
-                 shiny::reactive({reactable::getReactableState("reactTableOutputID")})
+                 shiny::reactive({
+                     table_state   <- reactable::getReactableState("reactTableOutputID")
+                     selected_rows <- NULL
+
+                     if (!is.null(table_state) && !is.null(table_state$selected)) {
+                         selected_rows <- table_data()[table_state$selected, ]
+                     }
+                     list(selected_rows = selected_rows, table_state = table_state)
+                 })
             }
         )
 }
