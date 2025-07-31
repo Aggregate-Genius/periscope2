@@ -197,6 +197,7 @@ test_that("downloadFile - invalid type", {
 
 # Testing for xlsx downloads
 test_that("Testing workbook openxlsx2", {
+    skip_if(getRversion() < "4.1.0", "Skipping due to lifecycle warnings in R < 4.1.0")
     skip_if_not_installed("openxlsx2")
     testServer(downloadFile,
                args = list(logger       = periscope2:::fw_get_user_log(),
@@ -220,6 +221,7 @@ test_that("Testing workbook openxlsx", {
 })
 
 test_that("Dataframe xlsx download works with openxlsx2", {
+    skip_if(getRversion() < "4.1.0", "Skipping due to lifecycle warnings in R < 4.1.0")
     skip_if_not_installed("openxlsx2")
     local_mocked_bindings(check_openxlsx_availability = function() FALSE)
     testServer(downloadFile,
