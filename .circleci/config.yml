@@ -46,9 +46,9 @@ jobs:
           command: |
              Rscript -e "
              if (!require('remotes')) {
-                 options(repos = c(CRAN = 'https://cloud.r-project.org'))
+                 options(repos = c(CRAN = 'https://cloud.r-project.org'));
                  install.packages('remotes')
-            }
+            };
             remotes::install_github('JanMarvin/openxlsx2@v0.7.0')"
 
       - run:
