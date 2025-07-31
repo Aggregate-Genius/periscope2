@@ -42,14 +42,14 @@ jobs:
             R -e 'install.packages("openxlsx2", repos = "https://cloud.r-project.org'")'
 
       - run:
+          name: Install remotes package
+          command: |
+             Rscript -e 'if (!require("remotes")) install.packages("remotes", repos = "https://cloud.r-project.org")'
+
+      - run:
           name: Install openxlsx2 from GitHub
           command: |
-             Rscript -e "
-             if (!require('remotes')) {
-                 options(repos = c(CRAN = 'https://cloud.r-project.org'));
-                 install.packages('remotes')
-            };
-            remotes::install_github('JanMarvin/openxlsx2@v0.7.0')"
+             Rscript -e 'remotes::install_github("JanMarvin/openxlsx2@v0.7.0")'
 
       - run:
           name: Session information and installed package versions
