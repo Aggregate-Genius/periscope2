@@ -669,11 +669,10 @@ updateOptions.Logger <- function(container, ...) {
 ##
 logging_level <- function(level_name, current_log_level) {
     switch(current_log_level,
-           "DEBUG" = TRUE,
            "INFO"  = level_name %in% c("INFO", "WARN", "ERROR"),
            "WARN"  = level_name %in% c("WARN", "ERROR"),
            "ERROR" = level_name == "ERROR",
-           FALSE
+            TRUE
     )
 }
 
