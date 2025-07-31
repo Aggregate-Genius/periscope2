@@ -390,15 +390,19 @@ test_that("downloadableReactTable - table_options", {
 test_that("downloadableReactTable - module return", {
     skip_if(getRversion() < "4.1.0", "Skipping due to lifecycle warnings in R < 4.1.0")
     local_mocked_bindings(
-        getReactableState = function(...) list(showSortable = TRUE),
+        getReactableState = function(...) {
+         list(showSortable    = TRUE,
+              defaultSelected = c(2, 3))
+        },
         .package = "reactable")
+
 
     testServer(
         downloadableReactTable,
-        args = list(table_data    = function() { "test" },
-                    table_options = list(showSortable = TRUE)),
+        args = list(table_data = function() { "test" }),
         expr = {
             result <- session$returned()
-            expect_true(result$showSortable)
+            expect_equal(length(result), 2)
+            expect_true(all(c("selected_rows", "table_state") %in% names(result)))
   })
 })
