@@ -25,6 +25,11 @@ This *Shiny Module* displays recorded session logs in tabular format
   * time: display action time
 * The log files are kept in the /log directory and named 'actions.log'. ONE old copy of the log is kept as 'actions.log.last
 * Many actions are automatically logged by the framework and it is easy for developers to add additional items as they see fit.
+* Filtering logs by setting log_level as desired 
+  * "DEBUG" will log logdebug, loginfo, logwarn, and logerror messages 
+  * "INFO"  will log loginfo, logwarn, and logerror messages
+  * "WARN"  will log logwarn and logerror messages
+  * "ERROR" will log logerror messages
 * It is important to note that the log rolls over for each session and is reset if using the appReset module.
   
 <center><img src="figures/user_action_log.jpg" width="800px"></center>
