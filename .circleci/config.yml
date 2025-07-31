@@ -39,7 +39,7 @@ jobs:
             R -e 'install.packages(c("shinyWidgets", "yaml", "DT", "writexl", "fresh", "miniUI", "shinyFeedback"))'
             R -e 'install.packages(c("canvasXpress", "waiter", "shinyjs", "openxlsx", "spelling", "colourpicker", "lifecycle"))'
             R -e 'install.packages("reactable")'
-            R -e 'install.packages("openxlsx2", repos = "https://cloud.r-project.org'")'
+            R -e 'install.packages("openxlsx2", repos = "https://cloud.r-project.org")'
 
       - run:
           name: Install remotes package
