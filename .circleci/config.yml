@@ -30,20 +30,6 @@ jobs:
             sudo apt-get update -y
             sudo apt-get install -yq texlive-fonts-recommended
             sudo apt-get install -yq texlive-fonts-extra
-      - run:
-          name: Debug package availability
-          command: |
-             Rscript -e "cat('R version:', R.version.string, '\n')
-                         cat('Available repos:\n')
-                         print(getOption('repos'))
-                         # Check if package exists in current repo
-                         available_pkgs <- available.packages()
-                         if ('openxlsx2' %in% available_pkgs[,'Package']) {
-                             pkg_info <- available_pkgs[available_pkgs[,'Package'] == 'openxlsx2', ]
-                             cat('Package found. Depends:', pkg_info['Depends'], '\n')
-                         } else {
-                             cat('Package not found in current repository\n')
-                         }"
 
       - run:
           name: Install R dependencies
@@ -51,8 +37,16 @@ jobs:
             R -e 'install.packages("shiny", repos = "https://cran.rstudio.com/")'
             R -e 'install.packages("bs4Dash", repos = "https://cran.rstudio.com/")'
             R -e 'install.packages(c("shinyWidgets", "yaml", "DT", "writexl", "fresh", "miniUI", "shinyFeedback"))'
-            R -e 'install.packages(c("canvasXpress", "waiter", "shinyjs", "openxlsx", "openxlsx2", "spelling", "colourpicker", "lifecycle"))'
+            R -e 'install.packages(c("canvasXpress", "waiter", "shinyjs", "openxlsx", "spelling", "colourpicker", "lifecycle"))'
             R -e 'install.packages("reactable")'
+
+      - run:
+          name: Install openxlsx2 with updated snapshot
+          command: |
+             Rscript -e "
+             # Use a later snapshot that includes openxlsx2
+             options(repos = c(CRAN = 'https://packagemanager.posit.co/cran/__linux__/focal/2022-01-01'))
+             install.packages('openxlsx2')"
 
       - run:
           name: Session information and installed package versions
