@@ -353,8 +353,7 @@ downloadableReactTable <- function(id,
                  shiny::reactive({
                      table_state   <- reactable::getReactableState("reactTableOutputID")
                      selected_rows <- NULL
-
-                     if (!is.null(table_state) && !is.null(table_state$selected)) {
+                     if (!is.null(table_state) && !is.null(table_state$selected) && is.data.frame(table_data())) {
                          selected_rows <- table_data()[table_state$selected, ]
                      }
                      list(selected_rows = selected_rows, table_state = table_state)

@@ -392,10 +392,10 @@ test_that("downloadableReactTable - module return", {
     local_mocked_bindings(
         getReactableState = function(...) {
          list(showSortable    = TRUE,
-              defaultSelected = c(2, 3))
+              defaultSelected = c(2, 3),
+              selected        = c(2, 3))
         },
         .package = "reactable")
-
 
     testServer(
         downloadableReactTable,
@@ -404,5 +404,30 @@ test_that("downloadableReactTable - module return", {
             result <- session$returned()
             expect_equal(length(result), 2)
             expect_true(all(c("selected_rows", "table_state") %in% names(result)))
+            expect_true(is.null(result$selected_rows))
+   })
+
+    local_mocked_bindings(
+        getReactableState = function(...) {
+         list(data            = get_mtcars_data(),
+              showSortable    = TRUE,
+              defaultSelected = c(2, 3),
+              selected        = c(2, 3))
+        },
+        .package = "reactable")
+
+
+    testServer(
+        downloadableReactTable,
+        args = list(table_data = get_mtcars_data),
+        expr = {
+            result <- session$returned()
+            expect_equal(length(result), 2)
+            expect_true(all(c("selected_rows", "table_state") %in% names(result)))
+            expect_true(NROW(result$selected_rows) == 2)
+            expect_true(all(c("Mazda RX4 Wag", "Datsun 710") %in%  rownames(result$selected_rows)))
   })
+
 })
+
+
