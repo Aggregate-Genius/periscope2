@@ -125,41 +125,57 @@ test_that("downloadableTable - invalid_selection", {
 
 
 test_that("downloadableTable - filenameroot", {
-    testServer(downloadableTable,
-               args = list(filenameroot     = "test",
-                           downloaddatafxns = list(csv = data),
-                           tabledata        = data),
-               expr = {
-                   selected <- '"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}'
-                   expect_true(grepl(selected, output$dtableOutputID, fixed = TRUE))
-               })
+    expect_message(
+        testServer(downloadableTable,
+                   args = list(filenameroot     = "test",
+                               downloaddatafxns = list(csv = data),
+                               tabledata        = data),
+                   expr = {
+                       selected <- '"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}'
+                       expect_true(grepl(selected, output$dtableOutputID, fixed = TRUE))
+                  }),
+        regexp = "Could not apply DT options due to.*selection.*argument is incorrect",
+        class  = "message"
+    )
 
-    testServer(downloadableTable,
-               args = list(filenameroot     = reactiveVal("test"),
-                           downloaddatafxns = list(csv = data),
-                           tabledata        = data),
-               expr = {
-                   selected <- '"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}'
-                   expect_true(grepl(selected, output$dtableOutputID, fixed = TRUE))
-               })
+    expect_message(
+        testServer(downloadableTable,
+                   args = list(filenameroot     = reactiveVal("test"),
+                               downloaddatafxns = list(csv = data),
+                               tabledata        = data),
+                   expr = {
+                       selected <- '"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}'
+                       expect_true(grepl(selected, output$dtableOutputID, fixed = TRUE))
+                  }),
+        regexp = "Could not apply DT options due to.*selection.*argument is incorrect",
+        class  = "message"
+    )
 
-    testServer(downloadableTable,
-               args = list(filenameroot     = function(){"test"},
-                           downloaddatafxns = list(csv = data),
-                           tabledata        = data),
-               expr = {
-                   selected <- '"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}'
-                   expect_true(grepl(selected, output$dtableOutputID, fixed = TRUE))
-               })
+    expect_message(
+        testServer(downloadableTable,
+                   args = list(filenameroot     = function(){"test"},
+                               downloaddatafxns = list(csv = data),
+                               tabledata        = data),
+                   expr = {
+                       selected <- '"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}'
+                       expect_true(grepl(selected, output$dtableOutputID, fixed = TRUE))
+                  }),
+        regexp = "Could not apply DT options due to.*selection.*argument is incorrect",
+        class  = "message"
+    )
 
-    testServer(downloadableTable,
-               args = list(filenameroot     = NULL,
-                           downloaddatafxns = list(csv = data),
-                           tabledata        = data),
-               expr = {
-                   selected <- '"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}'
-                   expect_true(grepl(selected, output$dtableOutputID, fixed = TRUE))
-               })
+    expect_message(
+        testServer(downloadableTable,
+                   args = list(filenameroot     = NULL,
+                               downloaddatafxns = list(csv = data),
+                               tabledata        = data),
+                   expr = {
+                       selected <- '"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}'
+                       expect_true(grepl(selected, output$dtableOutputID, fixed = TRUE))
+                  }),
+        regexp = "Could not apply DT options due to.*selection.*argument is incorrect",
+        class  = "message"
+    )
 })
 
 test_that("downloadableTable - no downloads", {
