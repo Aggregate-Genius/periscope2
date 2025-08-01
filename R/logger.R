@@ -622,6 +622,17 @@ updateOptions.Logger <- function(container, ...) {
     updateOptions.environment(container, ...)
 }
 
+## Filtering log messages according to chosen level
+##
+logging_level <- function(level_name, current_log_level) {
+    switch(current_log_level,
+           "INFO"  = level_name %in% c("INFO", "WARN", "ERROR"),
+           "WARN"  = level_name %in% c("WARN", "ERROR"),
+           "ERROR" = level_name == "ERROR",
+           TRUE
+    )
+}
+
 ##
 ## Predefined(sample) handler actions
 ##
@@ -667,15 +678,6 @@ updateOptions.Logger <- function(container, ...) {
 ## to color messages. The coloring can be switched off by means of configuring
 ## the handler with \var{color_output} option set to FALSE.
 ##
-logging_level <- function(level_name, current_log_level) {
-    switch(current_log_level,
-           "INFO"  = level_name %in% c("INFO", "WARN", "ERROR"),
-           "WARN"  = level_name %in% c("WARN", "ERROR"),
-           "ERROR" = level_name == "ERROR",
-            TRUE
-    )
-}
-
 writeToConsole <- function(msg, handler, ...) {
     if (length(list(...)) && "dry" %in% names(list(...))) {
         if (!is.null(handler$color_output) && handler$color_output == FALSE) {
