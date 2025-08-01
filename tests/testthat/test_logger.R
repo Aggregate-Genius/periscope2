@@ -122,9 +122,10 @@ test_that("LoggingToConsole", {
     periscope2:::addHandler(writeToConsole, level = "DEBUG")
 
     expect_equal(with(periscope2:::getLogger(), names(handlers)), c("basic.stdout", "writeToConsole"))
-    logdebug("log generated for testing")
-    loginfo("log generated for testing")
-
+    expect_true(grepl(pattern = "DEBUG::log generated for testing",
+                      x       = capture_output(logdebug("log generated for testing"), print = TRUE)))
+    expect_true(grepl(pattern = "INFO::log generated for testing",
+                      x       = capture_output(loginfo("log generated for testing"), print = TRUE)))
     succeed()
 })
 
