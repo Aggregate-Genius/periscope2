@@ -406,7 +406,8 @@ test_that("load_announcements empty file", {
     announcements_file <- paste0(gsub('\\\\|/', '', (gsub(appTemp_dir, "", appTemp, fixed = TRUE))), ".yaml")
     yaml::write_yaml("", announcements_file)
 
-    expect_null(load_announcements(announcements_file_path = announcements_file))
+    warn_msg <- capture_output(expect_null(load_announcements(announcements_file_path = announcements_file)), print = TRUE)
+    expect_true(grepl(pattern = "Announcements will be ignored", x = warn_msg))
     unlink(announcements_file, TRUE)
 })
 
@@ -418,33 +419,55 @@ test_that("load_announcements - parsing error", {
     cat(":", file = (con <- file(announcements_file, "w", encoding = "UTF-8")))
     close(con)
 
-    expect_warning(load_announcements(announcements_file_path = announcements_file),
-                   regexp                                     = "[(Could not parse TestThatApp)]")
+    warn_msg <- capture_output(expect_warning(load_announcements(announcements_file_path = announcements_file),
+                                              regexp                                     = "[(Could not parse TestThatApp)]"))
+    expect_true(grepl(pattern = "column 1 did not find expected key at line 1", x = warn_msg))
     unlink(announcements_file, TRUE)
 })
 
 test_that("load_announcements function parameters", {
-    expect_null(create_announcements(start_date = "2222-11-26",
-                                     end_data   = "2222-12-26"))
-    expect_null(create_announcements(start_date = "2022-11-26",
-                                     end_data   = "2222-12-26",
-                                     style      = "not-style"))
+    expect_null(create_announcements(
+        start_date = "2222-11-26",
+        end_data   = "2222-12-26"))
+
+    warn_msg <- capture_output(expect_null(
+        create_announcements(start_date = "2022-11-26",
+                             end_data   = "2222-12-26",
+                             style      = "not-style")), print = TRUE)
+
+    expect_true(grepl(pattern = "'style' must be one of  info, danger, success, warning, primary", x = warn_msg))
+
     expect_null(create_announcements(start_date        = "11-26-2222",
                                      end_data          = "12-26-2222",
                                      start_date_format = "%m-%d-%Y",
                                      end_date_format   = "%m-%d-%Y"))
+
+    warn_msg <- capture_output(expect_null(
+        create_announcements(start_date        = "11-26-2222",
+                             end_data          = "12-26-2222",
+                             end_date_format   = "%m-%d-%Y")), print = TRUE)
+
+    expect_true(grepl(pattern = "'start_date' value ' 11-26-2222 ' could not be converted to a valid date", x = warn_msg))
+
+    warn_msg <- capture_output(expect_null(
+        create_announcements(start_date        = "11-26-2222",
+                             end_data          = "12-26-2222",
+                             start_date_format = "%m-%d-%Y")), print = TRUE)
+
+    expect_true(grepl(pattern = "'end_date' value ' 12-26-2222 ' could not be converted to a valid date", x = warn_msg))
+
     expect_null(create_announcements(start_date        = "11-26-2222",
-                                     end_data          = "12-26-2222",
-                                     end_date_format   = "%m-%d-%Y"))
-    expect_null(create_announcements(start_date        = "11-26-2222",
-                                     end_data          = "12-26-2222",
                                      start_date_format = "%m-%d-%Y"))
-    expect_null(create_announcements(start_date        = "11-26-2222",
-                                     start_date_format = "%m-%d-%Y"))
-    expect_null(create_announcements(style = "info"))
-    expect_null(create_announcements(style      = "info",
-                                     text       = "text",
-                                     auto_close = "abc"))
+
+    warn_msg <- capture_output(expect_null(create_announcements(style = "info")))
+
+    expect_true(grepl(pattern = "'text' value is empty. It must contain non empty text value", x = warn_msg))
+
+    warn_msg <- capture_output(expect_null(
+        create_announcements(style      = "info",
+                             text       = "text",
+                             auto_close = "abc")), print = TRUE)
+    expect_true(grepl(pattern = "'auto_close' value ' abc ' is invalid", x = warn_msg))
 })
 
 test_that("load_theme_settings - null settings", {
@@ -504,18 +527,17 @@ test_that("theme - invalid color", {
 })
 
 
-# test_that("theme - invalid width", {
-#     theme_settings <- yaml::read_yaml(system.file("fw_templ", "p_example", "periscope_style.yaml", package = "periscope2"))
-#     dir.create("www")
-#     theme_settings[["sidebar_width"]]         <- "300"
-#     theme_settings[["control_sidebar_width"]] <- "-300"
-#
-#     yaml::write_yaml(theme_settings, "www/periscope_style.yaml")
-#     expect_warning(nchar(create_theme()),
-#                    regexp = "invalid theme settings -300 must be positive value. Setting default value")
-#     unlink("www/periscope_style.yaml")
-#     unlink("www", recursive = TRUE)
-# })
+test_that("theme - invalid width", {
+    theme_settings <- yaml::read_yaml(system.file("fw_templ", "p_example", "periscope_style.yaml", package = "periscope2"))
+    dir.create("www")
+    theme_settings[["sidebar_width"]]         <- "300"
+    theme_settings[["control_sidebar_width"]] <- "-300"
+
+    yaml::write_yaml(theme_settings, "www/periscope_style.yaml")
+    expect_warning(create_theme(), regexp = "-300 must be positive value. Setting default value")
+    unlink("www/periscope_style.yaml")
+    unlink("www", recursive = TRUE)
+})
 
 
 test_that("dashboard - create default dashboard", {
