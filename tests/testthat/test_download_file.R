@@ -34,6 +34,18 @@ download_char_data <- function() {
     "A123B"
 }
 
+create_openxlsx2_wb <- function() {
+    wb <- openxlsx2::wb_workbook()$add_worksheet("openxlsx2_workbook")$add_data(x = download_data())
+}
+
+create_openxlsx_wb <- function() {
+    wb <- openxlsx::createWorkbook()
+    openxlsx::addWorksheet(wb, "openxlsx_workbook")
+    data <- as.data.frame(download_data())
+    openxlsx::writeData(wb, "openxlsx_workbook", data)
+    return(wb)
+}
+
 # UI Testing
 test_that("downloadFileButton", {
     file_btn <- downloadFileButton(id            = "myid",
@@ -180,5 +192,65 @@ test_that("downloadFile - invalid type", {
                    expect_error(output$ttt)
                    expect_error(output$jeg)
                    expect_error(output$tff)
+               })
+})
+
+# Testing for xlsx downloads
+test_that("Testing workbook openxlsx2", {
+    skip_if_not_installed("openxlsx2")
+    testServer(downloadFile,
+               args = list(logger       = periscope2:::fw_get_user_log(),
+                           filenameroot = "excel_test_openxlsx2_wb",
+                           datafxns     = list(xlsx = create_openxlsx2_wb)),
+               expr = {
+                   expect_true(file.exists(output$xlsx))
+               })
+})
+
+test_that("Testing workbook openxlsx", {
+    skip_if_not_installed("openxlsx")
+    local_mocked_bindings(check_openxlsx2_availability = function() FALSE)
+    testServer(downloadFile,
+               args = list(logger       = periscope2:::fw_get_user_log(),
+                           filenameroot = "excel_test_openxlsx_wb",
+                           datafxns     = list(xlsx = create_openxlsx_wb)),
+               expr = {
+                   expect_true(file.exists(output$xlsx))
+               })
+})
+
+test_that("Dataframe xlsx download works with openxlsx2", {
+    skip_if_not_installed("openxlsx2")
+    local_mocked_bindings(check_openxlsx_availability = function() FALSE)
+    testServer(downloadFile,
+               args = list(logger       = periscope2:::fw_get_user_log(),
+                           filenameroot = "excel_test_dataframe",
+                           datafxns     = list(xlsx = download_data)),
+               expr = {
+                   expect_true(file.exists(output$xlsx))
+               })
+})
+
+test_that("Dataframe xlsx download works with openxlsx", {
+    skip_if_not_installed("openxlsx")
+    local_mocked_bindings(check_openxlsx2_availability = function() FALSE)
+    testServer(downloadFile,
+               args = list(logger       = periscope2:::fw_get_user_log(),
+                           filenameroot = "excel_test_dataframe",
+                           datafxns     = list(xlsx = download_data)),
+               expr = {
+                   expect_true(file.exists(output$xlsx))
+               })
+})
+
+test_that("Dataframe xlsx download works with writexl", {
+    local_mocked_bindings(check_openxlsx2_availability = function() FALSE)
+    local_mocked_bindings(check_openxlsx_availability  = function() FALSE)
+    testServer(downloadFile,
+               args = list(logger       = periscope2:::fw_get_user_log(),
+                           filenameroot = "excel_test_dataframe",
+                           datafxns     = list(xlsx = download_data)),
+               expr = {
+                   expect_true(file.exists(output$xlsx))
                })
 })

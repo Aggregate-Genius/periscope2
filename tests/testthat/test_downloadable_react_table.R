@@ -5,7 +5,7 @@ test_that("downloadableReactTableUI", {
     table_ui <- downloadableReactTableUI(id            = "myid",
                                          downloadtypes = c("csv"),
                                          hovertext     = "myHoverText")
-    expect_equal(length(table_ui), 3)
+    expect_equal(length(table_ui), 2)
     expect_true(grepl('id="myid-reactTableButtonDiv"', table_ui[[1]], fixed = TRUE))
     expect_true(grepl('title="myHoverText"', table_ui[[1]], fixed = TRUE))
     expect_true(grepl('id="myid-reactTableButtonID-csv"', table_ui[[1]], fixed = TRUE))
@@ -16,7 +16,7 @@ test_that("downloadableReactTableUI", {
 
 test_that("downloadableReactTableUI - no download types", {
     table_ui <- downloadableReactTableUI(id = "myid2")
-    expect_equal(length(table_ui), 3)
+    expect_equal(length(table_ui), 2)
     expect_true(grepl('id="myid2-reactTableButtonDiv"', table_ui[[1]], fixed = TRUE))
     expect_true(grepl('style="display:none">', table_ui[[1]], fixed = TRUE))
     expect_true(grepl('id="myid2-reactTableOutputID"', table_ui[[2]], fixed = TRUE))
@@ -34,7 +34,7 @@ test_that("downloadableReactTable - valid data", {
                args = list(table_data = get_mtcars_data),
                expr = {
                    expect_true(grepl(paste0(names(get_mtcars_data()), collapse = "|"), output$reactTableOutputID))
-                   expect_true(grepl(paste0(rownames(get_mtcars_data()), collapse = "|"), output$reactTableOutputID))
+                   expect_false(grepl(paste0(rownames(get_mtcars_data()), collapse = "|"), output$reactTableOutputID))
                    expect_true(grepl(paste0(get_mtcars_data()$mpg, collapse = "|"), output$reactTableOutputID))
                    expect_true(grepl(paste0(get_mtcars_data()$cyl, collapse = "|"), output$reactTableOutputID))
                    expect_true(grepl(paste0(get_mtcars_data()$disp, collapse = "|"), output$reactTableOutputID))
@@ -321,7 +321,7 @@ test_that("downloadableReactTable - file_name_root and download_data_fxns", {
                })
 
     testServer(downloadableReactTable,
-                   args = list(table_data         = function(){"test"},
+                   args = list(table_data         = get_mtcars_data,
                                download_data_fxns = list(csv = get_mtcars_data),
                                file_name_root     = function() { "test" }),
                    expr = {
@@ -329,7 +329,7 @@ test_that("downloadableReactTable - file_name_root and download_data_fxns", {
                })
 
     server_warning <- capture_output(testServer(downloadableReactTable,
-                   args = list(table_data         = function(){"test"},
+                   args = list(table_data         = function() { "test" },
                                download_data_fxns = list(csv = get_mtcars_data),
                                file_name_root     = NULL),
                    expr = {
@@ -338,4 +338,50 @@ test_that("downloadableReactTable - file_name_root and download_data_fxns", {
 
     warn_msg <- "file_name_root' parameter should not be NULL. Setting default value 'data_file'"
     expect_true(grepl(warn_msg, server_warning))
+})
+
+
+test_that("downloadableReactTable - table_options", {
+    testServer(downloadableReactTable,
+               args = list(table_data    = function() { "test" },
+                           table_options = list(showSortable = TRUE)),
+               expr = {
+                   expect_true(grepl('"showSortable":true', output$reactTableOutputID))
+    })
+
+    testServer(downloadableReactTable,
+                   args = list(table_data    = function() { "test" },
+                               table_options = list("unnamed_option")),
+                   expr = {
+                       server_warning <- capture_output(output$reactTableOutputID, print = TRUE)
+                       warn_msg       <- "Excluding the following unnamed option(s): unnamed_option"
+                       expect_true(grepl(warn_msg, server_warning, fixed = TRUE))
+    })
+
+    testServer(downloadableReactTable,
+                   args = list(table_data    = function() { "test" },
+                               table_options = list(not_valid = "option")),
+                   expr = {
+                       server_warning <- capture_output(output$reactTableOutputID, print = TRUE)
+                       warn_msg       <- "Excluding the following invalid option(s): not_valid"
+                       expect_true(grepl(warn_msg, server_warning, fixed = TRUE))
+    })
+
+    server_warning <- capture_output(testServer(
+        downloadableReactTable,
+        args = list(table_data    = function() { "test" },
+                    table_options = list(invalid      = "option",
+                                         showSortable = TRUE,
+                                         invalid_2    = "option2",
+                                         "unnamed_option")),
+        expr = {
+            expect_true(grepl('"showSortable":true', output$reactTableOutputID))
+    }), print = TRUE)
+
+    warn_msg1 <- "Excluding the following unnamed option(s): unnamed_option"
+    warn_msg2 <- "Excluding the following invalid option(s): invalid, invalid_2"
+
+    expect_true(grepl(warn_msg1, server_warning, fixed = TRUE))
+    expect_true(grepl(warn_msg2, server_warning, fixed = TRUE))
+
 })
