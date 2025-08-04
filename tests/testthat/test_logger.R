@@ -211,6 +211,7 @@ test_that("MsgComposer function - defaultMsgCompose()",{
 
 # Testing log_levels
 test_that("writeToConsole DEBUG level", {
+    skip_if(getRversion() < "4.1.0", "Skipping due to lifecycle warnings in R < 4.1.0")
     expect_output(writeToConsole("debug", list(color_output = FALSE, color_msg = function(msg, level_name) msg), list(levelname = "DEBUG")))
     expect_output(writeToConsole("info",  list(color_output = FALSE, color_msg = function(msg, level_name) msg), list(levelname = "INFO")))
     expect_output(writeToConsole("warn",  list(color_output = FALSE, color_msg = function(msg, level_name) msg), list(levelname = "WARN")))
@@ -218,6 +219,7 @@ test_that("writeToConsole DEBUG level", {
 })
 
 test_that("writeToConsole INFO level", {
+    skip_if(getRversion() < "4.1.0", "Skipping due to lifecycle warnings in R < 4.1.0")
     on.exit(reset_g_opts())
     periscope2::set_app_parameters(log_level = "INFO")
     expect_silent(writeToConsole("debug", list(color_output = FALSE, color_msg = function(msg, level_name) msg), list(levelname = "DEBUG")))
@@ -227,6 +229,7 @@ test_that("writeToConsole INFO level", {
 })
 
 test_that("writeToConsole WARN level", {
+    skip_if(getRversion() < "4.1.0", "Skipping due to lifecycle warnings in R < 4.1.0")
     on.exit(reset_g_opts())
     periscope2::set_app_parameters(log_level = "WARN")
     expect_silent(writeToConsole("debug", list(color_output = FALSE, color_msg = function(msg, level_name) msg), list(levelname = "DEBUG")))
@@ -236,6 +239,7 @@ test_that("writeToConsole WARN level", {
 })
 
 test_that("writeToConsole ERROR level", {
+    skip_if(getRversion() < "4.1.0", "Skipping due to lifecycle warnings in R < 4.1.0")
     on.exit(reset_g_opts())
     periscope2::set_app_parameters(log_level = "ERROR")
     expect_silent(writeToConsole("debug", list(color_output = FALSE, color_msg = function(msg, level_name) msg), list(levelname = "DEBUG")))
@@ -245,6 +249,7 @@ test_that("writeToConsole ERROR level", {
 })
 
 test_that("writeToFile DEBUG level", {
+    skip_if(getRversion() < "4.1.0", "Skipping due to lifecycle warnings in R < 4.1.0")
     on.exit(reset_g_opts())
     unlink(test_file_name, force = TRUE)
     periscope2::set_app_parameters(log_level = "DEBUG")
@@ -256,6 +261,7 @@ test_that("writeToFile DEBUG level", {
 })
 
 test_that("writeToFile INFO level", {
+    skip_if(getRversion() < "4.1.0", "Skipping due to lifecycle warnings in R < 4.1.0")
     on.exit(reset_g_opts())
     unlink(test_file_name, force = TRUE)
     periscope2::set_app_parameters(log_level = "INFO")
@@ -267,6 +273,7 @@ test_that("writeToFile INFO level", {
 })
 
 test_that("writeToFile WARN level", {
+    skip_if(getRversion() < "4.1.0", "Skipping due to lifecycle warnings in R < 4.1.0")
     on.exit(reset_g_opts())
     unlink(test_file_name, force = TRUE)
     periscope2::set_app_parameters(log_level = "WARN")
@@ -278,6 +285,7 @@ test_that("writeToFile WARN level", {
 })
 
 test_that("writeToFile ERROR level", {
+    skip_if(getRversion() < "4.1.0", "Skipping due to lifecycle warnings in R < 4.1.0")
     on.exit(reset_g_opts())
     unlink(test_file_name, force = TRUE)
     periscope2::set_app_parameters(log_level = "ERROR")
