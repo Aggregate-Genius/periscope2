@@ -606,7 +606,7 @@ ui_tooltip <- function(id,
 #' @export
 set_app_parameters <- function(title              = NULL,
                                app_info           = NULL,
-                               log_level          = c("DEBUG", "INFO", "WARN", "ERROR"),
+                               log_level          = "DEBUG",
                                app_version        = "1.0.0",
                                loading_indicator  = NULL,
                                announcements_file = NULL) {
@@ -633,6 +633,7 @@ set_app_parameters <- function(title              = NULL,
     .g_opts$loading_indicator  <- loading_indicator
     .g_opts$announcements_file <- announcements_file
 }
+
 
 #' Parse application passed URL parameters
 #'
