@@ -116,6 +116,7 @@ test_that("UpdateOptions - updateOptions()", {
 
 test_that("LoggingToConsole", {
     skip_if(getRversion() < "4.1.0", "Skipping due to lifecycle warnings in R < 4.1.0")
+
     periscope2:::logReset()
     periscope2:::basicConfig()
 
