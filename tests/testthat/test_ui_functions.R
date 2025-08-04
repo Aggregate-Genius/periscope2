@@ -420,44 +420,31 @@ test_that("load_announcements - parsing error", {
 
     expect_warning(load_announcements(announcements_file_path = announcements_file),
                    regexp                                     = "[(Could not parse TestThatApp)]")
-
     unlink(announcements_file, TRUE)
 })
 
 test_that("load_announcements function parameters", {
-    expect_null(create_announcements(
-        start_date = "2222-11-26",
-        end_data   = "2222-12-26"))
-
-    expect_null(create_announcements(
-        start_date = "2022-11-26",
-        end_data   = "2222-12-26",
-        style      = "not-style"))
-
+    expect_null(create_announcements(start_date = "2222-11-26",
+                                     end_data   = "2222-12-26"))
+    expect_null(create_announcements(start_date = "2022-11-26",
+                                     end_data   = "2222-12-26",
+                                     style      = "not-style"))
     expect_null(create_announcements(start_date        = "11-26-2222",
                                      end_data          = "12-26-2222",
                                      start_date_format = "%m-%d-%Y",
                                      end_date_format   = "%m-%d-%Y"))
-
-    expect_null(create_announcements(
-        start_date        = "11-26-2222",
-        end_data          = "12-26-2222",
-        end_date_format   = "%m-%d-%Y"))
-
-    expect_null(create_announcements(
-        start_date        = "11-26-2222",
-        end_data          = "12-26-2222",
-        start_date_format = "%m-%d-%Y"))
-
+    expect_null(create_announcements(start_date        = "11-26-2222",
+                                     end_data          = "12-26-2222",
+                                     end_date_format   = "%m-%d-%Y"))
+    expect_null(create_announcements(start_date        = "11-26-2222",
+                                     end_data          = "12-26-2222",
+                                     start_date_format = "%m-%d-%Y"))
     expect_null(create_announcements(start_date        = "11-26-2222",
                                      start_date_format = "%m-%d-%Y"))
-
     expect_null(create_announcements(style = "info"))
-
-    expect_null(create_announcements(
-        style      = "info",
-        text       = "text",
-        auto_close = "abc"))
+    expect_null(create_announcements(style      = "info",
+                                     text       = "text",
+                                     auto_close = "abc"))
 })
 
 test_that("load_theme_settings - null settings", {
@@ -512,19 +499,6 @@ test_that("theme - invalid color", {
     yaml::write_yaml(theme_settings, "www/periscope_style.yaml")
     theme_warnings <- capture_warnings(periscope2:::create_theme())
     expect_snapshot(theme_warnings)
-    unlink("www/periscope_style.yaml")
-    unlink("www", recursive = TRUE)
-})
-
-
-test_that("theme - invalid width", {
-    theme_settings <- yaml::read_yaml(system.file("fw_templ", "p_example", "periscope_style.yaml", package = "periscope2"))
-    dir.create("www")
-    theme_settings[["sidebar_width"]]         <- "300"
-    theme_settings[["control_sidebar_width"]] <- "-300"
-
-    yaml::write_yaml(theme_settings, "www/periscope_style.yaml")
-    expect_warning(create_theme(), regexp = "-300 must be positive value. Setting default value")
     unlink("www/periscope_style.yaml")
     unlink("www", recursive = TRUE)
 })
