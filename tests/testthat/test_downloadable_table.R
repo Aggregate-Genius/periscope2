@@ -125,6 +125,7 @@ test_that("downloadableTable - invalid_selection", {
 
 
 test_that("downloadableTable - filenameroot", {
+    skip_if(getRversion() < "4.1.0", "Skipping due to lifecycle warnings in R < 4.1.0")
     expect_message(
         testServer(downloadableTable,
                    args = list(filenameroot     = "test",
