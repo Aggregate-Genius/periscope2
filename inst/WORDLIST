@@ -79,6 +79,8 @@ msg
 mytestapp
 navbar
 navbarMenu
+openxlsx
+pageSize
 param
 params
 periscopeapps
@@ -106,6 +108,7 @@ unitless
 userAction
 valueBox
 waiterShowOnLoad
+writexl
 www
 xlsx
 yaml
