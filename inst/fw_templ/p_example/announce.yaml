@@ -51,3 +51,11 @@ title: "Welcome to Periscope2"
 ### text
 # The announcement text. Text can contain html tags and is a mandatory value
 text: "This message will be closed automatically in 30s"
+
+### log_level
+# Controls which log messages are shown in the application:
+#   - "DEBUG": All messages
+#   - "INFO" : Info, warnings, and errors
+#   - "WARN" : Only warnings and errors
+#   - "ERROR": Only errors
+log_level: "DEBUG"
