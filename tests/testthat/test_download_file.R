@@ -35,15 +35,15 @@ download_char_data <- function() {
 }
 
 create_openxlsx2_wb <- function() {
-    wb <- openxlsx2::wb_workbook()$add_worksheet("openxlsx2_workbook")$add_data(x = download_data())
+    openxlsx2::wb_workbook()$add_worksheet("openxlsx2_workbook")$add_data(x = download_data())
 }
 
 create_openxlsx_wb <- function() {
-    wb <- openxlsx::createWorkbook()
+    wb   <- openxlsx::createWorkbook()
     openxlsx::addWorksheet(wb, "openxlsx_workbook")
     data <- as.data.frame(download_data())
     openxlsx::writeData(wb, "openxlsx_workbook", data)
-    return(wb)
+    wb
 }
 
 # UI Testing
@@ -197,6 +197,7 @@ test_that("downloadFile - invalid type", {
 
 # Testing for xlsx downloads
 test_that("Testing workbook openxlsx2", {
+    skip_if(getRversion() < "4.1.0", "Skipping due to lifecycle warnings in R < 4.1.0")
     skip_if_not_installed("openxlsx2")
     testServer(downloadFile,
                args = list(logger       = periscope2:::fw_get_user_log(),
@@ -208,6 +209,7 @@ test_that("Testing workbook openxlsx2", {
 })
 
 test_that("Testing workbook openxlsx", {
+    skip_if(getRversion() < "4.1.0", "Skipping due to lifecycle warnings in R < 4.1.0")
     skip_if_not_installed("openxlsx")
     local_mocked_bindings(check_openxlsx2_availability = function() FALSE)
     testServer(downloadFile,
@@ -220,6 +222,7 @@ test_that("Testing workbook openxlsx", {
 })
 
 test_that("Dataframe xlsx download works with openxlsx2", {
+    skip_if(getRversion() < "4.1.0", "Skipping due to lifecycle warnings in R < 4.1.0")
     skip_if_not_installed("openxlsx2")
     local_mocked_bindings(check_openxlsx_availability = function() FALSE)
     testServer(downloadFile,
@@ -232,6 +235,7 @@ test_that("Dataframe xlsx download works with openxlsx2", {
 })
 
 test_that("Dataframe xlsx download works with openxlsx", {
+    skip_if(getRversion() < "4.1.0", "Skipping due to lifecycle warnings in R < 4.1.0")
     skip_if_not_installed("openxlsx")
     local_mocked_bindings(check_openxlsx2_availability = function() FALSE)
     testServer(downloadFile,
@@ -244,6 +248,7 @@ test_that("Dataframe xlsx download works with openxlsx", {
 })
 
 test_that("Dataframe xlsx download works with writexl", {
+    skip_if(getRversion() < "4.1.0", "Skipping due to lifecycle warnings in R < 4.1.0")
     local_mocked_bindings(check_openxlsx2_availability = function() FALSE)
     local_mocked_bindings(check_openxlsx_availability  = function() FALSE)
     testServer(downloadFile,

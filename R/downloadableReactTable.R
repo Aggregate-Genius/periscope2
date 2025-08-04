@@ -8,7 +8,7 @@
 #' downloadableReactTable module is extending \code{?reactable} package table functions by creating
 #' a custom high-functionality table paired with \link[periscope2]{downloadFile} button.
 #' The table has the following default functionality:search, highlight functionality, infinite scrolling, sorting by columns and
-#' returns a reactive dataset of selected items.
+#' returns a reactive dataset of selected items and table current state.
 #'
 #' \link[periscope2]{downloadFile} button will be hidden if \code{downloadableReactTableUI} parameter
 #' \code{downloadtypes} is empty
@@ -67,7 +67,7 @@
 #'              downloadtypes = c("csv", "tsv"),
 #'              hovertext     = "Download the data here!")))),
 #'      server = function(input, output) {
-#'          downloadableReactTable(
+#'          table_state <- downloadableReactTable(
 #'              id                 = "object_id1",
 #'              table_data         = reactiveVal(iris),
 #'              download_data_fxns = list(csv = reactiveVal(iris), tsv = reactiveVal(iris)),
@@ -80,10 +80,12 @@
 #'                  Petal.Width  = colDef(defaultSortOrder = "desc")),
 #'                  showSortable = TRUE,
 #'                  theme = reactableTheme(
-#'                      headerStyle = list(
-#'                          "&:hover[aria-sort]" = list(background = "hsl(0, 0%, 96%)"),
-#'                          "&[aria-sort='ascending'], &[aria-sort='descending']" = list(background = "hsl(0, 0%, 96%)"),
-#'                          borderColor = "#'555"))))
+#'                      borderColor = "#dfe2e5",
+#'                      stripedColor = "#f6f8fa",
+#'                      highlightColor = "#f0f5f9",
+#'                      cellPadding = "8px 12px")))
+#'
+#'         observeEvent(table_state(), { print(table_state()) })
 #'     })
 #' }
 #'
@@ -139,7 +141,14 @@ downloadableReactTableUI <- function(id,
 #'                      Also see example below to see how to pass options (default = list())
 #' @param logger logger to use (default = NULL)
 #'
-#' @return Rendered react table
+#' @return A named list of two elements:
+#'  \itemize{
+#'     \item selected_rows: data.frame of current selected rows
+#'     \item table_state:   a list of current rendered table state values. The list keys are
+#'         ("page", "pageSize", "pages", "sorted" and "selected").
+#'          Review \code{?reactable::getReactableState} for more info.
+#' }
+#'
 #'
 #' @section Shiny Usage:
 #' This function is not called directly by consumers - it is accessed in
@@ -169,7 +178,7 @@ downloadableReactTableUI <- function(id,
 #'              downloadtypes = c("csv", "tsv"),
 #'              hovertext     = "Download the data here!")))),
 #'      server = function(input, output) {
-#'          downloadableReactTable(
+#'          table_state <- downloadableReactTable(
 #'              id                 = "object_id1",
 #'              table_data         = reactiveVal(iris),
 #'              download_data_fxns = list(csv = reactiveVal(iris), tsv = reactiveVal(iris)),
@@ -181,10 +190,12 @@ downloadableReactTableUI <- function(id,
 #'                  Petal.Length = colDef(show = FALSE),
 #'                  Petal.Width  = colDef(defaultSortOrder = "desc")),
 #'                  theme = reactableTheme(
-#'                      headerStyle = list(
-#'                          "&:hover[aria-sort]" = list(background = "hsl(0, 0%, 96%)"),
-#'                          "&[aria-sort='ascending'], &[aria-sort='descending']" = list(background = "hsl(0, 0%, 96%)"),
-#'                          borderColor = "#'555"))))
+#'                      borderColor = "#dfe2e5",
+#'                      stripedColor = "#f6f8fa",
+#'                      highlightColor = "#f0f5f9",
+#'                      cellPadding = "8px 12px")))
+#'
+#'         observeEvent(table_state(), { print(table_state()) })
 #'     })
 #' }
 #'
@@ -338,7 +349,15 @@ downloadableReactTable <- function(id,
                          }
                          table_output
                     })
-                }
+                 }
+                 shiny::reactive({
+                     table_state   <- reactable::getReactableState("reactTableOutputID")
+                     selected_rows <- NULL
+                     if (!is.null(table_state) && !is.null(table_state$selected) && is.data.frame(table_data())) {
+                         selected_rows <- table_data()[table_state$selected, ]
+                     }
+                     list(selected_rows = selected_rows, table_state = table_state)
+                 })
             }
         )
 }
