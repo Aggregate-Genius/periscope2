@@ -72,6 +72,11 @@ javascript
 js
 logViewer
 logViewerOutput
+logdebug
+logerror
+loginfo
+loglevel
+logwarn
 mailto
 mis
 modularize
