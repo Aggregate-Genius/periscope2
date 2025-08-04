@@ -667,6 +667,15 @@ updateOptions.Logger <- function(container, ...) {
 ## to color messages. The coloring can be switched off by means of configuring
 ## the handler with \var{color_output} option set to FALSE.
 ##
+logging_level <- function(level_name, current_log_level) {
+    switch(current_log_level,
+           "INFO"  = level_name %in% c("INFO", "WARN", "ERROR"),
+           "WARN"  = level_name %in% c("WARN", "ERROR"),
+           "ERROR" = level_name == "ERROR",
+            TRUE
+    )
+}
+
 writeToConsole <- function(msg, handler, ...) {
     if (length(list(...)) && "dry" %in% names(list(...))) {
         if (!is.null(handler$color_output) && handler$color_output == FALSE) {
@@ -679,9 +688,13 @@ writeToConsole <- function(msg, handler, ...) {
 
     stopifnot(length(list(...)) > 0)
 
-    level_name <- list(...)[[1]]$levelname
-    msg <- handler$color_msg(msg, level_name)
-    cat(paste0(msg, "\n"))
+    current_log_level <- fw_get_loglevel()
+    level_name        <- list(...)[[1]]$levelname
+
+    if (logging_level(level_name, current_log_level)) {
+        msg <- handler$color_msg(msg, level_name)
+        cat(paste0(msg, "\n"))
+    }
 }
 
 .build_msg_coloring <- function() {
@@ -727,7 +740,13 @@ writeToConsole <- function(msg, handler, ...) {
 writeToFile <- function(msg, handler, ...) {
     if (length(list(...)) && "dry" %in% names(list(...)))
         return(exists("file", envir = handler))
-    cat(paste0(msg, "\n"), file = with(handler, file), append = TRUE)
+
+    current_log_level <- fw_get_loglevel()
+    level_name        <- list(...)[[1]]$levelname
+
+    if (logging_level(level_name, current_log_level)) {
+        cat(paste0(msg, "\n"), file = with(handler, file), append = TRUE)
+    }
 }
 
 ## the single predefined formatter
