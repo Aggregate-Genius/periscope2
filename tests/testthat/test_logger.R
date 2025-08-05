@@ -122,8 +122,10 @@ test_that("LoggingToConsole", {
     periscope2:::addHandler(writeToConsole, level = "DEBUG")
 
     expect_equal(with(periscope2:::getLogger(), names(handlers)), c("basic.stdout", "writeToConsole"))
-    logdebug("log generated for testing")
-    loginfo("log generated for testing")
+    expect_true(grepl(pattern = "DEBUG::log generated for testing",
+                      x       = capture_output(logdebug("log generated for testing"), print = TRUE)))
+    expect_true(grepl(pattern = "INFO::log generated for testing",
+                      x       = capture_output(loginfo("log generated for testing"), print = TRUE)))
 
     succeed()
 })
@@ -210,6 +212,7 @@ test_that("MsgComposer function - defaultMsgCompose()",{
 
 # Testing log_levels
 test_that("writeToConsole DEBUG level", {
+    on.exit(reset_g_opts())
     periscope2::set_app_parameters(log_level = "DEBUG")
     expect_output(writeToConsole("debug", list(color_output = FALSE, color_msg = function(msg, level_name) msg), list(levelname = "DEBUG")))
     expect_output(writeToConsole("info",  list(color_output = FALSE, color_msg = function(msg, level_name) msg), list(levelname = "INFO")))
@@ -218,6 +221,7 @@ test_that("writeToConsole DEBUG level", {
 })
 
 test_that("writeToConsole INFO level", {
+    on.exit(reset_g_opts())
     periscope2::set_app_parameters(log_level = "INFO")
     expect_silent(writeToConsole("debug", list(color_output = FALSE, color_msg = function(msg, level_name) msg), list(levelname = "DEBUG")))
     expect_output(writeToConsole("info",  list(color_output = FALSE, color_msg = function(msg, level_name) msg), list(levelname = "INFO")))
@@ -226,6 +230,7 @@ test_that("writeToConsole INFO level", {
 })
 
 test_that("writeToConsole WARN level", {
+    on.exit(reset_g_opts())
     periscope2::set_app_parameters(log_level = "WARN")
     expect_silent(writeToConsole("debug", list(color_output = FALSE, color_msg = function(msg, level_name) msg), list(levelname = "DEBUG")))
     expect_silent(writeToConsole("info",  list(color_output = FALSE, color_msg = function(msg, level_name) msg), list(levelname = "INFO")))
@@ -234,6 +239,7 @@ test_that("writeToConsole WARN level", {
 })
 
 test_that("writeToConsole ERROR level", {
+    on.exit(reset_g_opts())
     periscope2::set_app_parameters(log_level = "ERROR")
     expect_silent(writeToConsole("debug", list(color_output = FALSE, color_msg = function(msg, level_name) msg), list(levelname = "DEBUG")))
     expect_silent(writeToConsole("info",  list(color_output = FALSE, color_msg = function(msg, level_name) msg), list(levelname = "INFO")))
@@ -242,6 +248,7 @@ test_that("writeToConsole ERROR level", {
 })
 
 test_that("writeToFile DEBUG level", {
+    on.exit(reset_g_opts())
     unlink(test_file_name, force = TRUE)
     periscope2::set_app_parameters(log_level = "DEBUG")
     writeToFile("debug", list(file = test_file_name[[1]]), list(levelname = "DEBUG"))
@@ -252,6 +259,7 @@ test_that("writeToFile DEBUG level", {
 })
 
 test_that("writeToFile INFO level", {
+    on.exit(reset_g_opts())
     unlink(test_file_name, force = TRUE)
     periscope2::set_app_parameters(log_level = "INFO")
     writeToFile("debug", list(file = test_file_name[[1]]), list(levelname = "DEBUG"))
@@ -262,6 +270,7 @@ test_that("writeToFile INFO level", {
 })
 
 test_that("writeToFile WARN level", {
+    on.exit(reset_g_opts())
     unlink(test_file_name, force = TRUE)
     periscope2::set_app_parameters(log_level = "WARN")
     writeToFile("debug", list(file = test_file_name[[1]]), list(levelname = "DEBUG"))
@@ -272,6 +281,7 @@ test_that("writeToFile WARN level", {
 })
 
 test_that("writeToFile ERROR level", {
+    on.exit(reset_g_opts())
     unlink(test_file_name, force = TRUE)
     periscope2::set_app_parameters(log_level = "ERROR")
     writeToFile("debug", list(file = test_file_name[[1]]), list(levelname = "DEBUG"))
