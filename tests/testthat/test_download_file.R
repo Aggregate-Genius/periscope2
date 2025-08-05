@@ -112,14 +112,22 @@ test_that("downloadFile - all download types", {
                                                tiff  = download_plot,
                                                bmp   = download_plot)),
                expr = {
-                   expect_snapshot_file(output$csv)
-                   expect_snapshot_file(output$tsv)
-                   expect_snapshot_file(output$txt)
-                   expect_true(file.exists(output$xlsx))
-                   expect_true(file.exists(output$png))
-                   expect_true(file.exists(output$jpeg))
-                   expect_true(file.exists(output$tiff))
-                   expect_true(file.exists(output$bmp))
+                   expect_true(grepl(pattern = "INFO:actions:File downloaded in browser: < mydownload1.csv >",
+                                     x       = capture_output(expect_snapshot_file(output$csv))))
+                   expect_true(grepl(pattern = "INFO:actions:File downloaded in browser: < mydownload1.tsv >",
+                                     x       = capture_output(expect_snapshot_file(output$tsv))))
+                   expect_true(grepl(pattern = "INFO:actions:File downloaded in browser: < mydownload1.txt >",
+                                     x       = capture_output(expect_snapshot_file(output$txt))))
+                   expect_true(grepl(pattern = "INFO:actions:File downloaded in browser: < mydownload1.xlsx >",
+                                     x       = capture_output(file.exists(output$xlsx))))
+                   expect_true(grepl(pattern = "INFO:actions:File downloaded in browser: < mydownload1.png >",
+                                     x       = capture_output(file.exists(output$png))))
+                   expect_true(grepl(pattern = "INFO:actions:File downloaded in browser: < mydownload1.jpeg >",
+                                     x       = capture_output(file.exists(output$jpeg))))
+                   expect_true(grepl(pattern = "INFO:actions:File downloaded in browser: < mydownload1.tiff >",
+                                     x       = capture_output(file.exists(output$tiff))))
+                   expect_true(grepl(pattern = "INFO:actions:File downloaded in browser: < mydownload1.bmp >",
+                                     x       = capture_output(file.exists(output$bmp))))
                })
 
 })
@@ -134,10 +142,14 @@ test_that("downloadFile - lattice plot", {
                                                tiff  = download_plot,
                                                bmp   = download_lattice_plot)),
                expr = {
-                   expect_true(file.exists(output$png))
-                   expect_true(file.exists(output$jpeg))
-                   expect_true(file.exists(output$tiff))
-                   expect_true(file.exists(output$bmp))
+                   expect_true(grepl(pattern = "INFO:actions:File downloaded in browser: < mydownload1.png >",
+                                     x       = capture_output(expect_true(file.exists(output$png)))))
+                   expect_true(grepl(pattern = "INFO:actions:File downloaded in browser: < mydownload1.jpeg >",
+                                     x       = capture_output(expect_true(file.exists(output$jpeg)))))
+                   expect_true(grepl(pattern = "INFO:actions:File downloaded in browser: < mydownload1.tiff >",
+                                     x       = capture_output(expect_true(file.exists(output$tiff)))))
+                   expect_true(grepl(pattern = "INFO:actions:File downloaded in browser: < mydownload1.bmp >",
+                                     x       = capture_output(expect_true(file.exists(output$bmp)))))
                })
 
 })
@@ -149,7 +161,8 @@ test_that("downloadFile - show rownames", {
                            filenameroot = "show_row_names_download",
                            datafxns     = list(csv = download_data_show_row_names)),
                expr = {
-                   expect_snapshot_file(output$csv)
+                   expect_true(grepl(pattern = "INFO:actions:File downloaded in browser: < show_row_names_download.csv >",
+                                     x       = capture_output(expect_snapshot_file(output$csv))))
                })
 })
 
@@ -161,9 +174,12 @@ test_that("downloadFile - download char data", {
                                                tsv = download_char_data,
                                                csv = download_char_data)),
                expr = {
-                   expect_snapshot_file(output$txt)
-                   expect_snapshot_file(output$tsv)
-                   expect_snapshot_file(output$csv)
+                   expect_true(grepl(pattern = "INFO:actions:File downloaded in browser: < my_char_download.csv >",
+                                     x       = capture_output(expect_snapshot_file(output$csv))))
+                   expect_true(grepl(pattern = "INFO:actions:File downloaded in browser: < my_char_download.tsv >",
+                                     x       = capture_output(expect_snapshot_file(output$tsv))))
+                   expect_true(grepl(pattern = "INFO:actions:File downloaded in browser: < my_char_download.txt >",
+                                     x       = capture_output(expect_snapshot_file(output$txt))))
                })
 })
 
@@ -173,7 +189,9 @@ test_that("downloadFile - download txt numeric data", {
                            filenameroot = "my_numeric_data",
                            datafxns     = list(txt = function() {123})),
                expr = {
-                   expect_warning(output$txt, "txt could not be processed")
+                   expect_warning(expect_true(grepl(
+                       pattern = "INFO:actions:File downloaded in browser: < my_numeric_data.txt >",
+                       x       = capture_output(output$txt))), "txt could not be processed")
                })
 })
 
@@ -181,7 +199,8 @@ test_that("downloadFile - default values", {
     testServer(downloadFile,
                args = list(datafxns = list(txt = function() {"123"})),
                expr = {
-                   expect_snapshot_file(output$txt)
+                   expect_true(grepl(pattern = "INFO::File downloaded in browser: < download.txt >",
+                                     x       = capture_output(expect_snapshot_file(output$txt))))
                })
 })
 
@@ -207,7 +226,8 @@ test_that("Testing workbook openxlsx2", {
                            filenameroot = "excel_test_openxlsx2_wb",
                            datafxns     = list(xlsx = create_openxlsx2_wb)),
                expr = {
-                   expect_true(file.exists(output$xlsx))
+                   expect_true(grepl(pattern = "INFO:actions:File downloaded in browser: < excel_test_openxlsx2_wb.xlsx >",
+                                     x       = capture_output(file.exists(output$xlsx))))
                })
 })
 
@@ -220,7 +240,8 @@ test_that("Testing workbook openxlsx", {
                            filenameroot = "excel_test_openxlsx_wb",
                            datafxns     = list(xlsx = create_openxlsx_wb)),
                expr = {
-                   expect_true(file.exists(output$xlsx))
+                   expect_true(grepl(pattern = "INFO:actions:File downloaded in browser: < excel_test_openxlsx_wb.xlsx >",
+                                     x       = capture_output(file.exists(output$xlsx))))
                })
 })
 
@@ -233,7 +254,8 @@ test_that("Dataframe xlsx download works with openxlsx2", {
                            filenameroot = "excel_test_dataframe",
                            datafxns     = list(xlsx = download_data)),
                expr = {
-                   expect_true(file.exists(output$xlsx))
+                   expect_true(grepl(pattern = "INFO:actions:File downloaded in browser: < excel_test_dataframe.xlsx >",
+                                     x       = capture_output(file.exists(output$xlsx))))
                })
 })
 
@@ -246,7 +268,8 @@ test_that("Dataframe xlsx download works with openxlsx", {
                            filenameroot = "excel_test_dataframe",
                            datafxns     = list(xlsx = download_data)),
                expr = {
-                   expect_true(file.exists(output$xlsx))
+                   expect_true(grepl(pattern = "INFO:actions:File downloaded in browser: < excel_test_dataframe.xlsx >",
+                                     x       = capture_output(file.exists(output$xlsx))))
                })
 })
 
@@ -259,6 +282,7 @@ test_that("Dataframe xlsx download works with writexl", {
                            filenameroot = "excel_test_dataframe",
                            datafxns     = list(xlsx = download_data)),
                expr = {
-                   expect_true(file.exists(output$xlsx))
+                   expect_true(grepl(pattern = "INFO:actions:File downloaded in browser: < excel_test_dataframe.xlsx >",
+                                     x       = capture_output(file.exists(output$xlsx))))
                })
 })
