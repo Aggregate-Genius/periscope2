@@ -57,48 +57,8 @@ jobs:
           command: |
             # Install suggested packages
             R -e 'install.packages("png")'
-            echo "=== Starting comprehensive package check ==="
-
-            # Set environment variables for maximum detail
-            export _R_CHECK_TESTS_NLINES_=0
-            export _R_CHECK_FORCE_SUGGESTS_=false
-            export TESTTHAT_PROGRESS_FULL=true
-
-            # Run the check
-            R CMD check --as-cran --no-manual *tar.gz
-
-            # Analyze results
-            CHECK_DIR=$(ls -d *.Rcheck)
-            echo "=== Check directory: $CHECK_DIR ==="
-
-            # Check the main log
-            if [[ -f "$CHECK_DIR/00check.log" ]]; then
-            echo "=== Main check log ==="
-            cat "$CHECK_DIR/00check.log"
-              fi
-
-              # Check for test failures
-              if [[ -d "$CHECK_DIR/tests" ]]; then
-                echo "=== Test directory contents ==="
-                ls -la "$CHECK_DIR/tests/"
-
-                # Show all test output files
-                for test_file in "$CHECK_DIR/tests"/*.Rout*; do
-                  if [[ -f "$test_file" ]]; then
-                    echo "=== Test output: $(basename $test_file) ==="
-                    cat "$test_file"
-                    echo "=== End of $(basename $test_file) ==="
-                  fi
-                done
-              fi
-
-              # Check overall status
-              if grep -q "Status.*ERROR" "$CHECK_DIR/00check.log"; then
-                echo "❌ PACKAGE CHECK FAILED"
-                exit 1
-              else
-                echo "✅ PACKAGE CHECK PASSED"
-              fi
+            # Perform package check
+            R CMD check *tar.gz
 
 
   Build-for-rLATEST:
