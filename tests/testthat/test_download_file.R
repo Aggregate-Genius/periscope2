@@ -99,6 +99,7 @@ test_that("downloadFile_AvailableTypes", {
 })
 
 test_that("downloadFile - all download types", {
+    skip_if(getRversion() < "4.1.0", "Skipping due to lifecycle warnings in R < 4.1.0")
     testServer(downloadFile,
                args = list(logger       = periscope2:::fw_get_user_log(),
                            filenameroot = "mydownload1",
@@ -124,6 +125,7 @@ test_that("downloadFile - all download types", {
 })
 
 test_that("downloadFile - lattice plot", {
+    skip_if(getRversion() < "4.1.0", "Skipping due to lifecycle warnings in R < 4.1.0")
     testServer(downloadFile,
                args = list(logger       = periscope2:::fw_get_user_log(),
                            filenameroot = "mydownload1",
@@ -184,6 +186,7 @@ test_that("downloadFile - default values", {
 })
 
 test_that("downloadFile - invalid type", {
+    skip_if(getRversion() < "4.1.0", "Skipping due to lifecycle warnings in R < 4.1.0")
     testServer(downloadFile,
                args = list(datafxns = list(ttt = function() {"123"},
                                            jeg = download_lattice_plot,
