@@ -52,68 +52,53 @@ jobs:
           name: Build package
           command: R CMD build .
 
-
-      - run:
-          name: Direct File Testing (Most Reliable)
-          command: |
-            # Test files one by one with direct R execution
-            cd tests/testthat
-
-            echo "=== Available test files ==="
-            ls -la test-*.R
-
-            echo "=== Testing each file ==="
-
-            # Loop through each test file
-            for test_file in test-*.R; do
-                echo ""
-                echo "========================================="
-                echo "Testing: $test_file"
-                echo "========================================="
-
-                # Create a simple test runner for this file
-                cat > run_single_test.R << EOF
-                options(crayon.enabled = FALSE, cli.ansi = FALSE)
-                Sys.setenv(NO_COLOR = "1")
-
-                cat("Loading testthat...\n")
-                library(testthat)
-
-                cat("Testing file: $test_file\n")
-
-                tryCatch({
-                  test_file("$test_file")
-                  cat("SUCCESS: $test_file completed\n")
-                }, error = function(e) {
-                  cat("FAILURE in $test_file\n")
-                  cat("Error message:", conditionMessage(e), "\n")
-                  quit(status = 1)
-                })
-              EOF
-
-                # Run the test
-                if Rscript run_single_test.R; then
-                  echo "✅ PASSED: $test_file"
-                else
-                  echo "❌ FAILED: $test_file"
-                  echo "This is the problematic file!"
-                  rm run_single_test.R
-                  exit 1
-                fi
-
-                rm run_single_test.R
-              done
-
-              echo "All test files passed individually!"}
-                     "
-
       - run:
           name: Check package
           command: |
             # Install suggested packages
             R -e 'install.packages("png")'
-            # Perform package check
-            R CMD check *tar.gz
+            echo "=== Starting comprehensive package check ==="
+
+            # Set environment variables for maximum detail
+            export _R_CHECK_TESTS_NLINES_=0
+            export _R_CHECK_FORCE_SUGGESTS_=false
+            export TESTTHAT_PROGRESS_FULL=true
+
+            # Run the check
+            R CMD check --as-cran --no-manual *tar.gz
+
+            # Analyze results
+            CHECK_DIR=$(ls -d *.Rcheck)
+            echo "=== Check directory: $CHECK_DIR ==="
+
+            # Check the main log
+            if [[ -f "$CHECK_DIR/00check.log" ]]; then
+            echo "=== Main check log ==="
+            cat "$CHECK_DIR/00check.log"
+              fi
+
+              # Check for test failures
+              if [[ -d "$CHECK_DIR/tests" ]]; then
+                echo "=== Test directory contents ==="
+                ls -la "$CHECK_DIR/tests/"
+
+                # Show all test output files
+                for test_file in "$CHECK_DIR/tests"/*.Rout*; do
+                  if [[ -f "$test_file" ]]; then
+                    echo "=== Test output: $(basename $test_file) ==="
+                    cat "$test_file"
+                    echo "=== End of $(basename $test_file) ==="
+                  fi
+                done
+              fi
+
+              # Check overall status
+              if grep -q "Status.*ERROR" "$CHECK_DIR/00check.log"; then
+                echo "❌ PACKAGE CHECK FAILED"
+                exit 1
+              else
+                echo "✅ PACKAGE CHECK PASSED"
+              fi
 
 
   Build-for-rLATEST:
