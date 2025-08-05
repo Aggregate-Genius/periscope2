@@ -58,10 +58,35 @@ jobs:
              Rscript -e "
                 library(testthat)
                 library(devtools)
-                test_results <- devtools::test(reporter = 'summary')
-                if (any(test_results$failed > 0)) {
-                  quit(status = 1)
-                }
+
+                test_files <- list.files('tests/testthat', pattern = '^test-.*\\\\.R$', full.names = TRUE)
+                failed_files <- character(0)
+
+                for (test_file in test_files) {
+                    cat('\\n=== Testing:', basename(test_file), '===\\n')
+
+                    result <- try({
+                       test_results <- test_file(test_file, reporter = 'progress')
+                       if (any(test_results\$failed > 0)) {
+                           failed_files <- c(failed_files, basename(test_file))
+                           cat('❌ FAILED:', basename(test_file), '\\n')
+                       } else {
+                          cat('✅ PASSED:', basename(test_file), '\\n')
+                       }
+                    }, silent = FALSE)
+
+                    if (inherits(result, 'try-error')) {
+                        failed_files <- c(failed_files, basename(test_file))
+                        cat('💥 ERROR in', basename(test_file), '\\n')
+                        cat('Error message:', as.character(result), '\\n')
+                        break  # Stop on first error to see the details
+                    }
+                  }
+
+               if (length(failed_files) > 0) {
+                    cat('\\n❌ Failed files:', paste(failed_files, collapse = ', '), '\\n')
+                    quit(status = 1)
+               }
              "
 
       - run:
