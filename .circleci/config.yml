@@ -53,14 +53,6 @@ jobs:
           command: R CMD build .
 
       - run:
-          name: Check package
-          command: |
-            # Install suggested packages
-            R -e 'install.packages("png")'
-            # Perform package check
-            R CMD check *tar.gz
-
-      - run:
           name: Run Tests with Detailed Output
           command: |
              Rscript -e "
@@ -71,6 +63,14 @@ jobs:
                   quit(status = 1)
                 }
              "
+
+      - run:
+          name: Check package
+          command: |
+            # Install suggested packages
+            R -e 'install.packages("png")'
+            # Perform package check
+            R CMD check *tar.gz
 
 
   Build-for-rLATEST:
