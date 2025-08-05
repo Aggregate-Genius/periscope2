@@ -52,42 +52,60 @@ jobs:
           name: Build package
           command: R CMD build .
 
+
       - run:
-          name: Run Tests with Detailed Output
+          name: Direct File Testing (Most Reliable)
           command: |
-             Rscript -e "
+            # Test files one by one with direct R execution
+            cd tests/testthat
+
+            echo "=== Available test files ==="
+            ls -la test-*.R
+
+            echo "=== Testing each file ==="
+
+            # Loop through each test file
+            for test_file in test-*.R; do
+                echo ""
+                echo "========================================="
+                echo "Testing: $test_file"
+                echo "========================================="
+
+                # Create a simple test runner for this file
+                cat > run_single_test.R << EOF
+                options(crayon.enabled = FALSE, cli.ansi = FALSE)
+                Sys.setenv(NO_COLOR = "1")
+
+                cat("Loading testthat...\n")
                 library(testthat)
-                library(devtools)
 
-                test_files <- list.files('tests/testthat', pattern = '^test-.*\\\\.R$', full.names = TRUE)
-                failed_files <- character(0)
+                cat("Testing file: $test_file\n")
 
-                for (test_file in test_files) {
-                    cat('\\n=== Testing:', basename(test_file), '===\\n')
+                tryCatch({
+                  test_file("$test_file")
+                  cat("SUCCESS: $test_file completed\n")
+                }, error = function(e) {
+                  cat("FAILURE in $test_file\n")
+                  cat("Error message:", conditionMessage(e), "\n")
+                  quit(status = 1)
+                })
+              EOF
 
-                    result <- try({
-                       test_results <- test_file(test_file, reporter = 'progress')
-                       if (any(test_results\$failed > 0)) {
-                           failed_files <- c(failed_files, basename(test_file))
-                           cat('❌ FAILED:', basename(test_file), '\\n')
-                       } else {
-                          cat('✅ PASSED:', basename(test_file), '\\n')
-                       }
-                    }, silent = FALSE)
+                # Run the test
+                if Rscript run_single_test.R; then
+                  echo "✅ PASSED: $test_file"
+                else
+                  echo "❌ FAILED: $test_file"
+                  echo "This is the problematic file!"
+                  rm run_single_test.R
+                  exit 1
+                fi
 
-                    if (inherits(result, 'try-error')) {
-                        failed_files <- c(failed_files, basename(test_file))
-                        cat('💥 ERROR in', basename(test_file), '\\n')
-                        cat('Error message:', as.character(result), '\\n')
-                        break  # Stop on first error to see the details
-                    }
-                  }
+                rm run_single_test.R
+              done
 
-               if (length(failed_files) > 0) {
-                    cat('\\n❌ Failed files:', paste(failed_files, collapse = ', '), '\\n')
-                    quit(status = 1)
-               }
-             "
+              echo "All test files passed individually!"}
+                     "
 
       - run:
           name: Check package
