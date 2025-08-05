@@ -60,6 +60,18 @@ jobs:
             # Perform package check
             R CMD check *tar.gz
 
+      - run:
+          name: Run Tests with Detailed Output
+          command: |
+             Rscript -e "
+                library(testthat)
+                library(devtools)
+                test_results <- devtools::test(reporter = 'summary')
+                if (any(test_results$failed > 0)) {
+                  quit(status = 1)
+                }
+             "
+
 
   Build-for-rLATEST:
     docker:
