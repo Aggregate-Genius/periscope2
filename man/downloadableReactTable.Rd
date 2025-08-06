@@ -29,19 +29,20 @@ downloadableReactTable(
 
 \item{selection_mode}{to enable row selection, set \code{selection_mode} value to either "single" for single row
 selection or "multiple" for multiple rows selection, case insensitive. Any other value will
-disable row selection, (default = NULL). An additional column will be added to the table if
+disable row selection. An additional column will be added to the table if
 selection mode is enabled with radio buttons for single row selection and checkboxes for
-"multiple" rows selection mode.}
+"multiple" rows selection mode (default = NULL)}
 
 \item{pre_selected_rows}{reactive expression (or parameter-less function) provides the rows indices of the rows to
 be selected when the table is rendered. If selection_mode is disabled, this parameter will
-have no effect. If selection_mode is "single" only first row index will be used.}
+have no effect. If selection_mode is "single" only first row index will be used (default = NULL)}
 
-\item{file_name_root}{the base text used for user-downloaded file. It can be either a character string,
+\item{file_name_root}{the base text used for user-downloaded file. It can be either a character string
 a reactive expression or a function returning a character string (default = 'data_file')}
 
-\item{download_data_fxns}{a \strong{named} list of functions providing the data as return values.
-The names for the list should be the same names that were used when the table UI was created}
+\item{download_data_fxns}{a \strong{named} list of functions providing the data as return values
+The names for the list should be the same names that were used when the table UI
+was created (default = NULL)}
 
 \item{pagination}{to enable table pagination (default = FALSE)}
 

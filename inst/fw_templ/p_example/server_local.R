@@ -78,6 +78,40 @@ downloadableTable("exampleDT1",
                                        formatStyle = list(columns         = c("Natural.Increase"),
                                                           backgroundColor = DT::styleInterval(c(7614, 15914, 34152),
                                                                                               c("lightgray", "gray", "cadetblue", "#808000")))))
+downloadableReactTable(id                 = "exampleReactTable",
+                       logger             = ss_userAction.Log,
+                       table_data         = load_data3,
+                       file_name_root     = "exampleReacttable",
+                       download_data_fxns = list(csv = load_data3, tsv = load_data3),
+                       table_options      = list(
+                           defaultSorted = "Total.Population.Change",
+                           columnGroups  = list(colGroup(name = "Statistics", columns = c("Total.Population.Change", "Natural.Increase"))),
+                           columns       = list(
+                               Total.Population.Change = colDef(
+                                   name       = "Change",
+                                   filterable = TRUE,
+                                   cell       = function(value) {
+                                       if (value <= 0) {
+                                           tags$span(style = "color:red", value)
+                                       } else {
+                                           tags$span(style = "color:green", value)
+                                       }
+                               }),
+                               Natural.Increase        = colDef(
+                                   name       = "Increase",
+                                   filterable = TRUE,
+                                   cell       = function(value) {
+                                       if (value <= 7614) {
+                                           tags$span(class = "badge bg-primary", value)
+                                       } else if (value <= 15914) {
+                                           tags$span(class = "badge bg-secondary", value)
+                                       } else if (value <= 34152) {
+                                           tags$span(class = "badge bg-info", value)
+                                       } else {
+                                           tags$span(class = "badge bg-success", value)
+                                       }
+                                   }),
+                               Geographic.Area         = colDef(name = "Location", filterable = TRUE))))
 downloadablePlot("examplePlot2",
                  ss_userAction.Log,
                  filenameroot = "plot2_ggplot",
@@ -204,6 +238,9 @@ output$file_structure_plot <- renderCanvasXpress({
         hierarchy        = list("App_Root", "L1"),
         title            = "Empty Application Files",
         graphOrientation = "horizontal",
+        xAxis            = list("order"),
+        colorBy          = list("App_Root"),
+        showLegend       = FALSE,
         events           = node_event
     )
 })
