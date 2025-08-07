@@ -159,10 +159,13 @@ test_that("downloadFile - show rownames", {
     testServer(downloadFile,
                args = list(logger       = periscope2:::fw_get_user_log(),
                            filenameroot = "show_row_names_download",
-                           datafxns     = list(csv = download_data_show_row_names)),
+                           datafxns     = list(csv  = download_data_show_row_names,
+                                               xlsx = download_data_show_row_names)),
                expr = {
                    expect_true(grepl(pattern = "INFO:actions:File downloaded in browser: < show_row_names_download.csv >",
                                      x       = capture_output(expect_snapshot_file(output$csv))))
+                   expect_true(grepl(pattern = "INFO:actions:File downloaded in browser: < show_row_names_download.xlsx >",
+                                     x       = capture_output(file.exists(output$xlsx))))
                })
 })
 
@@ -234,7 +237,6 @@ test_that("Testing workbook openxlsx2", {
 test_that("Testing workbook openxlsx", {
     skip_if(getRversion() < "4.1.0", "Skipping due to lifecycle warnings in R < 4.1.0")
     skip_if_not_installed("openxlsx")
-    local_mocked_bindings(check_openxlsx2_availability = function() FALSE)
     testServer(downloadFile,
                args = list(logger       = periscope2:::fw_get_user_log(),
                            filenameroot = "excel_test_openxlsx_wb",
@@ -248,7 +250,6 @@ test_that("Testing workbook openxlsx", {
 test_that("Dataframe xlsx download works with openxlsx2", {
     skip_if(getRversion() < "4.1.0", "Skipping due to lifecycle warnings in R < 4.1.0")
     skip_if_not_installed("openxlsx2")
-    local_mocked_bindings(check_openxlsx_availability = function() FALSE)
     testServer(downloadFile,
                args = list(logger       = periscope2:::fw_get_user_log(),
                            filenameroot = "excel_test_dataframe",
