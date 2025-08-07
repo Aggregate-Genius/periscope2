@@ -144,3 +144,4 @@ For detailed usage for that file refer to [announcement Module](announcement-mod
 * [logViewer Module](logViewer-module.html)
 * [applicationReset Module](applicationReset-module.html)
 * [Theme Configuration Builder](themeBuilder_addin.html)
+* [downloadableReactTable Module](downloadableReactTable-module.html)
