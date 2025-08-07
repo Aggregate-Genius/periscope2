@@ -49,6 +49,10 @@ server.R using the same id provided in \code{downloadFileButton}:
 if (interactive()) {
    library(shiny)
    library(periscope2)
+
+   # add this attribute to include row names for this table in file download
+   attr(mtcars, "show_rownames") <- TRUE
+
    shinyApp(ui = fluidPage(fluidRow(column(width = 6,
      # single download type
      downloadFileButton("object_id1",

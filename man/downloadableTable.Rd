@@ -88,6 +88,10 @@ currently selected rows in the display table.
 if (interactive()) {
  library(shiny)
  library(periscope2)
+
+ # add this attribute to include row names for this table in file download
+ attr(mtcars, "show_rownames") <- TRUE
+
  shinyApp(ui = fluidPage(fluidRow(column(width = 12,
    downloadableTableUI("object_id1",
                        downloadtypes = c("csv", "tsv"),
