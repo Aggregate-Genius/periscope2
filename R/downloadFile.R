@@ -267,7 +267,7 @@ downloadFile <- function(id,
 
                     if (inherits(data, "wbWorkbook") && check_openxlsx2_availability()) {
                         openxlsx2::wb_save(data, file)
-                    } else if ((inherits(data, "Workbook")) &&
+                    } else if (inherits(data, "Workbook") &&
                                ("openxlsx" %in% attributes(class(data))) &&
                                check_openxlsx_availability()) {
                         openxlsx::saveWorkbook(data, file)
