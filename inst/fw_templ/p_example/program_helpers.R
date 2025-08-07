@@ -9,6 +9,7 @@ files_idx <- read.csv("program/data/struc_indx.csv")
 
 rownames(app_files) <- app_files$X
 app_files$X         <- NULL
+app_files           <- app_files %>% mutate(across(where(is.character), ~na_if(., "")))
 
 rownames(files_idx) <- files_idx$X
 files_idx$X         <- NULL

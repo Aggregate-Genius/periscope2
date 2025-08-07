@@ -9,6 +9,7 @@ files_idx <- read.csv("program/data/struc_indx.csv")
 
 rownames(app_files) <- app_files$X
 app_files$X         <- NULL
+app_files           <- app_files %>% mutate(across(where(is.character), ~na_if(., "")))
 
 rownames(files_idx) <- files_idx$X
 files_idx$X         <- NULL
@@ -32,10 +33,10 @@ load_data2 <- function() {
 
 load_data3 <- function() {
     ldf <- df %>%
-        select(1:3) %>% 
+        select(1:3) %>%
         mutate(Total.Population.Change = as.numeric(gsub(",", "", Total.Population.Change)),
                Natural.Increase = as.numeric(gsub(",", "", Natural.Increase)))
-    
+
     as.data.frame(ldf)
 }
 
