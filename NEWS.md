@@ -1,7 +1,11 @@
 # periscope2 0.3.0.9004
 
+## New Features
+- Added new module *?downloadableReactTable* based on reactable package and downloadFile module
+
 ## Enhancements
 - Adding openxlsx2 support while keeping openxlsx to support legacy apps and backwards compatibility. writexl package is used as last resort.
+
 -----
 
 # periscope2 0.2.4
