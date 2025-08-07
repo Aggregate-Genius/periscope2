@@ -1,0 +1,61 @@
+---
+title: "Using downloadableReactTable Shiny Module"
+author: "Mohammed Ali"
+date: "`r Sys.Date()`"
+output: 
+    rmarkdown::html_vignette:
+        toc: TRUE
+        toc_depth: 3
+vignette: >
+  %\VignetteIndexEntry{Using downloadableReactTable Shiny Module}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Overview
+
+## Purpose 
+The document explains how to use **downloadableReactTable** shiny module in periscope2 applications.
+
+## Features
+* Ability to display and download datasets.
+* Table rows selection can be multiple, single or none (the default)
+  * When selection mode is enabled an additional column will be added to the table
+  * The selection controls will be radio buttons for single row selection and checkboxes for "multiple" rows selection mode
+* Returns a reactive expression containing named list with two elements:
+  * **selected_rows**: data.frame of current selected rows
+  * **table_state**: a list of current rendered table state values. The list keys are ("page", "pageSize", "pages", "sorted" and "selected")
+* Supports full-table searching including regular expressions
+* Columns are sort-able in both directions
+* Configurable table "window" (viewing area) height with infinite vertical 
+scrolling (no paging by default)
+* Supports rownames 
+* Requires minimal code (see the Usage section for details)
+* Uses **downloadFile** Shiny Module functionality to ensure consistent
+download functionality for table data.
+* **downloadFile** button will be hidden if `downloadableReactTable` parameter `download_data_fxns` or
+`downloadableReactTableUI` parameter `downloadtypes` is empty
+
+# Usage
+
+## Shiny Module Overview
+
+## downloadableReactTableUI
+
+## downloadableReactTable
+
+## Sample Application
+
+# Additional Resources
+
+
+**Vignettes**
+
+* [New Application](new-application.html)
+* [downloadFile Module](downloadFile-module.html)
+* [downloadablePlot Module](downloadablePlot-module.html)
+* [logViewer Module](logViewer-module.html) 
+* [applicationReset Module](applicationReset-module.html)
+* [announcement Module](announcement-module.html)
+* [Announcement Configuration Builder](announcement_addin.html)
+* [Theme Configuration Builder](themeBuilder_addin.html)
