@@ -119,12 +119,12 @@ downloadableReactTableUI <- function(id,
 #' @param table_data reactive expression (or parameter-less function) that acts as table data source
 #' @param selection_mode to enable row selection, set \code{selection_mode} value to either "single" for single row
 #'                       selection or "multiple" for multiple rows selection, case insensitive. Any other value will
-#'                       disable row selection. An additional column will be added to the table if
-#'                       selection mode is enabled with radio buttons for single row selection and checkboxes for
+#'                       disable row selection. An additional column will be added to the table in
+#'                       selection mode with radio buttons for single row selection and checkboxes for
 #'                       "multiple" rows selection mode (default = NULL)
 #' @param pre_selected_rows reactive expression (or parameter-less function) provides the rows indices of the rows to
 #'                          be selected when the table is rendered. If selection_mode is disabled, this parameter will
-#'                          have no effect. If selection_mode is "single" only first row index will be used (default = NULL)
+#'                          have no effect. If selection_mode is "single" only the first row index will be used (default = NULL)
 #' @param file_name_root the base text used for user-downloaded file. It can be either a character string
 #'                       a reactive expression or a function returning a character string (default = 'data_file')
 #' @param download_data_fxns a \strong{named} list of functions providing the data as return values
