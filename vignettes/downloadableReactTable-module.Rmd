@@ -22,9 +22,7 @@ The document explains how to use **downloadableReactTable** shiny module in peri
 * Table rows selection can be multiple, single or none (the default)
   * When selection mode is enabled an additional column will be added to the table
   * The selection controls will be radio buttons for single row selection and checkboxes for "multiple" rows selection mode
-* Returns a reactive expression containing named list with two elements:
-  * **selected_rows**: data.frame of current selected rows
-  * **table_state**: a list of current rendered table state values. The list keys are ("page", "pageSize", "pages", "sorted" and "selected")
+* Returns a reactive expression containing named list with two elements: **selected_rows** and **table_state**
 * Supports full-table searching including regular expressions
 * Columns are sort-able in both directions
 * Configurable table "window" (viewing area) height with infinite vertical 
@@ -95,6 +93,18 @@ to various download types see the downloadFile module help or vignette.
 * For the visible table data the return value must be able to be converted to tabular format
 * Since the function or reactive expression is called at the time the user requests the data it is 
 recommended that reactive expressions are used to provide dynamic values from the application to create the table.
+
+**Reactive Return Value**
+
+* The server function returns a reactive expression containing named list with two elements:
+  * **selected_rows**: data.frame of current selected rows. 
+  ```
+  * Note that this is the data, not references, rownumbers, etc from the table -- it is the actual, visible, table row data.  This allows the developer to use this more easily to update another table, chart, etc. as desired.
+  ```
+  * **table_state**: a list of current rendered table state values. The list keys are ("page", "pageSize", "pages", "sorted" and "selected")
+
+
+* It is acceptable to ignore the return value as well if this functionality is not needed.  Simply do not assign the result to a variable.
 
 ## Sample Application
 
