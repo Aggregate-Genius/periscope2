@@ -108,7 +108,7 @@ recommended that reactive expressions are used to provide dynamic values from th
 
 **Customization Options**
 
-*downloadableReactTable* module can be customized using reacatable function arguments(see `?reactable::reactable`). These options can be sent as a named options via the server function, see example below. 
+*downloadableReactTable* module can be customized using reactable function arguments(see `?reactable::reactable`). These options can be sent as a named options via the server function, see example below. 
 
 ```{r, eval = F}
 # Inside server_local.R
