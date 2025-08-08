@@ -8,7 +8,7 @@
 #' downloadableReactTable module is extending \code{?reactable} package table functions by creating
 #' a custom high-functionality table paired with \link[periscope2]{downloadFile} button.
 #' The table has the following default functionality:search, highlight functionality, infinite scrolling, sorting by columns and
-#' returns a reactive dataset of selected items.
+#' returns a reactive dataset of selected items and table current state.
 #'
 #' \link[periscope2]{downloadFile} button will be hidden if \code{downloadableReactTableUI} parameter
 #' \code{downloadtypes} is empty
@@ -67,7 +67,7 @@
 #'              downloadtypes = c("csv", "tsv"),
 #'              hovertext     = "Download the data here!")))),
 #'      server = function(input, output) {
-#'          downloadableReactTable(
+#'          table_state <- downloadableReactTable(
 #'              id                 = "object_id1",
 #'              table_data         = reactiveVal(iris),
 #'              download_data_fxns = list(csv = reactiveVal(iris), tsv = reactiveVal(iris)),
@@ -80,10 +80,12 @@
 #'                  Petal.Width  = colDef(defaultSortOrder = "desc")),
 #'                  showSortable = TRUE,
 #'                  theme = reactableTheme(
-#'                      headerStyle = list(
-#'                          "&:hover[aria-sort]" = list(background = "hsl(0, 0%, 96%)"),
-#'                          "&[aria-sort='ascending'], &[aria-sort='descending']" = list(background = "hsl(0, 0%, 96%)"),
-#'                          borderColor = "#'555"))))
+#'                      borderColor = "#dfe2e5",
+#'                      stripedColor = "#f6f8fa",
+#'                      highlightColor = "#f0f5f9",
+#'                      cellPadding = "8px 12px")))
+#'
+#'         observeEvent(table_state(), { print(table_state()) })
 #'     })
 #' }
 #'
@@ -117,16 +119,17 @@ downloadableReactTableUI <- function(id,
 #' @param table_data reactive expression (or parameter-less function) that acts as table data source
 #' @param selection_mode to enable row selection, set \code{selection_mode} value to either "single" for single row
 #'                       selection or "multiple" for multiple rows selection, case insensitive. Any other value will
-#'                       disable row selection, (default = NULL). An additional column will be added to the table if
-#'                       selection mode is enabled with radio buttons for single row selection and checkboxes for
-#'                       "multiple" rows selection mode.
+#'                       disable row selection. An additional column will be added to the table in
+#'                       selection mode with radio buttons for single row selection and checkboxes for
+#'                       "multiple" rows selection mode (default = NULL)
 #' @param pre_selected_rows reactive expression (or parameter-less function) provides the rows indices of the rows to
 #'                          be selected when the table is rendered. If selection_mode is disabled, this parameter will
-#'                          have no effect. If selection_mode is "single" only first row index will be used.
-#' @param file_name_root the base text used for user-downloaded file. It can be either a character string,
+#'                          have no effect. If selection_mode is "single" only the first row index will be used (default = NULL)
+#' @param file_name_root the base text used for user-downloaded file. It can be either a character string
 #'                       a reactive expression or a function returning a character string (default = 'data_file')
-#' @param download_data_fxns a \strong{named} list of functions providing the data as return values.
-#'                           The names for the list should be the same names that were used when the table UI was created
+#' @param download_data_fxns a \strong{named} list of functions providing the data as return values
+#'                           The names for the list should be the same names that were used when the table UI
+#'                           was created (default = NULL)
 #' @param pagination to enable table pagination (default = FALSE)
 #' @param table_height max table height in pixels. Vertical scroll will be shown after that height value
 #' @param show_rownames enable displaying rownames as a separate column (default = FALSE)
@@ -139,7 +142,14 @@ downloadableReactTableUI <- function(id,
 #'                      Also see example below to see how to pass options (default = list())
 #' @param logger logger to use (default = NULL)
 #'
-#' @return Rendered react table
+#' @return A named list of two elements:
+#'  \itemize{
+#'     \item selected_rows: data.frame of current selected rows
+#'     \item table_state:   a list of current rendered table state values. The list keys are
+#'         ("page", "pageSize", "pages", "sorted" and "selected").
+#'          Review \code{?reactable::getReactableState} for more info.
+#' }
+#'
 #'
 #' @section Shiny Usage:
 #' This function is not called directly by consumers - it is accessed in
@@ -169,7 +179,7 @@ downloadableReactTableUI <- function(id,
 #'              downloadtypes = c("csv", "tsv"),
 #'              hovertext     = "Download the data here!")))),
 #'      server = function(input, output) {
-#'          downloadableReactTable(
+#'          table_state <- downloadableReactTable(
 #'              id                 = "object_id1",
 #'              table_data         = reactiveVal(iris),
 #'              download_data_fxns = list(csv = reactiveVal(iris), tsv = reactiveVal(iris)),
@@ -181,10 +191,12 @@ downloadableReactTableUI <- function(id,
 #'                  Petal.Length = colDef(show = FALSE),
 #'                  Petal.Width  = colDef(defaultSortOrder = "desc")),
 #'                  theme = reactableTheme(
-#'                      headerStyle = list(
-#'                          "&:hover[aria-sort]" = list(background = "hsl(0, 0%, 96%)"),
-#'                          "&[aria-sort='ascending'], &[aria-sort='descending']" = list(background = "hsl(0, 0%, 96%)"),
-#'                          borderColor = "#'555"))))
+#'                      borderColor = "#dfe2e5",
+#'                      stripedColor = "#f6f8fa",
+#'                      highlightColor = "#f0f5f9",
+#'                      cellPadding = "8px 12px")))
+#'
+#'         observeEvent(table_state(), { print(table_state()) })
 #'     })
 #' }
 #'
@@ -338,7 +350,15 @@ downloadableReactTable <- function(id,
                          }
                          table_output
                     })
-                }
+                 }
+                 shiny::reactive({
+                     table_state   <- reactable::getReactableState("reactTableOutputID")
+                     selected_rows <- NULL
+                     if (!is.null(table_state) && !is.null(table_state$selected) && is.data.frame(table_data())) {
+                         selected_rows <- table_data()[table_state$selected, ]
+                     }
+                     list(selected_rows = selected_rows, table_state = table_state)
+                 })
             }
         )
 }
