@@ -96,6 +96,7 @@ logViewer <- function(id = "logViewer", logger) {
 
             downloadableReactTable(id                 = id,
                                    table_data         = get_log_data,
-                                   download_data_fxns = list(csv = get_log_data, tsv = get_log_data))
+                                   download_data_fxns = list(csv = get_log_data, tsv = get_log_data),
+                                   file_name_root     = "log_data")
         })
 }
