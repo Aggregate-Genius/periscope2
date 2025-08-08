@@ -5,6 +5,7 @@
 
 ## Enhancements
 - Adding openxlsx2 support while keeping openxlsx to support legacy apps and backwards compatibility. writexl package is used as last resort.
+- Updated *?logViewerOutput* module to display log data in downloadableReactTable.
 
 -----
 
