@@ -11,10 +11,6 @@ null_log <- function() {
     NULL
 }
 
-empty_log <- function() {
-    c()
-}
-
 # UI unit tests
 test_that("logViewerOutput", {
     expect_snapshot_output(logViewerOutput("myid"))
@@ -38,12 +34,3 @@ test_that("logViewer - null log", {
                    expect_true(grepl('"x":null', output$"nullLogger-reactTableOutputID", fixed = TRUE))
                })
 })
-
-
-# test_that("logViewer - empty sample log", {
-#     testServer(logViewer,
-#                args = list(id = "emptyLogger", logger = empty_log),
-#                expr = {
-#                    expect_null(output$emptyLogger)
-#                })
-# })
