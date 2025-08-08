@@ -1,10 +1,12 @@
 context("periscope2 - logging functionality")
 
 
-writeToConsole <- periscope2:::writeToConsole
-writeToFile    <- periscope2:::writeToFile
-loglevels      <- periscope2:::loglevels
-test_file_name <- file.path(tempdir(), c("1", "2", "3"))
+writeToConsole     <- periscope2:::writeToConsole
+writeToFile        <- periscope2:::writeToFile
+loglevels          <- periscope2:::loglevels
+set_app_parameters <- periscope2::set_app_parameters
+test_file_name     <- file.path(tempdir(), c("1", "2", "3"))
+test_file_log      <- file.path(tempdir(), "test_log.txt")
 
 env_setup <- function() {
     test_env        <- new.env(parent = emptyenv())
@@ -208,75 +210,107 @@ test_that("MsgComposer function - defaultMsgCompose()",{
                  paste(rep(LETTERS, 316), collapse = ""))
 })
 
-# Testing log_levels
-test_that("writeToConsole DEBUG level", {
-    periscope2::set_app_parameters(log_level = "DEBUG")
-    expect_output(writeToConsole("debug", list(color_output = FALSE, color_msg = function(msg, level_name) msg), list(levelname = "DEBUG")))
-    expect_output(writeToConsole("info",  list(color_output = FALSE, color_msg = function(msg, level_name) msg), list(levelname = "INFO")))
-    expect_output(writeToConsole("warn",  list(color_output = FALSE, color_msg = function(msg, level_name) msg), list(levelname = "WARN")))
-    expect_output(writeToConsole("error", list(color_output = FALSE, color_msg = function(msg, level_name) msg), list(levelname = "ERROR")))
+# Testing logging levels
+test_that("DEBUG level shows all messages", {
+    set_app_parameters(log_level = "DEBUG")
+    addHandler(writeToConsole)
+    expect_output(logdebug("debug message"), "DEBUG::debug message")
+    expect_output(loginfo("info message"),   "INFO::info message")
+    expect_output(logwarn("warn message"),   "WARNING::warn message")
+    expect_output(logerror("error message"), "ERROR::error message")
+})
+I
+test_that("INFO level filters DEBUG", {
+    set_app_parameters(log_level = "INFO")
+    addHandler(writeToConsole)
+    expect_silent(logdebug("debug message"))
+    expect_output(loginfo("info message"),   "INFO::info message")
+    expect_output(logwarn("warn message"),   "WARNING::warn message")
+    expect_output(logerror("error message"), "ERROR::error message")
 })
 
-test_that("writeToConsole INFO level", {
-    periscope2::set_app_parameters(log_level = "INFO")
-    expect_silent(writeToConsole("debug", list(color_output = FALSE, color_msg = function(msg, level_name) msg), list(levelname = "DEBUG")))
-    expect_output(writeToConsole("info",  list(color_output = FALSE, color_msg = function(msg, level_name) msg), list(levelname = "INFO")))
-    expect_output(writeToConsole("warn",  list(color_output = FALSE, color_msg = function(msg, level_name) msg), list(levelname = "WARN")))
-    expect_output(writeToConsole("error", list(color_output = FALSE, color_msg = function(msg, level_name) msg), list(levelname = "ERROR")))
+test_that("WARN level filters DEBUG and INFO", {
+    set_app_parameters(log_level = "WARN")
+    addHandler(writeToConsole)
+    expect_silent(logdebug("debug message"))
+    expect_silent(loginfo("info message"))
+    expect_output(logwarn("warn message"),   "WARNING::warn message")
+    expect_output(logerror("error message"), "ERROR::error message")
 })
 
-test_that("writeToConsole WARN level", {
-    periscope2::set_app_parameters(log_level = "WARN")
-    expect_silent(writeToConsole("debug", list(color_output = FALSE, color_msg = function(msg, level_name) msg), list(levelname = "DEBUG")))
-    expect_silent(writeToConsole("info",  list(color_output = FALSE, color_msg = function(msg, level_name) msg), list(levelname = "INFO")))
-    expect_output(writeToConsole("warn",  list(color_output = FALSE, color_msg = function(msg, level_name) msg), list(levelname = "WARN")))
-    expect_output(writeToConsole("error", list(color_output = FALSE, color_msg = function(msg, level_name) msg), list(levelname = "ERROR")))
+test_that("ERROR level filters all but ERROR", {
+    set_app_parameters(log_level = "ERROR")
+    addHandler(writeToConsole)
+    expect_silent(logdebug("debug message"))
+    expect_silent(loginfo("info message"))
+    expect_silent(logwarn("warn message"))
+    expect_output(logerror("error message"), "ERROR::error message")
 })
 
-test_that("writeToConsole ERROR level", {
-    periscope2::set_app_parameters(log_level = "ERROR")
-    expect_silent(writeToConsole("debug", list(color_output = FALSE, color_msg = function(msg, level_name) msg), list(levelname = "DEBUG")))
-    expect_silent(writeToConsole("info",  list(color_output = FALSE, color_msg = function(msg, level_name) msg), list(levelname = "INFO")))
-    expect_silent(writeToConsole("warn",  list(color_output = FALSE, color_msg = function(msg, level_name) msg), list(levelname = "WARN")))
-    expect_output(writeToConsole("error", list(color_output = FALSE, color_msg = function(msg, level_name) msg), list(levelname = "ERROR")))
+test_that("File logging level DEBUG", {
+    unlink(test_file_log, force  = TRUE)
+    set_app_parameters(log_level = "DEBUG")
+    addHandler(writeToFile, file = test_file_log)
+
+    logdebug("debug message")
+    loginfo("info message")
+    logwarn("warn message")
+    logerror("error message")
+
+    log_content <- readLines(test_file_log)
+    expect_true(any(grepl("debug message", log_content)))
+    expect_true(any(grepl("info message",  log_content)))
+    expect_true(any(grepl("warn message",  log_content)))
+    expect_true(any(grepl("error message", log_content)))
 })
 
-test_that("writeToFile DEBUG level", {
-    unlink(test_file_name, force = TRUE)
-    periscope2::set_app_parameters(log_level = "DEBUG")
-    writeToFile("debug", list(file = test_file_name[[1]]), list(levelname = "DEBUG"))
-    writeToFile("info",  list(file = test_file_name[[1]]), list(levelname = "INFO"))
-    writeToFile("warn",  list(file = test_file_name[[1]]), list(levelname = "WARN"))
-    writeToFile("error", list(file = test_file_name[[1]]), list(levelname = "ERROR"))
-    expect_equal(readLines(test_file_name[[1]]), c("debug", "info", "warn", "error"))
+test_that("File logging level INFO", {
+    unlink(test_file_log, force  = TRUE)
+    set_app_parameters(log_level = "INFO")
+    addHandler(writeToFile, file = test_file_log)
+
+    logdebug("debug message")
+    loginfo("info message")
+    logwarn("warn message")
+    logerror("error message")
+
+    log_content <- readLines(test_file_log)
+    expect_false(any(grepl("debug message", log_content)))
+    expect_true(any(grepl("info message",   log_content)))
+    expect_true(any(grepl("warn message",   log_content)))
+    expect_true(any(grepl("error message",  log_content)))
 })
 
-test_that("writeToFile INFO level", {
-    unlink(test_file_name, force = TRUE)
-    periscope2::set_app_parameters(log_level = "INFO")
-    writeToFile("debug", list(file = test_file_name[[1]]), list(levelname = "DEBUG"))
-    writeToFile("info",  list(file = test_file_name[[1]]), list(levelname = "INFO"))
-    writeToFile("warn",  list(file = test_file_name[[1]]), list(levelname = "WARN"))
-    writeToFile("error", list(file = test_file_name[[1]]), list(levelname = "ERROR"))
-    expect_equal(readLines(test_file_name[[1]]), c("info", "warn", "error"))
+test_that("File logging level WARN", {
+    unlink(test_file_log, force  = TRUE)
+    set_app_parameters(log_level = "WARN")
+    addHandler(writeToFile, file = test_file_log)
+
+    logdebug("debug message")
+    loginfo("info message")
+    logwarn("warn message")
+    logerror("error message")
+
+    log_content <- readLines(test_file_log)
+    expect_false(any(grepl("debug message", log_content)))
+    expect_false(any(grepl("info message",  log_content)))
+    expect_true(any(grepl("warn message",   log_content)))
+    expect_true(any(grepl("error message",  log_content)))
 })
 
-test_that("writeToFile WARN level", {
-    unlink(test_file_name, force = TRUE)
-    periscope2::set_app_parameters(log_level = "WARN")
-    writeToFile("debug", list(file = test_file_name[[1]]), list(levelname = "DEBUG"))
-    writeToFile("info",  list(file = test_file_name[[1]]), list(levelname = "INFO"))
-    writeToFile("warn",  list(file = test_file_name[[1]]), list(levelname = "WARN"))
-    writeToFile("error", list(file = test_file_name[[1]]), list(levelname = "ERROR"))
-    expect_equal(readLines(test_file_name[[1]]), c("warn", "error"))
-})
+test_that("File logging level ERROR", {
+    unlink(test_file_log, force  = TRUE)
+    set_app_parameters(log_level = "ERROR")
+    addHandler(writeToFile, file = test_file_log)
 
-test_that("writeToFile ERROR level", {
-    unlink(test_file_name, force = TRUE)
-    periscope2::set_app_parameters(log_level = "ERROR")
-    writeToFile("debug", list(file = test_file_name[[1]]), list(levelname = "DEBUG"))
-    writeToFile("info",  list(file = test_file_name[[1]]), list(levelname = "INFO"))
-    writeToFile("warn",  list(file = test_file_name[[1]]), list(levelname = "WARN"))
-    writeToFile("error", list(file = test_file_name[[1]]), list(levelname = "ERROR"))
-    expect_equal(readLines(test_file_name[[1]]), "error")
+    logdebug("debug message")
+    loginfo("info message")
+    logwarn("warn message")
+    logerror("error message")
+
+    log_content <- readLines(test_file_log)
+    expect_false(any(grepl("debug message", log_content)))
+    expect_false(any(grepl("info message",  log_content)))
+    expect_false(any(grepl("warn message",  log_content)))
+    expect_true(any(grepl("error message",  log_content)))
 })
