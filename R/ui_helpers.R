@@ -634,6 +634,7 @@ set_app_parameters <- function(title              = NULL,
     .g_opts$announcements_file <- announcements_file
 }
 
+
 #' Parse application passed URL parameters
 #'
 #' This function returns any url parameters passed to the application as
