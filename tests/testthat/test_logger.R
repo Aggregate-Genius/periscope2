@@ -4,7 +4,7 @@ context("periscope2 - logging functionality")
 writeToConsole     <- periscope2:::writeToConsole
 writeToFile        <- periscope2:::writeToFile
 loglevels          <- periscope2:::loglevels
-set_app_parameters <- periscope2::set_app_parameters
+set_app_parameters <- periscope2:::set_app_parameters
 test_file_name     <- file.path(tempdir(), c("1", "2", "3"))
 test_file_log      <- file.path(tempdir(), "test_log.txt")
 

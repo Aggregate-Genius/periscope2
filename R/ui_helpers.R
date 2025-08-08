@@ -606,7 +606,7 @@ ui_tooltip <- function(id,
 #' @export
 set_app_parameters <- function(title              = NULL,
                                app_info           = NULL,
-                               log_level          = c("DEBUG", "INFO", "WARN", "ERROR"),
+                               log_level          = "DEBUG",
                                app_version        = "1.0.0",
                                loading_indicator  = NULL,
                                announcements_file = NULL) {
