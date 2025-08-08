@@ -112,8 +112,8 @@ test_that("UpdateOptions - updateOptions()", {
     periscope2:::logReset()
     periscope2:::basicConfig()
 
-    periscope2:::updateOptions.character("", level = "WARN")
-    expect_equal(periscope2:::getLogger()$getLevel(), loglevels["WARN"])
+    periscope2:::updateOptions.character("", level = "WARNING")
+    expect_equal(periscope2:::getLogger()$getLevel(), loglevels["WARNING"])
 })
 
 test_that("LoggingToConsole", {
@@ -231,8 +231,8 @@ test_that("INFO level filters DEBUG", {
     expect_output(logerror("error message"), "ERROR::error message")
 })
 
-test_that("WARN level filters DEBUG and INFO", {
-    set_app_parameters(log_level = "WARN")
+test_that("WARNING level filters DEBUG and INFO", {
+    set_app_parameters(log_level = "WARNING")
     addHandler(writeToConsole)
     expect_silent(logdebug("debug message"))
     expect_silent(loginfo("info message"))
@@ -283,9 +283,9 @@ test_that("File logging level INFO", {
     expect_true(any(grepl("error message",  log_content)))
 })
 
-test_that("File logging level WARN", {
+test_that("File logging level WARNING", {
     unlink(test_file_log, force  = TRUE)
-    set_app_parameters(log_level = "WARN")
+    set_app_parameters(log_level = "WARNING")
     addHandler(writeToFile, file = test_file_log)
 
     logdebug("debug message")
