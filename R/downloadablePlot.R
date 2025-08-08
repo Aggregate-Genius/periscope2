@@ -261,11 +261,6 @@ downloadablePlot <- function(id,
             shiny::observe({
                 if (length(downloadfxns) > 0) {
                     dpInfo$downloadfxns <- lapply(downloadfxns, do.call, list())
-                    rowct               <- lapply(dpInfo$downloadfxns, is.null)
-                    session$sendCustomMessage(
-                        "downloadbutton_toggle",
-                        message = list(btn  = session$ns("dplotButtonDiv"),
-                                       rows = sum(unlist(rowct) == FALSE)) )
                 }
 
                 output$displayButton <- shiny::reactive(length(downloadfxns) > 0)

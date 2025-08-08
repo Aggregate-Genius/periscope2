@@ -237,10 +237,6 @@ downloadableTable <- function(id,
 
                             downloadFile("dtableButtonID", logger, filenameroot, downloaddatafxns)
 
-                            session$sendCustomMessage("downloadbutton_toggle",
-                                                      message = list(btn  = session$ns("dtableButtonDiv"),
-                                                                     rows = -1))
-
                             dtInfo <- shiny::reactiveValues(selection        = NULL,
                                                             selected         = NULL,
                                                             tabledata        = NULL,
@@ -271,11 +267,6 @@ downloadableTable <- function(id,
                             shiny::observe({
                                 if (length(downloaddatafxns) > 0) {
                                     dtInfo$downloaddatafxns <- lapply(downloaddatafxns, do.call, list())
-
-                                    rowct <- lapply(dtInfo$downloaddatafxns, NROW)
-                                    session$sendCustomMessage("downloadbutton_toggle",
-                                                              message = list(btn  = session$ns("dtableButtonDiv"),
-                                                                             rows = sum(unlist(rowct))))
                                 }
                                 output$displayButton <- shiny::reactive(length(downloaddatafxns) > 0)
                                 shiny::outputOptions(output, "displayButton", suspendWhenHidden = FALSE)
