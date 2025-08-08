@@ -72,6 +72,11 @@ javascript
 js
 logViewer
 logViewerOutput
+logdebug
+logerror
+loginfo
+loglevel
+logwarn
 mailto
 mis
 modularize
@@ -79,6 +84,8 @@ msg
 mytestapp
 navbar
 navbarMenu
+openxlsx
+pageSize
 param
 params
 periscopeapps
@@ -106,6 +113,7 @@ unitless
 userAction
 valueBox
 waiterShowOnLoad
+writexl
 www
 xlsx
 yaml

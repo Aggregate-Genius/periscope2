@@ -206,7 +206,7 @@ test_that("downloadableReactTable - pre_selected_rows", {
                                pre_selected_rows = c(1, 3)),
                    expr = {
                        output$reactTableOutputID
-                       }))
+                   }))
     expect_true(grepl("'pre_selected_rows' parameter must be a function or reactive expression. Setting default value NULL.", server_error))
 
     server_error <- testServer(downloadableReactTable,
@@ -385,3 +385,49 @@ test_that("downloadableReactTable - table_options", {
     expect_true(grepl(warn_msg2, server_warning, fixed = TRUE))
 
 })
+
+
+test_that("downloadableReactTable - module return", {
+    skip_if(getRversion() < "4.1.0", "Skipping due to lifecycle warnings in R < 4.1.0")
+    local_mocked_bindings(
+        getReactableState = function(...) {
+         list(showSortable    = TRUE,
+              defaultSelected = c(2, 3),
+              selected        = c(2, 3))
+        },
+        .package = "reactable")
+
+    testServer(
+        downloadableReactTable,
+        args = list(table_data = function() { "test" }),
+        expr = {
+            result <- session$returned()
+            expect_equal(length(result), 2)
+            expect_true(all(c("selected_rows", "table_state") %in% names(result)))
+            expect_true(is.null(result$selected_rows))
+   })
+
+    local_mocked_bindings(
+        getReactableState = function(...) {
+         list(data            = get_mtcars_data(),
+              showSortable    = TRUE,
+              defaultSelected = c(2, 3),
+              selected        = c(2, 3))
+        },
+        .package = "reactable")
+
+
+    testServer(
+        downloadableReactTable,
+        args = list(table_data = get_mtcars_data),
+        expr = {
+            result <- session$returned()
+            expect_equal(length(result), 2)
+            expect_true(all(c("selected_rows", "table_state") %in% names(result)))
+            expect_true(NROW(result$selected_rows) == 2)
+            expect_true(all(c("Mazda RX4 Wag", "Datsun 710") %in%  rownames(result$selected_rows)))
+  })
+
+})
+
+

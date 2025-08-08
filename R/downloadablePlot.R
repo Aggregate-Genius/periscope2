@@ -74,9 +74,9 @@
 #'       download_plot <- function() {
 #'         ggplot(data = mtcars, aes(x = wt, y = mpg)) +
 #'         geom_point(aes(color = cyl)) +
-#'         theme(legend.justification = c(1, 1),
-#'               legend.position      = c(1, 1),
-#'               legend.title         = element_blank()) +
+#'         theme(legend.justification   = c(1, 1),
+#'               legend.position.inside = c(1, 1),
+#'               legend.title           = element_blank()) +
 #'         ggtitle("GGPlot Example ") +
 #'         xlab("wt") +
 #'         ylab("mpg")
@@ -217,9 +217,9 @@ downloadablePlotUI <- function(id,
 #'       download_plot <- function() {
 #'         ggplot(data = mtcars, aes(x = wt, y = mpg)) +
 #'         geom_point(aes(color = cyl)) +
-#'         theme(legend.justification = c(1, 1),
-#'               legend.position      = c(1, 1),
-#'               legend.title         = element_blank()) +
+#'         theme(legend.justification   = c(1, 1),
+#'               legend.position.inside = c(1, 1),
+#'               legend.title           = element_blank()) +
 #'         ggtitle("GGPlot Example ") +
 #'         xlab("wt") +
 #'         ylab("mpg")
