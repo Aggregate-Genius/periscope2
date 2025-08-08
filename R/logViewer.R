@@ -5,13 +5,14 @@
 
 #' Display app logs
 #'
-#' Creates a shiny table with table containing logged user actions. Table contents are auto updated whenever a user action is
-#' logged. The id must match the same id configured in \bold{server.R} file upon calling \code{fw_server_setup} method
+#' Display app log data in downloadableReactTable table containing logged user actions. Table contents are auto updated
+#' whenever a user action is logged. User can search for logs, sort them by time and download them in CSV or TSV format.
+#' The id must match the same id configured in \bold{server.R} file upon calling \code{fw_server_setup} method
 #'
 #'
 #' @param id character id for the object(default = "logViewer")
 #'
-#' @return shiny tableOutput instance
+#' @return downloadableReactTableUI instance
 #'
 #' @section Table columns:
 #' \itemize{
@@ -59,7 +60,7 @@ logViewerOutput <- function(id = "logViewer") {
 #' @param id     - the ID of the Module's UI element
 #' @param logger - action logs to be displayed
 #'
-#' @return Shiny table render expression containing the currently logged lines
+#' @return downloadableReactTable instance with logged lines
 #'
 #'
 #' @section Shiny Usage:
