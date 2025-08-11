@@ -112,3 +112,4 @@ The generated file is used by putting it inside the generated app www folder whe
 * [downloadFile Module](downloadFile-module.html)
 * [logViewer Module](logViewer-module.html)
 * [applicationReset Module](applicationReset-module.html)
+* [downloadableReactTable Module](downloadableReactTable-module.html)

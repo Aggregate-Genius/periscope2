@@ -5,13 +5,14 @@
 
 #' Display app logs
 #'
-#' Creates a shiny table with table containing logged user actions. Table contents are auto updated whenever a user action is
-#' logged. The id must match the same id configured in \bold{server.R} file upon calling \code{fw_server_setup} method
+#' Display app log data in downloadableReactTable table containing logged user actions. Table contents are auto updated
+#' whenever a user action is logged. User can search for logs, sort them by time and download them in CSV or TSV format.
+#' The id must match the same id configured in \bold{server.R} file upon calling \code{fw_server_setup} method
 #'
 #'
 #' @param id character id for the object(default = "logViewer")
 #'
-#' @return shiny tableOutput instance
+#' @return downloadableReactTableUI instance
 #'
 #' @section Table columns:
 #' \itemize{
@@ -44,7 +45,9 @@
 #' @seealso \link[periscope2]{downloadableTable}
 logViewerOutput <- function(id = "logViewer") {
     ns <- shiny::NS(id)
-    shiny::tableOutput(ns(id))
+    downloadableReactTableUI(id            = ns(id),
+                             downloadtypes = c("csv", "tsv"),
+                             hovertext     = "Download application logs")
 }
 
 
@@ -57,7 +60,7 @@ logViewerOutput <- function(id = "logViewer") {
 #' @param id     - the ID of the Module's UI element
 #' @param logger - action logs to be displayed
 #'
-#' @return Shiny table render expression containing the currently logged lines
+#' @return downloadableReactTable instance with logged lines
 #'
 #'
 #' @section Shiny Usage:
@@ -68,8 +71,10 @@ logViewer <- function(id = "logViewer", logger) {
     shiny::moduleServer(
         id,
         function(input, output, session) {
-            output[[id]] <- shiny::renderTable({
-                lines <- logger()
+            get_log_data <- function() {
+                log_data <- data.frame()
+                lines    <- logger()
+
                 if (length(lines) > 0) {
                     out1 <- data.frame(orig = lines, stringsAsFactors = F)
                     loc1 <- regexpr("\\[", out1$orig)
@@ -83,10 +88,16 @@ logViewer <- function(id = "logViewer", logger) {
                     out1$action <- substring(out1$orig, loc2 + 1)
                     out1$action <- trimws(out1$action, "both")
 
-                    data.frame(action = out1$action,
-                               time   = format(out1$timestamp,
-                                               format = .g_opts$datetime.fmt))
+                    log_data <- data.frame(action = out1$action,
+                                           time   = format(out1$timestamp,
+                                                           format = .g_opts$datetime.fmt))
                 }
-            })
+                log_data
+            }
+
+            downloadableReactTable(id                 = id,
+                                   table_data         = get_log_data,
+                                   download_data_fxns = list(csv = get_log_data, tsv = get_log_data),
+                                   file_name_root     = "log_data")
         })
 }
