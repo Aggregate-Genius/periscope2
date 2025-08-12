@@ -67,7 +67,7 @@ Also see example below to see how to pass options (default = list())}
 A named list of two elements:
 \itemize{
 \item selected_rows: data.frame of current selected rows
-\item table_state:   a list of current rendered table state values. The list keys are
+\item table_state: a list of the current table state. The list keys are
 ("page", "pageSize", "pages", "sorted" and "selected").
 Review \code{?reactable::getReactableState} for more info.
 }
