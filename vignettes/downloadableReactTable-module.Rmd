@@ -101,7 +101,7 @@ recommended that reactive expressions are used to provide dynamic values from th
   ```
   * Note that this is the data, not references, rownumbers, etc from the table -- it is the actual, visible, table row data.  This allows the developer to use this more easily to update another table, chart, etc. as desired.
   ```
-  * **table_state**: a list of current rendered table state values. The list keys are ("page", "pageSize", "pages", "sorted" and "selected")
+  * **table_state**: a list of the current table state. The list keys are ("page", "pageSize", "pages", "sorted" and "selected")
 
 
 * It is acceptable to ignore the return value as well if this functionality is not needed.  Simply do not assign the result to a variable.
