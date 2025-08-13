@@ -567,7 +567,7 @@ ui_tooltip <- function(id,
 #'                                            application title.}
 #'                                      \item{Supplying \strong{NULL} will disable the title link functionality.}
 #'                             }
-#' @param log_level          Designating the log level to use for the user log as 'DEBUG','INFO', 'WARN' or 'ERROR' (default = 'DEBUG')
+#' @param log_level          Designating the log level to use for the user log as 'DEBUG','INFO', 'WARNING' or 'ERROR' (default = 'DEBUG')
 #' @param app_version        Character string designating the application version (default = '1.0.0')
 #' @param loading_indicator  It uses waiter (see https://waiter.john-coene.com/#/).\cr
 #'                             Pass a list like list(html = spin_1(), color = "#333e48") to \cr configure
