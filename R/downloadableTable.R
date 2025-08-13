@@ -237,14 +237,9 @@ downloadableTable <- function(id,
 
                             downloadFile("dtableButtonID", logger, filenameroot, downloaddatafxns)
 
-                            session$sendCustomMessage("downloadbutton_toggle",
-                                                      message = list(btn  = session$ns("dtableButtonDiv"),
-                                                                     rows = -1))
-
-                            dtInfo <- shiny::reactiveValues(selection        = NULL,
-                                                            selected         = NULL,
-                                                            tabledata        = NULL,
-                                                            downloaddatafxns = NULL)
+                            dtInfo <- shiny::reactiveValues(selection = NULL,
+                                                            selected  = NULL,
+                                                            tabledata = NULL)
 
                             shiny::observe({
                                 result <- list(mode = ifelse(input$dtableSingleSelect == "TRUE", "single", "multiple"))
@@ -269,14 +264,6 @@ downloadableTable <- function(id,
                             })
 
                             shiny::observe({
-                                if (length(downloaddatafxns) > 0) {
-                                    dtInfo$downloaddatafxns <- lapply(downloaddatafxns, do.call, list())
-
-                                    rowct <- lapply(dtInfo$downloaddatafxns, NROW)
-                                    session$sendCustomMessage("downloadbutton_toggle",
-                                                              message = list(btn  = session$ns("dtableButtonDiv"),
-                                                                             rows = sum(unlist(rowct))))
-                                }
                                 output$displayButton <- shiny::reactive(length(downloaddatafxns) > 0)
                                 shiny::outputOptions(output, "displayButton", suspendWhenHidden = FALSE)
                             })
