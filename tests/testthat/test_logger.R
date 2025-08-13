@@ -215,7 +215,7 @@ test_that("MsgComposer function - defaultMsgCompose()",{
 # Testing logging levels
 test_that("DEBUG level shows all messages", {
     set_app_parameters(log_level = "DEBUG")
-    addHandler(writeToConsole)
+    periscope2:::addHandler(writeToConsole)
     expect_output(logdebug("debug message"), "DEBUG::debug message")
     expect_output(loginfo("info message"),   "INFO::info message")
     expect_output(logwarn("warn message"),   "WARNING::warn message")
@@ -224,7 +224,7 @@ test_that("DEBUG level shows all messages", {
 I
 test_that("INFO level filters DEBUG", {
     set_app_parameters(log_level = "INFO")
-    addHandler(writeToConsole)
+    periscope2:::addHandler(writeToConsole)
     expect_silent(logdebug("debug message"))
     expect_output(loginfo("info message"),   "INFO::info message")
     expect_output(logwarn("warn message"),   "WARNING::warn message")
@@ -233,7 +233,7 @@ test_that("INFO level filters DEBUG", {
 
 test_that("WARNING level filters DEBUG and INFO", {
     set_app_parameters(log_level = "WARNING")
-    addHandler(writeToConsole)
+    periscope2:::addHandler(writeToConsole)
     expect_silent(logdebug("debug message"))
     expect_silent(loginfo("info message"))
     expect_output(logwarn("warn message"),   "WARNING::warn message")
@@ -242,7 +242,7 @@ test_that("WARNING level filters DEBUG and INFO", {
 
 test_that("ERROR level filters all but ERROR", {
     set_app_parameters(log_level = "ERROR")
-    addHandler(writeToConsole)
+    periscope2:::addHandler(writeToConsole)
     expect_silent(logdebug("debug message"))
     expect_silent(loginfo("info message"))
     expect_silent(logwarn("warn message"))
@@ -252,7 +252,7 @@ test_that("ERROR level filters all but ERROR", {
 test_that("File logging level DEBUG", {
     unlink(test_file_log, force  = TRUE)
     set_app_parameters(log_level = "DEBUG")
-    addHandler(writeToFile, file = test_file_log)
+    periscope2:::addHandler(writeToFile, file = test_file_log)
 
     logdebug("debug message")
     loginfo("info message")
@@ -269,7 +269,7 @@ test_that("File logging level DEBUG", {
 test_that("File logging level INFO", {
     unlink(test_file_log, force  = TRUE)
     set_app_parameters(log_level = "INFO")
-    addHandler(writeToFile, file = test_file_log)
+    periscope2:::addHandler(writeToFile, file = test_file_log)
 
     logdebug("debug message")
     loginfo("info message")
@@ -286,7 +286,7 @@ test_that("File logging level INFO", {
 test_that("File logging level WARNING", {
     unlink(test_file_log, force  = TRUE)
     set_app_parameters(log_level = "WARNING")
-    addHandler(writeToFile, file = test_file_log)
+    periscope2:::addHandler(writeToFile, file = test_file_log)
 
     logdebug("debug message")
     loginfo("info message")
@@ -303,7 +303,7 @@ test_that("File logging level WARNING", {
 test_that("File logging level ERROR", {
     unlink(test_file_log, force  = TRUE)
     set_app_parameters(log_level = "ERROR")
-    addHandler(writeToFile, file = test_file_log)
+    periscope2:::addHandler(writeToFile, file = test_file_log)
 
     logdebug("debug message")
     loginfo("info message")
