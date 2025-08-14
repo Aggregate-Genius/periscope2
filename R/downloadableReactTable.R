@@ -231,7 +231,8 @@ downloadableReactTable <- function(id,
                      downloadFile(id           = "reactTableButtonID",
                                   logger       = logger,
                                   filenameroot = file_name_root,
-                                  datafxns     = download_data_fxns)
+                                  datafxns     = download_data_fxns,
+                                  row_names    = show_rownames)
                      shiny::observe({
                          output$displayButton <- shiny::reactive(length(download_data_fxns) > 0)
                          shiny::outputOptions(output, "displayButton", suspendWhenHidden = FALSE)

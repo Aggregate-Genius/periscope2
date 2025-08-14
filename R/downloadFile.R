@@ -61,7 +61,7 @@
 #'                     logger       = "",
 #'                     filenameroot = "mydownload1",
 #'                     datafxns     = list(csv = reactiveVal(iris)),
-#'                     aspectratio  = 1)
+#'                     row_names    = FALSE)
 #'        # multiple download types
 #'        downloadFile(id           = "object_id2",
 #'                     logger       = "",
@@ -145,6 +145,8 @@ check_openxlsx_availability <- function() {
 #' @param aspectratio the downloaded chart image width:height ratio (ex:
 #' 1 = square, 1.3 = 4:3, 0.5 = 1:2). Where not applicable for a download type
 #' it is ignored (e.g. data downloads).
+#' @param row_names logical value indicating whether row names are to be written
+#' for tabular data. Where not applicable for a download type it is ignored.
 #'
 #' @return no return value, called for downloading selected file type
 #'
@@ -182,7 +184,7 @@ check_openxlsx_availability <- function() {
 #'                     logger       = "",
 #'                     filenameroot = "mydownload1",
 #'                     datafxns     = list(csv = reactiveVal(iris)),
-#'                     aspectratio  = 1)
+#'                     row_names    = FALSE)
 #'        # multiple download types
 #'        downloadFile(id           = "object_id2",
 #'                     logger       = "",
@@ -197,7 +199,8 @@ downloadFile <- function(id,
                          logger       = NULL,
                          filenameroot = "download",
                          datafxns     = NULL,
-                         aspectratio  = 1) {
+                         aspectratio  = 1,
+                         row_names    = TRUE) {
     shiny::moduleServer(
         id,
         function(input, output, session) {
@@ -212,7 +215,7 @@ downloadFile <- function(id,
                 filename = shiny::reactive({paste(rootname(), "csv", sep = ".")}),
                 content  = function(file) {
                     if (!is.null(datafxns)) {
-                        writeFile("csv", datafxns$csv(), file, logger,
+                        writeFile("csv", datafxns$csv(), file, row_names, logger,
                                   shiny::reactive({paste(rootname(), "csv", sep = ".")}))
                     }
                 })
@@ -221,7 +224,7 @@ downloadFile <- function(id,
                 filename = shiny::reactive({paste(rootname(), "xlsx", sep = ".")}),
                 content  = function(file) {
                     if (!is.null(datafxns)) {
-                        writeFile("xlsx", datafxns$xlsx(), file, logger,
+                        writeFile("xlsx", datafxns$xlsx(), file, row_names, logger,
                                   shiny::reactive({paste(rootname(), "xlsx", sep = ".")}))
                     }
                 })
@@ -230,7 +233,7 @@ downloadFile <- function(id,
                 filename = shiny::reactive({paste(rootname(), "tsv", sep = ".")}),
                 content = function(file) {
                     if (!is.null(datafxns)) {
-                        writeFile("tsv", datafxns$tsv(), file, logger,
+                        writeFile("tsv", datafxns$tsv(), file, row_names, logger,
                                   shiny::reactive({paste(rootname(), "tsv", sep = ".")}))
                     }
                 })
@@ -239,17 +242,17 @@ downloadFile <- function(id,
                 filename = shiny::reactive({paste(rootname(), "txt", sep = ".")}),
                 content = function(file) {
                     if (!is.null(datafxns)) {
-                        writeFile("txt", datafxns$txt(), file, logger,
+                        writeFile("txt", datafxns$txt(), file, row_names, logger,
                                   shiny::reactive({paste(rootname(), "txt", sep = ".")}))
                     }
                 })
 
             # filename is expected to be a reactive expression
-            writeFile <- function(type, data, file, logger, filename) {
+            writeFile <- function(type, data, file, show_rownames, logger, filename) {
+                show_rownames <- isTRUE(show_rownames)
+
                 # tabular values
                 if ((type == "csv") || (type == "tsv")) {
-                    show_rownames <- attr(data, "show_rownames")
-                    show_rownames <- !is.null(show_rownames) && show_rownames
                     show_colnames <- TRUE
                     if (show_rownames) {
                         show_colnames <- NA
@@ -272,19 +275,22 @@ downloadFile <- function(id,
                                check_openxlsx_availability()) {
                         openxlsx::saveWorkbook(data, file)
                     } else {
-                        show_rownames <- attr(data, "show_rownames")
-
+                        # tabular data
                         if (check_openxlsx2_availability()) {
                             openxlsx2::write_xlsx(data,
                                                   file,
                                                   as_table  = TRUE,
-                                                  row_names = !is.null(show_rownames) && show_rownames)
+                                                  row_names = show_rownames)
                         } else if (check_openxlsx_availability()) {
                             openxlsx::write.xlsx(data,
                                                  file,
                                                  asTable  = TRUE,
-                                                 rowNames = !is.null(show_rownames) && show_rownames)
+                                                 rowNames = show_rownames)
                         } else {
+                            if (show_rownames) {
+                                logwarn("Downloading with 'writexl', row names are not included",
+                                        logger = logger)
+                            }
                             writexl::write_xlsx(data, file)
                         }
                     }
@@ -294,7 +300,7 @@ downloadFile <- function(id,
                     if (inherits(data, "character")) {
                         writeLines(data, file)
                     } else if (is.data.frame(data) || is.matrix(data)) {
-                        utils::write.table(data, file)
+                        utils::write.table(data, file, row.names = show_rownames)
                     } else {
                         msg <- paste(type, "could not be processed")
                         logwarn(msg)

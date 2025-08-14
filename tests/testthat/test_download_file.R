@@ -21,11 +21,6 @@ download_data <- function() {
     head(mtcars)
 }
 
-download_data_show_row_names <- function() {
-    attr(mtcars, "show_rownames") <-  TRUE
-    head(mtcars)
-}
-
 download_string_list <- function() {
     c("test1", "test2", "tests")
 }
@@ -103,6 +98,7 @@ test_that("downloadFile - all download types", {
     testServer(downloadFile,
                args = list(logger       = periscope2:::fw_get_user_log(),
                            filenameroot = "mydownload1",
+                           row_names    = FALSE,
                            datafxns     = list(csv   = download_data,
                                                xlsx  = download_data,
                                                tsv   = download_data,
@@ -159,11 +155,18 @@ test_that("downloadFile - show rownames", {
     testServer(downloadFile,
                args = list(logger       = periscope2:::fw_get_user_log(),
                            filenameroot = "show_row_names_download",
-                           datafxns     = list(csv  = download_data_show_row_names,
-                                               xlsx = download_data_show_row_names)),
+                           row_names    = TRUE,
+                           datafxns     = list(csv  = download_data,
+                                               tsv  = download_data,
+                                               txt  = download_data,
+                                               xlsx = download_data)),
                expr = {
                    expect_true(grepl(pattern = "INFO:actions:File downloaded in browser: < show_row_names_download.csv >",
                                      x       = capture_output(expect_snapshot_file(output$csv))))
+                   expect_true(grepl(pattern = "INFO:actions:File downloaded in browser: < show_row_names_download.tsv >",
+                                     x       = capture_output(expect_snapshot_file(output$tsv))))
+                   expect_true(grepl(pattern = "INFO:actions:File downloaded in browser: < show_row_names_download.txt >",
+                                     x       = capture_output(expect_snapshot_file(output$txt))))
                    expect_true(grepl(pattern = "INFO:actions:File downloaded in browser: < show_row_names_download.xlsx >",
                                      x       = capture_output(file.exists(output$xlsx))))
                })
@@ -173,6 +176,7 @@ test_that("downloadFile - download char data", {
     testServer(downloadFile,
                args = list(logger       = periscope2:::fw_get_user_log(),
                            filenameroot = "my_char_download",
+                           row_names    = FALSE,
                            datafxns     = list(txt = download_char_data,
                                                tsv = download_char_data,
                                                csv = download_char_data)),

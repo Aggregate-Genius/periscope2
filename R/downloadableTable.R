@@ -235,7 +235,11 @@ downloadableTable <- function(id,
                                 filenameroot <- shiny::isolate(filenameroot())
                             }
 
-                            downloadFile("dtableButtonID", logger, filenameroot, downloaddatafxns)
+                            downloadFile(id           = "dtableButtonID",
+                                         logger       = logger,
+                                         filenameroot = filenameroot,
+                                         datafxns     = downloaddatafxns,
+                                         row_names    = table_options$rownames)
 
                             dtInfo <- shiny::reactiveValues(selection = NULL,
                                                             selected  = NULL,
