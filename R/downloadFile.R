@@ -215,8 +215,12 @@ downloadFile <- function(id,
                 filename = shiny::reactive({paste(rootname(), "csv", sep = ".")}),
                 content  = function(file) {
                     if (!is.null(datafxns)) {
-                        writeFile("csv", datafxns$csv(), file, row_names, logger,
-                                  shiny::reactive({paste(rootname(), "csv", sep = ".")}))
+                        writeFile(type          = "csv",
+                                  data          = datafxns$csv(),
+                                  file          = file,
+                                  show_rownames = row_names,
+                                  logger        = logger,
+                                  filename      = shiny::reactive({paste(rootname(), "csv", sep = ".")}))
                     }
                 })
 
@@ -224,8 +228,12 @@ downloadFile <- function(id,
                 filename = shiny::reactive({paste(rootname(), "xlsx", sep = ".")}),
                 content  = function(file) {
                     if (!is.null(datafxns)) {
-                        writeFile("xlsx", datafxns$xlsx(), file, row_names, logger,
-                                  shiny::reactive({paste(rootname(), "xlsx", sep = ".")}))
+                        writeFile(type          = "xlsx",
+                                  data          = datafxns$xlsx(),
+                                  file          = file,
+                                  show_rownames = row_names,
+                                  logger        = logger,
+                                  filename      = shiny::reactive({paste(rootname(), "xlsx", sep = ".")}))
                     }
                 })
 
@@ -233,8 +241,12 @@ downloadFile <- function(id,
                 filename = shiny::reactive({paste(rootname(), "tsv", sep = ".")}),
                 content = function(file) {
                     if (!is.null(datafxns)) {
-                        writeFile("tsv", datafxns$tsv(), file, row_names, logger,
-                                  shiny::reactive({paste(rootname(), "tsv", sep = ".")}))
+                        writeFile(type          = "tsv",
+                                  data          = datafxns$tsv(),
+                                  file          = file,
+                                  show_rownames = row_names,
+                                  logger        = logger,
+                                  filename      = shiny::reactive({paste(rootname(), "tsv", sep = ".")}))
                     }
                 })
 
@@ -242,12 +254,26 @@ downloadFile <- function(id,
                 filename = shiny::reactive({paste(rootname(), "txt", sep = ".")}),
                 content = function(file) {
                     if (!is.null(datafxns)) {
-                        writeFile("txt", datafxns$txt(), file, row_names, logger,
-                                  shiny::reactive({paste(rootname(), "txt", sep = ".")}))
+                        writeFile(type          = "txt",
+                                  data          = datafxns$txt(),
+                                  file          = file,
+                                  show_rownames = row_names,
+                                  logger        = logger,
+                                  filename      = shiny::reactive({paste(rootname(), "txt", sep = ".")}))
                     }
                 })
 
-            # filename is expected to be a reactive expression
+
+            ## writeFile
+            ##
+            ## @param type type of file to write
+            ## @param data data to write
+            ## @param file file path to write to
+            ## @param show_rownames if TRUE, row names are written for tabular data
+            ## @param logger logger to use
+            ## @param filename name of downloaded file, expected to be a reactive expression
+            ##
+            ## @returns no return value
             writeFile <- function(type, data, file, show_rownames, logger, filename) {
                 show_rownames <- isTRUE(show_rownames)
 
