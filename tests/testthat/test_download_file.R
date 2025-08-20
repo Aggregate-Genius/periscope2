@@ -190,24 +190,39 @@ test_that("downloadFile - download char data", {
                })
 })
 
-test_that("downloadFile - download txt numeric data", {
+test_that("downloadFile - download numeric data", {
     testServer(downloadFile,
                args = list(logger       = periscope2:::fw_get_user_log(),
                            filenameroot = "my_numeric_data",
-                           datafxns     = list(txt = function() {123})),
+                           datafxns     = list(txt = function() {123},
+                                               csv = function() {123},
+                                               tsv = function() {123})),
                expr = {
                    expect_warning(expect_true(grepl(
                        pattern = "INFO:actions:File downloaded in browser: < my_numeric_data.txt >",
                        x       = capture_output(output$txt))), "txt could not be processed")
+                    expect_true(grepl(
+                       pattern = "INFO:actions:File downloaded in browser: < my_numeric_data.csv >",
+                       x       = capture_output(output$csv)))
+                    expect_true(grepl(
+                       pattern = "INFO:actions:File downloaded in browser: < my_numeric_data.tsv >",
+                       x       = capture_output(output$tsv)))
+
                })
 })
 
 test_that("downloadFile - default values", {
     testServer(downloadFile,
-               args = list(datafxns = list(txt = function() {"123"})),
+               args = list(datafxns = list(txt = function() {"123"},
+                                           csv = function() {"123"},
+                                           tsv = function() {"123"})),
                expr = {
                    expect_true(grepl(pattern = "INFO::File downloaded in browser: < download.txt >",
                                      x       = capture_output(expect_snapshot_file(output$txt))))
+                   expect_true(grepl(pattern = "INFO::File downloaded in browser: < download.csv >",
+                                     x       = capture_output(expect_snapshot_file(output$csv))))
+                   expect_true(grepl(pattern = "INFO::File downloaded in browser: < download.tsv >",
+                                     x       = capture_output(expect_snapshot_file(output$tsv))))
                })
 })
 
