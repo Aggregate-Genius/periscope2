@@ -65,7 +65,7 @@ if (interactive()) {
                     logger       = "",
                     filenameroot = "mydownload1",
                     datafxns     = list(csv = reactiveVal(iris)),
-                    aspectratio  = 1)
+                    row_names    = FALSE)
        # multiple download types
        downloadFile(id           = "object_id2",
                     logger       = "",

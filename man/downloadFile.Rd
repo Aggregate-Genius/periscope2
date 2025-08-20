@@ -9,7 +9,8 @@ downloadFile(
   logger = NULL,
   filenameroot = "download",
   datafxns = NULL,
-  aspectratio = 1
+  aspectratio = 1,
+  row_names = TRUE
 )
 }
 \arguments{
@@ -28,6 +29,9 @@ when the button UI was created.}
 \item{aspectratio}{the downloaded chart image width:height ratio (ex:
 1 = square, 1.3 = 4:3, 0.5 = 1:2). Where not applicable for a download type
 it is ignored (e.g. data downloads).}
+
+\item{row_names}{logical value indicating whether row names are to be written
+for tabular data. Where not applicable for a download type it is ignored.}
 }
 \value{
 no return value, called for downloading selected file type
@@ -65,7 +69,7 @@ if (interactive()) {
                     logger       = "",
                     filenameroot = "mydownload1",
                     datafxns     = list(csv = reactiveVal(iris)),
-                    aspectratio  = 1)
+                    row_names    = FALSE)
        # multiple download types
        downloadFile(id           = "object_id2",
                     logger       = "",
