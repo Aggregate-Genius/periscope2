@@ -1,9 +1,11 @@
 context("periscope2 - UI functionality")
 local_edition(3)
+loglevels          <- periscope2:::loglevels
+set_app_parameters <- periscope2:::set_app_parameters
 
 # helper functions
 create_announcements <- function(start_date        = NULL,
-                                 end_data          = NULL,
+                                 end_date          = NULL,
                                  start_date_format = NULL,
                                  end_date_format   = NULL,
                                  style             = NULL,
@@ -13,7 +15,7 @@ create_announcements <- function(start_date        = NULL,
     appTemp            <- tempfile(pattern = "TestThatApp", tmpdir = appTemp_dir)
     announcements_file <- paste0(gsub('\\\\|/', '', (gsub(appTemp_dir, "", appTemp, fixed = TRUE))), ".yaml")
     yaml::write_yaml(list("start_date"        = start_date,
-                          "end_date"          = end_data,
+                          "end_date"          = end_date,
                           "start_date_format" = start_date_format,
                           "end_date_format"   = end_date_format,
                           "style"             = style,
@@ -36,6 +38,12 @@ test_that("add_ui_header - no header", {
 test_that("set_app_parameters default values", {
     expect_equal(shiny::isolate(periscope2:::.g_opts$app_title), "Set using add_ui_header() in program/ui_header.R")
     expect_null(shiny::isolate(periscope2:::.g_opts$app_info), NULL)
+
+    set_app_parameters(
+        app_version = "1.0.0",
+        log_level = "DEBUG"
+    )
+
     expect_equal(shiny::isolate(periscope2:::.g_opts$loglevel), "DEBUG")
     expect_equal(shiny::isolate(periscope2:::.g_opts$app_version), "1.0.0")
     expect_null(shiny::isolate(periscope2:::.g_opts$loading_indicator))
@@ -100,7 +108,7 @@ test_that("add_ui_header - ui element", {
 
     # busy indicator - title - UI elements (center as well)
     expect_warning(periscope2::add_ui_header(ui_elements = menu,
-                                                    ui_position = "center"),
+                                             ui_position = "center"),
                    regexp = "title_position cannot be equal to ui_position")
 
     header <- shiny::isolate(periscope2:::.g_opts$header)
@@ -140,8 +148,8 @@ test_that("add_ui_header - ui element", {
 
     # busy indicator - title positions is NULL- UI elements position is center
     warn_msgs <- capture_warnings(periscope2::add_ui_header(ui_elements    = menu,
-                                             ui_position    = "center",
-                                             title_position = NULL))
+                                                            ui_position    = "center",
+                                                            title_position = NULL))
     expect_equal("title_position must be on of 'left', 'center'or 'right' values. Setting default value 'center'",
                  warn_msgs[1])
     expect_equal("title_position cannot be equal to ui_position. Setting default values",
@@ -425,19 +433,19 @@ test_that("load_announcements - parsing error", {
 
 test_that("load_announcements function parameters", {
     expect_null(create_announcements(start_date = "2222-11-26",
-                                     end_data   = "2222-12-26"))
+                                     end_date   = "2222-12-26"))
     expect_null(create_announcements(start_date = "2022-11-26",
-                                     end_data   = "2222-12-26",
+                                     end_date   = "2222-12-26",
                                      style      = "not-style"))
     expect_null(create_announcements(start_date        = "11-26-2222",
-                                     end_data          = "12-26-2222",
+                                     end_date          = "12-26-2222",
                                      start_date_format = "%m-%d-%Y",
                                      end_date_format   = "%m-%d-%Y"))
     expect_null(create_announcements(start_date        = "11-26-2222",
-                                     end_data          = "12-26-2222",
+                                     end_date          = "12-26-2222",
                                      end_date_format   = "%m-%d-%Y"))
     expect_null(create_announcements(start_date        = "11-26-2222",
-                                     end_data          = "12-26-2222",
+                                     end_date          = "12-26-2222",
                                      start_date_format = "%m-%d-%Y"))
     expect_null(create_announcements(start_date        = "11-26-2222",
                                      start_date_format = "%m-%d-%Y"))
