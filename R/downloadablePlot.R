@@ -244,13 +244,10 @@ downloadablePlot <- function(id,
         id,
         function(input, output, session) {
             downloadFile("dplotButtonID", logger, filenameroot, downloadfxns, aspectratio)
-            dpInfo <- shiny::reactiveValues(visibleplot  = NULL,
-                                            downloadfxns = NULL)
 
             shiny::observe({
-                dpInfo$visibleplot   <- visibleplot()
                 output$dplotOutputID <- shiny::renderPlot({
-                    plot <- dpInfo$visibleplot
+                    plot <- visibleplot()
                     if (inherits(plot, "grob")) {
                         plot <- grid::grid.draw(plot)
                     }
@@ -259,15 +256,6 @@ downloadablePlot <- function(id,
             })
 
             shiny::observe({
-                if (length(downloadfxns) > 0) {
-                    dpInfo$downloadfxns <- lapply(downloadfxns, do.call, list())
-                    rowct               <- lapply(dpInfo$downloadfxns, is.null)
-                    session$sendCustomMessage(
-                        "downloadbutton_toggle",
-                        message = list(btn  = session$ns("dplotButtonDiv"),
-                                       rows = sum(unlist(rowct) == FALSE)) )
-                }
-
                 output$displayButton <- shiny::reactive(length(downloadfxns) > 0)
                 shiny::outputOptions(output, "displayButton", suspendWhenHidden = FALSE)
             })
