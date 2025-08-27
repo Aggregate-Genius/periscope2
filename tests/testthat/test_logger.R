@@ -254,10 +254,10 @@ test_that("File logging level DEBUG", {
     set_app_parameters(log_level = "DEBUG")
     periscope2:::addHandler(writeToFile, file = test_file_log)
 
-    logdebug("debug message")
-    loginfo("info message")
-    logwarn("warn message")
-    logerror("error message")
+    expect_output(logdebug("debug message"), "debug message")
+    expect_output(loginfo("info message"), "info message")
+    expect_output(logwarn("warn message"), "warn message")
+    expect_output(logerror("error message"), "error message")
 
     log_content <- readLines(test_file_log)
     expect_true(any(grepl("debug message", log_content)))
@@ -272,9 +272,9 @@ test_that("File logging level INFO", {
     periscope2:::addHandler(writeToFile, file = test_file_log)
 
     logdebug("debug message")
-    loginfo("info message")
-    logwarn("warn message")
-    logerror("error message")
+    expect_output(loginfo("info message"), "info message")
+    expect_output(logwarn("warn message"), "warn message")
+    expect_output(logerror("error message"), "error message")
 
     log_content <- readLines(test_file_log)
     expect_false(any(grepl("debug message", log_content)))
@@ -290,8 +290,8 @@ test_that("File logging level WARNING", {
 
     logdebug("debug message")
     loginfo("info message")
-    logwarn("warn message")
-    logerror("error message")
+    expect_output(logwarn("warn message"), "warn message")
+    expect_output(logerror("error message"), "error message")
 
     log_content <- readLines(test_file_log)
     expect_false(any(grepl("debug message", log_content)))
@@ -308,7 +308,7 @@ test_that("File logging level ERROR", {
     logdebug("debug message")
     loginfo("info message")
     logwarn("warn message")
-    logerror("error message")
+    expect_output(logerror("error message"), "error message")
 
     log_content <- readLines(test_file_log)
     expect_false(any(grepl("debug message", log_content)))
