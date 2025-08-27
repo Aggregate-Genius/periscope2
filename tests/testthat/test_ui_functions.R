@@ -62,19 +62,17 @@ test_that("add_ui_header - ui element", {
     # busy indicator - title - UI elements
     periscope2::add_ui_header(ui_elements = menu)
     header <- shiny::isolate(periscope2:::.g_opts$header)
-    print(header[[1]]$children[[2]])
     expect_equal(length(header), 2)
     expect_equal(length(header[[1]]), 3)
     expect_equal(length(header[[1]]$children), 3)
     expect_true(grepl('periscope-busy-ind.*Set using add_ui_header().*Tab1', header[[1]]$children[[2]]))
 
-# busy indicator - UI elements - title
-periscope2::add_ui_header(ui_elements    = menu,
-                          ui_position    = "center",
-                          title_position = "right")
-header <- shiny::isolate(periscope2:::.g_opts$header)
-print(header[[1]]$children[[2]])
-expect_true(grepl('periscope-busy-ind.*Tab1.*Set using add_ui_header', header[[1]]$children[[2]]))
+    # busy indicator - UI elements - title
+    periscope2::add_ui_header(ui_elements    = menu,
+                              ui_position    = "center",
+                              title_position = "right")
+    header <- shiny::isolate(periscope2:::.g_opts$header)
+    expect_true(grepl('periscope-busy-ind.*Tab1.*Set using add_ui_header', header[[1]]$children[[2]]))
 
     # UI elements - busy indicator - title
     periscope2::add_ui_header(ui_elements    = menu,
@@ -412,7 +410,8 @@ test_that("load_announcements empty file", {
     announcements_file <- paste0(gsub('\\\\|/', '', (gsub(appTemp_dir, "", appTemp, fixed = TRUE))), ".yaml")
     yaml::write_yaml("", announcements_file)
 
-    expect_null(load_announcements(announcements_file_path = announcements_file))
+    output_msg <- capture_output(expect_null(load_announcements(announcements_file_path = announcements_file)))
+    expect_true(grepl('Announcements will be ignored', output_msg, fixed = TRUE))
     unlink(announcements_file, TRUE)
 })
 
@@ -424,33 +423,56 @@ test_that("load_announcements - parsing error", {
     cat(":", file = (con <- file(announcements_file, "w", encoding = "UTF-8")))
     close(con)
 
-    expect_warning(load_announcements(announcements_file_path = announcements_file),
-                   regexp                                     = "[(Could not parse TestThatApp)]")
+    output_msg <- capture_output(expect_warning(load_announcements(announcements_file_path = announcements_file),
+                                                 regexp                                    = "[(Could not parse TestThatApp)]"))
+    expect_true(grepl('Parser error', output_msg, fixed = TRUE))
     unlink(announcements_file, TRUE)
 })
 
 test_that("load_announcements function parameters", {
     expect_null(create_announcements(start_date = "2222-11-26",
                                      end_date   = "2222-12-26"))
-    expect_null(create_announcements(start_date = "2022-11-26",
-                                     end_date   = "2222-12-26",
-                                     style      = "not-style"))
-    expect_null(create_announcements(start_date        = "11-26-2222",
+    output_msg <- capture_output(expect_null(
+        create_announcements(start_date = "2022-11-26",
+                             end_date   = "2222-12-26",
+                             style      = "not-style")))
+    expect_true(grepl("Announcement 'style' must be one of  info, danger, success, warning, primary",
+                      output_msg, fixed = TRUE))
+    expect_null(
+        create_announcements(start_date        = "11-26-2222",
+                             end_date          = "12-26-2222",
+                             start_date_format = "%m-%d-%Y",
+                             end_date_format   = "%m-%d-%Y"))
+
+    output_msg <- capture_output(expect_null(
+        create_announcements(start_date        = "11-26-2222",
+                             end_date          = "12-26-2222",
+                             end_date_format   = "%m-%d-%Y")))
+    expect_true(grepl("All formats failed to parse. No formats found",
+                      output_msg, fixed = TRUE))
+
+    output_msg <- capture_output(expect_null(
+        create_announcements(start_date        = "11-26-2222",
                                      end_date          = "12-26-2222",
-                                     start_date_format = "%m-%d-%Y",
-                                     end_date_format   = "%m-%d-%Y"))
+                                     start_date_format = "%m-%d-%Y")))
+    expect_true(grepl("All formats failed to parse. No formats found",
+                      output_msg, fixed = TRUE))
+
     expect_null(create_announcements(start_date        = "11-26-2222",
-                                     end_date          = "12-26-2222",
-                                     end_date_format   = "%m-%d-%Y"))
-    expect_null(create_announcements(start_date        = "11-26-2222",
-                                     end_date          = "12-26-2222",
                                      start_date_format = "%m-%d-%Y"))
-    expect_null(create_announcements(start_date        = "11-26-2222",
-                                     start_date_format = "%m-%d-%Y"))
-    expect_null(create_announcements(style = "info"))
-    expect_null(create_announcements(style      = "info",
-                                     text       = "text",
-                                     auto_close = "abc"))
+    expect_true(grepl("All formats failed to parse. No formats found",
+                      output_msg, fixed = TRUE))
+
+    output_msg <- capture_output(expect_null(create_announcements(style = "info")))
+    expect_true(grepl("Announcement 'text' value is empty. It must contain non empty text value",
+                      output_msg, fixed = TRUE))
+
+    output_msg <- capture_output(expect_null(
+        create_announcements(style      = "info",
+                             text       = "text",
+                             auto_close = "abc")))
+    expect_true(grepl("Announcement 'auto_close' value ' abc ' is invalid",
+                      output_msg, fixed = TRUE))
 })
 
 test_that("load_theme_settings - null settings", {
