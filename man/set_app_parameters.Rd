@@ -7,7 +7,7 @@
 set_app_parameters(
   title = NULL,
   app_info = NULL,
-  log_level = c("DEBUG", "INFO", "WARN", "ERROR"),
+  log_level = c("DEBUG", "INFO", "WARNING", "ERROR"),
   app_version = "1.0.0",
   loading_indicator = NULL,
   announcements_file = NULL
