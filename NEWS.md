@@ -5,9 +5,9 @@
 
 ## Enhancements
 - Added openxlsx2 support while keeping openxlsx to support legacy apps and backwards compatibility. writexl package is used as last resort.
-- Updated *?logViewerOutput* module to display log data in downloadableReactTable.
+- Updated *?logViewerOutput* module to display log data using *?downloadableReactTable*.
 - Added loglevel filtering according to level chosen- Added loglevel filtering according to level chosen
-- Added new feature to downloadFile module to control whether row names are to be written for tabular data.
+- Added new feature to *?downloadFile* module to control whether row names are to be written for tabular data.
 
 -----
 
