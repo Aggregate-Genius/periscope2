@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">periscope2</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.0</span>
       </span>
     </div>
 
@@ -60,6 +60,9 @@
     </li>
     <li>
       <a href="articles/downloadablePlot-module.html">Using the downloadablePlot Shiny Module</a>
+    </li>
+    <li>
+      <a href="articles/downloadableReactTable-module.html">Using downloadableReactTable Shiny Module</a>
     </li>
     <li>
       <a href="articles/downloadableTable-module.html">Using the downloadableTable Shiny Module</a>
@@ -115,7 +118,7 @@
 <li>Predefined but flexible templates for new Shiny applications with a default <a href="https://bs4dash.rinterface.com/" class="external-link">bs4Dash</a> layout</li>
 <li>Separation by file of functionality that exists in one of the three shiny scopes: global, server-global, and server-local</li>
 <li>Generated applications are organized in an easy to follow and maintain folder structure based on files functionality</li>
-<li>Off-the-shelf and ready to be used modules (‘Table Downloader’, ‘Plot Downloader’, ‘File Downloader’ and ‘Reset Application’</li>
+<li>Off-the-shelf and ready to be used modules (‘Table/React Table Downloader’, ‘Plot Downloader’, ‘File Downloader’ and ‘Reset Application’</li>
 <li>Different methods and tools to alert users and add useful information about application UI and server operations</li>
 <li>Application logger with different levels and a UI tool to display and review recorded application logs</li>
 <li>Application look and feel can be customized easily via ‘www/periscope_style.yaml’ or more advanced via ‘www/css/custom.css’</li>
@@ -231,7 +234,11 @@
 <ul>
 <li>Both packages share the following modules:
 <ul>
-<li>downloadable file</li>
+<li>downloadable file
+<ul>
+<li>Use openxlsx2 to download .xlsx files, openxlsx for legacy apps and backwards compatibility, and writexl as a fallback in case openxlsx2 or openxlsx not installed.</li>
+</ul>
+</li>
 <li>downloadable plot</li>
 <li>downloadable table</li>
 </ul>

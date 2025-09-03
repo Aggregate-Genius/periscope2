@@ -1,4 +1,4 @@
-# periscope2 0.3.0.9004
+# periscope2 0.3.0
 
 ## New Features
 - Added new module *?downloadableReactTable* based on reactable package and downloadFile module
