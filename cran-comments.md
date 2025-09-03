@@ -12,7 +12,7 @@ RStudio 2023.06.1+524 (Windows 11 x64 (build 22621))
 CircleCI
 
 * R 4.0.5
-* R 4.5.0
+* R 4.5.1
 
 devtools
 
