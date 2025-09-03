@@ -1,9 +1,11 @@
 context("periscope2 - UI functionality")
 local_edition(3)
+loglevels          <- periscope2:::loglevels
+set_app_parameters <- periscope2:::set_app_parameters
 
 # helper functions
 create_announcements <- function(start_date        = NULL,
-                                 end_data          = NULL,
+                                 end_date          = NULL,
                                  start_date_format = NULL,
                                  end_date_format   = NULL,
                                  style             = NULL,
@@ -13,7 +15,7 @@ create_announcements <- function(start_date        = NULL,
     appTemp            <- tempfile(pattern = "TestThatApp", tmpdir = appTemp_dir)
     announcements_file <- paste0(gsub('\\\\|/', '', (gsub(appTemp_dir, "", appTemp, fixed = TRUE))), ".yaml")
     yaml::write_yaml(list("start_date"        = start_date,
-                          "end_date"          = end_data,
+                          "end_date"          = end_date,
                           "start_date_format" = start_date_format,
                           "end_date_format"   = end_date_format,
                           "style"             = style,
@@ -34,8 +36,10 @@ test_that("add_ui_header - no header", {
 })
 
 test_that("set_app_parameters default values", {
+    reset_g_opts()
     expect_equal(shiny::isolate(periscope2:::.g_opts$app_title), "Set using add_ui_header() in program/ui_header.R")
     expect_null(shiny::isolate(periscope2:::.g_opts$app_info), NULL)
+
     expect_equal(shiny::isolate(periscope2:::.g_opts$loglevel), "DEBUG")
     expect_equal(shiny::isolate(periscope2:::.g_opts$app_version), "1.0.0")
     expect_null(shiny::isolate(periscope2:::.g_opts$loading_indicator))
@@ -100,7 +104,7 @@ test_that("add_ui_header - ui element", {
 
     # busy indicator - title - UI elements (center as well)
     expect_warning(periscope2::add_ui_header(ui_elements = menu,
-                                                    ui_position = "center"),
+                                             ui_position = "center"),
                    regexp = "title_position cannot be equal to ui_position")
 
     header <- shiny::isolate(periscope2:::.g_opts$header)
@@ -140,8 +144,8 @@ test_that("add_ui_header - ui element", {
 
     # busy indicator - title positions is NULL- UI elements position is center
     warn_msgs <- capture_warnings(periscope2::add_ui_header(ui_elements    = menu,
-                                             ui_position    = "center",
-                                             title_position = NULL))
+                                                            ui_position    = "center",
+                                                            title_position = NULL))
     expect_equal("title_position must be on of 'left', 'center'or 'right' values. Setting default value 'center'",
                  warn_msgs[1])
     expect_equal("title_position cannot be equal to ui_position. Setting default values",
@@ -406,7 +410,8 @@ test_that("load_announcements empty file", {
     announcements_file <- paste0(gsub('\\\\|/', '', (gsub(appTemp_dir, "", appTemp, fixed = TRUE))), ".yaml")
     yaml::write_yaml("", announcements_file)
 
-    expect_null(load_announcements(announcements_file_path = announcements_file))
+    output_msg <- capture_output(expect_null(load_announcements(announcements_file_path = announcements_file)))
+    expect_true(grepl('Announcements will be ignored', output_msg, fixed = TRUE))
     unlink(announcements_file, TRUE)
 })
 
@@ -418,33 +423,56 @@ test_that("load_announcements - parsing error", {
     cat(":", file = (con <- file(announcements_file, "w", encoding = "UTF-8")))
     close(con)
 
-    expect_warning(load_announcements(announcements_file_path = announcements_file),
-                   regexp                                     = "[(Could not parse TestThatApp)]")
+    output_msg <- capture_output(expect_warning(load_announcements(announcements_file_path = announcements_file),
+                                                 regexp                                    = "[(Could not parse TestThatApp)]"))
+    expect_true(grepl('Parser error', output_msg, fixed = TRUE))
     unlink(announcements_file, TRUE)
 })
 
 test_that("load_announcements function parameters", {
     expect_null(create_announcements(start_date = "2222-11-26",
-                                     end_data   = "2222-12-26"))
-    expect_null(create_announcements(start_date = "2022-11-26",
-                                     end_data   = "2222-12-26",
-                                     style      = "not-style"))
+                                     end_date   = "2222-12-26"))
+    output_msg <- capture_output(expect_null(
+        create_announcements(start_date = "2022-11-26",
+                             end_date   = "2222-12-26",
+                             style      = "not-style")))
+    expect_true(grepl("Announcement 'style' must be one of  info, danger, success, warning, primary",
+                      output_msg, fixed = TRUE))
+    expect_null(
+        create_announcements(start_date        = "11-26-2222",
+                             end_date          = "12-26-2222",
+                             start_date_format = "%m-%d-%Y",
+                             end_date_format   = "%m-%d-%Y"))
+
+    output_msg <- capture_output(expect_null(
+        create_announcements(start_date        = "11-26-2222",
+                             end_date          = "12-26-2222",
+                             end_date_format   = "%m-%d-%Y")))
+    expect_true(grepl("All formats failed to parse. No formats found",
+                      output_msg, fixed = TRUE))
+
+    output_msg <- capture_output(expect_null(
+        create_announcements(start_date        = "11-26-2222",
+                                     end_date          = "12-26-2222",
+                                     start_date_format = "%m-%d-%Y")))
+    expect_true(grepl("All formats failed to parse. No formats found",
+                      output_msg, fixed = TRUE))
+
     expect_null(create_announcements(start_date        = "11-26-2222",
-                                     end_data          = "12-26-2222",
-                                     start_date_format = "%m-%d-%Y",
-                                     end_date_format   = "%m-%d-%Y"))
-    expect_null(create_announcements(start_date        = "11-26-2222",
-                                     end_data          = "12-26-2222",
-                                     end_date_format   = "%m-%d-%Y"))
-    expect_null(create_announcements(start_date        = "11-26-2222",
-                                     end_data          = "12-26-2222",
                                      start_date_format = "%m-%d-%Y"))
-    expect_null(create_announcements(start_date        = "11-26-2222",
-                                     start_date_format = "%m-%d-%Y"))
-    expect_null(create_announcements(style = "info"))
-    expect_null(create_announcements(style      = "info",
-                                     text       = "text",
-                                     auto_close = "abc"))
+    expect_true(grepl("All formats failed to parse. No formats found",
+                      output_msg, fixed = TRUE))
+
+    output_msg <- capture_output(expect_null(create_announcements(style = "info")))
+    expect_true(grepl("Announcement 'text' value is empty. It must contain non empty text value",
+                      output_msg, fixed = TRUE))
+
+    output_msg <- capture_output(expect_null(
+        create_announcements(style      = "info",
+                             text       = "text",
+                             auto_close = "abc")))
+    expect_true(grepl("Announcement 'auto_close' value ' abc ' is invalid",
+                      output_msg, fixed = TRUE))
 })
 
 test_that("load_theme_settings - null settings", {
@@ -502,20 +530,6 @@ test_that("theme - invalid color", {
     unlink("www/periscope_style.yaml")
     unlink("www", recursive = TRUE)
 })
-
-
-# test_that("theme - invalid width", {
-#     theme_settings <- yaml::read_yaml(system.file("fw_templ", "p_example", "periscope_style.yaml", package = "periscope2"))
-#     dir.create("www")
-#     theme_settings[["sidebar_width"]]         <- "300"
-#     theme_settings[["control_sidebar_width"]] <- "-300"
-#
-#     yaml::write_yaml(theme_settings, "www/periscope_style.yaml")
-#     expect_warning(nchar(create_theme()),
-#                    regexp = "invalid theme settings -300 must be positive value. Setting default value")
-#     unlink("www/periscope_style.yaml")
-#     unlink("www", recursive = TRUE)
-# })
 
 
 test_that("dashboard - create default dashboard", {

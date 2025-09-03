@@ -29,19 +29,19 @@ downloadableReactTable(
 
 \item{selection_mode}{to enable row selection, set \code{selection_mode} value to either "single" for single row
 selection or "multiple" for multiple rows selection, case insensitive. Any other value will
-disable row selection, (default = NULL). An additional column will be added to the table if
-selection mode is enabled with radio buttons for single row selection and checkboxes for
-"multiple" rows selection mode.}
+disable row selection. Row selection will be enabled by radio buttons in "single" selection
+and checkboxes in "multiple" selection (default = NULL)}
 
 \item{pre_selected_rows}{reactive expression (or parameter-less function) provides the rows indices of the rows to
 be selected when the table is rendered. If selection_mode is disabled, this parameter will
-have no effect. If selection_mode is "single" only first row index will be used.}
+have no effect. If selection_mode is "single" only the first row index will be used (default = NULL)}
 
-\item{file_name_root}{the base text used for user-downloaded file. It can be either a character string,
+\item{file_name_root}{the base name used for user-downloaded file. It can be either a character string
 a reactive expression or a function returning a character string (default = 'data_file')}
 
 \item{download_data_fxns}{a \strong{named} list of functions providing the data as return values.
-The names for the list should be the same names that were used when the table UI was created}
+The names for the list should be the same names as the ones used in the
+downloadableReactTableUI (default = NULL)}
 
 \item{pagination}{to enable table pagination (default = FALSE)}
 
@@ -64,7 +64,13 @@ Also see example below to see how to pass options (default = list())}
 \item{logger}{logger to use (default = NULL)}
 }
 \value{
-Rendered react table
+A named list of two elements:
+\itemize{
+\item selected_rows: data.frame of current selected rows
+\item table_state: a list of the current table state. The list keys are
+("page", "pageSize", "pages", "sorted" and "selected").
+Review \code{?reactable::getReactableState} for more info.
+}
 }
 \description{
 Server-side function for the downloadableReactTableUI.
@@ -91,7 +97,7 @@ if (interactive()) {
              downloadtypes = c("csv", "tsv"),
              hovertext     = "Download the data here!")))),
      server = function(input, output) {
-         downloadableReactTable(
+         table_state <- downloadableReactTable(
              id                 = "object_id1",
              table_data         = reactiveVal(iris),
              download_data_fxns = list(csv = reactiveVal(iris), tsv = reactiveVal(iris)),
@@ -103,10 +109,12 @@ if (interactive()) {
                  Petal.Length = colDef(show = FALSE),
                  Petal.Width  = colDef(defaultSortOrder = "desc")),
                  theme = reactableTheme(
-                     headerStyle = list(
-                         "&:hover[aria-sort]" = list(background = "hsl(0, 0\%, 96\%)"),
-                         "&[aria-sort='ascending'], &[aria-sort='descending']" = list(background = "hsl(0, 0\%, 96\%)"),
-                         borderColor = "#'555"))))
+                     borderColor = "#dfe2e5",
+                     stripedColor = "#f6f8fa",
+                     highlightColor = "#f0f5f9",
+                     cellPadding = "8px 12px")))
+
+        observeEvent(table_state(), { print(table_state()) })
     })
 }
 

@@ -9,6 +9,7 @@
 #     to server, UI and session scopes
 # ----------------------------------------
 library(DT)
+library(reactable)
 library(shiny)
 library(periscope2)
 library(waiter)

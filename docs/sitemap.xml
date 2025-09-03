@@ -5,6 +5,7 @@
 <url><loc>/articles/applicationReset-module.html</loc></url>
 <url><loc>/articles/downloadFile-module.html</loc></url>
 <url><loc>/articles/downloadablePlot-module.html</loc></url>
+<url><loc>/articles/downloadableReactTable-module.html</loc></url>
 <url><loc>/articles/downloadableTable-module.html</loc></url>
 <url><loc>/articles/index.html</loc></url>
 <url><loc>/articles/logViewer-module.html</loc></url>
@@ -33,6 +34,8 @@
 <url><loc>/reference/downloadFile_ValidateTypes.html</loc></url>
 <url><loc>/reference/downloadablePlot.html</loc></url>
 <url><loc>/reference/downloadablePlotUI.html</loc></url>
+<url><loc>/reference/downloadableReactTable.html</loc></url>
+<url><loc>/reference/downloadableReactTableUI.html</loc></url>
 <url><loc>/reference/downloadableTable.html</loc></url>
 <url><loc>/reference/downloadableTableUI.html</loc></url>
 <url><loc>/reference/get_url_parameters.html</loc></url>

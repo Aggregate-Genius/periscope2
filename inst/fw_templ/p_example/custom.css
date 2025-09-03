@@ -53,6 +53,11 @@ ul.dropdown-menu {
 
 /* End of Application Header CSS rules */
 
+.hidden {
+    display: none !important;
+}
+
+
 
 /* Other */
 .help-block {

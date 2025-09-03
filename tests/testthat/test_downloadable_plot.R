@@ -105,9 +105,9 @@ test_that("downloadablePlotUI invalid btn_valign", {
 download_plot <- function() {
     ggplot2::ggplot(data = download_data(), aes(x = wt, y = mpg)) +
         geom_point(aes(color = cyl)) +
-        theme(legend.justification = c(1, 1),
-              legend.position      = c(1, 1),
-              legend.title         = element_blank()) +
+        theme(legend.justification   = c(1, 1),
+              legend.position.inside = c(1, 1),
+              legend.title           = element_blank()) +
         ggtitle("GGPlot Example w/Hover") +
         xlab("wt") +
         ylab("mpg")
@@ -118,6 +118,7 @@ download_data <- function() {
 }
 
 test_that("downloadablePlot", {
+    skip_if(getRversion() < "4.1.0", "Skipping due to lifecycle warnings in R < 4.1.0")
     testServer(downloadablePlot,
                args = list(logger = periscope2:::fw_get_user_log(),
                            filenameroot = "mydownload1",
@@ -141,6 +142,7 @@ test_that("downloadablePlot", {
 
 
 test_that("downloadablePlot- default values", {
+    skip_if(getRversion() < "4.1.0", "Skipping due to lifecycle warnings in R < 4.1.0")
     testServer(downloadablePlot,
                args = list(visibleplot = download_plot),
                expr = {
