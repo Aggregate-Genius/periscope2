@@ -32,7 +32,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">periscope2</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.0</span>
       </span>
     </div>
 
@@ -59,6 +59,9 @@
     </li>
     <li>
       <a href="../articles/downloadablePlot-module.html">Using the downloadablePlot Shiny Module</a>
+    </li>
+    <li>
+      <a href="../articles/downloadableReactTable-module.html">Using downloadableReactTable Shiny Module</a>
     </li>
     <li>
       <a href="../articles/downloadableTable-module.html">Using the downloadableTable Shiny Module</a>
@@ -108,7 +111,7 @@
                         <h4 data-toc-skip class="author">Dr. Connie
 Brett</h4>
             
-            <h4 data-toc-skip class="date">2025-04-14</h4>
+            <h4 data-toc-skip class="date">2025-09-02</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/Aggregate-Genius/periscope2/blob/HEAD/vignettes/downloadFile-module.Rmd" class="external-link"><code>vignettes/downloadFile-module.Rmd</code></a></small>
       <div class="hidden name"><code>downloadFile-module.Rmd</code></div>
@@ -225,6 +228,11 @@ like:</p>
 </h3>
 <p>The <strong>downloadFile</strong> function is called directly. The
 call consists of the following:</p>
+<p><strong>Note on Excel file support:</strong> For xlsx files, the
+module will first attempt to use <code>openxlsx2</code> if available,
+then fall back to <code>openxlsx</code>, and finally use
+<code>writexl</code> if neither is available. We recommend
+<code>openxlsx2</code> for best performance with Excel files.</p>
 <ul>
 <li>the unique object ID that was provided to downloadFileButton when
 creating the UI object</li>
@@ -309,6 +317,8 @@ Module</a></li>
 Builder</a></li>
 <li><a href="themeBuilder_addin.html">Theme Configuration
 Builder</a></li>
+<li><a href="downloadableReactTable-module.html">downloadableReactTable
+Module</a></li>
 </ul>
 </div>
   </div>
