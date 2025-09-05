@@ -151,3 +151,4 @@ downloadablePlot(id           = "object_id1",
 * [announcement Module](announcement-module.html)
 * [Announcement Configuration Builder](announcement_addin.html)
 * [Theme Configuration Builder](themeBuilder_addin.html)
+* [downloadableReactTable Module](downloadableReactTable-module.html)

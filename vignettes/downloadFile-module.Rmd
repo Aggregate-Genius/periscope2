@@ -90,6 +90,9 @@ downloadFileButton(id            = "object_id2",
 
 The **downloadFile** function is called directly. The call consists of the following:
 
+**Note on Excel file support:** For xlsx files, the module will first attempt to use `openxlsx2` if available, then fall back to `openxlsx`, and finally use `writexl` if neither is available. We recommend `openxlsx2` for best performance with Excel files.
+
+
 * the unique object ID that was provided to downloadFileButton when creating 
 the UI object
 * the logging logger to be used
@@ -154,3 +157,4 @@ runApp(paste(app_dir, 'mysampleapp', sep = .Platform$file.sep))
 * [announcement Module](announcement-module.html)
 * [Announcement Configuration Builder](announcement_addin.html)
 * [Theme Configuration Builder](themeBuilder_addin.html)
+* [downloadableReactTable Module](downloadableReactTable-module.html)

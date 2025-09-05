@@ -32,7 +32,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">periscope2</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.0</span>
       </span>
     </div>
 
@@ -59,6 +59,9 @@
     </li>
     <li>
       <a href="../articles/downloadablePlot-module.html">Using the downloadablePlot Shiny Module</a>
+    </li>
+    <li>
+      <a href="../articles/downloadableReactTable-module.html">Using downloadableReactTable Shiny Module</a>
     </li>
     <li>
       <a href="../articles/downloadableTable-module.html">Using the downloadableTable Shiny Module</a>
@@ -108,7 +111,7 @@
                         <h4 data-toc-skip class="author">Mohammed
 Ali</h4>
             
-            <h4 data-toc-skip class="date">2025-04-14</h4>
+            <h4 data-toc-skip class="date">2025-09-02</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/Aggregate-Genius/periscope2/blob/HEAD/vignettes/logViewer-module.Rmd" class="external-link"><code>vignettes/logViewer-module.Rmd</code></a></small>
       <div class="hidden name"><code>logViewer-module.Rmd</code></div>
@@ -140,6 +143,16 @@ format</p>
 ‘actions.log’. ONE old copy of the log is kept as ’actions.log.last</li>
 <li>Many actions are automatically logged by the framework and it is
 easy for developers to add additional items as they see fit.</li>
+<li>Filtering logs by setting log_level argument as desired in
+set_app_parameters
+<ul>
+<li>“DEBUG” will log logdebug, loginfo, logwarn, and logerror
+messages</li>
+<li>“INFO” will log loginfo, logwarn, and logerror messages</li>
+<li>“WARNING” will log logwarn and logerror messages</li>
+<li>“ERROR” will log logerror messages</li>
+</ul>
+</li>
 <li>It is important to note that the log rolls over for each session and
 is reset if using the appReset module.</li>
 </ul>
@@ -217,6 +230,8 @@ Module</a></li>
 Builder</a></li>
 <li><a href="themeBuilder_addin.html">Theme Configuration
 Builder</a></li>
+<li><a href="downloadableReactTable-module.html">downloadableReactTable
+Module</a></li>
 </ul>
 </div>
   </div>

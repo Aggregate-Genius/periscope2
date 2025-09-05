@@ -45,6 +45,8 @@ downloadFileButton
 downloadFileButton's
 downloadablePlot
 downloadablePlotUI
+downloadableReactTable
+downloadableReactTableUI
 downloadableTable
 downloadableTableUI
 downloadableTables
@@ -59,7 +61,6 @@ ggplot
 gitignore
 hoverOpts
 hovertext
-href
 htmlOutput
 http
 https
@@ -71,6 +72,11 @@ javascript
 js
 logViewer
 logViewerOutput
+logdebug
+logerror
+loginfo
+loglevel
+logwarn
 mailto
 mis
 modularize
@@ -78,10 +84,13 @@ msg
 mytestapp
 navbar
 navbarMenu
+openxlsx
+pageSize
 param
 params
 periscopeapps
 prettyToggle
+reactable
 rownumbers
 runnable
 scalable
@@ -104,6 +113,7 @@ unitless
 userAction
 valueBox
 waiterShowOnLoad
+writexl
 www
 xlsx
 yaml

@@ -21,6 +21,31 @@ setInterval(function() {
 }, 100);
 
 
+function initializeReactTableTooltips() {
+    // Initialize all downloadable react table tooltips
+    $('.periscope-downloadable-react-table-button span.btn-group')
+    .tooltip()
+    .attr('data-tooltip-for', 'react-download-button');
+
+    // Add event handler only once
+    $(document).off('show.bs.tooltip.custom').on('show.bs.tooltip.custom', function(e) {
+        var $trigger = $(e.target);
+        var tooltipFor = $trigger.attr('data-tooltip-for');
+
+        if (tooltipFor) {
+            var tooltipInstance = $trigger.data('bs.tooltip');
+            var $tip = $(tooltipInstance.tip);
+            $tip.attr('data-tooltip-for', tooltipFor);
+        }
+    });
+}
+
+
+$(document).ready(function() {
+    initializeReactTableTooltips();
+});
+
+
 // Resolve bs4Dash alert title and close button issues
 Shiny.addCustomMessageHandler('pcreate-alert', function (message) {
     // setup target

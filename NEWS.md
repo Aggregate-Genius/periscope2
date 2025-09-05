@@ -1,3 +1,16 @@
+# periscope2 0.3.0
+
+## New Features
+- Added new module *?downloadableReactTable* based on reactable package and downloadFile module
+
+## Enhancements
+- Added openxlsx2 support while keeping openxlsx to support legacy apps and backwards compatibility. writexl package is used as last resort.
+- Updated *?logViewerOutput* module to display log data using *?downloadableReactTable*.
+- Added loglevel filtering according to level chosen- Added loglevel filtering according to level chosen
+- Added new feature to *?downloadFile* module to control whether row names are to be written for tabular data.
+
+-----
+
 # periscope2 0.2.4
 
 ## Enhancements

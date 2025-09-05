@@ -53,6 +53,11 @@ ul.dropdown-menu {
 
 /* End of Application Header CSS rules */
 
+.hidden {
+    display: none !important;
+}
+
+
 
 /* Other */
 .help-block {
@@ -93,6 +98,12 @@ table.shiny-table {
 
 .periscope-downloadable-table-button {
     float: left;
+}
+
+
+/* Downloadable React Table */
+.periscope-downloadable-react-table-button {
+    display: inline-flex;
 }
 
 /* Downloadable Plot */
@@ -187,6 +198,28 @@ div#swal2-html-container {
     text-align: inherit;
     color: black;
     padding: 15px;
+}
+
+/* downloadableReactTable Tooltip */
+.tooltip[data-tooltip-for="react-download-button"] .tooltip-inner {
+  background-color: #ffffff !important;
+  color: #212529 !important;
+  border: 1px solid #d1d5db !important;
+}
+
+.tooltip[data-tooltip-for="react-download-button"].bs-tooltip-top .arrow::before {
+  border-top-color: #d1d5db !important;
+}
+
+.tooltip[data-tooltip-for="react-download-button"].bs-tooltip-top .arrow::after {
+  content: '';
+  position: absolute;
+  bottom: 1px;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #ffffff transparent transparent transparent;
 }
 /* END of periscope2 basic CSS*/
 

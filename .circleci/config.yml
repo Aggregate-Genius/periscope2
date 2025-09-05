@@ -38,6 +38,8 @@ jobs:
             R -e 'install.packages("bs4Dash", repos = "https://cran.rstudio.com/")'
             R -e 'install.packages(c("shinyWidgets", "yaml", "DT", "writexl", "fresh", "miniUI", "shinyFeedback"))'
             R -e 'install.packages(c("canvasXpress", "waiter", "shinyjs", "openxlsx", "spelling", "colourpicker", "lifecycle"))'
+            R -e 'install.packages("reactable")'
+            R -e 'install.packages("openxlsx2", repos = "https://cloud.r-project.org")'
 
       - run:
           name: Session information and installed package versions
@@ -80,8 +82,9 @@ jobs:
           name: Install R dependencies
           command: |
             R -e 'install.packages(c("bs4Dash", "shinyWidgets", "yaml", "DT", "writexl", "fresh", "miniUI", "shinyFeedback"))'
-            R -e 'install.packages(c("canvasXpress", "waiter", "shinyjs", "openxlsx", "spelling", "colourpicker", "lifecycle"))'
+            R -e 'install.packages(c("canvasXpress", "waiter", "shinyjs", "openxlsx",  "openxlsx2", "spelling", "colourpicker", "lifecycle"))'
             R -e 'install.packages("covr")'
+            R -e 'install.packages("reactable")'
 
       - run:
           name: Session information and installed package versions

@@ -1,10 +1,12 @@
 context("periscope2 - logging functionality")
 
 
-writeToConsole <- periscope2:::writeToConsole
-writeToFile    <- periscope2:::writeToFile
-loglevels      <- periscope2:::loglevels
-test_file_name <- file.path(tempdir(), c("1", "2", "3"))
+writeToConsole     <- periscope2:::writeToConsole
+writeToFile        <- periscope2:::writeToFile
+loglevels          <- periscope2:::loglevels
+set_app_parameters <- periscope2:::set_app_parameters
+test_file_name     <- file.path(tempdir(), c("1", "2", "3"))
+test_file_log      <- file.path(tempdir(), "test_log.txt")
 
 env_setup <- function() {
     test_env        <- new.env(parent = emptyenv())
@@ -110,8 +112,8 @@ test_that("UpdateOptions - updateOptions()", {
     periscope2:::logReset()
     periscope2:::basicConfig()
 
-    periscope2:::updateOptions.character("", level = "WARN")
-    expect_equal(periscope2:::getLogger()$getLevel(), loglevels["WARN"])
+    periscope2:::updateOptions.character("", level = "WARNING")
+    expect_equal(periscope2:::getLogger()$getLevel(), loglevels["WARNING"])
 })
 
 test_that("LoggingToConsole", {
@@ -122,8 +124,10 @@ test_that("LoggingToConsole", {
     periscope2:::addHandler(writeToConsole, level = "DEBUG")
 
     expect_equal(with(periscope2:::getLogger(), names(handlers)), c("basic.stdout", "writeToConsole"))
-    logdebug("log generated for testing")
-    loginfo("log generated for testing")
+    expect_true(grepl(pattern = "DEBUG::log generated for testing",
+                      x       = capture_output(logdebug("log generated for testing"), print = TRUE)))
+    expect_true(grepl(pattern = "INFO::log generated for testing",
+                      x       = capture_output(loginfo("log generated for testing"), print = TRUE)))
 
     succeed()
 })
@@ -206,4 +210,109 @@ test_that("MsgComposer function - defaultMsgCompose()",{
                  "'msg' length exceeds maximal format length 8192")
     expect_equal(periscope2:::defaultMsgCompose(msg = paste(rep(LETTERS, 316), collapse = "")),
                  paste(rep(LETTERS, 316), collapse = ""))
+})
+
+# Testing logging levels
+test_that("DEBUG level shows all messages", {
+    set_app_parameters(log_level = "DEBUG")
+    periscope2:::addHandler(writeToConsole)
+    expect_output(logdebug("debug message"), "DEBUG::debug message")
+    expect_output(loginfo("info message"),   "INFO::info message")
+    expect_output(logwarn("warn message"),   "WARNING::warn message")
+    expect_output(logerror("error message"), "ERROR::error message")
+})
+I
+test_that("INFO level filters DEBUG", {
+    set_app_parameters(log_level = "INFO")
+    periscope2:::addHandler(writeToConsole)
+    expect_silent(logdebug("debug message"))
+    expect_output(loginfo("info message"),   "INFO::info message")
+    expect_output(logwarn("warn message"),   "WARNING::warn message")
+    expect_output(logerror("error message"), "ERROR::error message")
+})
+
+test_that("WARNING level filters DEBUG and INFO", {
+    set_app_parameters(log_level = "WARNING")
+    periscope2:::addHandler(writeToConsole)
+    expect_silent(logdebug("debug message"))
+    expect_silent(loginfo("info message"))
+    expect_output(logwarn("warn message"),   "WARNING::warn message")
+    expect_output(logerror("error message"), "ERROR::error message")
+})
+
+test_that("ERROR level filters all but ERROR", {
+    set_app_parameters(log_level = "ERROR")
+    periscope2:::addHandler(writeToConsole)
+    expect_silent(logdebug("debug message"))
+    expect_silent(loginfo("info message"))
+    expect_silent(logwarn("warn message"))
+    expect_output(logerror("error message"), "ERROR::error message")
+})
+
+test_that("File logging level DEBUG", {
+    unlink(test_file_log, force  = TRUE)
+    set_app_parameters(log_level = "DEBUG")
+    periscope2:::addHandler(writeToFile, file = test_file_log)
+
+    expect_output(logdebug("debug message"), "debug message")
+    expect_output(loginfo("info message"), "info message")
+    expect_output(logwarn("warn message"), "warn message")
+    expect_output(logerror("error message"), "error message")
+
+    log_content <- readLines(test_file_log)
+    expect_true(any(grepl("debug message", log_content)))
+    expect_true(any(grepl("info message",  log_content)))
+    expect_true(any(grepl("warn message",  log_content)))
+    expect_true(any(grepl("error message", log_content)))
+})
+
+test_that("File logging level INFO", {
+    unlink(test_file_log, force  = TRUE)
+    set_app_parameters(log_level = "INFO")
+    periscope2:::addHandler(writeToFile, file = test_file_log)
+
+    logdebug("debug message")
+    expect_output(loginfo("info message"), "info message")
+    expect_output(logwarn("warn message"), "warn message")
+    expect_output(logerror("error message"), "error message")
+
+    log_content <- readLines(test_file_log)
+    expect_false(any(grepl("debug message", log_content)))
+    expect_true(any(grepl("info message",   log_content)))
+    expect_true(any(grepl("warn message",   log_content)))
+    expect_true(any(grepl("error message",  log_content)))
+})
+
+test_that("File logging level WARNING", {
+    unlink(test_file_log, force  = TRUE)
+    set_app_parameters(log_level = "WARNING")
+    periscope2:::addHandler(writeToFile, file = test_file_log)
+
+    logdebug("debug message")
+    loginfo("info message")
+    expect_output(logwarn("warn message"), "warn message")
+    expect_output(logerror("error message"), "error message")
+
+    log_content <- readLines(test_file_log)
+    expect_false(any(grepl("debug message", log_content)))
+    expect_false(any(grepl("info message",  log_content)))
+    expect_true(any(grepl("warn message",   log_content)))
+    expect_true(any(grepl("error message",  log_content)))
+})
+
+test_that("File logging level ERROR", {
+    unlink(test_file_log, force  = TRUE)
+    set_app_parameters(log_level = "ERROR")
+    periscope2:::addHandler(writeToFile, file = test_file_log)
+
+    logdebug("debug message")
+    loginfo("info message")
+    logwarn("warn message")
+    expect_output(logerror("error message"), "error message")
+
+    log_content <- readLines(test_file_log)
+    expect_false(any(grepl("debug message", log_content)))
+    expect_false(any(grepl("info message",  log_content)))
+    expect_false(any(grepl("warn message",  log_content)))
+    expect_true(any(grepl("error message",  log_content)))
 })
