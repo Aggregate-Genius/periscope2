@@ -34,7 +34,8 @@ jobs:
       - run:
           name: Install R dependencies
           command: |
-            R -e 'install.packages("shiny", repos = "https://cran.rstudio.com/")'
+            R -e 'options(repos = c(CRAN = "https://posit.co")); install.packages(c("remotes", "shiny"))'
+            R -e 'remotes::install_deps(dependencies = TRUE, upgrade = "always")'
             R -e 'install.packages("bs4Dash", repos = "https://cran.rstudio.com/")'
             R -e 'install.packages(c("shinyWidgets", "yaml", "DT", "writexl", "fresh", "miniUI", "shinyFeedback"))'
             R -e 'install.packages(c("canvasXpress", "waiter", "shinyjs", "openxlsx", "spelling", "colourpicker", "lifecycle"))'
