@@ -42,7 +42,7 @@ jobs:
 
             # 3. Force R to treat warnings as hard errors (warn = 2) so failures aren't hidden
             # Also, add dependencies = TRUE to force downstream libraries to update
-            R -e 'options(warn = 2); options(repos = c(CRAN = "https://posit.co")); install.packages("shiny", dependencies = TRUE)'
+            R -e 'options(warn = 2); install.packages("shiny", repos = "https://cran.rstudio.com/", dependencies = TRUE)'
 
             # 4. Confirm if the version successfully updated to >= 1.7
             R -e 'print(packageVersion("shiny"))'
