@@ -1,3 +1,9 @@
+# periscope2 0.3.1
+
+## Enhancements
+
+-----
+
 # periscope2 0.3.0
 
 ## New Features
