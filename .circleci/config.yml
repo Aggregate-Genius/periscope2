@@ -34,7 +34,18 @@ jobs:
       - run:
           name: Install R dependencies
           command: |
-            R -e 'options(repos = c(CRAN = "https://posit.co")); install.packages(c("remotes", "shiny"))'
+            # 1. Show existing library path configuration
+            R -e '.libPaths()'
+
+            # 2. Log what version of shiny is currently visible BEFORE installing
+            R -e 'if (system.file(package="shiny") != "") print(packageVersion("shiny")) else print("Shiny is completely missing")'
+
+            # 3. Force R to treat warnings as hard errors (warn = 2) so failures aren't hidden
+            # Also, add dependencies = TRUE to force downstream libraries to update
+            R -e 'options(warn = 2); install.packages("shiny", repos = "https://rstudio.com", dependencies = TRUE)'
+
+            # 4. Confirm if the version successfully updated to >= 1.7
+            R -e 'print(packageVersion("shiny"))'
             R -e 'remotes::install_deps(dependencies = TRUE, upgrade = "always")'
             R -e 'install.packages("bs4Dash", repos = "https://cran.rstudio.com/")'
             R -e 'install.packages(c("shinyWidgets", "yaml", "DT", "writexl", "fresh", "miniUI", "shinyFeedback"))'
