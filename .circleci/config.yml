@@ -34,32 +34,37 @@ jobs:
       - run:
           name: Install R dependencies
           command: |
-            # 1. Show existing library path configuration
             R -e '.libPaths()'
-            # 2. Log what version of shiny is currently visible BEFORE installing
             R -e 'if (system.file(package="shiny") != "") print(packageVersion("shiny")) else print("Shiny is completely missing")'
-            # 3. Pin to a Posit Package Manager snapshot compatible with R 4.0.5.
-            #    Mid-2022 is a safe window: shiny 1.7.x, promises 1.2.x, httr2 0.2.x, testthat 3.1.x
-            #    all still supported R >= 3.x/4.0.
-            export CRAN_REPO="https://packagemanager.posit.co/cran/2022-06-01"
+
+            # Use a LATER snapshot (early 2023) so openxlsx2 and newer bs4Dash exist.
+            # 2023-04-01 is after openxlsx2's CRAN debut but still generally friendly to R 4.0.5.
+            export CRAN_REPO="https://packagemanager.posit.co/cran/2023-04-01"
             echo "options(repos = c(CRAN = '${CRAN_REPO}'))" >> ~/.Rprofile
             echo "options(HTTPUserAgent = sprintf('R/%s R (%s)', getRversion(), paste(getRversion(), R.version\$platform, R.version\$arch, R.version\$os)))" >> ~/.Rprofile
-
-            # 4. Verify the repo is set
             R -e 'getOption("repos")'
 
-            # 5. Install shiny (will now resolve to a 4.0.5-compatible version)
-            R -e 'options(warn = 2); install.packages("shiny", dependencies = TRUE)'
+            # --- Pin the problem packages that dropped R 4.0.5 support ---
+            # Install remotes first (needed for install_version)
+            R -e 'install.packages("remotes")'
 
-            # 6. Confirm the version
+            # Pin versions known to still support R >= 4.0
+            R -e 'remotes::install_version("promises",  version = "1.2.1",   upgrade = "never")'
+            R -e 'remotes::install_version("httr2",     version = "0.2.3",   upgrade = "never")'
+            R -e 'remotes::install_version("testthat",  version = "3.1.10",  upgrade = "never")'
+            R -e 'remotes::install_version("shiny",     version = "1.7.5",   upgrade = "never")'
+
             R -e 'print(packageVersion("shiny"))'
 
-            # 7. Remaining packages – all pulled from the same pinned snapshot
-            R -e 'install.packages("bs4Dash")'
+            # --- The rest come from the 2023-04-01 snapshot ---
+            R -e 'options(warn = 2); install.packages("bs4Dash", dependencies = TRUE)'
             R -e 'install.packages(c("shinyWidgets", "yaml", "DT", "writexl", "fresh", "miniUI", "shinyFeedback"))'
             R -e 'install.packages(c("canvasXpress", "waiter", "shinyjs", "openxlsx", "spelling", "colourpicker", "lifecycle"))'
             R -e 'install.packages("reactable")'
             R -e 'install.packages("openxlsx2")'
+
+            # Sanity check versions periscope2 cares about
+            R -e 'print(packageVersion("bs4Dash")); print(packageVersion("openxlsx2")); print(packageVersion("shiny"))'
 
       - run:
           name: Session information and installed package versions
