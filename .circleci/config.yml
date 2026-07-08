@@ -36,21 +36,30 @@ jobs:
           command: |
             # 1. Show existing library path configuration
             R -e '.libPaths()'
-
             # 2. Log what version of shiny is currently visible BEFORE installing
             R -e 'if (system.file(package="shiny") != "") print(packageVersion("shiny")) else print("Shiny is completely missing")'
+            # 3. Pin to a Posit Package Manager snapshot compatible with R 4.0.5.
+            #    Mid-2022 is a safe window: shiny 1.7.x, promises 1.2.x, httr2 0.2.x, testthat 3.1.x
+            #    all still supported R >= 3.x/4.0.
+            export CRAN_REPO="https://packagemanager.posit.co/cran/2022-06-01"
+            echo "options(repos = c(CRAN = '${CRAN_REPO}'))" >> ~/.Rprofile
+            echo "options(HTTPUserAgent = sprintf('R/%s R (%s)', getRversion(), paste(getRversion(), R.version\$platform, R.version\$arch, R.version\$os)))" >> ~/.Rprofile
 
-            # 3. Force R to treat warnings as hard errors (warn = 2) so failures aren't hidden
-            # Also, add dependencies = TRUE to force downstream libraries to update
-            R -e 'options(warn = 2); install.packages("shiny", repos = "https://cran.rstudio.com/", dependencies = TRUE)'
+            # 4. Verify the repo is set
+            R -e 'getOption("repos")'
 
-            # 4. Confirm if the version successfully updated to >= 1.7
+            # 5. Install shiny (will now resolve to a 4.0.5-compatible version)
+            R -e 'options(warn = 2); install.packages("shiny", dependencies = TRUE)'
+
+            # 6. Confirm the version
             R -e 'print(packageVersion("shiny"))'
-            R -e 'install.packages("bs4Dash", repos = "https://cran.rstudio.com/")'
+
+            # 7. Remaining packages – all pulled from the same pinned snapshot
+            R -e 'install.packages("bs4Dash")'
             R -e 'install.packages(c("shinyWidgets", "yaml", "DT", "writexl", "fresh", "miniUI", "shinyFeedback"))'
             R -e 'install.packages(c("canvasXpress", "waiter", "shinyjs", "openxlsx", "spelling", "colourpicker", "lifecycle"))'
             R -e 'install.packages("reactable")'
-            R -e 'install.packages("openxlsx2", repos = "https://cloud.r-project.org")'
+            R -e 'install.packages("openxlsx2")'
 
       - run:
           name: Session information and installed package versions
