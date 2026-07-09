@@ -53,64 +53,12 @@ jobs:
 
       - run:
           name: Check package
-          environment:
-            # Print ALL lines of failing test output instead of last 13
-            _R_CHECK_TESTS_NLINES_: "0"
-            # Don't stop testthat at the first few failures
-            TESTTHAT_MAX_FAILS: "999"
-            # Make check output more informative
-            _R_CHECK_FORCE_SUGGESTS_: "true"
           command: |
             # Install suggested packages
             R -e 'install.packages("png")'
             # Perform package check
             R CMD check *tar.gz
 
-      - run:
-          name: Dump full test logs on failure
-          when: on_fail
-          command: |
-            echo "============================================"
-            echo "===== testthat.Rout.fail (FAILED TESTS) ====="
-            echo "============================================"
-            cat *.Rcheck/tests/testthat.Rout.fail 2>/dev/null || echo "(no testthat.Rout.fail found)"
-            echo ""
-            echo "============================================"
-            echo "===== testthat.Rout (FULL TEST OUTPUT) ====="
-            echo "============================================"
-            cat *.Rcheck/tests/testthat.Rout 2>/dev/null || echo "(no testthat.Rout found)"
-            echo ""
-            echo "============================================"
-            echo "===== spelling.Rout ========================"
-            echo "============================================"
-            cat *.Rcheck/tests/spelling.Rout 2>/dev/null || echo "(no spelling.Rout found)"
-            echo ""
-            echo "============================================"
-            echo "===== 00check.log =========================="
-            echo "============================================"
-            cat *.Rcheck/00check.log 2>/dev/null || echo "(no 00check.log found)"
-            echo ""
-            echo "============================================"
-            echo "===== 00install.out ========================"
-            echo "============================================"
-            cat *.Rcheck/00install.out 2>/dev/null || echo "(no 00install.out found)"
-            echo ""
-            echo "===== Package versions in check library ====="
-            R -e 'ip <- installed.packages()[, c("Package","Version")]; print(ip[ip[,"Package"] %in% c("ggplot2","shiny","bs4Dash","cli","rlang","testthat","vctrs","scales"), ], row.names = FALSE)'
-
-      - run:
-          name: Archive Rcheck directory
-          when: always
-          command: |
-            tar czf rcheck-logs.tar.gz *.Rcheck 2>/dev/null || true
-
-      - store_artifacts:
-          path: rcheck-logs.tar.gz
-          destination: rcheck-logs.tar.gz
-
-      - store_artifacts:
-          path: .
-          destination: workspace
 
 
   Build-for-rLATEST:
