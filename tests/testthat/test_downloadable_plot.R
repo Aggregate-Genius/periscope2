@@ -103,14 +103,22 @@ test_that("downloadablePlotUI invalid btn_valign", {
 
 
 download_plot <- function() {
-    ggplot2::ggplot(data = download_data(), aes(x = wt, y = mpg)) +
+    plot <- ggplot2::ggplot(data = mtcars, aes(x = wt, y = mpg)) +
         geom_point(aes(color = cyl)) +
-        theme(legend.justification   = c(1, 1),
-              legend.position.inside = c(1, 1),
-              legend.title           = element_blank()) +
         ggtitle("GGPlot Example w/Hover") +
         xlab("wt") +
         ylab("mpg")
+    if (packageVersion("ggplot2") >= "3.5.0") {
+        plot <- plot +
+            theme(legend.justification   = c(1, 1),
+                  legend.position.inside = c(1, 1),
+                  legend.title           = element_blank())
+    } else {
+        plot <- plot +
+            theme(legend.justification = c(1, 1),
+                  legend.position      = c(1, 1),
+                  legend.title         = element_blank())
+    }
 }
 
 download_data <- function() {
