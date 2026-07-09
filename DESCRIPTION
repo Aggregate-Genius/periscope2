@@ -39,7 +39,7 @@ Suggests:
     assertthat,
     canvasXpress,
     colourpicker,
-    ggplot2,
+    ggplot2 (>= 3.5.0),
     knitr,
     lattice,
     miniUI,
