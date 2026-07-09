@@ -9,14 +9,14 @@ workflows:
   version: 2
   Prepare-All-R-Editions:
     jobs:
-      - Build-for-r4_0_5
+      - Build-for-r4_2_0
       - Build-for-rLATEST
 
 jobs:
 
-  Build-for-r4_0_5:
+  Build-for-r4_2_0:
     docker:
-      - image: rocker/verse:4.0.5
+      - image: rocker/verse:4.2
 
     steps:
       - checkout
@@ -34,37 +34,10 @@ jobs:
       - run:
           name: Install R dependencies
           command: |
-            R -e '.libPaths()'
-            R -e 'if (system.file(package="shiny") != "") print(packageVersion("shiny")) else print("Shiny is completely missing")'
-
-            # Use a LATER snapshot (early 2023) so openxlsx2 and newer bs4Dash exist.
-            # 2023-04-01 is after openxlsx2's CRAN debut but still generally friendly to R 4.0.5.
-            export CRAN_REPO="https://packagemanager.posit.co/cran/2023-04-01"
-            echo "options(repos = c(CRAN = '${CRAN_REPO}'))" >> ~/.Rprofile
-            echo "options(HTTPUserAgent = sprintf('R/%s R (%s)', getRversion(), paste(getRversion(), R.version\$platform, R.version\$arch, R.version\$os)))" >> ~/.Rprofile
-            R -e 'getOption("repos")'
-
-            # --- Pin the problem packages that dropped R 4.0.5 support ---
-            # Install remotes first (needed for install_version)
-            R -e 'install.packages("remotes")'
-
-            # Pin versions known to still support R >= 4.0
-            R -e 'remotes::install_version("promises",  version = "1.2.1",   upgrade = "never")'
-            R -e 'remotes::install_version("httr2",     version = "0.2.3",   upgrade = "never")'
-            R -e 'remotes::install_version("testthat",  version = "3.1.10",  upgrade = "never")'
-            R -e 'remotes::install_version("shiny",     version = "1.7.5",   upgrade = "never")'
-
-            R -e 'print(packageVersion("shiny"))'
-
-            # --- The rest come from the 2023-04-01 snapshot ---
-            R -e 'options(warn = 2); install.packages("bs4Dash", dependencies = TRUE)'
-            R -e 'install.packages(c("shinyWidgets", "yaml", "DT", "writexl", "fresh", "miniUI", "shinyFeedback"))'
-            R -e 'install.packages(c("canvasXpress", "waiter", "shinyjs", "openxlsx", "spelling", "colourpicker", "lifecycle"))'
-            R -e 'install.packages("reactable")'
-            R -e 'install.packages("openxlsx2")'
-
-            # Sanity check versions periscope2 cares about
-            R -e 'print(packageVersion("bs4Dash")); print(packageVersion("openxlsx2")); print(packageVersion("shiny"))'
+            R -e 'install.packages(c("bs4Dash", "shinyWidgets", "yaml", "DT", "writexl", "fresh", "miniUI", "shinyFeedback"))'
+            R -e 'install.packages(c("canvasXpress", "waiter", "shinyjs", "openxlsx",  "openxlsx2", "spelling", "colourpicker", "lifecycle"))'
+            R -e 'install.packages("covr")'
+            R -e 'install.packages("reactable")
 
       - run:
           name: Session information and installed package versions
