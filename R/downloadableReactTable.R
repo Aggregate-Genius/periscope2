@@ -223,6 +223,10 @@ downloadableReactTable <- function(id,
                  } else {
                      table_react_params <- shiny::reactiveValues(table_data        = NULL,
                                                                  pre_selected_rows = NULL)
+                     downloadable_module_state <- shiny::reactiveVal(list(selected_rows = NULL, table_state = NULL))
+                     # Track data change
+                     is_stale <- shiny::reactiveVal(FALSE)
+
                      if (is.null(file_name_root)) {
                          logwarn("'file_name_root' parameter should not be NULL. Setting default value 'data_file'.", logger = logger)
                          file_name_root <- "data_file"
@@ -243,7 +247,10 @@ downloadableReactTable <- function(id,
                          pre_selected_rows <- NULL
                      }
 
-                     shiny::observe({
+                     shiny::observeEvent(table_data(), {
+                         is_stale(TRUE)
+                         downloadable_module_state(list(selected_rows = NULL, table_state = NULL))
+
                          if (!is.data.frame(table_data())) {
                              table_data <- shiny::reactiveVal(data.frame(table_data()))
                          }
@@ -256,7 +263,7 @@ downloadableReactTable <- function(id,
 
                          }
                          shiny::outputOptions(output, "displayButton", suspendWhenHidden = FALSE)
-                     })
+                     }, priority = 10)
 
                      shiny::observe({
                          table_react_params$pre_selected_rows <- NULL
@@ -351,14 +358,28 @@ downloadableReactTable <- function(id,
                          table_output
                     })
                  }
-                 shiny::reactive({
+                 shiny::observe({
                      table_state   <- reactable::getReactableState("reactTableOutputID")
-                     selected_rows <- NULL
-                     if (!is.null(table_state) && !is.null(table_state$selected) && is.data.frame(table_data())) {
-                         selected_rows <- table_data()[table_state$selected, ]
+                     if (is_stale()) {
+                         # If the state is NULL or empty, it means the browser just finished resetting.
+                         # We can turn off the stale flag.
+                         if (is.null(table_state) || is.null(table_state$selected)) {
+                             is_stale(FALSE)
+                         }
+                     } else {
+                         selected_rows <- NULL
+                         if (!is.null(table_state)) {
+                             if (!is.null(table_state$selected) && is.data.frame(table_data())) {
+                                 selected_rows <- table_data()[table_state$selected, ]
+                             }
+
+                             downloadable_module_state(list(selected_rows = selected_rows, table_state = table_state))
+
+                         }
                      }
-                     list(selected_rows = selected_rows, table_state = table_state)
                  })
+
+                 downloadable_module_state
             }
         )
 }
