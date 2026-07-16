@@ -217,15 +217,15 @@ downloadableReactTable <- function(id,
                                    logger             = NULL) {
         shiny::moduleServer(id,
              function(input, output, session) {
+                 downloadable_module_state <- shiny::reactiveVal(list(selected_rows = NULL, table_state = NULL))
+                 is_stale                  <- shiny::reactiveVal(FALSE)
+
                  if (is.null(table_data) || !is.function(table_data)) {
                      logerror("'table_data' parameter must be a function or reactive expression.", logger = logger)
                      output$reactTableOutputID <- reactable::renderReactable({ NULL })
                  } else {
                      table_react_params <- shiny::reactiveValues(table_data        = NULL,
                                                                  pre_selected_rows = NULL)
-                     downloadable_module_state <- shiny::reactiveVal(list(selected_rows = NULL, table_state = NULL))
-                     # Track data change
-                     is_stale <- shiny::reactiveVal(FALSE)
 
                      if (is.null(file_name_root)) {
                          logwarn("'file_name_root' parameter should not be NULL. Setting default value 'data_file'.", logger = logger)
