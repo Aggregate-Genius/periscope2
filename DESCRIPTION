@@ -52,3 +52,4 @@ Suggests:
     waiter
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
+StagedInstall: no
