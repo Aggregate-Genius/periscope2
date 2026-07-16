@@ -249,7 +249,6 @@ downloadableReactTable <- function(id,
 
                      shiny::observeEvent(table_data(), {
                          is_stale(TRUE)
-                         #downloadable_module_state(list(selected_rows = "NULLLL", table_state = NULL))
 
                          if (!is.data.frame(table_data())) {
                              table_data <- shiny::reactiveVal(data.frame(table_data()))
@@ -358,19 +357,19 @@ downloadableReactTable <- function(id,
                          table_output
                     })
                  }
-                 shiny::observe({#browser()
+                 shiny::observe({
+
                      table_state   <- reactable::getReactableState("reactTableOutputID")
                      selected_rows <- NULL
 
                      # data is just re/set and new react state is not ready yet
                      if (is_stale()) {
-                         #is_stale(FALSE)
                          # If the state is NULL or empty, it means the browser just finished resetting.
                          # We can turn off the stale flag.
                          if (is.null(table_state) || is.null(table_state$selected)) {
                              is_stale(FALSE)
-                            if (!is.null(pre_selected_rows) && !is.null(pre_selected_rows()) && is.data.frame(table_data())) {
-                                selected_rows <- table_data()[pre_selected_rows(), ]
+                            if (!is.null(table_react_params) && !is.null(table_react_params$pre_selected_rows) && is.data.frame(table_data())) {
+                                selected_rows <- table_data()[table_react_params$pre_selected_rows, ]
                             }
                          }
 
