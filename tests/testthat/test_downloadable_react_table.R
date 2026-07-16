@@ -408,19 +408,25 @@ test_that("downloadableReactTable - module return", {
    })
 
     local_mocked_bindings(
-        getReactableState = function(...) {
-         list(data            = get_mtcars_data(),
-              showSortable    = TRUE,
-              defaultSelected = c(2, 3),
-              selected        = c(2, 3))
-        },
+        getReactableState = function(...) NULL,
         .package = "reactable")
 
 
     testServer(
         downloadableReactTable,
-        args = list(table_data = get_mtcars_data),
+        args = list(
+            table_data        = get_mtcars_data,
+            selection_mode    = "multiple",
+            pre_selected_rows = reactive(c(2, 3))
+        ),
         expr = {
+            # Simulate two reactive ticks:
+            # Tick 1: table_data changes; reactable hasn't reported state yet
+            #         → module falls back to pre_selected_rows
+            # Tick 2: reactable state still NULL; assert fallback value survives
+            session$flushReact()
+            is_stale(TRUE)
+            session$flushReact()
             result <- session$returned()
             expect_equal(length(result), 2)
             expect_true(all(c("selected_rows", "table_state") %in% names(result)))
@@ -429,5 +435,3 @@ test_that("downloadableReactTable - module return", {
   })
 
 })
-
-
