@@ -419,7 +419,7 @@
             <img alt="Working..." hspace="5px" src="img/loader.gif"/>
           </div>
           <div id="app_header">
-            <a id="app_info" href="#" class="action-button">periscope Example Application</a>
+            <a id="app_info" href="#" class="action-button action-link"><span class="action-label">periscope Example Application</span></a>
           </div>
         </div>
         <ul class="navbar-nav ml-auto navbar-right">

@@ -408,19 +408,25 @@ test_that("downloadableReactTable - module return", {
    })
 
     local_mocked_bindings(
-        getReactableState = function(...) {
-         list(data            = get_mtcars_data(),
-              showSortable    = TRUE,
-              defaultSelected = c(2, 3),
-              selected        = c(2, 3))
-        },
+        getReactableState = function(...) NULL,
         .package = "reactable")
 
 
     testServer(
         downloadableReactTable,
-        args = list(table_data = get_mtcars_data),
+        args = list(
+            table_data        = get_mtcars_data,
+            selection_mode    = "multiple",
+            pre_selected_rows = reactive(c(2, 3))
+        ),
         expr = {
+            # Simulate two reactive ticks:
+            # Tick 1: table_data changes; reactable hasn't reported state yet
+            #         → module falls back to pre_selected_rows
+            # Tick 2: reactable state still NULL; assert fallback value survives
+            session$flushReact()
+            is_stale(TRUE)
+            session$flushReact()
             result <- session$returned()
             expect_equal(length(result), 2)
             expect_true(all(c("selected_rows", "table_state") %in% names(result)))
@@ -431,3 +437,41 @@ test_that("downloadableReactTable - module return", {
 })
 
 
+test_that("downloadableReactTable - returns selected rows from reactable state", {
+    skip_if(getRversion() < "4.1.0", "Skipping due to lifecycle warnings in R < 4.1.0")
+
+    local_mocked_bindings(
+        getReactableState = function(...) {
+            list(showSortable = TRUE,
+                 selected     = c(2, 3))
+        },
+        .package = "reactable")
+
+    testServer(
+        downloadableReactTable,
+        args = list(
+            table_data     = get_mtcars_data,
+            selection_mode = "multiple"
+        ),
+        expr = {
+            # Tick 1: observeEvent(table_data) sets is_stale=TRUE.
+            #         Final observer runs, sees stale + selected non-NULL,
+            #         so it does NOT enter the reset branch and is_stale stays TRUE.
+            session$flushReact()
+
+            # Manually flip is_stale to FALSE to simulate the point in time
+            # after reactable has rendered and reported its state.
+            is_stale(FALSE)
+            session$flushReact()
+
+            result <- session$returned()
+
+            expect_equal(length(result), 2)
+            expect_true(all(c("selected_rows", "table_state") %in% names(result)))
+            expect_false(is.null(result$table_state))
+            expect_equal(result$table_state$selected, c(2, 3))
+            expect_equal(NROW(result$selected_rows), 2)
+            expect_true(all(c("Mazda RX4 Wag", "Datsun 710")
+                            %in% rownames(result$selected_rows)))
+        })
+})
