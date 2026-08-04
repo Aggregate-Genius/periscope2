@@ -76,19 +76,15 @@
 
 
 .onLoad <- function(libname, pkgname) {
-    is_stage_install <- grepl(tempdir(), libname, fixed = TRUE)
-    if (is_stage_install) {
-        packageStartupMessage("periscope2: staged install detected at ", libname)
-    }
     tryCatch({
         if ("package:periscope" %in% search()) {
             detach(name = package:periscope, unload = TRUE)
         }
     },
     warning = function(w) {
-        if (!is_stage_install) logwarn(paste("Unable to cleanly unload the periscope package, due to:", w$message))
+        logwarn(paste("Unable to cleanly unload the periscope package, due to:", w$message))
     },
     error = function(e) {
-        if (!is_stage_install) logwarn(paste("Unable to cleanly unload the periscope package, due to:", e$message))
+        logwarn(paste("Unable to cleanly unload the periscope package, due to:", e$message))
     })
 }
