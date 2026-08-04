@@ -5,6 +5,9 @@
 
 ## Enhancements
 
+## Bug Fixes
+- Fix renv installation error 
+
 -----
 
 # periscope2 0.3.0
