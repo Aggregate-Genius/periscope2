@@ -339,7 +339,7 @@ reset_application_box <- box(
 
 
 periscope_modules <- tabItem(tabName = "periscope_modules",
-                             react_table_box
+                             react_table_box,
                              table_downloader_box,
                              plot_downloader_box,
                              file_downloader_box,
