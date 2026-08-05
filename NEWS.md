@@ -3,10 +3,9 @@
 ## New Features
 - Bumped minimum R version to 4.2 to keep up with modern shiny/promises/httr2/testthat.
 
-## Enhancements
-
 ## Bug Fixes
-- Fix renv installation error 
+- Fixed renv installation error 
+- Fixed *?downloadableReactTable* module return value reactivity issue
 
 -----
 
