@@ -52,4 +52,3 @@ Suggests:
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
 Config/roxygen2/version: 8.0.0
-StagedInstall: no
