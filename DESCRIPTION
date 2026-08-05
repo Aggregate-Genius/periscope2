@@ -34,7 +34,6 @@ Imports:
     writexl,
     yaml,
     lifecycle
-RoxygenNote: 7.3.3
 Suggests:
     assertthat,
     canvasXpress,
@@ -52,4 +51,5 @@ Suggests:
     waiter
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
+Config/roxygen2/version: 8.0.0
 StagedInstall: no
