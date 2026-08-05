@@ -1,0 +1,649 @@
+# Creating a new framework-based application
+
+## Overview
+
+### Purpose
+
+***periscope2*** is a scalable and UI-standardized ‘shiny’ framework
+including a variety of developer convenience functions with the goal of
+both streamlining robust application development and assisting in
+creating a consistent user experience regardless of application or
+developer.
+
+***periscope2*** is rich of developer-friendly features as:
+
+- Predefined but flexible templates for new Shiny applications with a
+  default [bs4Dash](https://bs4dash.rinterface.com/) layout
+- Separation by file of functionality that exists in one of the three
+  shiny scopes: global, server-global, and server-local
+- Generated applications are organized in an easy to follow and maintain
+  folder structure based on files functionality
+- Off-the-shelf and ready to be used modules (‘Table Downloader’, ‘Plot
+  Downloader’, ‘File Downloader’ and ‘Reset Application’
+- Different methods and tools to alert users and add useful information
+  about application UI and server operations
+- Application logger with different levels and a UI tool to display and
+  review recorded application logs
+- Application look and feel can be customized easily via
+  ‘www/periscope_style.yaml’ or more advanced via ‘www/css/custom.css’
+- Application can make use of JS power by customizing ‘www/js/custom.js’
+
+  
+
+### UI Sections
+
+periscope2 layout depends on
+[bs4Dash](https://bs4dash.rinterface.com/index.html) layout as each
+application can have up to 5 different sections.
+
+![](figures/new-application-1.jpg)
+
+*1: Left Sidebar*
+
+The left sidebar is largely intended for configuration options,
+settings, and general user application controls and functionality that
+will affect the body of the application.
+
+Left sidebar supports any shiny UI element. In a multi-page app there
+can also be menu items in which each item can be linked to a separate
+body page.
+
+The left sidebar can be collapsed in desktop mode to maximize the user’s
+view of the application body when they do not immediately need the
+configuration options and settings. Also, it is possible to create an
+application without a left sidebar.
+
+*2: Header*
+
+periscope2 uses the header to display the application title and any
+additional application information.
+
+It is also used for displaying session busy indicator and announcements
+alerts.
+
+Header can also be used to hold custom menu items to link to other apps,
+pages or any custom functions.
+
+*3: Right Sidebar*
+
+The right sidebar is, like the left sidebar, largely intended for
+configuration options, settings, and general user application controls
+and functionality that will affect the body of the application.
+
+The right sidebar is optional. When used it is collapsed by default and
+can be opened by clicking on the icon (which can be customized).
+
+*4: Footer*
+
+The footer supports short textual or html formatted info/citations.
+
+*5: Body*
+
+This is the main body area for applications where charts and figures,
+tables, etc. are placed by the application developer. If desired the
+developer can add multiple pages or views and switch among them from
+menu options in the left sidebar, right sidebar or header sections.
+
+  
+
+### Features
+
+#### New Application Template Generation
+
+- User can generate two main types of applications:
+  - **Empty application** - ready for the user to drop in their code!
+  - **Sample application** - demonstrates framework features in a
+    working application
+- To generate a sample application, set `sample_app` parameter in
+  `create_application` to `TRUE`
+  - Default value is `FALSE`
+- Other sub-types will be based on enabling/disabling left and right
+  sidebars
+  - Default is to enable left sidebar and disable right sidebar
+- Review
+  [`?create_application`](https://aggregate-genius.github.io/periscope2/reference/create_application.md)
+  for more details
+
+#### Built-in Conveniences
+
+##### Responsive UI
+
+The application layout will adapt to user device size automatically by
+re-flowing the content.
+
+##### Application Busy Indicator
+
+This indicator shows in the header bar automatically when the shiny
+application is busy. There is no code or configuration necessary to tie
+in this functionality.
+
+![](figures/new-application-2.jpg)
+
+##### Logging
+
+The framework makes it easy to log user actions. Framework user
+interactions are automatically logged. Recorded logs can be viewed
+automatically using logViewer module
+
+``` r
+# Add a user action to the log
+loginfo("Your Information Message with %s, %s parameters", parm1, parm2, logger = ss_userAction.Log)
+
+# Add a warning to the log
+logwarn("Your Warning Message!", logger = ss_userAction.Log)
+```
+
+*Examples of app log in console:*
+
+![](figures/app_log.jpg)
+
+##### Alerting
+
+There are five standardized locations for user-alerts:
+
+- application header
+  ![](figures/header_alert.jpg)
+- the top of the body
+  ![](figures/body_alert.jpg)
+- footer
+  ![](figures/footer_alert.jpg)
+- left sidebar
+  ![](figures/leftside_alert.jpg)
+- right sidebar
+  ![](figures/rightside_alert.jpg)
+
+All alerts can be dismissed by the user and are colored by setting the
+status.
+
+Alerts can accumulate (i.e. append to each other) or replace previous
+alerts.
+
+``` r
+createPSAlert(id      = 'bodyAlert',
+              options = list(title    = 'alert title',
+                             status   = 'warning',
+                             closable = TRUE,
+                             content  = alert contents))
+# id is the location of the alert and can be one of:
+#   'sidebarRightAlert', 'sidebarBasicAlert', 'bodyAlert', 'footerAlert' and 'headerAlert'
+
+# status sets the bootstrap styling and can be one of:
+#    'primary', 'success', 'warning', 'danger' or 'info'
+```
+
+##### Application Loading
+
+An indicator that displayed upon application start up or reload and it
+can be customized in ‘program/global.R’
+
+![](figures/app_loading.jpg)
+
+##### UI Tooltips
+
+Tooltips can be added with the following code in the UI:
+
+``` r
+ui_tooltip(id        = 'tooltipID', 
+           label     = 'label text (optional)', 
+           text      = 'text content', 
+           placement = 'top')
+
+# placement sets the tool-tip pop-up location and can be one of:
+# 'top', 'bottom', 'left' or 'right'
+```
+
+![](figures/tooltip.jpg)
+
+#### Shiny Modules
+
+##### downloadFile
+
+This is a highly-functional set of custom-styled buttons with the
+built-in ability to download data in different file formats
+
+*See the downloadFileButton Vignette for more detailed information*
+
+##### downloadableTable
+
+This is a highly-functional custom styled table that includes a
+downloadFileButton linked to the data
+
+*See the downloadableTable Vignette for more detailed information*
+
+##### downloadablePlot
+
+This is a custom plot output that is paired with a linked downloadFile
+button that allows the user to download the plot (and optionally data)
+in different file formats
+
+*See the downloadablePlot Vignette for more detailed information*
+
+##### Announcement Module
+
+This adds the ability to alert the app’s users with customized messages
+at the top of the application on startup. This is configurable using the
+‘program/config/announce.yaml’ file.
+
+*See the Announcement Vignette for more detailed information*
+
+##### Application Reset
+
+Resets a user’s session and rolls over their log
+
+*See the Application Reset Vignette for more detailed information*
+
+##### Log Viewer
+
+View application session recorded log
+
+*See the Log Viewer Vignette for more detailed information*
+
+  
+
+## Creating a Sample Application
+
+### Step 1: Generate
+
+``` r
+library(periscope2)
+app_dir = tempdir()
+
+# application without a right sidebar
+create_application(name       = 'mytestapp', 
+                   location   = app_dir, 
+                   sample_app = TRUE)
+
+# application without a left sidebar or a right sidebar
+create_application(name         = 'mytestapp', 
+                   location     = app_dir, 
+                   sample_app   = TRUE, 
+                   left_sidebar = FALSE)
+
+# application with left and right sidebars
+create_application(name          = 'mytestapp', 
+                   location      = app_dir, 
+                   sample_app    = TRUE, 
+                   right_sidebar = TRUE)
+```
+
+This generates a default sample application optionally with a left/right
+sidebar in a subdirectory named *mytestapp* at the specified location.
+The location must exist when calling this function.
+
+*Note*: If the *mytestapp* directory in this location already exists it
+will not be overwritten - the function will give a warning and exit
+without modifying the user’s system.
+
+### Step 2: Run
+
+``` r
+runApp(paste(app_dir, 'mytestapp', sep = .Platform$file.sep))
+```
+
+The application will run in either the viewer or browser (depending on
+system preferences/settings). It will contain help text, test buttons, a
+sample log, etc. You can use this sample application to explore the
+functionality and code.
+
+  
+
+## Creating your Application
+
+### Step 1: Generate a Blank Application
+
+``` r
+library(periscope2)
+app_dir = tempdir()
+
+# application without a right sidebar
+create_application(name     = 'mytestapp', 
+                   location = app_dir)
+
+# application without a left sidebar or a right sidebar
+create_application(name         = 'mytestapp', 
+                   location     = app_dir, 
+                   left_sidebar = FALSE)
+
+# application with a right sidebar
+create_application(name          = 'mytestapp', 
+                   location      = app_dir, 
+                   right_sidebar = TRUE)
+```
+
+This generates a default blank application optionally with a left/right
+sidebar in a subdirectory named *mytestapp* at the specified location.
+The location must exist when calling this function.
+
+*Note*: If the *mytestapp* directory in this location already exists it
+will not be overwritten - the function will give a warning and exit
+without modifying the directory.
+
+### Step 2: Run (optional)
+
+``` r
+runApp('mytestapp', appDir = app_dir)
+```
+
+It is recommended to run the empty application after creation to ensure
+a proper setup before beginning to customize the application.
+
+### Step 3: Customize
+
+All user customization is done in the files in the **program**
+subdirectory. We’ll walk through a few examples of how to add components
+and functionality as in a typical shiny application using this
+framework.
+
+#### program/global.R
+
+Set your application title, version, information, loading_indicator,
+announcements_file and change the logging level using
+*set_app_parameters()*.
+
+The *app_version* parameter in this function has a default value of
+“1.0.0”. It is recommended to follow the best practice in R’s packaging
+versioning. This means that a version consists of 3 numbers,
+*\<major\>.\<minor\>.\<patch\>*.
+
+The *titleinfo* parameter in this function can be:
+
+- NULL - The application title will be plain text with no extra
+  functionality
+- URL (character string) - The application title will be a clickable
+  link that will send the user to an external URL location. Any
+  html-valid url can be used to link to an accessible file location,
+  http location, mailto: functionality or javascript.
+- HTML code - The html will be placed into a pop-up modal window that
+  will be shown when the user clicks the title link. Create the value
+  using the shiny::HTML() function.
+
+The *announcements_file* parameter points to the announcements module
+configuration file. Set this parameter to NULL to disable this feature
+
+***Important:*** Any variables or functions placed into this file are
+globally scoped and will be available across all user sessions.
+
+``` r
+# Plain text title
+set_app_parameters(title = "My Application Title")
+
+# Application Title links to an external url
+set_app_parameters(title     = "My Application Title",
+                   titleinfo = "Application Valid Website")
+
+# Application Title links to a modal window with HTML content
+set_app_parameters(title     = "My Application Title",
+                   titleinfo = HTML("<h3>This is information about this application</h3>",
+                                    "<p><b>Author: </b>Me</p>",
+                                    "<p><b>Date: </b>", Sys.Date(), "</p>"))
+
+# Application Title links to a modal window with HTML content, setting log level to 'DEBUG', 
+# using simple loading screen, init app version and pass announcements configuration module file
+set_app_parameters(title              = "periscope Example Application",
+                   app_info           = HTML("Demonstrate periscope features and generated application layout"),
+                   log_level          = "DEBUG",
+                   app_version        = "1.0.0",
+                   loading_indicator  = list(html = tagList(spin_1(), "Loading ...")),
+                   announcements_file = "./program/config/announce.yaml")
+```
+
+#### program/ui_left_sidebar.R
+
+Create UI components for the left sidebar and register them with the
+framework using a call to *add_ui_left_sidebar()*
+
+``` r
+sidebar_menu <-  sidebarMenu(
+    sidebarHeader("Periscope2 Features"),
+    menuItem(
+        "Application Setup",
+        tabName = "application_setup",
+        icon    = icon("building")
+    ),
+    menuItem(
+        "Periscope2 Modules",
+        tabName = "periscope_modules",
+        icon    = icon("cubes")
+    ),
+    menuItem(
+        "User Notifications",
+        tabName = "user_notifications",
+        icon    = icon("comments")
+    )
+)
+
+add_ui_left_sidebar(sidebar_menu = list(sidebar_menu))
+```
+
+#### program/ui_right_sidebar.R
+
+Create UI components for the right sidebar and register them with the
+framework using a call to *add_ui_right_sidebar()*.
+
+``` r
+sidebar_element <- div(checkboxInput("hideFileOrganization", "Show Files Organization"))
+
+add_ui_right_sidebar(sidebar_elements = list(sidebar_element))
+```
+
+#### program/ui_body.R
+
+Create UI components for the body and register them with the framework
+using a call to *add_ui_body()*. Use box elements for consistent
+presentation of your UI sections. Remember that different layout options
+and different box types configured in
+[bs4Dash](https://bs4dash.rinterface.com/index.html) can be used.
+
+``` r
+body1 <- box(id          = "bodyElement1",
+             title       = "Box 1",
+             width       = 8,          #2/3 of the width (for 12 columns layout)
+             status      = "primary",  #colored bar at the top
+             collapsible = TRUE,
+             collapsed   = FALSE,
+             htmlOutput("example1") )
+
+body2 <- box(id          = "bodyElement2",
+             title       = "Box 2",
+             width       = 4,          #1/3 of the width  (for 12 columns layout)
+             status      = "danger",   #colored bar at the top
+             collapsible = FALSE,
+             p("Some great text in paragraph format"),
+             pre("A pre-formatted (e.g. code) block"),
+             actionButton("exButton", label = "Example") )
+
+add_ui_body(body_elements = list(body1, body2))
+```
+
+In the above example UI elements are being added in 2 different ways.
+*body1* uses an htmlOutput element to set a placeholder for the id
+“example1” which will be setup in the server file. This is commonly used
+when there is need for a dynamic UI element that cannot be setup ahead
+of the session (for example it is dependent on data at runtime). *body2*
+defines the UI elements in place here.
+
+This illustrates the two most common paradigms for creating shiny UI
+elements. For more information on programming applications see the Shiny
+documentation.
+
+#### program/ui_header.R
+
+Create UI elements for the application header and attach them to the UI
+by calling *add_ui_header()*
+
+``` r
+# Navbar skin. "dark" or "light"
+skin <- "light"
+
+# Navbar status
+status <- "white"
+
+# Whether to separate the navbar and body by a border.
+border <- TRUE
+
+# Whether items should be compacted
+compact <- FALSE
+
+# Icon of the main sidebar toggle
+left_sidebar_icon <- shiny::icon("bars")
+
+# Icon to toggle the controlbar
+right_sidebar_icon <- shiny::icon("th")
+
+add_ui_header(skin               = skin,
+              status             = status,
+              border             = border,
+              compact            = compact,
+              left_sidebar_icon  = left_sidebar_icon,
+              right_sidebar_icon = right_sidebar_icon)
+```
+
+#### ui_footer.R
+
+Create UI elements for the application footer and attach them to the UI
+by calling *add_ui_footer()*
+
+``` r
+# Left text
+left  <- a(
+    href   = "https://periscopeapps.org/",
+    target = "_blank",
+    "periscope2"
+)
+
+# Right text
+right <- "2022"
+
+# Whether to fix the footer in place when scrolling
+fixed <- FALSE
+
+add_ui_footer(left  = left,
+              right = right,
+              fixed = fixed)
+```
+
+#### program/server_local.R
+
+Create your application functionality in this file. This corresponds to
+the inside of the *shinyServer(…)* call in a traditional Shiny
+application and is where the majority of your application code will
+reside. The variables and functions in this file are isolated to a
+single application session.
+
+**Variables Available**
+
+- *input, output, session* - standard Shiny variables
+- *ss_userAction.Log* - Reactive Logger object used to add items to the
+  log
+
+You can also call the *get_url_parameters(session)* function to retrieve
+anything passed to the application session as URL parameters.
+
+``` r
+source("program/fxn/makeplot.R")
+
+#build the deferred UI from ui_body.R
+output$example1 <- renderUI({
+    list(downloadFileButton("ex_d1", c("csv"), "Download CSV"),
+         hr(),
+         p("Some great explanatory text in my application"))
+    })
+
+downloadFile("ex_d1", ss_userAction.Log, "mydownload", list(csv=get_ref_data))
+
+observeEvent(input$exButton, {
+    loginfo("exButton Pressed!", logger = ss_userAction.Log)
+    createPSAlert(
+        id = 'alert place',
+        options  = list(title    = 'alert title',
+                        status   = 'alert status'',
+                                         closable = TRUE,
+                                         content  = "alert contents"))
+})
+```
+
+#### program/server_global.R
+
+Create variables and functions in this file that are available across
+**all** sessions and users of your application. It corresponds to the
+area above the *shinyServer(…)* call in a traditional Shiny application
+and generally there will not be a lot of usage of this file because of
+its global scoping. However, one of the common uses is to load reference
+data sets that are the same for all users of the application.
+
+``` r
+ref_data <- read.csv("program/data/mydata.csv")
+
+get_ref_data <- function() {
+    ref_data
+}
+```
+
+#### Other
+
+##### program/data (directory)
+
+Use this directory to store data for your application. Note that a
+**.gitignore** file has been added so that data is not accidentally
+versioned. If you want to version files in this directory you will need
+to modify this file accordingly.
+
+##### program/config (directory)
+
+Use this directory to store configurations for your application
+(i.e. announcements configuration file)
+
+##### program/modules (directory)
+
+Use this directory to store modules code for your application
+
+##### program/fxn (directory)
+
+Use this directory to store your .R files containing helper functions.
+Don’t forget to source these files in the appropriate place according to
+your scoping needs. *(i.e. you would source a file in server_local.R to
+scope by user session, server_global.R to scope across all sessions, and
+global.R to scope across all sessions and UI)*
+
+##### www/periscope_style.yaml
+
+Different parts of the generated application can be customized with this
+file values. The application must be restarted for changes to take
+effect.
+
+*Part of the file*
+
+![](figures/periscope_style.jpg)
+
+##### www/css
+
+Advanced css customization should go in this location
+
+##### www/js
+
+Advanced js customization should go in this location
+
+##### www/img
+
+Application images can be stored here
+
+**Vignettes**
+
+- [downloadFile
+  Module](https://aggregate-genius.github.io/periscope2/articles/downloadFile-module.md)
+- [downloadableTable
+  Module](https://aggregate-genius.github.io/periscope2/articles/downloadableTable-module.md)
+- [downloadablePlot
+  Module](https://aggregate-genius.github.io/periscope2/articles/downloadablePlot-module.md)
+- [logViewer
+  Module](https://aggregate-genius.github.io/periscope2/articles/logViewer-module.md)
+- [applicationReset
+  Module](https://aggregate-genius.github.io/periscope2/articles/applicationReset-module.md)
+- [announcement
+  Module](https://aggregate-genius.github.io/periscope2/articles/announcement-module.md)
+- [Announcement Configuration
+  Builder](https://aggregate-genius.github.io/periscope2/articles/announcement_addin.md)
+- [Theme Configuration
+  Builder](https://aggregate-genius.github.io/periscope2/articles/themeBuilder_addin.md)
+- [downloadableReactTable
+  Module](https://aggregate-genius.github.io/periscope2/articles/downloadableReactTable-module.md)

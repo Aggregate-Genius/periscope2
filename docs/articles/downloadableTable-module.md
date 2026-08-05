@@ -1,0 +1,253 @@
+# Using the downloadableTable Shiny Module
+
+## Overview
+
+### Purpose
+
+This *Shiny Module* provides a consistent and easy-to-use table
+including a downloadFileButton that is automatically created, linked and
+managed.
+
+### Features
+
+- Uses the downloadFile Shiny Module functionality to ensure consistent
+  download functionality and paradigm for the table data.
+- Ability to use different data sets for display vs. download if desired
+- User selection of multiple rows by default - can be single select also
+  by setting the appropriate option
+- Returns a reactive expression containing the rows of the table
+  selected by the user for easier development of code depending on table
+  selections.
+- Supports full-table searching including regular expressions with
+  search highlighting
+- Columns are sort-able in both directions
+- Configurable table “window” (viewing area) height with infinite
+  vertical scrolling (no paging by default)
+- Supports rownames and a table caption
+- Requires minimal code (see the Usage section for details)
+- **downloadFile** button will be hidden if `downloadableTable`
+  parameter `downloaddatafxn` or `downloadableTableUI` parameter
+  `downloadtypes` is empty
+
+  
+
+## Usage
+
+### Shiny Module Overview
+
+Shiny modules consist of a pair of functions that modularize, or
+package, a small piece of reusable functionality. The UI function is
+called directly by the user to place the UI in the correct location (as
+with other shiny UI objects). The module server function that is called
+only once to set it up using the module name as a function inside the
+server function (i.e. user-local session scope. The first function
+argument is a string that represents the module id (the same id used in
+module UI function). Additional arguments can be supplied by the user
+based on the specific shiny module that is called. There can be
+additional helper functions that are a part of a shiny module.
+
+The **downloadableTable** Shiny Module is a part of the *periscope2*
+package and consists of the following functions:
+
+- **downloadableTableUI** - the UI function to place the table in the
+  application
+- **downloadableTable** - the server function to be called inside
+  server_local.R.
+
+### downloadableTableUI
+
+The **downloadableTableUI** function is called from the ui.R (or
+equivalent) file in the location where the table should be placed. This
+is similar to other UI element placement in shiny.
+
+The downloadableTableUI looks like:
+
+![](figures/downloadableTable-1.jpg)
+
+The downloadableTableUI function takes the unique object ID for the UI
+object.
+
+The next two arguments (downloadtypes and hovertext) are passed to the
+downloadFileButton and set the file types the button will allow the user
+to request and the downloadFileButton’s tooltip text.
+
+The contentHeight argument is optional but important - it sets the
+viewable height of the table content which can be any css-recognizable
+size value.
+
+The downloadableTables are multi-select by default, however if you need
+a table to only allow single row selections you can set the singleSelect
+argument to TRUE.
+
+``` r
+# Inside ui_body.R or ui_sidebar.R
+
+downloadableTableUI(id            = "object_id1", 
+                    downloadtypes = c("csv", "tsv"), 
+                    hovertext     = "Download the data here!",
+                    contentHeight = "300px",
+                    singleSelect  = FALSE)
+```
+
+### downloadableTable
+
+The **downloadableTable** function is called directly. The call consists
+of the following:
+
+- the unique object ID that was provided to downloadableTableUI when
+  creating the UI object
+- the logging logger to be used
+- **filenameroot** is an optional character, function or reactive
+  expression providing downloadable file name
+- the root (prefix) of the downloaded file name to be used in the
+  browser as a character string or a reactive expression that returns a
+  character string
+- a **named list** of functions or reactive expressions that provide the
+  data to the downloadFileButton (see below).
+  - It is important that the types of files to be downloaded are matched
+    to the correct data function in the list.  
+  - The function/reactive expression names are unquoted - they will be
+    called at the time the user initiates a download *(see requirements
+    below)*.
+  - a function or reactive expression providing the plot output for the
+    visible plot. It can be the same, or different from the ones
+    provided to any of the download functions. This allows finer control
+    over what the user can view vs. download if desired. For example you
+    can allow a user to view a smaller subset of data but download an
+    expanded dataset, or perhaps download a redacted version of data,
+    etc.
+- This module also supports most of DT table options for further
+  customization. See the example below.
+
+**Data Function or Reactive Expression Requirements**
+
+- If a function is provided it must be parameter-less (require NO
+  parameters). No parameters will be provided when a function is called
+  to retrieve the plot or data. Reactive expressions cannot take
+  parameters by definition.
+- The function or reactive expression must return an appropriate data
+  format for the file type. For instance: csv/tsv/xlsx types require
+  data that is convertible to a tabular type, tiff formats require a
+  tiff class object, etc. For more information on conversion of data to
+  various download types see the downloadFile module help or vignette.
+- For the visible table data the return value must be able to be
+  converted to tabular format
+- Since the function or reactive expression is called at the time the
+  user requests the data it is recommended that reactive expressions are
+  used to provide dynamic values from the application to create the
+  plot.
+
+**Reactive Return Value**
+
+The server function returns a reactive expression containing the
+selected rows. Note that this is the data, not references, rownumbers,
+etc from the table – it is the actual, visible, table row data. This
+allows the developer to use this more easily to update another table,
+chart, etc. as desired.
+
+It is acceptable to ignore the return value as well if this
+functionality is not needed. Simply do not assign the result to a
+variable.
+
+**Customization Options**
+
+*downloadableTable* module can be customized using DT arguments, options
+or format functions (see
+[`?DT::datatable`](https://rdrr.io/pkg/DT/man/datatable.html)). These
+options can be sent as a named options via the server function, see
+example below.
+
+*Caveats on DT usage*:
+
+- `selection` parameter in the server function has different usage than
+  [`DT::datatable`](https://rdrr.io/pkg/DT/man/datatable.html)
+  `selection` option as it should be a function or reactive expression
+  providing the row_ids of the rows that should be selected. Its default
+  value is `NULL`
+- `editable`, `width`, `height` options in
+  [`DT::datatable`](https://rdrr.io/pkg/DT/man/datatable.html) are not
+  supported
+
+The following is an example of a customized downloadableTable:
+
+![](figures/downloadableTable-2.jpg)
+
+It was generated using the following code:
+
+``` r
+# Inside server_local.R
+sketch <- htmltools::withTags(
+    table(
+        class = "display",
+        thead(
+            tr(
+                th(rowspan = 2, "Location"),
+                th(colspan = 2, "Statistics")
+            ),
+            tr(
+                th("Change"),
+                th("Increase")
+            )
+        )
+    )
+)
+
+selectedrows <- downloadableTable(
+    id               = "exampleDT1",
+    logger           = ss_userAction.Log,
+    filenameroot     = "exampletable",
+    downloaddatafxns = list(csv = load_data3, tsv = load_data3),
+    tabledata        = load_data3,
+    colnames         = c("Area", "Delta", "Increase"),
+    filter           = "bottom",
+    callback         = htmlwidgets::JS("table.order([1, 'asc']).draw();"),
+    container        = sketch,
+    formatStyle      = list(columns = c("Total.Population.Change"),   
+                            color   = DT::styleInterval(0, c("red", "green"))),
+    formatStyle      = list(columns = c("Natural.Increase"),   
+                            backgroundColor = DT::styleInterval(
+                                c(7614, 15914, 34152),
+                                c("blue", "lightblue", "#FF7F7F", "red")))
+)
+
+# NOTE: selectedrows is the reactive return value, captured for later use
+```
+
+### Sample Application
+
+For a complete running shiny example application using the
+downloadableTable module you can create and run a *periscope2* sample
+application using:
+
+``` r
+library(periscope2)
+
+app_dir = tempdir()
+create_new_application(name = 'mysampleapp', location = app_dir, sample_app = TRUE)
+runApp(paste(app_dir, 'mysampleapp', sep = .Platform$file.sep))
+```
+
+  
+
+## Additional Resources
+
+**Vignettes**
+
+- [New
+  Application](https://aggregate-genius.github.io/periscope2/articles/new-application.md)
+- [downloadFile
+  Module](https://aggregate-genius.github.io/periscope2/articles/downloadFile-module.md)
+- [downloadablePlot
+  Module](https://aggregate-genius.github.io/periscope2/articles/downloadablePlot-module.md)
+- [logViewer
+  Module](https://aggregate-genius.github.io/periscope2/articles/logViewer-module.md)
+- [applicationReset
+  Module](https://aggregate-genius.github.io/periscope2/articles/applicationReset-module.md)
+- [announcement
+  Module](https://aggregate-genius.github.io/periscope2/articles/announcement-module.md)
+- [Announcement Configuration
+  Builder](https://aggregate-genius.github.io/periscope2/articles/announcement_addin.md)
+- [Theme Configuration
+  Builder](https://aggregate-genius.github.io/periscope2/articles/themeBuilder_addin.md)
+- [downloadableReactTable
+  Module](https://aggregate-genius.github.io/periscope2/articles/downloadableReactTable-module.md)
