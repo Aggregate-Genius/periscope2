@@ -6,7 +6,8 @@
 ## Enhancements
 
 ## Bug Fixes
-- Fix renv installation error 
+- Fixed renv installation error 
+- Fixed *?downloadableReactTable* module return value reactivity issue
 
 -----
 
