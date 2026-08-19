@@ -217,12 +217,16 @@ downloadableReactTable <- function(id,
                                    logger             = NULL) {
         shiny::moduleServer(id,
              function(input, output, session) {
+                 downloadable_module_state <- shiny::reactiveVal(list(selected_rows = NULL, table_state = NULL))
+                 is_stale                  <- shiny::reactiveVal(FALSE)
+
                  if (is.null(table_data) || !is.function(table_data)) {
                      logerror("'table_data' parameter must be a function or reactive expression.", logger = logger)
                      output$reactTableOutputID <- reactable::renderReactable({ NULL })
                  } else {
                      table_react_params <- shiny::reactiveValues(table_data        = NULL,
                                                                  pre_selected_rows = NULL)
+
                      if (is.null(file_name_root)) {
                          logwarn("'file_name_root' parameter should not be NULL. Setting default value 'data_file'.", logger = logger)
                          file_name_root <- "data_file"
@@ -243,7 +247,9 @@ downloadableReactTable <- function(id,
                          pre_selected_rows <- NULL
                      }
 
-                     shiny::observe({
+                     shiny::observeEvent(table_data(), {
+                         is_stale(TRUE)
+
                          if (!is.data.frame(table_data())) {
                              table_data <- shiny::reactiveVal(data.frame(table_data()))
                          }
@@ -256,7 +262,7 @@ downloadableReactTable <- function(id,
 
                          }
                          shiny::outputOptions(output, "displayButton", suspendWhenHidden = FALSE)
-                     })
+                     }, priority = 10)
 
                      shiny::observe({
                          table_react_params$pre_selected_rows <- NULL
@@ -351,14 +357,35 @@ downloadableReactTable <- function(id,
                          table_output
                     })
                  }
-                 shiny::reactive({
+                 shiny::observe({
+
                      table_state   <- reactable::getReactableState("reactTableOutputID")
                      selected_rows <- NULL
-                     if (!is.null(table_state) && !is.null(table_state$selected) && is.data.frame(table_data())) {
-                         selected_rows <- table_data()[table_state$selected, ]
+
+                     # data is just re/set and new react state is not ready yet
+                     if (is_stale()) {
+                         # If the state is NULL or empty, it means the browser just finished resetting.
+                         # We can turn off the stale flag.
+                         if (is.null(table_state) || is.null(table_state$selected)) {
+                             is_stale(FALSE)
+                            if (!is.null(table_react_params) && !is.null(table_react_params$pre_selected_rows) && is.data.frame(table_data())) {
+                                selected_rows <- table_data()[table_react_params$pre_selected_rows, ]
+                            }
+                         }
+
+                         downloadable_module_state(list(selected_rows = selected_rows, table_state = NULL))
+
+                     } else { # the table is rendered, get the state directly from react table
+                         if (!is.null(table_state)) {
+                             if (!is.null(table_state$selected) && is.data.frame(table_data())) {
+                                 selected_rows <- table_data()[table_state$selected, ]
+                             }
+                             downloadable_module_state(list(selected_rows = selected_rows, table_state = table_state))
+                         }
                      }
-                     list(selected_rows = selected_rows, table_state = table_state)
                  })
+
+                 downloadable_module_state
             }
         )
 }

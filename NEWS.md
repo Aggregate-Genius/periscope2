@@ -1,3 +1,14 @@
+# periscope2 0.4.0
+
+## New Features
+- Bumped minimum R version to 4.2 to keep up with modern shiny/promises/httr2/testthat.
+
+## Bug Fixes
+- Fixed renv installation error 
+- Fixed *?downloadableReactTable* module return value reactivity issue
+
+-----
+
 # periscope2 0.3.0
 
 ## New Features

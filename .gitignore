@@ -41,3 +41,5 @@ vignettes/*.pdf
 /Meta/
 inst/doc
 tests/testthat/*/log/
+
+.Rprofile

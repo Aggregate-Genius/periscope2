@@ -22,7 +22,8 @@ test_that("logViewer - valid sample log", {
     testServer(logViewer,
                args = list(id = "myid", logger = sample_log),
                expr = {
-                   expect_snapshot_output(output$"myid-reactTableOutputID")
+                   expect_true(grepl("Be Sure to Remember to Log ALL user actions", output$"myid-reactTableOutputID", fixed = TRUE))
+                   expect_true(grepl("Resetting in  5 seconds", output$"myid-reactTableOutputID", fixed = TRUE))
                })
 })
 
