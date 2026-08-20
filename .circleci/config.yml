@@ -9,14 +9,14 @@ workflows:
   version: 2
   Prepare-All-R-Editions:
     jobs:
-      - Build-for-r4_0_5
+      - Build-for-r4_2_0
       - Build-for-rLATEST
 
 jobs:
 
-  Build-for-r4_0_5:
+  Build-for-r4_2_0:
     docker:
-      - image: rocker/verse:4.0.5
+      - image: rocker/verse:4.2
 
     steps:
       - checkout
@@ -34,12 +34,11 @@ jobs:
       - run:
           name: Install R dependencies
           command: |
-            R -e 'install.packages("shiny", repos = "https://cran.rstudio.com/")'
-            R -e 'install.packages("bs4Dash", repos = "https://cran.rstudio.com/")'
             R -e 'install.packages(c("shinyWidgets", "yaml", "DT", "writexl", "fresh", "miniUI", "shinyFeedback"))'
-            R -e 'install.packages(c("canvasXpress", "waiter", "shinyjs", "openxlsx", "spelling", "colourpicker", "lifecycle"))'
+            R -e 'install.packages(c("canvasXpress", "waiter", "shinyjs", "openxlsx",  "openxlsx2", "spelling", "colourpicker", "lifecycle"))'
+            R -e 'install.packages("covr")'
             R -e 'install.packages("reactable")'
-            R -e 'install.packages("openxlsx2", repos = "https://cloud.r-project.org")'
+            R -e 'install.packages("bs4Dash", repos = "https://cran.rstudio.com/")'
 
       - run:
           name: Session information and installed package versions
@@ -59,6 +58,7 @@ jobs:
             R -e 'install.packages("png")'
             # Perform package check
             R CMD check *tar.gz
+
 
 
   Build-for-rLATEST:

@@ -1,7 +1,7 @@
 Package: periscope2
 Type: Package
 Title: Enterprise Streamlined 'shiny' Application Framework Using 'bs4Dash'
-Version: 0.3.0
+Version: 0.4.0
 Authors@R: c(
     person("Mohammed", "Ali",      role = c("aut", "cre"), email   = "mohammed@aggregate-genius.com"),
     person("Constance", "Brett",   role = c("ctb")),
@@ -18,7 +18,7 @@ License: GPL-3
 Encoding: UTF-8
 Language: en-US
 Depends:
-    R (>= 4.0)
+    R (>= 4.2)
 Imports:
     shiny (>= 1.7),
     bs4Dash (>= 2.3),
@@ -34,7 +34,6 @@ Imports:
     writexl,
     yaml,
     lifecycle
-RoxygenNote: 7.3.2
 Suggests:
     assertthat,
     canvasXpress,
@@ -52,3 +51,6 @@ Suggests:
     waiter
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
+Config/roxygen2/version: 8.0.0
+RoxygenNote: 7.3.3
+KeepSource: no
