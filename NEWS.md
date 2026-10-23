@@ -1,3 +1,11 @@
+# periscope2 0.4.1
+
+## New Features
+
+## Bug Fixes
+
+-----
+
 # periscope2 0.4.0
 
 ## New Features
