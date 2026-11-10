@@ -213,6 +213,7 @@ downloadableReactTable <- function(id,
                                    global_search      = TRUE,
                                    row_highlight      = TRUE,
                                    row_striping       = TRUE,
+                                   state_names        = c("page", "pageSize", "pages", "sorted", "selected"),
                                    table_options      = list(),
                                    logger             = NULL) {
         shiny::moduleServer(id,
@@ -359,7 +360,7 @@ downloadableReactTable <- function(id,
                  }
                  shiny::observe({
 
-                     table_state   <- reactable::getReactableState("reactTableOutputID")
+                     table_state   <- reactable::getReactableState(outputId = "reactTableOutputID", name = state_names)
                      selected_rows <- NULL
 
                      # data is just re/set and new react state is not ready yet
