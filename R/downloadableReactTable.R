@@ -137,6 +137,8 @@ downloadableReactTableUI <- function(id,
 #'                              (default = TRUE)
 #' @param row_highlight enable highlighting rows upon mouse hover (default = TRUE)
 #' @param row_striping add zebra-striped style to table rows (default = TRUE)
+#' @param state_names Character vector of state value(s) to get. Values must be one of "page", "pageSize", "pages",
+#'                    sorted, or "selected". If "NULL" is passed, $table_state element in the returned list will be NULL.
 #' @param table_options optional table formatting parameters check \code{?reactable::reactable} for options full list.
 #'                      Also see example below to see how to pass options (default = list())
 #' @param logger logger to use (default = NULL)
@@ -359,15 +361,24 @@ downloadableReactTable <- function(id,
                     })
                  }
                  shiny::observe({
+                     table_state  <- NULL
+                     if (length(state_names) > 0) {
+                         table_state <- reactable::getReactableState(outputId = "reactTableOutputID", name = state_names)
 
-                     table_state   <- reactable::getReactableState(outputId = "reactTableOutputID", name = state_names)
+                         if (length(state_names) == 1) {
+                             state_value <- table_state
+                             table_state <- list()
+
+                             table_state[[state_names]] <- state_value
+                         }
+                     }
                      selected_rows <- NULL
 
                      # data is just re/set and new react state is not ready yet
                      if (is_stale()) {
                          # If the state is NULL or empty, it means the browser just finished resetting.
                          # We can turn off the stale flag.
-                         if (is.null(table_state) || is.null(table_state$selected)) {
+                         if (is.null(table_state) || is.null(table_state[["selected"]])) {
                              is_stale(FALSE)
                             if (!is.null(table_react_params) && !is.null(table_react_params$pre_selected_rows) && is.data.frame(table_data())) {
                                 selected_rows <- table_data()[table_react_params$pre_selected_rows, ]
