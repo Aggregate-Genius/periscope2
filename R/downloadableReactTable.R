@@ -250,6 +250,19 @@ downloadableReactTable <- function(id,
                          pre_selected_rows <- NULL
                      }
 
+                     all_table_events <- c("page", "pageSize", "pages", "sorted", "selected")
+                     if (!is.null(state_names)) {
+                         if (!is.character(state_names) || any(!tolower(state_names) %in% all_table_events)) {
+                             logwarn(paste("`state_names` values must be one of",
+                                           paste(sprintf("\"%s\"", all_table_events), collapse = ", "),
+                                           "Reseting to default value: all state names"),
+                                     logger = logger)
+                             state_names <- all_table_events
+                         } else {
+                             state_names <- tolower(state_names)
+                         }
+                     }
+
                      shiny::observeEvent(table_data(), {
                          is_stale(TRUE)
 
