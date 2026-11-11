@@ -2,6 +2,11 @@
 
 ## New Features
 
+* `downloadableReactTable()`:
+  * Added a new `state_names` parameter to allow users to specify which `reactable` state values to track (`"page"`, `"pageSize"`, `"pages"`, `"sorted"`, `"selected"`), with support for `NULL` to track no states.
+  * Added automatic lowercase normalization and robust validation with graceful fallback defaults for `state_names`.
+  * Added comprehensive unit tests covering default behavior, `NULL` handling, custom valid vectors, mixed-case inputs, and fallback resets.
+
 ## Bug Fixes
 
 -----
