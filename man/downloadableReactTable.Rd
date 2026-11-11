@@ -18,6 +18,7 @@ downloadableReactTable(
   global_search = TRUE,
   row_highlight = TRUE,
   row_striping = TRUE,
+  state_names = c("page", "pageSize", "pages", "sorted", "selected"),
   table_options = list(),
   logger = NULL
 )
@@ -57,6 +58,9 @@ downloadableReactTableUI (default = NULL)}
 \item{row_highlight}{enable highlighting rows upon mouse hover (default = TRUE)}
 
 \item{row_striping}{add zebra-striped style to table rows (default = TRUE)}
+
+\item{state_names}{Character vector of state value(s) to get. Values must be one of "page", "pageSize", "pages",
+sorted, or "selected". If "NULL" is passed, $table_state element in the returned list will be NULL.}
 
 \item{table_options}{optional table formatting parameters check \code{?reactable::reactable} for options full list.
 Also see example below to see how to pass options (default = list())}
