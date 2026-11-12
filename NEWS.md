@@ -4,6 +4,7 @@
 
 ### periscope2 (development version)
 
+* Made DT an optional Dependency
 * `downloadableReactTable()`:
   * Added a new `state_names` parameter to specify which `reactable` state values to track (`"page"`, `"pageSize"`, `"pages"`, `"sorted"`, `"selected"`), supporting exact case sensitivity, `NULL` inputs to track no states, and robust validation with graceful fallback defaults.
   * Added comprehensive unit tests covering default behavior, `NULL` handling, custom valid vectors, case sensitivity, and fallback resets.
