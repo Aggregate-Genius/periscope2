@@ -2,10 +2,12 @@
 
 ## New Features
 
+### periscope2 (development version)
+
 * `downloadableReactTable()`:
-  * Added a new `state_names` parameter to allow users to specify which `reactable` state values to track (`"page"`, `"pageSize"`, `"pages"`, `"sorted"`, `"selected"`), with support for `NULL` to track no states.
-  * Added automatic lowercase normalization and robust validation with graceful fallback defaults for `state_names`.
-  * Added comprehensive unit tests covering default behavior, `NULL` handling, custom valid vectors, mixed-case inputs, and fallback resets.
+  * Added a new `state_names` parameter to specify which `reactable` state values to track (`"page"`, `"pageSize"`, `"pages"`, `"sorted"`, `"selected"`), supporting exact case sensitivity, `NULL` inputs to track no states, and robust validation with graceful fallback defaults.
+  * Added comprehensive unit tests covering default behavior, `NULL` handling, custom valid vectors, case sensitivity, and fallback resets.
+  * Fixed table rendering so that data frames with columns but zero rows correctly display column headers and `reactable`'s built-in empty-state text ("No rows found"), with full support for subsequent updates via `reactable::updateReactable()`.
 
 ## Bug Fixes
 
