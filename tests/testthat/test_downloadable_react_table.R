@@ -484,7 +484,6 @@ test_that("downloadableReactTable - returns selected rows from reactable state",
 
 
 test_that("downloadableReactTable validates and processes state_names correctly", {
-
   # Default state_names behavior (defaults to all events with exact casing)
   testServer(downloadableReactTable, args = list(
     table_data = reactive(iris)
