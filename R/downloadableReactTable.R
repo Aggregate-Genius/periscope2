@@ -137,8 +137,9 @@ downloadableReactTableUI <- function(id,
 #'                              (default = TRUE)
 #' @param row_highlight enable highlighting rows upon mouse hover (default = TRUE)
 #' @param row_striping add zebra-striped style to table rows (default = TRUE)
-#' @param state_names Character vector of state value(s) to get. Values must be one of "page", "pageSize", "pages",
-#'                    sorted, or "selected". If "NULL" is passed, $table_state element in the returned list will be NULL.
+#' @param state_names Character vector of state value(s) to get. Values must be one of `"page"`, `"pageSize"`, `"pages"`,
+#'                    `"sorted"`, or `"selected"`. If `NULL` is passed, `$table_state` element in the returned list
+#'                     will be `NULL`.
 #' @param table_options optional table formatting parameters check \code{?reactable::reactable} for options full list.
 #'                      Also see example below to see how to pass options (default = list())
 #' @param logger logger to use (default = NULL)
@@ -252,14 +253,12 @@ downloadableReactTable <- function(id,
 
                      all_table_events <- c("page", "pageSize", "pages", "sorted", "selected")
                      if (!is.null(state_names)) {
-                         if (!is.character(state_names) || any(!tolower(state_names) %in% all_table_events)) {
+                         if (!is.character(state_names) || any(!state_names %in% all_table_events)) {
                              logwarn(paste("`state_names` values must be one of",
                                            paste(sprintf("\"%s\"", all_table_events), collapse = ", "),
                                            "Reseting to default value: all state names"),
                                      logger = logger)
                              state_names <- all_table_events
-                         } else {
-                             state_names <- tolower(state_names)
                          }
                      }
 
@@ -267,10 +266,14 @@ downloadableReactTable <- function(id,
                          is_stale(TRUE)
 
                          if (!is.data.frame(table_data())) {
-                             table_data <- shiny::reactiveVal(data.frame(table_data()))
+                             table_react_params$table_data <- NULL
+                             if (!all(is.na(table_data()))) {
+                                 table_react_params$table_data <- data.frame(table_data())
+                             }
+                         } else {
+                             table_react_params$table_data <- table_data()
                          }
 
-                         table_react_params$table_data <- table_data()
                          output$displayButton <- shiny::reactive((length(download_data_fxns) > 0))
 
                          if (NROW(table_react_params$table_data) == 0) {
@@ -299,8 +302,7 @@ downloadableReactTable <- function(id,
 
                          if (!is.null(table_react_params$table_data) &&
                              (NCOL(table_react_params$table_data) > 0)) {
-                             if (!all(is.na(table_react_params$table_data)) ||
-                                 (NROW(table_react_params$table_data) > 0)) {
+                             if (NROW(table_react_params$table_data) > 0) {
                                  row_selection_mode <- NULL
                                  if (!is.null(selection_mode) && (tolower(selection_mode) %in% c("single", "multiple"))) {
                                      row_selection_mode <- tolower(selection_mode)
