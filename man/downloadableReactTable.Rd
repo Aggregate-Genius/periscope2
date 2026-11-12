@@ -59,8 +59,9 @@ downloadableReactTableUI (default = NULL)}
 
 \item{row_striping}{add zebra-striped style to table rows (default = TRUE)}
 
-\item{state_names}{Character vector of state value(s) to get. Values must be one of "page", "pageSize", "pages",
-sorted, or "selected". If "NULL" is passed, $table_state element in the returned list will be NULL.}
+\item{state_names}{Character vector of state value(s) to get. Values must be one of \code{"page"}, \code{"pageSize"}, \code{"pages"},
+\code{"sorted"}, or \code{"selected"}. If \code{NULL} is passed, \verb{$table_state} element in the returned list
+will be \code{NULL}.}
 
 \item{table_options}{optional table formatting parameters check \code{?reactable::reactable} for options full list.
 Also see example below to see how to pass options (default = list())}

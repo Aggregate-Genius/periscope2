@@ -107,6 +107,12 @@ test_that("downloadableReactTable - null or empty data.frame", {
                expr = {
                    expect_true(grepl('"x":null', output$reactTableOutputID, fixed = TRUE))
                })
+
+    testServer(downloadableReactTable,
+               args = list(table_data = shiny::reactiveVal(data.frame(A = character(), B = numeric()))),
+               expr = {
+                   expect_false(grepl('"x":null', output$reactTableOutputID, fixed = TRUE))
+               })
 })
 
 
@@ -478,50 +484,50 @@ test_that("downloadableReactTable - returns selected rows from reactable state",
 
 
 test_that("downloadableReactTable validates and processes state_names correctly", {
-    # Default state_names behavior (defaults to all events)
-    testServer(downloadableReactTable, args = list(
-        table_data = reactive(iris)
-    ), {
-        expect_equal(state_names, c("page", "pageSize", "pages", "sorted", "selected"))
-    })
+  # Default state_names behavior (defaults to all events with exact casing)
+  testServer(downloadableReactTable, args = list(
+    table_data = reactive(iris)
+  ), {
+    expect_equal(state_names, c("page", "pageSize", "pages", "sorted", "selected"))
+  })
 
-    # Passing NULL tracks nothing ($table_state will be NULL)
-    testServer(downloadableReactTable, args = list(
-        table_data  = reactive(iris),
-        state_names = NULL
-    ), {
-        expect_null(state_names)
-    })
+  # Passing NULL tracks nothing ($table_state will be NULL)
+  testServer(downloadableReactTable, args = list(
+    table_data = reactive(iris),
+    state_names = NULL
+  ), {
+    expect_null(state_names)
+  })
 
-    # Custom valid vector of state_names
-    testServer(downloadableReactTable, args = list(
-        table_data  = reactive(iris),
-        state_names = c("page", "sorted")
-    ), {
-        expect_equal(state_names, c("page", "sorted"))
-    })
+  # Custom valid vector of state_names (with correct exact casing)
+  testServer(downloadableReactTable, args = list(
+    table_data = reactive(iris),
+    state_names = c("page", "pageSize")
+  ), {
+    expect_equal(state_names, c("page", "pageSize"))
+  })
 
-    # Mixed-case valid input normalizes to lowercase correctly
-    testServer(downloadableReactTable, args = list(
-        table_data = reactive(iris),
-        state_names = c("Page", "SORTED")
-    ), {
-        expect_equal(state_names, c("page", "sorted"))
-    })
+  # Incorrect casing (e.g. "pagesize") triggers warning and resets to default
+  testServer(downloadableReactTable, args = list(
+    table_data = reactive(iris),
+    state_names = c("page", "pagesize")
+  ), {
+    expect_equal(state_names, c("page", "pageSize", "pages", "sorted", "selected"))
+  })
 
-    # Invalid state_names logs warning and resets to default
-    testServer(downloadableReactTable, args = list(
-        table_data = reactive(iris),
-        state_names = c("invalid_state")
-    ), {
-        expect_equal(state_names, c("page", "pageSize", "pages", "sorted", "selected"))
-    })
+  # Invalid state_names logs warning and resets to default
+  testServer(downloadableReactTable, args = list(
+    table_data = reactive(iris),
+    state_names = c("invalid_state")
+  ), {
+    expect_equal(state_names, c("page", "pageSize", "pages", "sorted", "selected"))
+  })
 
-    # Non-character/non-NULL state_names (e.g. numeric) logs warning and resets to default
-    testServer(downloadableReactTable, args = list(
-        table_data = reactive(iris),
-        state_names = 123
-    ), {
-        expect_equal(state_names, c("page", "pageSize", "pages", "sorted", "selected"))
-    })
+  # Non-character/non-NULL state_names (e.g. numeric) logs warning and resets to default
+  testServer(downloadableReactTable, args = list(
+    table_data = reactive(iris),
+    state_names = 123
+  ), {
+    expect_equal(state_names, c("page", "pageSize", "pages", "sorted", "selected"))
+  })
 })
