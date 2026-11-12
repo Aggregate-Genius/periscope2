@@ -137,6 +137,9 @@ downloadableReactTableUI <- function(id,
 #'                              (default = TRUE)
 #' @param row_highlight enable highlighting rows upon mouse hover (default = TRUE)
 #' @param row_striping add zebra-striped style to table rows (default = TRUE)
+#' @param state_names Character vector of state value(s) to get. Values must be one of `"page"`, `"pageSize"`, `"pages"`,
+#'                    `"sorted"`, or `"selected"`. If `NULL` is passed, `$table_state` element in the returned list
+#'                     will be `NULL`.
 #' @param table_options optional table formatting parameters check \code{?reactable::reactable} for options full list.
 #'                      Also see example below to see how to pass options (default = list())
 #' @param logger logger to use (default = NULL)
@@ -213,6 +216,7 @@ downloadableReactTable <- function(id,
                                    global_search      = TRUE,
                                    row_highlight      = TRUE,
                                    row_striping       = TRUE,
+                                   state_names        = c("page", "pageSize", "pages", "sorted", "selected"),
                                    table_options      = list(),
                                    logger             = NULL) {
         shiny::moduleServer(id,
@@ -247,14 +251,29 @@ downloadableReactTable <- function(id,
                          pre_selected_rows <- NULL
                      }
 
+                     all_table_events <- c("page", "pageSize", "pages", "sorted", "selected")
+                     if (!is.null(state_names)) {
+                         if (!is.character(state_names) || any(!state_names %in% all_table_events)) {
+                             logwarn(paste("`state_names` values must be one of",
+                                           paste(sprintf("\"%s\"", all_table_events), collapse = ", "),
+                                           "Reseting to default value: all state names"),
+                                     logger = logger)
+                             state_names <- all_table_events
+                         }
+                     }
+
                      shiny::observeEvent(table_data(), {
                          is_stale(TRUE)
 
                          if (!is.data.frame(table_data())) {
-                             table_data <- shiny::reactiveVal(data.frame(table_data()))
+                             table_react_params$table_data <- NULL
+                             if (!all(is.na(table_data()))) {
+                                 table_react_params$table_data <- data.frame(table_data())
+                             }
+                         } else {
+                             table_react_params$table_data <- table_data()
                          }
 
-                         table_react_params$table_data <- table_data()
                          output$displayButton <- shiny::reactive((length(download_data_fxns) > 0))
 
                          if (NROW(table_react_params$table_data) == 0) {
@@ -281,92 +300,104 @@ downloadableReactTable <- function(id,
                      output$reactTableOutputID <- reactable::renderReactable({
                          table_output <- NULL
 
-                         if (!all(is.na(table_react_params$table_data)) &&
-                             !is.null(table_react_params$table_data) &&
+                         if (!is.null(table_react_params$table_data) &&
                              (NCOL(table_react_params$table_data) > 0)) {
-                             row_selection_mode <- NULL
-                             if (!is.null(selection_mode) && (tolower(selection_mode) %in% c("single", "multiple"))) {
-                                 row_selection_mode <- tolower(selection_mode)
+                             if (NROW(table_react_params$table_data) > 0) {
+                                 row_selection_mode <- NULL
+                                 if (!is.null(selection_mode) && (tolower(selection_mode) %in% c("single", "multiple"))) {
+                                     row_selection_mode <- tolower(selection_mode)
 
-                                 if ((row_selection_mode == "single") && (length(table_react_params$pre_selected_rows) > 1)) {
-                                     logwarn("when 'selection_mode' is 'single', only first value of 'pre_selected_rows' will be used",
-                                             logger = logger)
-                                     table_react_params$pre_selected_rows <- table_react_params$pre_selected_rows[1]
-                                 }
+                                     if ((row_selection_mode == "single") && (length(table_react_params$pre_selected_rows) > 1)) {
+                                         logwarn("when 'selection_mode' is 'single', only first value of 'pre_selected_rows' will be used",
+                                                 logger = logger)
+                                         table_react_params$pre_selected_rows <- table_react_params$pre_selected_rows[1]
+                                     }
 
-                                 if (length(table_react_params$pre_selected_rows) > 0) {
-                                     excluded_indices <- table_react_params$pre_selected_rows[
-                                         sapply(table_react_params$pre_selected_rows,
-                                                function(x) {
-                                                    x < 1 || x > NROW(table_react_params$table_data)
+                                     if (length(table_react_params$pre_selected_rows) > 0) {
+                                         excluded_indices <- table_react_params$pre_selected_rows[
+                                             sapply(table_react_params$pre_selected_rows,
+                                                    function(x) {
+                                                        x < 1 || x > NROW(table_react_params$table_data)
                                                     })]
-                                     if (length(excluded_indices) > 0) {
-                                         if (length(excluded_indices) == length(table_react_params$pre_selected_rows)) {
-                                             logwarn("All 'pre_selected_rows' values are out of range. Setting default value NULL.",
-                                                     logger = logger)
-                                             table_react_params$pre_selected_rows <- NULL
-                                         } else {
-                                             value_msg <- paste("value:", excluded_indices[1] ,"as it is")
-                                             if (length(excluded_indices) > 1) {
-                                                 value_msg <- paste("values:", paste0(excluded_indices, collapse = ", "), "as they are")
-                                             }
+                                         if (length(excluded_indices) > 0) {
+                                             if (length(excluded_indices) == length(table_react_params$pre_selected_rows)) {
+                                                 logwarn("All 'pre_selected_rows' values are out of range. Setting default value NULL.",
+                                                         logger = logger)
+                                                 table_react_params$pre_selected_rows <- NULL
+                                             } else {
+                                                 value_msg <- paste("value:", excluded_indices[1] ,"as it is")
+                                                 if (length(excluded_indices) > 1) {
+                                                     value_msg <- paste("values:", paste0(excluded_indices, collapse = ", "), "as they are")
+                                                 }
 
-                                             logwarn(paste("Excluding 'pre_selected_rows'" , value_msg, "out of range."),
-                                                     logger = logger)
-                                             table_react_params$pre_selected_rows <- table_react_params$pre_selected_rows[
-                                                 !(table_react_params$pre_selected_rows %in% excluded_indices)]
+                                                 logwarn(paste("Excluding 'pre_selected_rows'" , value_msg, "out of range."),
+                                                         logger = logger)
+                                                 table_react_params$pre_selected_rows <- table_react_params$pre_selected_rows[
+                                                     !(table_react_params$pre_selected_rows %in% excluded_indices)]
+                                             }
                                          }
                                      }
                                  }
-                             }
 
-                             table_arguments <- list(data            = table_react_params$table_data,
-                                                     selection       = row_selection_mode,
-                                                     defaultSelected = table_react_params$pre_selected_rows,
-                                                     pagination      = pagination,
-                                                     height          = table_height,
-                                                     rownames        = show_rownames,
-                                                     filterable      = columns_filter,
-                                                     searchable      = global_search,
-                                                     highlight       = row_highlight,
-                                                     striped         = row_striping)
-                             if (length(table_options) > 0) {
-                                 all_options       <- methods::formalArgs(reactable::reactable)
-                                 unnamed_options   <- append(table_options[names(table_options) == ""],
-                                                             table_options[is.null(names(table_options))])
-                                 invalid_options <- table_options[!(names(table_options) %in% all_options)]
-                                 invalid_options <- invalid_options[!(invalid_options %in% unnamed_options)]
-                                 valid_options   <- table_options[names(table_options) %in% all_options]
+                                 table_arguments <- list(data            = table_react_params$table_data,
+                                                         selection       = row_selection_mode,
+                                                         defaultSelected = table_react_params$pre_selected_rows,
+                                                         pagination      = pagination,
+                                                         height          = table_height,
+                                                         rownames        = show_rownames,
+                                                         filterable      = columns_filter,
+                                                         searchable      = global_search,
+                                                         highlight       = row_highlight,
+                                                         striped         = row_striping)
+                                 if (length(table_options) > 0) {
+                                     all_options       <- methods::formalArgs(reactable::reactable)
+                                     unnamed_options   <- append(table_options[names(table_options) == ""],
+                                                                 table_options[is.null(names(table_options))])
+                                     invalid_options <- table_options[!(names(table_options) %in% all_options)]
+                                     invalid_options <- invalid_options[!(invalid_options %in% unnamed_options)]
+                                     valid_options   <- table_options[names(table_options) %in% all_options]
 
-                                 if (length(unnamed_options) > 0) {
-                                     logwarn(paste("Excluding the following unnamed option(s):",
-                                                   paste(unnamed_options, collapse = ", ")), logger = logger)
+                                     if (length(unnamed_options) > 0) {
+                                         logwarn(paste("Excluding the following unnamed option(s):",
+                                                       paste(unnamed_options, collapse = ", ")), logger = logger)
+                                     }
+
+                                     if (length(invalid_options) > 0) {
+                                         logwarn(paste("Excluding the following invalid option(s):",
+                                                       paste(names(invalid_options), collapse = ", ")), logger = logger)
+                                     }
+
+                                     table_arguments <- append(table_arguments, valid_options)
                                  }
 
-                                 if (length(invalid_options) > 0) {
-                                     logwarn(paste("Excluding the following invalid option(s):",
-                                                   paste(names(invalid_options), collapse = ", ")), logger = logger)
-                                 }
+                                 table_output <- do.call(reactable::reactable, table_arguments)
 
-                                 table_arguments <- append(table_arguments, valid_options)
+                             } else {
+                                 table_output <- reactable::reactable(table_react_params$table_data)
                              }
-
-                             table_output <- do.call(reactable::reactable, table_arguments)
-
                          }
                          table_output
                     })
                  }
                  shiny::observe({
+                     table_state  <- NULL
+                     if (length(state_names) > 0) {
+                         table_state <- reactable::getReactableState(outputId = "reactTableOutputID", name = state_names)
 
-                     table_state   <- reactable::getReactableState("reactTableOutputID")
+                         if (length(state_names) == 1) {
+                             state_value <- table_state
+                             table_state <- list()
+
+                             table_state[[state_names]] <- state_value
+                         }
+                     }
                      selected_rows <- NULL
 
                      # data is just re/set and new react state is not ready yet
                      if (is_stale()) {
                          # If the state is NULL or empty, it means the browser just finished resetting.
                          # We can turn off the stale flag.
-                         if (is.null(table_state) || is.null(table_state$selected)) {
+                         if (is.null(table_state) || is.null(table_state[["selected"]])) {
                              is_stale(FALSE)
                             if (!is.null(table_react_params) && !is.null(table_react_params$pre_selected_rows) && is.data.frame(table_data())) {
                                 selected_rows <- table_data()[table_react_params$pre_selected_rows, ]

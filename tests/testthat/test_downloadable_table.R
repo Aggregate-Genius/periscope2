@@ -1,5 +1,6 @@
 context("periscope2 - downloadable table")
 local_edition(3)
+skip_if_not_installed("DT")
 
 test_that("downloadableTableUI", {
     table_ui <- downloadableTableUI(id            = "myid",
