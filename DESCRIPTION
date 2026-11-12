@@ -22,7 +22,6 @@ Depends:
 Imports:
     shiny (>= 1.7),
     bs4Dash (>= 2.3),
-    DT,
     fresh,
     grDevices,
     lubridate,
@@ -38,6 +37,7 @@ Suggests:
     assertthat,
     canvasXpress,
     colourpicker,
+    DT,
     ggplot2,
     knitr,
     lattice,
