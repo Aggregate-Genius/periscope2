@@ -32,6 +32,8 @@ export(logwarn)
 export(set_app_parameters)
 export(themeConfigurationsAddin)
 export(ui_tooltip)
-importFrom(lifecycle,deprecate_warn)
-importFrom(lifecycle,deprecated)
+importFrom(lifecycle,
+  deprecate_warn,
+  deprecated
+)
 importFrom(methods,new)
