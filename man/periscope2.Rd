@@ -76,6 +76,11 @@ Useful links:
 \author{
 \strong{Maintainer}: Mohammed Ali \email{mohammed@aggregate-genius.com}
 
+Authors:
+\itemize{
+  \item Mohammed Ali \email{mohammed@aggregate-genius.com}
+}
+
 Other contributors:
 \itemize{
   \item Constance Brett [contributor]
