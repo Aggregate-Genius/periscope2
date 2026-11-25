@@ -531,3 +531,89 @@ test_that("downloadableReactTable validates and processes state_names correctly"
     expect_equal(state_names, c("page", "pageSize", "pages", "sorted", "selected"))
   })
 })
+
+test_that("downloadableReactTable - 0-row data.frame gets table arguments and options", {
+    empty_df <- data.frame(Name = character(), Value = numeric())
+
+    testServer(downloadableReactTable,
+               args = list(table_data    = function() { empty_df },
+                           table_options = list(columns = list(Name  = reactable::colDef(name = "Custom Name"),
+                                                               Value = reactable::colDef(name = "Custom Value")))),
+               expr = {
+                   table_json <- output$reactTableOutputID
+                   expect_false(grepl('"x":null', table_json, fixed = TRUE))
+                   expect_true(grepl('"searchable":true', table_json, fixed = TRUE))
+                   expect_true(grepl('"striped":true', table_json, fixed = TRUE))
+                   expect_true(grepl('"height":"600px"', table_json, fixed = TRUE))
+                   expect_true(grepl('Custom Name', table_json, fixed = TRUE))
+                   expect_true(grepl('Custom Value', table_json, fixed = TRUE))
+               })
+
+    rows <- shiny::reactiveVal(data.frame(Name = "Row 1", Value = 1))
+    testServer(downloadableReactTable,
+               args = list(table_data = rows),
+               expr = {
+                   expect_true(grepl('"searchable":true', output$reactTableOutputID, fixed = TRUE))
+                   rows(empty_df)
+                   session$flushReact()
+                   expect_false(grepl('"x":null', output$reactTableOutputID, fixed = TRUE))
+                   expect_true(grepl('"searchable":true', output$reactTableOutputID, fixed = TRUE))
+               })
+})
+
+test_that("downloadableReactTable - pre_selected_rows are kept while the table has 0 rows", {
+    rows   <- shiny::reactiveVal(data.frame(a = numeric()))
+    logged <- capture_output(
+        testServer(downloadableReactTable,
+                   args = list(table_data        = rows,
+                               selection_mode    = "multiple",
+                               pre_selected_rows = function() { c(1, 2) }),
+                   expr = {
+                       session$flushReact()
+                       expect_null(valid_pre_selected_rows())
+                       expect_true(grepl('"selection":"multiple"', output$reactTableOutputID, fixed = TRUE))
+
+                       rows(data.frame(a = 1:3))
+                       session$flushReact()
+                       expect_equal(valid_pre_selected_rows(), c(1, 2))
+                       expect_equal(table_react_params$pre_selected_rows, c(1, 2))
+                       expect_true(grepl('"defaultSelected":[0,1]', output$reactTableOutputID, fixed = TRUE))
+                   }))
+    expect_false(grepl("out of range", logged))
+})
+
+test_that("downloadableReactTable - download button visibility does not depend on row count", {
+    empty_df <- data.frame(Name = character(), Value = numeric())
+    rows     <- shiny::reactiveVal(data.frame(Name = "Row 1", Value = 1))
+
+    testServer(downloadableReactTable,
+               args = list(table_data         = rows,
+                           download_data_fxns = list(csv = rows)),
+               expr = {
+                   session$flushReact()
+                   expect_true(display_button())
+
+                   rows(empty_df)
+                   session$flushReact()
+                   expect_true(display_button())
+
+                   rows(data.frame(Name = "Row 1", Value = 1))
+                   session$flushReact()
+                   expect_true(display_button())
+               })
+
+    testServer(downloadableReactTable,
+               args = list(table_data         = function() { empty_df },
+                           download_data_fxns = list(csv = function() { empty_df })),
+               expr = {
+                   session$flushReact()
+                   expect_true(display_button())
+               })
+
+    testServer(downloadableReactTable,
+               args = list(table_data = function() { empty_df }),
+               expr = {
+                   session$flushReact()
+                   expect_false(display_button())
+               })
+})
