@@ -49,6 +49,9 @@ button.
 downloadFile button will be hidden if \code{downloadableTable} parameter \code{downloaddatafxn} or
 \code{downloadableTableUI} parameter \code{downloadtypes} is empty
 
+This module requires the \code{DT} package, which is not installed with periscope2.
+Install it with \code{install.packages("DT")}.
+
 Generated table can highly customized using function \code{?DT::datatable} same arguments
 except for \code{options} and \code{selection} parameters.
 
@@ -85,7 +88,7 @@ currently selected rows in the display table.
 }
 
 \examples{
-if (interactive()) {
+if (interactive() && requireNamespace("DT", quietly = TRUE)) {
  library(shiny)
  library(periscope2)
  shinyApp(ui = fluidPage(fluidRow(column(width = 12,

@@ -35,6 +35,9 @@ sorting by columns and returns a reactive dataset of selected items.
 \details{
 downloadFile button will be hidden if \code{downloadableTable} parameter \code{downloaddatafxn} or
 \code{downloadableTableUI} parameter \code{downloadtypes} is empty
+
+This module requires the \code{DT} package, which is not installed with periscope2.
+Install it with \code{install.packages("DT")}.
 }
 \section{Table Features}{
 
@@ -71,7 +74,7 @@ in server.R
 }
 
 \examples{
-if (interactive()) {
+if (interactive() && requireNamespace("DT", quietly = TRUE)) {
  library(shiny)
  library(periscope2)
  shinyApp(ui = fluidPage(fluidRow(column(width = 12,

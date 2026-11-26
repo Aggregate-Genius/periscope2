@@ -4,7 +4,10 @@
 
 ### periscope2 (development version)
 
-* Made DT an optional Dependency
+* Made DT an optional dependency:
+  * `downloadableTableUI()` and `downloadableTable()` stop with a clear message asking to install DT when it is not installed.
+  * `create_application(sample_app = TRUE)` warns about any packages the sample application needs that are not installed (including DT), with the `install.packages()` command to install them.
+  * The `downloadableTable` documentation and vignette state that DT must be installed separately.
 * `downloadableReactTable()`:
   * Added a new `state_names` parameter to specify which `reactable` state values to track (`"page"`, `"pageSize"`, `"pages"`, `"sorted"`, `"selected"`), supporting exact case sensitivity, `NULL` inputs to track no states, and robust validation with graceful fallback defaults.
 

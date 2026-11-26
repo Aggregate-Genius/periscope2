@@ -12,6 +12,9 @@
 #' downloadFile button will be hidden if \code{downloadableTable} parameter \code{downloaddatafxn} or
 #' \code{downloadableTableUI} parameter \code{downloadtypes} is empty
 #'
+#' This module requires the \code{DT} package, which is not installed with periscope2.
+#' Install it with \code{install.packages("DT")}.
+#'
 #' @param id character id for the object
 #' @param downloadtypes vector of values for data download types
 #' @param hovertext download button tooltip hover text
@@ -56,7 +59,7 @@
 #' @seealso \link[periscope2]{downloadablePlot}
 #'
 #' @examples
-#' if (interactive()) {
+#' if (interactive() && requireNamespace("DT", quietly = TRUE)) {
 #'  library(shiny)
 #'  library(periscope2)
 #'  shinyApp(ui = fluidPage(fluidRow(column(width = 12,
@@ -89,6 +92,7 @@ downloadableTableUI <- function(id,
                                 hovertext     = NULL,
                                 contentHeight = "200px",
                                 singleSelect  = FALSE) {
+    .check_dt_installed()
     ns <- shiny::NS(id)
 
     list(
@@ -125,6 +129,9 @@ downloadableTableUI <- function(id,
 #'
 #' downloadFile button will be hidden if \code{downloadableTable} parameter \code{downloaddatafxn} or
 #' \code{downloadableTableUI} parameter \code{downloadtypes} is empty
+#'
+#' This module requires the \code{DT} package, which is not installed with periscope2.
+#' Install it with \code{install.packages("DT")}.
 #'
 #' Generated table can highly customized using function \code{?DT::datatable} same arguments
 #'  except for `options` and `selection` parameters.
@@ -185,7 +192,7 @@ downloadableTableUI <- function(id,
 #' @seealso \link[periscope2]{downloadablePlot}
 #'
 #' @examples
-#' if (interactive()) {
+#' if (interactive() && requireNamespace("DT", quietly = TRUE)) {
 #'  library(shiny)
 #'  library(periscope2)
 #'  shinyApp(ui = fluidPage(fluidRow(column(width = 12,
@@ -220,6 +227,7 @@ downloadableTable <- function(id,
                               tabledata,
                               selection        = NULL,
                               table_options    = list()) {
+    .check_dt_installed()
     shiny::moduleServer(id,
                         function(input, output, session) {
 

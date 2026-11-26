@@ -19,6 +19,16 @@ vignette: >
 
 This *Shiny Module* provides a consistent and easy-to-use table including a downloadFileButton that is automatically created, linked and managed.
 
+## Requirements
+
+This module is built on the [DT](https://rstudio.github.io/DT/) package, which is an optional dependency and is not installed with *periscope2*. Install it before using the module:
+
+```{r, eval=F}
+install.packages("DT")
+```
+
+Calling `downloadableTableUI()` or `downloadableTable()` without DT installed stops with a message asking you to install it.
+
 ## Features
 
 * Uses the downloadFile Shiny Module functionality to ensure consistent
@@ -182,7 +192,7 @@ For a complete running shiny example application using the downloadableTable mod
 library(periscope2)
 
 app_dir = tempdir()
-create_new_application(name = 'mysampleapp', location = app_dir, sample_app = TRUE)
+create_application(name = 'mysampleapp', location = app_dir, sample_app = TRUE)
 runApp(paste(app_dir, 'mysampleapp', sep = .Platform$file.sep))
 ```
 

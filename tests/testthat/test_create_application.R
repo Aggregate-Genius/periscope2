@@ -1,5 +1,9 @@
 context("periscope2 create new application")
 
+# the sample application package check is tested in test_optional_dependencies.R; here all packages
+# are reported installed so the sample application tests do not depend on which packages are installed
+local_mocked_bindings(.missing_packages = function(packages) character(0))
+
 expect_cleanup_create_new_application <- function(full_name,
                                                   sample_app    = FALSE,
                                                   left_sidebar  = TRUE,

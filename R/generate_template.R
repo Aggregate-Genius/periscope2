@@ -8,7 +8,9 @@
 #'
 #' @param name          name for the new application and directory
 #' @param location      base path for creation of \code{name}
-#' @param sample_app    whether to create a sample shiny application
+#' @param sample_app    whether to create a sample shiny application. The sample application uses packages
+#'                      that are not installed with periscope2 (canvasXpress, colourpicker, dplyr, DT,
+#'                      ggplot2, glue, lattice, shinyjs and waiter); a warning lists any that are missing
 #' @param left_sidebar  whether the left sidebar should be enabled. It can be TRUE/FALSE
 #' @param right_sidebar parameter to set the right sidebar. It can be TRUE/FALSE
 #'
@@ -164,6 +166,18 @@ create_application <- function(name,
     if (is.na(sample_app) || !is.logical(sample_app)) {
         warning("'sample_app' must have valid boolean value. Setting 'sample_app' to default value 'FALSE'")
         sample_app <- FALSE
+    }
+
+    if (sample_app) {
+        sample_app_packages <- c("canvasXpress", "colourpicker", "dplyr", "DT", "ggplot2", "glue", "lattice", "shinyjs", "waiter")
+        missing_packages    <- .missing_packages(sample_app_packages)
+        if (length(missing_packages) > 0) {
+            warning("The sample application needs the following package(s) that are not installed: ",
+                    paste(missing_packages, collapse = ", "),
+                    ". Install them with: install.packages(c(",
+                    paste0("\"", missing_packages, "\"", collapse = ", "), "))",
+                    call. = FALSE)
+        }
     }
 
     if (is.na(right_sidebar) || !is.logical(right_sidebar)) {

@@ -72,3 +72,18 @@
         .setupUserLogging(logger),
         readLines)
 }
+
+
+# Returns the names of the given packages that are not installed
+.missing_packages <- function(packages) {
+    packages[!vapply(packages, requireNamespace, logical(1), quietly = TRUE)]
+}
+
+
+# Stops with a clear install message when DT (an optional dependency) is not installed
+.check_dt_installed <- function() {
+    if (length(.missing_packages("DT")) > 0) {
+        stop("Package 'DT' is required to use the downloadableTable module. Install it with: install.packages(\"DT\")",
+             call. = FALSE)
+    }
+}
