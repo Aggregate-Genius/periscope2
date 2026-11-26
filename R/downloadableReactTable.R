@@ -222,7 +222,8 @@ downloadableReactTable <- function(id,
         shiny::moduleServer(id,
              function(input, output, session) {
                  downloadable_module_state <- shiny::reactiveVal(list(selected_rows = NULL, table_state = NULL))
-                 is_stale                  <- shiny::reactiveVal(FALSE)
+                 # TRUE once the browser reports a row selection for the current table data
+                 selection_reported        <- shiny::reactiveVal(FALSE)
 
                  if (is.null(table_data) || !is.function(table_data)) {
                      logerror("'table_data' parameter must be a function or reactive expression.", logger = logger)
@@ -264,7 +265,8 @@ downloadableReactTable <- function(id,
                      }
 
                      shiny::observeEvent(table_data(), {
-                         is_stale(TRUE)
+                         # until the browser re-renders the table, its selection refers to the previous data
+                         selection_reported(FALSE)
 
                          if (!is.data.frame(table_data())) {
                              table_react_params$table_data <- NULL
@@ -380,43 +382,43 @@ downloadableReactTable <- function(id,
                          }
                          table_output
                     })
-                 }
-                 shiny::observe({
-                     table_state  <- NULL
-                     if (length(state_names) > 0) {
-                         table_state <- reactable::getReactableState(outputId = "reactTableOutputID", name = state_names)
 
-                         if (length(state_names) == 1) {
-                             state_value <- table_state
-                             table_state <- list()
+                     # the browser reports the selection whenever it changes, including when it is cleared.
+                     # It is tracked whatever state_names is, because selected_rows is always returned
+                     shiny::observeEvent(reactable::getReactableState(outputId = "reactTableOutputID", name = "selected"), {
+                         selection_reported(TRUE)
+                     }, ignoreNULL = FALSE, ignoreInit = TRUE, priority = 20)
 
-                             table_state[[state_names]] <- state_value
-                         }
-                     }
-                     selected_rows <- NULL
+                     shiny::observe({
+                         table_state <- NULL
+                         if (length(state_names) > 0) {
+                             table_state <- reactable::getReactableState(outputId = "reactTableOutputID", name = state_names)
 
-                     # data is just re/set and new react state is not ready yet
-                     if (is_stale()) {
-                         # If the state is NULL or empty, it means the browser just finished resetting.
-                         # We can turn off the stale flag.
-                         if (is.null(table_state) || is.null(table_state[["selected"]])) {
-                             is_stale(FALSE)
-                            if (!is.null(table_react_params) && !is.null(valid_pre_selected_rows()) && is.data.frame(table_data())) {
-                                selected_rows <- table_data()[valid_pre_selected_rows(), ]
-                            }
-                         }
-
-                         downloadable_module_state(list(selected_rows = selected_rows, table_state = NULL))
-
-                     } else { # the table is rendered, get the state directly from react table
-                         if (!is.null(table_state)) {
-                             if (!is.null(table_state$selected) && is.data.frame(table_data())) {
-                                 selected_rows <- table_data()[table_state$selected, ]
+                             # a single state name gives its value directly, or NULL when it is not reported yet
+                             if ((length(state_names) == 1) && !is.null(table_state)) {
+                                 table_state <- stats::setNames(list(table_state), state_names)
                              }
-                             downloadable_module_state(list(selected_rows = selected_rows, table_state = table_state))
                          }
-                     }
-                 })
+
+                         # until the browser reports a selection for the current table data, the pre-selected
+                         # rows are returned, so the previous data's row numbers are never applied to new data
+                         selected_indices <- valid_pre_selected_rows()
+                         if (selection_reported()) {
+                             selected_indices <- reactable::getReactableState(outputId = "reactTableOutputID", name = "selected")
+                         } else if (!is.null(table_state) && ("selected" %in% names(table_state))) {
+                             # the reported selection still belongs to the previous data, so table_state
+                             # reports the same selection as selected_rows
+                             table_state["selected"] <- list(selected_indices)
+                         }
+
+                         selected_rows <- NULL
+                         if ((length(selected_indices) > 0) && is.data.frame(table_react_params$table_data)) {
+                             selected_rows <- table_react_params$table_data[selected_indices, , drop = FALSE]
+                         }
+
+                         downloadable_module_state(list(selected_rows = selected_rows, table_state = table_state))
+                     })
+                 }
 
                  downloadable_module_state
             }

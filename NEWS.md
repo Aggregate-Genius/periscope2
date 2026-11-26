@@ -17,6 +17,9 @@
   * Fixed tables whose data has columns but zero rows: they now get all the table arguments (search, height, striping, row selection and `table_options`), so the styling is kept when rows are added later, including via `reactable::updateReactable()`.
   * Fixed `pre_selected_rows` being dropped when the table data starts with zero rows. The rows are now pre-selected once the table has data.
   * The download button is now always shown when `download_data_fxns` are supplied, regardless of the number of rows, instead of disappearing and reappearing as the data changes.
+  * `selected_rows` in the returned value now follows the table selection whatever `state_names` is, including `NULL` or a set of names without `"selected"`.
+  * Fixed `selected_rows` briefly applying the previous data's selected row numbers to new table data. Until the re-rendered table reports its selection, `selected_rows` and `table_state$selected` both give the pre-selected rows.
+  * Fixed `pre_selected_rows` being replaced with `NULL` before the table reported its state when `state_names` has a single value.
 
 -----
 
