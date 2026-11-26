@@ -431,7 +431,6 @@ test_that("downloadableReactTable - module return", {
             #         → module falls back to pre_selected_rows
             # Tick 2: reactable state still NULL; assert fallback value survives
             session$flushReact()
-            is_stale(TRUE)
             session$flushReact()
             result <- session$returned()
             expect_equal(length(result), 2)
@@ -446,13 +445,6 @@ test_that("downloadableReactTable - module return", {
 test_that("downloadableReactTable - returns selected rows from reactable state", {
     skip_if(getRversion() < "4.1.0", "Skipping due to lifecycle warnings in R < 4.1.0")
 
-    local_mocked_bindings(
-        getReactableState = function(...) {
-            list(showSortable = TRUE,
-                 selected     = c(2, 3))
-        },
-        .package = "reactable")
-
     testServer(
         downloadableReactTable,
         args = list(
@@ -460,15 +452,10 @@ test_that("downloadableReactTable - returns selected rows from reactable state",
             selection_mode = "multiple"
         ),
         expr = {
-            # Tick 1: observeEvent(table_data) sets is_stale=TRUE.
-            #         Final observer runs, sees stale + selected non-NULL,
-            #         so it does NOT enter the reset branch and is_stale stays TRUE.
             session$flushReact()
 
-            # Manually flip is_stale to FALSE to simulate the point in time
-            # after reactable has rendered and reported its state.
-            is_stale(FALSE)
-            session$flushReact()
+            # reactable reports the selection after the table is rendered
+            session$setInputs(reactTableOutputID__reactable__selected = c(2, 3))
 
             result <- session$returned()
 
@@ -616,4 +603,197 @@ test_that("downloadableReactTable - download button visibility does not depend o
                    session$flushReact()
                    expect_false(display_button())
                })
+})
+
+
+# ---- state_names: behaviour of the returned value ----
+# These tests drive the module the way the browser does, by setting the
+# reactable state inputs (reactTableOutputID__reactable__<name>) directly.
+
+state_names_cases <- list(
+    default     = list(),
+    null        = list(state_names = NULL),
+    selected    = list(state_names = "selected"),
+    page        = list(state_names = "page"),
+    no_selected = list(state_names = c("page", "pageSize", "pages", "sorted"))
+)
+
+state_names_args <- function(case, table_data = reactiveVal(mtcars), ...) {
+    c(list(table_data     = table_data,
+           selection_mode = "multiple",
+           pagination     = TRUE),
+      list(...),
+      state_names_cases[[case]])
+}
+
+set_table_state <- function(session, name, value) {
+    do.call(session$setInputs,
+            stats::setNames(list(value), paste0("reactTableOutputID__reactable__", name)))
+}
+
+# the state reactable reports once the table is rendered (32 rows, 10 per page)
+mount_table <- function(session) {
+    set_table_state(session, "page",     1L)
+    set_table_state(session, "pageSize", 10L)
+    set_table_state(session, "pages",    4L)
+}
+
+
+# Each check runs once per state_names case, as its own test, so the test name
+# shows which case failed.
+
+for (case in names(state_names_cases)) {
+    test_that(paste0("downloadableReactTable - state_names = ", case, ": selected_rows follows the selection"), {
+        testServer(downloadableReactTable, args = state_names_args(case), {
+            session$flushReact()
+            mount_table(session)
+
+            set_table_state(session, "selected", c(1L, 2L))
+            expect_equal(rownames(session$returned()$selected_rows), rownames(mtcars)[1:2])
+
+            set_table_state(session, "selected", c(1L, 2L, 3L))
+            expect_equal(rownames(session$returned()$selected_rows), rownames(mtcars)[1:3])
+
+            set_table_state(session, "selected", NULL)
+            expect_equal(NROW(session$returned()$selected_rows), 0)
+        })
+    })
+}
+
+
+state_interactions <- list(page     = 2L,
+                           pageSize = 25L,
+                           pages    = 2L,
+                           sorted   = list(mpg = "asc"),
+                           selected = c(1L, 2L))
+# interactions that should make the returned value update, for each case
+# (the selection always does, whatever state_names is)
+updates_on <- list(default     = c("page", "pageSize", "pages", "sorted", "selected"),
+                   null        = "selected",
+                   selected    = "selected",
+                   page        = c("page", "selected"),
+                   no_selected = c("page", "pageSize", "pages", "sorted", "selected"))
+
+for (case in names(state_names_cases)) {
+    test_that(paste0("downloadableReactTable - state_names = ", case, ": the returned value only updates for tracked state and the selection"), {
+        testServer(downloadableReactTable, args = state_names_args(case), {
+            updates <- new.env()
+            updates$n <- 0
+            shiny::observe({
+                session$returned()
+                updates$n <- updates$n + 1
+            })
+            session$flushReact()
+            mount_table(session)
+
+            for (name in names(state_interactions)) {
+                before <- updates$n
+                set_table_state(session, name, state_interactions[[name]])
+                expect_equal(updates$n > before, name %in% updates_on[[case]],
+                             label = paste("returned value updated after changing", name))
+            }
+        })
+    })
+}
+
+
+expected_state_names <- list(default     = c("page", "pageSize", "pages", "sorted", "selected"),
+                             selected    = "selected",
+                             page        = "page",
+                             no_selected = c("page", "pageSize", "pages", "sorted"))
+
+for (case in names(state_names_cases)) {
+    test_that(paste0("downloadableReactTable - state_names = ", case, ": table_state contains only the requested state"), {
+        testServer(downloadableReactTable, args = state_names_args(case), {
+            session$flushReact()
+            mount_table(session)
+            set_table_state(session, "selected", c(1L, 2L))
+
+            table_state <- session$returned()$table_state
+            if (case == "null") {
+                expect_null(table_state)
+            } else {
+                expect_true(is.list(table_state))
+                expect_named(table_state, expected_state_names[[case]])
+            }
+        })
+    })
+}
+
+
+for (case in names(state_names_cases)) {
+    test_that(paste0("downloadableReactTable - state_names = ", case, ": replacing table_data never applies the old selection to the new data"), {
+        new_data <- mtcars[rev(seq_len(nrow(mtcars))), ]
+
+        testServer(downloadableReactTable, args = state_names_args(case), {
+            session$flushReact()
+            mount_table(session)
+            set_table_state(session, "selected", c(2L, 3L))
+
+            # record every value returned from the data replacement onwards
+            history <- new.env()
+            history$values <- list()
+            shiny::observe({
+                history$values[[length(history$values) + 1]] <- session$returned()
+            })
+            session$flushReact()
+
+            table_data(new_data)
+            session$flushReact()
+            # the browser re-renders the new table and resets its state
+            set_table_state(session, "selected", NULL)
+            mount_table(session)
+
+            wrong_rows <- rownames(new_data)[c(2, 3)]
+            old_rows_applied <- vapply(history$values,
+                                       function(value) identical(rownames(value$selected_rows), wrong_rows),
+                                       logical(1))
+            expect_false(any(old_rows_applied),
+                         label = "any returned value with the old row numbers applied to the new data")
+            expect_equal(NROW(session$returned()$selected_rows), 0)
+        })
+    })
+}
+
+
+for (case in names(state_names_cases)) {
+    test_that(paste0("downloadableReactTable - state_names = ", case, ": pre_selected_rows are returned before the table renders"), {
+        testServer(downloadableReactTable,
+                   args = state_names_args(case, pre_selected_rows = reactive(c(1, 2))), {
+            # the browser has not reported any state yet, so the module itself
+            # must return the pre-selected rows
+            session$flushReact()
+            expect_equal(rownames(session$returned()$selected_rows), rownames(mtcars)[1:2])
+        })
+    })
+}
+
+
+test_that("downloadableReactTable - table_state selection matches selected_rows after table_data changes", {
+    new_data <- mtcars[rev(seq_len(nrow(mtcars))), ]
+
+    testServer(downloadableReactTable,
+               args = list(table_data        = reactiveVal(mtcars),
+                           selection_mode    = "multiple",
+                           pre_selected_rows = reactive(c(1))), {
+        session$flushReact()
+        session$setInputs(reactTableOutputID__reactable__page     = 1L,
+                          reactTableOutputID__reactable__selected = c(2L, 3L))
+        expect_equal(session$returned()$table_state$selected, c(2L, 3L))
+
+        # the browser has not re-rendered the new data yet, so its old selection is not reported
+        table_data(new_data)
+        session$flushReact()
+        result <- session$returned()
+        expect_equal(result$table_state$selected, 1)
+        expect_equal(rownames(result$selected_rows), rownames(new_data)[1])
+        expect_equal(result$table_state$page, 1L)
+
+        # the re-rendered table reports its selection
+        session$setInputs(reactTableOutputID__reactable__selected = 1L)
+        session$setInputs(reactTableOutputID__reactable__selected = c(1L, 4L))
+        result <- session$returned()
+        expect_equal(result$table_state$selected, c(1L, 4L))
+        expect_equal(rownames(result$selected_rows), rownames(new_data)[c(1, 4)])
+    })
 })
