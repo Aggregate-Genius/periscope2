@@ -48,8 +48,8 @@ items are selected
 
 \section{Notes}{
 
-When there are no rows to download in any of the linked downloaddatafxns the
-button will be hidden as there is nothing to download.
+The download button is shown whenever \code{download_data_fxns} are supplied to
+\code{downloadableReactTable}, regardless of the number of rows in the table data.
 }
 
 \section{Shiny Usage}{
@@ -103,8 +103,6 @@ if (interactive()) {
 \link[periscope2]{downloadFile}
 
 \link[periscope2]{logViewerOutput}
-
-\link[periscope2]{downloadFile}
 
 \link[periscope2]{downloadFile_ValidateTypes}
 

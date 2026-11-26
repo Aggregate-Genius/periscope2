@@ -4,13 +4,19 @@
 
 ### periscope2 (development version)
 
-* Made DT an optional Dependency
+* Made DT an optional dependency:
+  * `downloadableTableUI()` and `downloadableTable()` stop with a clear message asking to install DT when it is not installed.
+  * `create_application(sample_app = TRUE)` warns about any packages the sample application needs that are not installed (including DT), with the `install.packages()` command to install them.
+  * The `downloadableTable` documentation and vignette state that DT must be installed separately.
 * `downloadableReactTable()`:
   * Added a new `state_names` parameter to specify which `reactable` state values to track (`"page"`, `"pageSize"`, `"pages"`, `"sorted"`, `"selected"`), supporting exact case sensitivity, `NULL` inputs to track no states, and robust validation with graceful fallback defaults.
-  * Added comprehensive unit tests covering default behavior, `NULL` handling, custom valid vectors, case sensitivity, and fallback resets.
-  * Fixed table rendering so that data frames with columns but zero rows correctly display column headers and `reactable`'s built-in empty-state text ("No rows found"), with full support for subsequent updates via `reactable::updateReactable()`.
 
 ## Bug Fixes
+
+* `downloadableReactTable()`:
+  * Fixed tables whose data has columns but zero rows: they now get all the table arguments (search, height, striping, row selection and `table_options`), so the styling is kept when rows are added later, including via `reactable::updateReactable()`.
+  * Fixed `pre_selected_rows` being dropped when the table data starts with zero rows. The rows are now pre-selected once the table has data.
+  * The download button is now always shown when `download_data_fxns` are supplied, regardless of the number of rows, instead of disappearing and reappearing as the data changes.
 
 -----
 

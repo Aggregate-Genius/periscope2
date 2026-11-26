@@ -81,6 +81,7 @@ This is the main body area for applications where charts and figures, tables, et
   * **Sample application** - demonstrates framework features in a working application
 * To generate a sample application, set `sample_app` parameter in `create_application` to `TRUE`
   * Default value is `FALSE`
+  * The sample application uses packages that are not installed with *periscope2*: canvasXpress, colourpicker, dplyr, DT, ggplot2, glue, lattice, shinyjs and waiter. `create_application` warns about any that are missing and gives the `install.packages()` command to install them
 * Other sub-types will be based on enabling/disabling left and right sidebars
   * Default is to enable left sidebar and disable right sidebar
 * Review `?create_application` for more details

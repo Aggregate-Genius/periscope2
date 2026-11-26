@@ -17,7 +17,9 @@ create_application(
 
 \item{location}{base path for creation of \code{name}}
 
-\item{sample_app}{whether to create a sample shiny application}
+\item{sample_app}{whether to create a sample shiny application. The sample application uses packages
+that are not installed with periscope2 (canvasXpress, colourpicker, dplyr, DT,
+ggplot2, glue, lattice, shinyjs and waiter); a warning lists any that are missing}
 
 \item{left_sidebar}{whether the left sidebar should be enabled. It can be TRUE/FALSE}
 
